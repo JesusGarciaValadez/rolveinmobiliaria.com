@@ -39,6 +39,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">@lang('auth.role')</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="role_id" value="{{ old('role') }}" required autofocus>
+                                <select id="role">
+                                  <option value="" selected>Escoge una opción</option>
+                                  <option value="">Escoge una opción</option>
+                                </select>
+
+                                @if ($errors->has('role_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('role_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">@lang('auth.password')</label>
 

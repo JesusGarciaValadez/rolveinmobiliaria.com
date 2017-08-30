@@ -16,12 +16,14 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('role', [
-              'Super Administrador',
-              'Administrador',
-              'Asistente',
-              'Ventas',
-              'Pasante',
-            ]);
+                    'Super Administrador',
+                    'Administrador',
+                    'Asistente',
+                    'Ventas',
+                    'Pasante',
+                    'Cliente',
+                  ])
+                  ->default('Cliente');
             $table->timestamps();
         });
     }
