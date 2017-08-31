@@ -40,12 +40,12 @@
             </div>
 
             <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
-              <label for="name" class="col-md-4 control-label">@lang('auth.role')</label>
+              <label for="name" class="col-md-4 control-label">@lang('auth.choose_a_user_role')</label>
 
               <div class="col-md-6">
-                  <input id="name" type="text" class="form-control" name="role_id" value="{{ old('role_id') }}" required autofocus>
+                  <!--input id="name" type="text" class="form-control" name="role_id" value="{{ old('role_id') }}" required autofocus-->
                   <select id="role" class="form-control">
-                    <option value="" selected>@lang('auth.choose_an_option')</option>
+                    <option value="" selected>@lang('auth.choose_a_user_role')</option>
                     @foreach ($roles as $role)
                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach

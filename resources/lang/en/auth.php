@@ -25,7 +25,7 @@ return [
 
     'register' => 'Register',
     'name' => 'Name',
-    'choose_an_option' => 'Choose and option',
+    'choose_a_user_role' => 'Choose a user role',
     'confirm_password' => 'Confirm Password',
 
     'reset_password' => 'Reset Password',

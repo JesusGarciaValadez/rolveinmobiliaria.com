@@ -25,7 +25,7 @@ return [
 
     "register" => "Registrar",
     "name" => "Nombre",
-    'choose_an_option' => 'Escoge una opción',
+    'choose_a_user_role' => 'Escoge un rol de usuario',
     "confirm_password" => "Confirmar Contraseña",
 
     "reset_password" => "Reiniciar contraseña",
