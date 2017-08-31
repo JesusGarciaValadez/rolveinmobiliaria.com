@@ -3,7 +3,21 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item active"><a href="#" class="list-group-item-action">Seguimiento de llamadas</a></li>
+                <li class="list-group-item"><a href="#" class="list-group-item-action">Compra venta</a></li>
+                <li class="list-group-item"><a href="#">Renta</a></li>
+                <li class="list-group-item"><a href="#">Cancelación de hipoteca</a></li>
+                <li class="list-group-item"><a href="#">Jurídico</a></li>
+                <li class="list-group-item"><a href="#">Sucesión</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 

@@ -44,7 +44,7 @@
 
               <div class="col-md-6">
                   <!--input id="name" type="text" class="form-control" name="role_id" value="{{ old('role_id') }}" required autofocus-->
-                  <select id="role" name="role_id" class="form-control">
+                  <select id="role" name="role_id" class="form-control form-control-sm">
                     <option value="" selected>@lang('auth.choose_a_user_role')</option>
                     @foreach ($roles as $role)
                     <option value="{{ $role->id }}">{{ $role->name }}</option>
