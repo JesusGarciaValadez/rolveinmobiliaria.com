@@ -4,33 +4,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pagination Language Lines
+    | Authentication Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used by the paginator library to build
-    | the simple pagination links. You are free to change them to anything
-    | you want to customize your views to better match your application.
+    | The following language lines are used during authentication for various
+    | messages that we need to display to the user. You are free to modify
+    | these language lines according to your application's requirements.
     |
     */
 
-    'failed' => 'Estas credenciales no concuerdan con nuestros registros.',
-    'throttle' => 'Demasiados intentos de inicio de sesión. Por favor, vuelve a intentar en :seconds segundos.',
+    'failed' => 'Estas credenciales no coinciden con nuestros registros.',
+    'throttle' => 'Demasiados intentos de inicio de sesión. Por favor, inténtalo de nuevo en :seconds segundos.',
 
-    'you_are_logged_in' => '¡Haz iniciado sesión!',
+    "email_address" => "Dirección de Email",
+    "password" => "Contraseña",
+    "remember_me" => "Recordárme",
+    "login" => "Iniciar sesión",
+    "forgot_your_password" => "¿Olvidaste tu contraseña?",
+    "you_are_logged_in" => "¡Haz iniciado sesión!",
 
-    'login' => 'Iniciar sesión',
-    'register' => 'Registrar',
-    'logout' => 'Terminar sesión',
-    'remember_me' => 'Recordárme',
+    "register" => "Registrar",
+    "name" => "Nombre",
+    'choose_an_option' => 'Escoge una opción',
+    "confirm_password" => "Confirmar Contraseña",
 
-    'name' => 'Nombre',
-    'email_address' => 'Dirección de Email',
-    'password' => 'Contraseña',
-    'confirm_password' => 'Confirmar contraseña',
+    "reset_password" => "Reiniciar contraseña",
+    "send_password_reset_link" => "Enviar link para reiniciar contraseña",
 
-    'forgot_your_password' => '¿Olvidáste tu contraseña?',
-
-    'reset_password' => 'Reiniciar contraseña',
-
-    'send_password_reset_link' => 'Enviar link para reiniciar contraseña',
+    "logout" => "Cerrar sesión",
 ];
