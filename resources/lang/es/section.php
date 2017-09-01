@@ -17,7 +17,7 @@ return [
     'call_tracking' => 'Seguimiento de llamadas',
     'for_sale' => 'Compra venta',
     'rent' => 'Renta',
-    'mortgage cancellation' => 'Cancelación de hipoteca',
+    'mortgage_cancellation' => 'Cancelación de hipoteca',
     'legal' => 'Jurídico',
     'succession' => 'Sucesión',
 

@@ -17,7 +17,7 @@ return [
     'call_tracking' => 'Call tracking',
     'for_sale' => 'For sale',
     'rent' => 'Rent',
-    'mortgage cancellation' => 'Mortgage cancellation',
+    'mortgage_cancellation' => 'Mortgage cancellation',
     'legal' => 'Lefal',
     'succession' => 'Succession',
 
