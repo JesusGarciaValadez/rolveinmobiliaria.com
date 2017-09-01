@@ -79,7 +79,7 @@ class RegisterController extends Controller
    */
   public function showRegistrationForm()
   {
-    $roles = Role::all();
+    $roles = Role::all()->reverse();
     return view('auth.register', compact('roles'));
   }
 }
