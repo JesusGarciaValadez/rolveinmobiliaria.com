@@ -42,16 +42,18 @@
 
             <tbody>
               @foreach( $calls as $call )
-              <tr>{{ $call->id }}</tr>
-              <tr>{{ $call->type_of_operation }}</tr>
-              <tr>{{ $call->client_phone_1 }}</tr>
-              <tr>{{ $call->client_phone_2 }}</tr>
-              <tr>{{ $call->email }}</tr>
-              <tr>{{ $call->user }}</tr>
-              <tr>{{ $call->observations }}</tr>
-              <tr>{{ $call->address }}</tr>
-              <tr>{{ $call->state }}</tr>
-              <tr>{{ $call->created_at }}</tr>
+              <tr>
+                <td>{{ $call->id }}</td>
+                <td>{{ $call->type_of_operation }}</td>
+                <td>{{ $call->client_phone_1 }}</td>
+                <td>{{ $call->client_phone_2 }}</td>
+                <td>{{ $call->email }}</td>
+                <td>{{ $call->user->name }}</td>
+                <td>{{ $call->observations }}</td>
+                <td>{{ $call->address }}</td>
+                <td>{{ $call->state->name }}</td>
+                <td>{{ $call->created_at }}</td>
+              </tr>
               @endforeach
             </tbody>
           </table>

@@ -14,4 +14,8 @@ class State extends Model
   protected $fillable = [
     'name',
   ];
+
+  public function call() {
+    return $this->belongsTo('App\Call');
+  }
 }
