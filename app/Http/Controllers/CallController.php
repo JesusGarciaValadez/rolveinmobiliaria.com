@@ -14,7 +14,9 @@ class CallController extends Controller
      */
     public function index()
     {
-      return view('call.index');
+      $calls = Call::all();
+
+      return view('call.index', compact('calls'));
     }
 
     /**

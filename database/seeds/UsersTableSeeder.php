@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
       'remember_token' => str_random(10),
     ]);
 
-    factory(App\User::class, 1)->states('asistant')->create();
+    factory(App\User::class, 1)->states('assistant')->create();
     factory(App\User::class, 1)->states('sales')->create();
     factory(App\User::class, 1)->states('intern')->create();
     factory(App\User::class, 10)->states('client')->create();

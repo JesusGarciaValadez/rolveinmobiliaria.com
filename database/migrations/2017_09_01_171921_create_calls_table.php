@@ -16,12 +16,13 @@ class CreateCallsTable extends Migration
     Schema::create('calls', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('type_of_operation', [
-        'Venta',
-        'Renta',
-        'Regularicación',
-        'Jurídico',
-        'Sucesión',
-      ]);
+              'Venta',
+              'Renta',
+              'Regularicación',
+              'Jurídico',
+              'Sucesión',
+            ])
+            ->default('Venta');
       $table->string('client_phone_1');
       $table->string('client_phone_2');
       $table->string('email');
@@ -30,7 +31,7 @@ class CreateCallsTable extends Migration
       $table->foreign('user_id')
             ->references('id')
             ->on('users');
-      $table->string('observations');
+      $table->text('observations');
       $table->string('address');
       $table->timestamps();
     });

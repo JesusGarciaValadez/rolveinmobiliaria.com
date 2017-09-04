@@ -31,7 +31,7 @@ $factory->state(App\User::class, 'administrator', function (Faker $faker) {
   ];
 });
 
-$factory->state(App\User::class, 'asistant', function (Faker $faker) {
+$factory->state(App\User::class, 'assistant', function (Faker $faker) {
   return [
     'role_id' => 3,
   ];

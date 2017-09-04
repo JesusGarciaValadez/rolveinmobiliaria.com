@@ -14,7 +14,7 @@
         <div class="panel-heading">@lang('auth.register')</div>
 
         <div class="panel-body">
-          <table class="table-responsive table-striped table-condensed">
+          <table class="table-responsive table-bordered table-striped table-condensed">
             <thead>
               <th>ID</th>
               <th>Tipo de operación</th>
@@ -41,6 +41,7 @@
             </tfoot>
 
             <tbody>
+              @foreach( $calls as $call )
               <tr>{{ $call->id }}</tr>
               <tr>{{ $call->type_of_operation }}</tr>
               <tr>{{ $call->client_phone_1 }}</tr>
@@ -51,6 +52,7 @@
               <tr>{{ $call->address }}</tr>
               <tr>{{ $call->state }}</tr>
               <tr>{{ $call->created_at }}</tr>
+              @endforeach
             </tbody>
           </table>
         </div>
