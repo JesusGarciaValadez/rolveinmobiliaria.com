@@ -12,34 +12,34 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Super Administrador',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
 
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Administrador',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
 
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Asistente',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
 
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Ventas',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
 
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Pasante',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
 
-      DB::table('roles')->insert([
+      factory(\App\Role::class)->create([
         'name' => 'Cliente',
-        'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
+        // 'created_at' => Carbon::now('America/Mexico_City')->toDateTimeString(),
       ]);
     }
 }

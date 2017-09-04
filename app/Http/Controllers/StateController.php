@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Call;
+use App\State;
 use Illuminate\Http\Request;
 
-class CallController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CallController extends Controller
      */
     public function index()
     {
-      return view('call.index');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class CallController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Call  $call
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function show(Call $call)
+    public function show(State $state)
     {
         //
     }
@@ -52,10 +52,10 @@ class CallController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Call  $call
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function edit(Call $call)
+    public function edit(State $state)
     {
         //
     }
@@ -64,10 +64,10 @@ class CallController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Call  $call
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Call $call)
+    public function update(Request $request, State $state)
     {
         //
     }
@@ -75,10 +75,10 @@ class CallController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Call  $call
+     * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Call $call)
+    public function destroy(State $state)
     {
         //
     }

@@ -14,12 +14,43 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
-    static $password;
+  static $password;
 
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-    ];
+  return [
+    'name' => $faker->name,
+    'email' => $faker->unique()->safeEmail,
+    'password' => $password ?: $password = bcrypt('secret'),
+    'role_id' => 1,
+    'remember_token' => str_random(10),
+  ];
+});
+
+$factory->state(App\User::class, 'administrator', function (Faker $faker) {
+  return [
+    'role_id' => 2,
+  ];
+});
+
+$factory->state(App\User::class, 'asistant', function (Faker $faker) {
+  return [
+    'role_id' => 3,
+  ];
+});
+
+$factory->state(App\User::class, 'sales', function (Faker $faker) {
+  return [
+    'role_id' => 4,
+  ];
+});
+
+$factory->state(App\User::class, 'intern', function (Faker $faker) {
+  return [
+    'role_id' => 5,
+  ];
+});
+
+$factory->state(App\User::class, 'client', function (Faker $faker) {
+  return [
+    'role_id' => 6,
+  ];
 });

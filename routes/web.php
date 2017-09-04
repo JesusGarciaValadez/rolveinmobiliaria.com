@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/{locale}', function ($locale) {
-    return view('welcome', [$locale]);
+Route::get('/', function () {
+  return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/{locale}/home/', 'HomeController@index', [$locale])->name('home');
+Route::get('/home/', 'HomeController@index')->name('home');
 
-Route::get('/{locale}/call_trackings/', 'CallController@index', [$locale]);
+Route::get('/call_trackings/', 'CallController@index')->name('call_trackings');
