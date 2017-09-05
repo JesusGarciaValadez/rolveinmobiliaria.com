@@ -16,10 +16,13 @@ class AlterUsersTable extends Migration
      Schema::table('users', function (Blueprint $table) {
        $table->integer('role_id')
              ->unsigned()
+             ->nullable()
              ->after('password');
        $table->foreign('role_id')
              ->references('id')
-             ->on('roles');
+             ->on('roles')
+             ->onUpdate('cascade')
+             ->onDelete('set null');
        $table->softDeletes()
              ->after('updated_at');
      });

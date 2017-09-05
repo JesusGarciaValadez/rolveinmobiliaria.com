@@ -16,11 +16,14 @@ class AlterCallsTable extends Migration
     Schema::table('calls', function (Blueprint $table) {
       $table->integer('state_id')
             ->unsigned()
-            ->after('address')
-            ->default('7');
+            ->default('7')
+            ->nullable()
+            ->after('address');
       $table->foreign('state_id')
             ->references('id')
-            ->on('states');
+            ->on('states')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
     });
   }
 

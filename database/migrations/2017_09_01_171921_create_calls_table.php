@@ -27,10 +27,13 @@ class CreateCallsTable extends Migration
       $table->string('client_phone_2');
       $table->string('email');
       $table->integer('user_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('user_id')
             ->references('id')
-            ->on('users');
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
       $table->text('observations');
       $table->string('address');
       $table->timestamps();
