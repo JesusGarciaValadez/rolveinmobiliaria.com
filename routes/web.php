@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home/', 'HomeController@index')->name('home');
 
 Route::get('/call_trackings/', 'CallController@index')->name('call_trackings');
+
+Route::get('/seguimiento_de_llamadas/', 'CallController@index')->name('seguimiento_de_llamadas');

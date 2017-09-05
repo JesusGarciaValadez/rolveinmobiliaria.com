@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Call extends Model
 {
@@ -31,11 +32,26 @@ class Call extends Model
     'created_at', 'updated_at',
   ];
 
+  /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+  protected $dates = [
+    'created_at', 'updated_at',
+  ];
+
   public function user() {
     return $this->hasOne('App\User', 'id');
   }
 
   public function state() {
     return $this->hasOne('App\State', 'id');
+  }
+
+  public function getHourAttribute()
+  {
+    $date = Carbon::parse($this->created_at);
+    return $date->hour.':'.$date->minute;
   }
 }
