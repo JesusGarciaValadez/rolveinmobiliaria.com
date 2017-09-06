@@ -1,6 +1,6 @@
 <div class="list-group">
   <a
-    href="{{ route('seguimiento_de_llamadas') }}"
+    href="{{ route('call_trackings') }}"
     class="list-group-item
       @if (
         $uri == 'call_trackings' ||

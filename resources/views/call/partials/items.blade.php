@@ -10,7 +10,22 @@
   <td>{{ $call->state['name'] }}</td>
   <td>{{ $call->hour }}</td>
   <td>
-    <a href="#" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-</button></a>
+    <div class="form-group">
+      <a class="btn btn-primary" href="{{ route('edit_call', ['id' => $call->id]) }}" title="Editar" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a>
+    </div>
+    {!! Form::open([
+      'action' => [
+        'CallController@destroy',
+        $call->id,
+      ],
+      'method' => 'DELETE',
+      'class' => 'form-inline',
+    ]) !!}
+      <div class="form-group">
+        <button type="submit" class="btn btn-danger">
+          <i class="glyphicon glyphicon-trash"></i> Eliminar
+        </button>
+      </div>
+    {!! Form::close() !!}
   </td>
 </tr>

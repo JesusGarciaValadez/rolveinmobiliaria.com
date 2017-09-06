@@ -51,7 +51,7 @@ class CallController extends Controller
    * @param  \App\Call  $call
    * @return \Illuminate\Http\Response
    */
-  public function show(Call $call)
+  public function show(Request $request)
   {
       //
   }
@@ -62,9 +62,9 @@ class CallController extends Controller
    * @param  \App\Call  $call
    * @return \Illuminate\Http\Response
    */
-  public function edit(Call $call)
+  public function edit(Request $request)
   {
-      //
+    return 'Editar llamada: '.$request->id;
   }
 
   /**
@@ -74,9 +74,29 @@ class CallController extends Controller
    * @param  \App\Call  $call
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Call $call)
+  public function update(Request $request)
   {
-      //
+    $call = Call::findOrFail($request->id);
+    $destroyed = $call->delete();
+
+    $message = ($destroyed)
+               ? 'Llamada actualizada'
+               : 'No se pudo actualizar la llamada.';
+
+    $type = ($destroyed)
+            ? 'success'
+            : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return \Redirect()->back()
+                        ->with( 'message', $message )
+                        ->with( 'type', 'success' );
+    }
   }
 
   /**
@@ -85,8 +105,23 @@ class CallController extends Controller
    * @param  \App\Call  $call
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Call $call)
+  public function destroy(Request $request)
   {
-      //
+    $call = Call::findOrFail($request->id);
+    $destroyed = $call->delete();
+
+    $message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
+    $type = ($destroyed) ? 'success' : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return \Redirect()->back()
+                        ->with( 'message', $message )
+                        ->with( 'type', 'success' );
+    }
   }
 }

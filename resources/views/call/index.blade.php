@@ -9,10 +9,15 @@
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <strong>@lang('section.call_tracking')</strong>
+          <h1>@lang('section.call_tracking')</h1>
         </div>
 
         <div class="panel-body table-responsive">
+          @if (session('message'))
+            <div class="alert alert-{{ session('type') }}">
+              {{ session('message') }}
+            </div>
+          @endif
           <table class="table table-bordered table-striped table-condensed">
             <thead>
               <th>ID</th>

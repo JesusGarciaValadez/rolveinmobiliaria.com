@@ -17,8 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/call_trackings/', 'CallController@index')->name('call_trackings');
-
-Route::get('/seguimiento_de_llamadas/', 'CallController@index')->name('seguimiento_de_llamadas');
+// Route::prefix('seguimiento_de_llamadas')->group(function () {
+  Route::get('/seguimiento_de_llamadas', 'CallController@index')
+       ->name('call_trackings');
+  Route::get('/seguimiento_de_llamadas/{id}', 'CallController@edit')
+       ->name('edit_call');
+  Route::put('/seguimiento_de_llamadas/{id}', 'CallController@update')
+       ->name('update_call');
+  Route::delete('/seguimiento_de_llamadas/{id}', 'CallController@destroy')
+       ->name('destroy_call');
+// });
