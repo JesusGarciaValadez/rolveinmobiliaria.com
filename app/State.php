@@ -21,11 +21,12 @@ class State extends Model
      * @var array
      */
   protected $dates = [
-      'created_at',
-      'updated_at',
+    'created_at',
+    'updated_at',
   ];
 
-  public function call() {
-    return $this->belongsTo('App\Call');
+  public function call()
+  {
+    return $this->hasMany('App\Call', 'id');
   }
 }

@@ -41,12 +41,14 @@ class Call extends Model
     'created_at', 'updated_at',
   ];
 
-  public function user() {
-    return $this->hasOne('App\User', 'id');
+  public function user()
+  {
+    return $this->belongsTo('App\User');
   }
 
-  public function state() {
-    return $this->hasOne('App\State', 'id');
+  public function state()
+  {
+    return $this->belongsTo('App\State');
   }
 
   public function getHourAttribute()

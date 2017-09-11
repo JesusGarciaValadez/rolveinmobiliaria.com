@@ -1,28 +1,32 @@
 <div class="list-group">
-  <a
-    href="{{ route('call_trackings') }}"
-    class="list-group-item
-      @if (
-        $uri == 'call_trackings' ||
-        $uri == 'seguimiento_de_llamadas'
-      )
-        active
-      @endif"
-    title="@lang('section.call_tracking')">
-    @lang('section.call_tracking')
-  </a>
-  <a
-    href="#"
-    class="list-group-item
-      @if (
-        $uri == 'for_sales' ||
-        $uri == 'compra_venta'
-      )
-        active
-      @endif"
-    title="@lang('section.for_sale')">
-    @lang('section.for_sale')
-  </a>
+  @can('calls.menu', App\Call::class)
+    <a
+      href="{{ route('call_trackings') }}"
+      class="list-group-item
+        @if (
+          $uri == 'call_trackings' ||
+          $uri == 'seguimiento_de_llamadas'
+        )
+          active
+        @endif"
+      title="@lang('section.call_tracking')">
+      @lang('section.call_tracking')
+    </a>
+  @endcan
+  @can('sales.menu', App\Sale::class)
+    <a
+      href="#"
+      class="list-group-item
+        @if (
+          $uri == 'for_sales' ||
+          $uri == 'compra_venta'
+        )
+          active
+        @endif"
+      title="@lang('section.for_sale')">
+      @lang('section.for_sale')
+    </a>
+  @endcan
   <!--
   <a
     href="#"

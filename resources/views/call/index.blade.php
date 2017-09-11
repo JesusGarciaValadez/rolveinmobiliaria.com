@@ -8,8 +8,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h1>@lang('section.call_tracking')</h1>
+        <div class="panel-heading clearfix">
+          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">@lang('section.call_tracking')</h1>
+          <div class="col-xs-12 col-sm-4 col-md-5 col-lg-6 text-right"><a href="#" title="Nueva llamada" class="btn btn-success">Nueva llamada</a></div>
         </div>
 
         <div class="panel-body table-responsive">

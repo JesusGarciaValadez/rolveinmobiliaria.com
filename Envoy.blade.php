@@ -4,20 +4,28 @@
 ])
 
 @setup
-    $now = new DateTime();
+  $now = new DateTime();
 
-    $environment = isset($env) ? $env : "testing";
+  $environment = isset($env) ? $env : "testing";
 @endsetup
 
 @story('deploy')
-    git
-    composer
+  git
+  composer
 @endstory
 
 @task('git')
-    git pull origin master
+  git pull origin master
 @endtask
 
 @task('composer')
-    composer install
+  composer install
+@endtask
+
+@task('seed')
+  php artisan migrate:refresh --seed
+@endtask
+
+@task('tinker')
+  artisan tinker
 @endtask

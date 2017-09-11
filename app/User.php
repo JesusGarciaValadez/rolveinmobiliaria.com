@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Call;
+use App\Role;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -38,10 +41,48 @@ class User extends Authenticatable
 
   public function role()
   {
-    return $this->hasOne('App\Role', 'id');
+    return $this->belongsTo('App\Role');
   }
 
-  public function call() {
-    return $this->belongsTo('App\Call');
+  public function call()
+  {
+    return $this->belongsToMany('App\Call');
+  }
+
+  public function isSuperAdmin()
+  {
+    return ($this->role_id === 1) ? true : false;
+  }
+
+  public function isAdmin()
+  {
+    return ($this->role_id === 2) ? true : false;
+  }
+
+  public function isAssistant()
+  {
+    return ($this->role_id === 3) ? true : false;
+  }
+
+  public function isSales()
+  {
+    return ($this->role_id === 4) ? true : false;
+  }
+
+  public function isIntern()
+  {
+    return ($this->role_id === 5) ? true : false;
+  }
+
+  public function isClient()
+  {
+    return ($this->role_id === 6) ? true : false;
+  }
+
+  public function hasRole(String $role)
+  {
+    return ($this->role->name === $role)
+      ? true
+      : false;
   }
 }

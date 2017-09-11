@@ -23,6 +23,8 @@ class HomeController extends Controller
    */
   public function index()
   {
-    return view('home');
+    $uri = \Route::current()->uri;
+
+    return view('home')->with('uri', $uri);
   }
 }
