@@ -43,8 +43,30 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-              &nbsp;
+            <ul class="hidden-md hidden-lg nav navbar-nav navbar-left">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  Menu <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu" role="menu">
+                  @can('calls.menu', App\Call::class)
+                  <li>
+                    <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')">
+                      @lang('section.call_tracking')
+                    </a>
+                  </li>
+                  @endcan
+                  @can('sales.menu', App\Sale::class)
+                  <li>
+                    <a href="#" title="@lang('section.for_sale')">
+                      @lang('section.for_sale')
+                    </a>
+                  </li>
+                  @endcan
+
+                </ul>
+              </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

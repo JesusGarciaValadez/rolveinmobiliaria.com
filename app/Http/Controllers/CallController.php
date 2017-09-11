@@ -31,7 +31,9 @@ class CallController extends Controller
    */
   public function create()
   {
-      //
+    $uri = \Route::current()->uri;
+
+    return view('call.create', compact('uri'));
   }
 
   /**
@@ -42,7 +44,7 @@ class CallController extends Controller
    */
   public function store(Request $request)
   {
-      //
+    //
   }
 
   /**
@@ -53,7 +55,7 @@ class CallController extends Controller
    */
   public function show(Request $request)
   {
-      //
+    //
   }
 
   /**

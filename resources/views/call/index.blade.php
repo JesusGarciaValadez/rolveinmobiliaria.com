@@ -10,7 +10,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">@lang('section.call_tracking')</h1>
-          <div class="col-xs-12 col-sm-4 col-md-5 col-lg-6 text-right"><a href="#" title="Nueva llamada" class="btn btn-success">Nueva llamada</a></div>
+          <div class="col-xs-12 col-sm-4 col-md-5 col-lg-6 text-right"><a href="{{ route('create_call') }}" title="@lang('call.new_call')" class="btn btn-success">@lang('call.new_call')</a></div>
         </div>
 
         <div class="panel-body table-responsive">
@@ -21,17 +21,17 @@
           @endif
           <table class="table table-bordered table-striped table-condensed">
             <thead>
-              <th>ID</th>
-              <th>Operación</th>
-              <th>Teléfono</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-              <th>Usuario</th>
-              <th class="hidden-xs hidden-sm">Observaciones</th>
-              <th>Dirección</th>
-              <th>Estado</th>
-              <th>Hora</th>
-              <th>Acciones</th>
+              <th>@lang('call.id')</th>
+              <th>@lang('call.operation')</th>
+              <th>@lang('call.phone')</th>
+              <th>@lang('call.phone')</th>
+              <th>@lang('call.email')</th>
+              <th>@lang('call.user')</th>
+              <th class="hidden-xs hidden-sm">@lang('call.observations')</th>
+              <th>@lang('call.direction')</th>
+              <th>@lang('call.state')</th>
+              <th>@lang('call.hour')</th>
+              <th>@lang('call.actions')</th>
             </thead>
 
             <tfoot>

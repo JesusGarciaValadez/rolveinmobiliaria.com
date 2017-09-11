@@ -21,11 +21,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::prefix('seguimiento_de_llamadas')->group(function () {
   Route::get('/seguimiento_de_llamadas', 'CallController@index')
-       ->name('call_trackings');
-  Route::get('/seguimiento_de_llamadas/{id}', 'CallController@edit')
-       ->name('edit_call');
-  Route::put('/seguimiento_de_llamadas/{id}', 'CallController@update')
-       ->name('update_call');
+    ->name('call_trackings');
+  Route::get('/seguimiento_de_llamadas/nueva', 'CallController@create')
+    ->name('create_call');
+  Route::post('/seguimiento_de_llamadas/{id}', 'CallController@store')
+    ->name('store_call');
+  Route::get('/seguimiento_de_llamadas/{id}', 'CallController@show')
+    ->name('show_call');
+  Route::put('/seguimiento_de_llamadas/{id}', 'CallController@edit')
+    ->name('show_call');
+  Route::patch('/seguimiento_de_llamadas/{id}', 'CallController@update')
+    ->name('update_call');
   Route::delete('/seguimiento_de_llamadas/{id}', 'CallController@destroy')
-       ->name('destroy_call');
+    ->name('destroy_call');
 // });

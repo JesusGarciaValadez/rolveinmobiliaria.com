@@ -23,8 +23,10 @@ class CreateCallsTable extends Migration
               'Sucesión',
             ])
             ->default('Venta');
-      $table->string('client_phone_1');
-      $table->string('client_phone_2');
+      $table->string('client_phone_1')
+            ->default('Teléfono no disponible');
+      $table->string('client_phone_2')
+            ->default('Teléfono no disponible');
       $table->string('email');
       $table->integer('user_id')
             ->unsigned()
