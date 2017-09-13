@@ -82,7 +82,8 @@
                   id="client_phone_1"
                   value="{{ old('client_phone_1') }}"
                   placeholder="Teléfono 1"
-                  required>
+                  required
+                  autocorrect="on">
 
                   @if ($errors->has('client_phone_1'))
                     <span class="help-block">
@@ -103,7 +104,8 @@
                   id="client_phone_2"
                   value="{{ old('client_phone_2') }}"
                   placeholder="Teléfono 2"
-                  required >
+                  required
+                  autocorrect="on">
 
                   @if ($errors->has('client_phone_2'))
                     <span class="help-block">
@@ -123,7 +125,8 @@
                   name="email"
                   value="{{ old('email') }}"
                   placeholder="Email"
-                  required >
+                  required
+                  autocorrect="on">
 
                   @if ($errors->has('email'))
                     <span class="help-block">
@@ -143,7 +146,8 @@
                   name="address"
                   value="{{ old('address') }}"
                   placeholder="Dirección del inmueble"
-                  required>
+                  required
+                  autocorrect="on">
 
                   @if ($errors->has('address'))
                     <span class="help-block">
@@ -196,7 +200,8 @@
                   id="observations"
                   placeholder="Observaciones"
                   value="{{ old('observations') }}"
-                  rows="8"></textarea>
+                  rows="8"
+                  autocorrect="on"></textarea>
 
                   @if ($errors->has('observations'))
                     <span class="help-block">
