@@ -10,7 +10,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('call_trackings') }}" title="Seguimiento de llamadas" class="pull-left hidden-xs">
+            <a href="{{ route('dashboard') }}" title="Seguimiento de llamadas" class="pull-left hidden-xs">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('section.call_tracking')
@@ -21,11 +21,19 @@
         </div>
 
         <div class="panel-body table-responsive">
+          <form class="navbar-form navbar-left" role="search" action="{{ route('search_call') }}" method="get">
+            <div class="form-group">
+              <input type="date" class="form-control" placeholder="Buscar">
+            </div>
+            <button type="submit" class="btn btn-default">Buscar</button>
+          </form>
+
           @if (session('message'))
             <div class="alert alert-{{ session('type') }}">
               {{ session('message') }}
             </div>
           @endif
+
 
           <div class="row">
             <table class="table table-bordered table-striped table-condensed">
@@ -65,12 +73,15 @@
           <div class="row">
             {{ $calls->links() }}
           </div>
+        </div>
 
+        <div class="panel-footer">
           <div class="row">
             <div class="col-xs-6 col-xs-offset-3 hidden-sm col-sm-offset-0 hidden-md hidden-lg">
               <a href="{{ route('create_call') }}" title="@lang('call.new_call')" class="btn btn-primary form-control" role="button">@lang('call.new_call')</a>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

@@ -34,4 +34,6 @@ Route::prefix('/seguimiento_de_llamadas')->middleware('auth')->group(function ()
        ->name('update_call');
   Route::delete('/destroy/{id}', 'CallController@destroy')
        ->name('destroy_call');
+  Route::get('/search/{date?}/option/{option?}', 'CallController@search')
+       ->name('search_call');
 });

@@ -8,6 +8,7 @@ use App\State;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CallRequest;
 
@@ -27,7 +28,7 @@ class CallController extends Controller
    */
   public function index()
   {
-    $calls = Call::paginate(10);
+    $calls = Call::orderBy('id', 'desc')->paginate(10);
 
     $locale = \App::getLocale();
 
@@ -184,5 +185,10 @@ class CallController extends Controller
                         ->with( 'message', $message )
                         ->with( 'type', 'success' );
     }
+  }
+
+  public function search(Request $request)
+  {
+    return 'Hola';
   }
 }

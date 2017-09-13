@@ -87,7 +87,9 @@
               </tbody>
             </table>
           </div>
+        </div>
 
+        <div class="panel-footer">
           <div class="row">
             <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 hidden-md hidden-lg">
               <a href="{{ route('create_call') }}" title="@lang('call.new_call')" class="btn btn-primary form-control" role="button">@lang('call.new_call')</a>
