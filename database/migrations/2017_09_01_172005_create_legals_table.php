@@ -15,6 +15,7 @@ class CreateLegalsTable extends Migration
     {
         Schema::create('legals', function (Blueprint $table) {
             $table->increments('id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

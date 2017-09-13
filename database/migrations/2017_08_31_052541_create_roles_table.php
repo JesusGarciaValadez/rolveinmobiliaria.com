@@ -24,6 +24,7 @@ class CreateRolesTable extends Migration
               'Cliente',
             ])
             ->default('Cliente');
+      $table->softDeletes();
       $table->timestamps();
     });
   }

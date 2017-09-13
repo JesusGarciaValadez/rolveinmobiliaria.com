@@ -15,6 +15,7 @@ class CreateSuccessionsTable extends Migration
     {
         Schema::create('successions', function (Blueprint $table) {
             $table->increments('id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

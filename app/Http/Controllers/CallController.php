@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Call;
+use App\State;
+
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Carbon\Carbon;
+
+use App\Http\Requests\CallRequest;
 
 class CallController extends Controller
 {
+  use ThrottlesLogins;
+
   public function __constructor()
   {
   }
@@ -19,7 +27,10 @@ class CallController extends Controller
   public function index()
   {
     $calls = Call::paginate(10);
-    $uri = \Route::current()->uri;
+
+    $locale = \App::getLocale();
+
+    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
 
     return view('call.index', compact('calls', 'uri'));
   }
@@ -31,9 +42,16 @@ class CallController extends Controller
    */
   public function create()
   {
-    $uri = \Route::current()->uri;
+    $locale = \App::getLocale();
 
-    return view('call.create', compact('uri'));
+    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+
+    Carbon::setLocale($locale);
+    $created_at = Carbon::now('America/Mexico_City')->toDateTimeString();
+
+    $states = State::all();
+
+    return view('call.create', compact('created_at', 'uri', 'states'));
   }
 
   /**
@@ -42,9 +60,32 @@ class CallController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(CallRequest $request)
   {
-    //
+    $data = $request->all();
+    $data['user_id'] = \Auth::id();
+    unset($data['_token']);
+
+    $updated = Call::create($data);
+
+    $message = ($updated)
+               ? 'Llamada actualizada'
+               : 'No se pudo actualizar la llamada.';
+
+    $type = ($updated)
+            ? 'success'
+            : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return \Redirect()->back()
+                        ->with( 'message', $message )
+                        ->with( 'type', 'success' );
+    }
   }
 
   /**
@@ -66,7 +107,15 @@ class CallController extends Controller
    */
   public function edit(Request $request)
   {
-    return 'Editar llamada: '.$request->id;
+    $locale = \App::getLocale();
+
+    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+
+    $states = State::all();
+
+    $call = Call::find($request->id);
+
+    return view('call.edit', compact('uri', 'states', 'call'));
   }
 
   /**

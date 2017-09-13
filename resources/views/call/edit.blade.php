@@ -9,7 +9,7 @@
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">Nueva llamada</h1>
+          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">Editar llamada</h1>
         </div>
 
         <div class="panel-body table-responsive">
@@ -210,6 +210,7 @@
                 <button
                   type="submit"
                   class="btn btn-default"
+                  name="submit"
                   id="submit">Enviar</button>
               </div>
             </div>

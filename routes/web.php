@@ -19,19 +19,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::prefix('seguimiento_de_llamadas')->group(function () {
-  Route::get('/seguimiento_de_llamadas', 'CallController@index')
-    ->name('call_trackings');
-  Route::get('/seguimiento_de_llamadas/nueva', 'CallController@create')
-    ->name('create_call');
-  Route::post('/seguimiento_de_llamadas/{id}', 'CallController@store')
-    ->name('store_call');
-  Route::get('/seguimiento_de_llamadas/{id}', 'CallController@show')
-    ->name('show_call');
-  Route::put('/seguimiento_de_llamadas/{id}', 'CallController@edit')
-    ->name('show_call');
-  Route::patch('/seguimiento_de_llamadas/{id}', 'CallController@update')
-    ->name('update_call');
-  Route::delete('/seguimiento_de_llamadas/{id}', 'CallController@destroy')
-    ->name('destroy_call');
-// });
+Route::prefix('/seguimiento_de_llamadas')->middleware('auth')->group(function () {
+  Route::get('/', 'CallController@index')
+       ->name('call_trackings');
+  Route::get('/nueva', 'CallController@create')
+       ->name('create_call');
+  Route::post('/{id}', 'CallController@store')
+       ->name('store_call');
+  Route::get('/{id}', 'CallController@show')
+       ->name('show_call');
+  Route::get('/{id}', 'CallController@edit')
+       ->name('show_call');
+  Route::patch('/{id}', 'CallController@update')
+       ->name('update_call');
+  Route::delete('/{id}', 'CallController@destroy')
+       ->name('destroy_call');
+});

@@ -15,6 +15,7 @@ class CreateMortgagesTable extends Migration
     {
         Schema::create('mortgages', function (Blueprint $table) {
             $table->increments('id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
