@@ -22,16 +22,16 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::prefix('/seguimiento_de_llamadas')->middleware('auth')->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings');
-  Route::get('/nueva', 'CallController@create')
+  Route::get('/new', 'CallController@create')
        ->name('create_call');
-  Route::post('/{id}', 'CallController@store')
+  Route::post('/store/{id}', 'CallController@store')
        ->name('store_call');
-  Route::get('/{id}', 'CallController@show')
+  Route::get('/show/{id}', 'CallController@show')
        ->name('show_call');
-  Route::get('/{id}', 'CallController@edit')
-       ->name('show_call');
-  Route::patch('/{id}', 'CallController@update')
+  Route::get('/edit/{id}', 'CallController@edit')
+       ->name('edit_call');
+  Route::put('/uptate/{id}', 'CallController@update')
        ->name('update_call');
-  Route::delete('/{id}', 'CallController@destroy')
+  Route::delete('/destroy/{id}', 'CallController@destroy')
        ->name('destroy_call');
 });

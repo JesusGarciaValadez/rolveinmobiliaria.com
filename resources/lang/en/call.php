@@ -21,8 +21,8 @@ return [
     'email' => 'Email',
     'user' => 'User',
     'observations' => 'Observations',
-    'directions' => 'Address',
-    'hourstate' => 'State',
+    'direction' => 'Address',
+    'state' => 'State',
     'hour' => 'Hour',
     'actions' => 'Actions',
 ];

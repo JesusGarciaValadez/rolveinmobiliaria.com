@@ -17,6 +17,7 @@ class CallController extends Controller
 
   public function __constructor()
   {
+    //
   }
 
   /**
@@ -96,7 +97,13 @@ class CallController extends Controller
    */
   public function show(Request $request)
   {
-    //
+    $locale = \App::getLocale();
+
+    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+
+    $call = Call::findOrFail($request->id);
+
+    return view('call.show', compact('call', 'uri'));
   }
 
   /**
@@ -113,7 +120,7 @@ class CallController extends Controller
 
     $states = State::all();
 
-    $call = Call::find($request->id);
+    $call = Call::findOrFail($request->id);
 
     return view('call.edit', compact('uri', 'states', 'call'));
   }
@@ -125,16 +132,19 @@ class CallController extends Controller
    * @param  \App\Call  $call
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request)
+  public function update(CallRequest $request)
   {
-    $call = Call::findOrFail($request->id);
-    $destroyed = $call->delete();
+    $data = $request->all();
+    unset($data['_token']);
 
-    $message = ($destroyed)
+    $updated = Call::findOrFail($request->id)
+                   ->update($data);
+
+    $message = ($updated)
                ? 'Llamada actualizada'
                : 'No se pudo actualizar la llamada.';
 
-    $type = ($destroyed)
+    $type = ($updated)
             ? 'success'
             : 'danger';
 

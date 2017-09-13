@@ -18,7 +18,7 @@ class CreateCallsTable extends Migration
       $table->enum('type_of_operation', [
               'Venta',
               'Renta',
-              'Regularicación',
+              'Regularización',
               'Jurídico',
               'Sucesión',
             ])

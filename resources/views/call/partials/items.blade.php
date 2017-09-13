@@ -11,21 +11,17 @@
   <td>{{ $call->hour }}</td>
   <td>
     <div class="form-group">
-      <a class="btn btn-primary" href="{{ route('show_call', ['id' => $call->id]) }}" title="Editar" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a>
+      <a class="btn btn-warning" href="{{ route('edit_call', ['id' => $call->id]) }}" title="Editar" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a>
     </div>
-    {!! Form::open([
-      'action' => [
-        'CallController@destroy',
-        $call->id,
-      ],
-      'method' => 'DELETE',
-      'class' => 'form-inline',
-    ]) !!}
+
+    <form class="form-inline" action="{{ route('destroy_call', ['id' => $call->id]) }}" method="post">
+      {{ csrf_field() }}
+      {{ method_field('DELETE') }}
       <div class="form-group">
         <button type="submit" class="btn btn-danger">
           <i class="glyphicon glyphicon-trash"></i> Eliminar
         </button>
       </div>
-    {!! Form::close() !!}
+    </form>
   </td>
 </tr>

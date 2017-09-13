@@ -34,8 +34,8 @@ class CallRequest extends FormRequest
           'Sucesión'
         ]),
       ],
-      'client_phone_1' => 'required|numeric|integer',
-      'client_phone_2' => 'required|numeric|integer',
+      'client_phone_1' => 'required|string',
+      'client_phone_2' => 'required|string',
       'email' => 'required|email',
       'address' => 'required|string',
       'state_id' => 'required|numeric|integer|exists:states,id',

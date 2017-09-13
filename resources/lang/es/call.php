@@ -21,8 +21,8 @@ return [
     'email' => 'Email',
     'user' => 'Usuario',
     'observations' => 'Observaciones',
-    'directions' => 'Dirección',
-    'hourstate' => 'Estado',
+    'direction' => 'Dirección',
+    'state' => 'Estado',
     'hour' => 'Hora',
     'actions' => 'Acciones',
 ];

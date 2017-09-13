@@ -23,9 +23,12 @@
               {{ session('message') }}
             </div>
           @endif
+          {{ logger($call) }}
 
-          <form class="form-horizontal" action="index.html" method="post">
+          <form class="form-horizontal" action="{{ route('update_call', ['id' => request('id')]) }}" method="post">
             {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" name="user_id" value="{{ $call->user_id }}">
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
                 for="type_of_operation"
@@ -39,33 +42,37 @@
                   autofocus>
                   <option
                     value=""
-                    selected>
-                    Escoge una opción</option>
+                    {{ (!old('type_of_operation')) ? 'selected' : '' }}>Escoge una opción</option>
                   <option
                     value="Venta"
-                    @if (old('type_of_operation') == "Venta")
-                      selected
-                    @endif>Venta</option>
+                    {{ (old('type_of_operation') == 'Venta'
+                    || $call->type_of_operation == 'Venta')
+                        ? 'selected'
+                        : '' }}>Venta</option>
                   <option
                     value="Renta"
-                    @if (old('type_of_operation') == "Renta")
-                      selected
-                    @endif>Renta</option>
+                    {{ (old('type_of_operation') == 'Renta'
+                    || $call->type_of_operation == 'Renta')
+                        ? 'selected'
+                        : '' }}>Renta</option>
                   <option
                     value="Regularización"
-                    @if (old('type_of_operation') == "Regularización")
-                      selected
-                    @endif>Regularización</option>
+                    {{ (old('type_of_operation') == 'Regularización'
+                    || $call->type_of_operation == 'Regularización')
+                        ? 'selected'
+                        : '' }}>Regularización</option>
                   <option
                     value="Jurídico"
-                    @if (old('type_of_operation') == "Jurídico")
-                      selected
-                    @endif>Jurídico</option>
+                    {{ (old('type_of_operation') == 'Jurídico'
+                    || $call->type_of_operation == 'Jurídico')
+                        ? 'selected'
+                        : '' }}>Jurídico</option>
                   <option
                     value="Sucesión"
-                    @if (old('type_of_operation') == "Sucesión")
-                      selected
-                    @endif>Sucesión</option>
+                    {{ (old('type_of_operation') == 'Sucesión'
+                    || $call->type_of_operation == 'Sucesión')
+                      ? 'selected'
+                      : '' }}>Sucesión</option>
                 </select>
 
                 @if ($errors->has('type_of_operation'))
@@ -85,7 +92,7 @@
                   class="form-control"
                   name="client_phone_1"
                   id="client_phone_1"
-                  value="{{ old('client_phone_1') }}"
+                  value="{{ old('client_phone_1') ? old('client_phone_1') : $call->client_phone_1 }}"
                   placeholder="Teléfono 1"
                   required
                   autocorrect="on">
@@ -107,7 +114,7 @@
                   class="form-control"
                   name="client_phone_2"
                   id="client_phone_2"
-                  value="{{ old('client_phone_2') }}"
+                  value="{{ old('client_phone_2') ? old('client_phone_2') : $call->client_phone_2 }}"
                   placeholder="Teléfono 2"
                   required
                   autocorrect="on">
@@ -128,7 +135,7 @@
                   type="email"
                   class="form-control"
                   name="email"
-                  value="{{ old('email') }}"
+                  value="{{ old('email') ? old('email') : $call->email }}"
                   placeholder="Email"
                   required
                   autocorrect="on">
@@ -149,7 +156,7 @@
                   type="text"
                   class="form-control"
                   name="address"
-                  value="{{ old('address') }}"
+                  value="{{ old('address') ? old('address') : $call->address }}"
                   placeholder="Dirección del inmueble"
                   required
                   autocorrect="on">
@@ -173,15 +180,15 @@
                   required>
                   <option
                     value=""
-                    @if (old('state_id'))
+                    @if (!old('state_id'))
                       selected
                     @endif>Escoge un estado</option>
                   @foreach ( $states as $state )
                     <option
                       value="{{ $state->id }}"
-                      @if (old('state_id') == $state->id)
-                        selected
-                      @endif>
+                      {{ (old('state_id') == $state->id || $call->state_id == $state->id)
+                          ? 'selected'
+                          : ''}}>
                       {{ $state->name }}
                     </option>
                   @endforeach
@@ -204,9 +211,8 @@
                   name="observations"
                   id="observations"
                   placeholder="Observaciones"
-                  value="{{ old('observations') }}"
                   rows="8"
-                  autocorrect="on"></textarea>
+                  autocorrect="on">{{ old('observations') ? old('observations') : $call->observations }}</textarea>
 
                   @if ($errors->has('observations'))
                     <span class="help-block">

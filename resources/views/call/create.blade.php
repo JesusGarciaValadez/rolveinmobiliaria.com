@@ -23,7 +23,7 @@
             </div>
           @endif
 
-          <form class="form-horizontal" action="index.html" method="post">
+          <form class="form-horizontal" action="{{ route('store_call') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label

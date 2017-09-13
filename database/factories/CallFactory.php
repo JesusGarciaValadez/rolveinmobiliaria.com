@@ -7,7 +7,7 @@ $factory->define(App\Call::class, function (Faker $faker) {
     'type_of_operation' => $faker->randomElement([
       'Venta',
       'Renta',
-      'Regularicación',
+      'Regularización',
       'Jurídico',
       'Sucesión',
     ]),
