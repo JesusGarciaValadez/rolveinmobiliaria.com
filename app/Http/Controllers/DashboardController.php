@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
   /**
    * Create a new controller instance.
@@ -25,6 +25,6 @@ class HomeController extends Controller
   {
     $uri = \Route::current()->uri;
 
-    return view('home')->with('uri', $uri);
+    return view('dashboard')->with('uri', $uri);
   }
 }
