@@ -58,7 +58,8 @@ class Call extends Model
 
   public function getHourAttribute()
   {
-    $date = Carbon::parse($this->created_at);
-    return $date->hour.':'.$date->minute.' hrs';
+    $date = $this->created_at->format('h:i');
+
+    return $date.' hrs';
   }
 }

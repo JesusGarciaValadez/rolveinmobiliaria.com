@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CallRequest;
+use App\Http\Requests\CallSearchRequest;
 
 class CallController extends Controller
 {
@@ -32,7 +33,7 @@ class CallController extends Controller
 
     $locale = \App::getLocale();
 
-    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+    $uri = 'call_trackings';
 
     return view('call.index', compact('calls', 'uri'));
   }
@@ -46,7 +47,7 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+    $uri = 'call_trackings';
 
     Carbon::setLocale($locale);
     $created_at = Carbon::now('America/Mexico_City')->toDateTimeString();
@@ -100,7 +101,7 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+    $uri = 'call_trackings';
 
     $call = Call::findOrFail($request->id);
 
@@ -117,7 +118,7 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $uri = ($locale === 'es') ? 'seguimiento_de_llamadas' : 'call_trackings';
+    $uri = 'call_trackings';
 
     $states = State::all();
 
@@ -187,8 +188,24 @@ class CallController extends Controller
     }
   }
 
-  public function search(Request $request)
+  public function search(CallSearchRequest $request)
   {
-    return 'Hola';
+    $calls = Call::whereBetween('created_at', [now()->today(), $request->date])
+                 ->orderBy('id', 'asc')
+                 ->paginate(10);
+
+    $message = ($calls) ? 'Llamadas encontradas' : 'No se pudo ninguna llamada.';
+    $type = ($calls) ? 'success' : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return \Redirect()->back()
+                        ->with( 'message', $message )
+                        ->with( 'type', 'success' );
+    }
   }
 }

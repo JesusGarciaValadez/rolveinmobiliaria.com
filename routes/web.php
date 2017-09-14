@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/seguimiento_de_llamadas')->middleware('auth')->group(function () {
+Route::prefix('/call_trackings')->middleware('auth')->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings');
   Route::get('/new', 'CallController@create')
@@ -34,6 +34,6 @@ Route::prefix('/seguimiento_de_llamadas')->middleware('auth')->group(function ()
        ->name('update_call');
   Route::delete('/destroy/{id}', 'CallController@destroy')
        ->name('destroy_call');
-  Route::get('/search/{date?}/option/{option?}', 'CallController@search')
+  Route::get('/search/{date?}', 'CallController@search')
        ->name('search_call');
 });

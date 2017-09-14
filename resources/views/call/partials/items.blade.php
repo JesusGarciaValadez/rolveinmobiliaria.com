@@ -13,7 +13,7 @@
     <div class="form-group">
       <a class="btn btn-warning" href="{{ route('edit_call', ['id' => $call->id]) }}" title="Editar" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a>
     </div>
-
+    @can('calls.delete', App\Call::class)
     <form class="form-inline" action="{{ route('destroy_call', ['id' => $call->id]) }}" method="post">
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
@@ -23,5 +23,6 @@
         </button>
       </div>
     </form>
+    @endcan
   </td>
 </tr>

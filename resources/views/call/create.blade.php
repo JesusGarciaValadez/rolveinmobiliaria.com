@@ -3,14 +3,13 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    <div class="hidden-xs hidden-sm col-md-3 col-lg-2">
-      @include('shared.partials.menu')
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+    @include('shared.partials.menu')
+
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ route('call_trackings') }}" title="Seguimiento de llamadas">
+            <a href="{{ route('call_trackings') }}" title="Seguimiento de llamadas" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             Nueva llamada</h1>

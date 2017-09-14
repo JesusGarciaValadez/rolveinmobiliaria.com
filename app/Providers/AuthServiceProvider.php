@@ -34,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
 
       Gate::resource('calls', 'App\Policies\CallPolicy', [
         'menu' => 'viewMenu',
+        'delete' => 'viewDeleteButton',
       ]);
       Gate::resource('sales', 'App\Policies\SalePolicy', [
         'menu' => 'viewMenu'

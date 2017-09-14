@@ -3,12 +3,12 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-          @include('shared.partials.menu')
-        </div>
-        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
+        @include('shared.partials.menu')
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
             <div class="panel panel-default">
-                <div class="panel-heading">@lang('section.notifications')</div>
+                <div class="panel-heading">
+                  <h1 class="panel-title">@lang('section.notifications')</h1>
+                </div>
 
                 <div class="panel-body">
                   @if (session('status'))
@@ -19,6 +19,8 @@
 
                   @lang('auth.you_are_logged_in')
                 </div>
+
+                <div class="panel-footer"></div>
             </div>
         </div>
     </div>

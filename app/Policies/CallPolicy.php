@@ -71,4 +71,11 @@ class CallPolicy
         ? true
         : false;
     }
+
+    public function viewDeleteButton(User $user)
+    {
+      return ($user->isSuperAdmin() || $user->isAdmin())
+        ? true
+        : false;
+    }
 }
