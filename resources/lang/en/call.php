@@ -24,5 +24,6 @@ return [
     'direction' => 'Address',
     'state' => 'State',
     'hour' => 'Hour',
+    'status' => 'Status',
     'actions' => 'Actions',
 ];

@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'dashboard' => 'Dashboard',
     'notifications' => 'Notificaciones',
     'call_tracking' => 'Seguimiento de llamadas',
     'for_sale' => 'Compra venta',

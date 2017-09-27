@@ -19,6 +19,10 @@ $factory->define(App\Call::class, function (Faker $faker) {
     },
     'observations' => $faker->text(),
     'address' => $faker->address(),
+    'status' => $faker->randomElement([
+      'Abierto',
+      'Cerrado',
+    ]),
     'state_id' => $faker->numberBetween(1, 32),
     'created_at' => $faker->dateTimeBetween('-1 year', 'now', 'America/Mexico_City'),
   ];

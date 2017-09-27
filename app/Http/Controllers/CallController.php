@@ -29,7 +29,7 @@ class CallController extends Controller
    */
   public function index()
   {
-    $calls = Call::orderBy('id', 'desc')->paginate(10);
+    $calls = Call::orderBy('id', 'desc')->paginate(5);
 
     $locale = \App::getLocale();
 
@@ -190,22 +190,34 @@ class CallController extends Controller
 
   public function search(CallSearchRequest $request)
   {
-    $calls = Call::whereBetween('created_at', [now()->today(), $request->date])
-                 ->orderBy('id', 'asc')
-                 ->paginate(10);
+    $calls = Call::whereBetween('created_at', [$request->date, now()->today()])
+                 ->orderBy('id', 'desc')
+                 ->paginate(5);
 
-    $message = ($calls) ? 'Llamadas encontradas' : 'No se pudo ninguna llamada.';
-    $type = ($calls) ? 'success' : 'danger';
+    $message = (count($calls) > 0) ? count($calls).' Llamadas encontradas' : 'No se pudo ninguna llamada.';
+    $type = (count($calls) > 0) ? 'success' : 'danger';
 
-    if ( $request->ajax() )
+    $locale = \App::getLocale();
+
+    $uri = 'call_trackings';
+
+    $request->session()->flash('date', $request->date);
+
+    if ($request->ajax())
     {
-      return response()->json( [ 'message' => $message ] );
+      return response()->json([
+        'calls' => $calls,
+        'message' => $message,
+        'type' => $type,
+      ]);
     }
     else
     {
-      return \Redirect()->back()
-                        ->with( 'message', $message )
-                        ->with( 'type', 'success' );
+      // \Debugbar::warning($session);
+      return view('call.search')->with('calls', $calls)
+                                ->with('uri', $uri)
+                                ->with('message', $message)
+                                ->with('type', $type);
     }
   }
 }

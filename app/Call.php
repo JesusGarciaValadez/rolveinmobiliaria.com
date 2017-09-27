@@ -56,6 +56,20 @@ class Call extends Model
     return $this->belongsTo('App\State');
   }
 
+  public function getCreatedAttribute()
+  {
+    $date = $this->created_at->format('Y-M-d h:i a');
+
+    return $date;
+  }
+
+  public function getUpdatedAttribute()
+  {
+    $date = $this->updated_at->format('Y-M-d h:i a');
+
+    return $date;
+  }
+
   public function getHourAttribute()
   {
     $date = $this->created_at->format('h:i');

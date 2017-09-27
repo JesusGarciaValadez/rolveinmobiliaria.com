@@ -23,7 +23,8 @@ return [
     'forgot_your_password' => 'Forgot Your Password?',
     'you_are_logged_in' => 'You are logged in!',
 
-    'register' => 'Register',
+    'register_new_user' => 'Register',
+    'register_new_user' => 'Register a new user',
     'name' => 'Name',
     'choose_a_user_role' => 'Choose a user role',
     'confirm_password' => 'Confirm Password',

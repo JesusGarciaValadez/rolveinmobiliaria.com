@@ -5,11 +5,11 @@
   <div class="row">
     @include('shared.partials.menu')
 
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+    <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ route('call_trackings') }}" title="Seguimiento de llamadas" class="pull-left visible-sm-block">
+            <a href="{{ url()->previous() }}" title="Seguimiento de llamadas" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             Editar llamada
@@ -17,12 +17,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-          @if (session('message'))
-            <div class="alert alert-{{ session('type') }}">
-              {{ session('message') }}
-            </div>
-          @endif
-          {{ logger($call) }}
+          @include('shared.partials.alerts.message')
 
           <form class="form-horizontal" action="{{ route('update_call', ['id' => request('id')]) }}" method="post">
             {{ csrf_field() }}
@@ -221,12 +216,9 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">
-                <button
-                  type="submit"
-                  class="btn btn-default"
-                  id="submit">Enviar</button>
-              </div>
+              @include('call.partials.buttons.save')
+
+              @include('call.partials.buttons.back')
             </div>
           </form>
         </div>

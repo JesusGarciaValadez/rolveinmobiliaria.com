@@ -38,6 +38,10 @@ class CreateCallsTable extends Migration
             ->onDelete('set null');
       $table->text('observations');
       $table->string('address');
+      $table->enum('status', [
+        'Abierto',
+        'Cerrado',
+      ]);
       $table->softDeletes();
       $table->timestamps();
     });

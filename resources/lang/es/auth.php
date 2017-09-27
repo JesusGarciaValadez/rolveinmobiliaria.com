@@ -24,6 +24,7 @@ return [
     "you_are_logged_in" => "¡Haz iniciado sesión!",
 
     "register" => "Registrar",
+    "register_a_new_user" => "Registrar un nuevo usuario",
     "name" => "Nombre",
     'choose_a_user_role' => 'Escoge un rol de usuario',
     "confirm_password" => "Confirmar Contraseña",
