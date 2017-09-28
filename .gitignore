@@ -14,4 +14,3 @@ yarn-error.log
 *.crt
 *.key
 .DS_Store
-Procfile
