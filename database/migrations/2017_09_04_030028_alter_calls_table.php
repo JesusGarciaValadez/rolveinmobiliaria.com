@@ -25,6 +25,8 @@ class AlterCallsTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('set null');
     });
+
+    DB::update('ALTER TABLE calls AUTO_INCREMENT=1;');
   }
 
   /**
