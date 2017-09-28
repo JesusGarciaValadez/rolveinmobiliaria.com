@@ -167,8 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
-         Themsaid\MailPreview\MailPreviewServiceProvider::class,
-         Barryvdh\Debugbar\ServiceProvider::class,
+        Themsaid\MailPreview\MailPreviewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
