@@ -85,9 +85,9 @@ class CallController extends Controller
     }
     else
     {
-      return \Redirect()->back()
-                        ->with( 'message', $message )
-                        ->with( 'type', 'success' );
+      return redirect()->back()
+                       ->with( 'message', $message )
+                       ->with( 'type', 'success' );
     }
   }
 
@@ -156,9 +156,9 @@ class CallController extends Controller
     }
     else
     {
-      return \Redirect()->back()
-                        ->with( 'message', $message )
-                        ->with( 'type', 'success' );
+      return redirect()->back()
+                       ->with( 'message', $message )
+                       ->with( 'type', 'success' );
     }
   }
 
@@ -182,9 +182,9 @@ class CallController extends Controller
     }
     else
     {
-      return \Redirect()->back()
-                        ->with( 'message', $message )
-                        ->with( 'type', 'success' );
+      return redirect()->back()
+                       ->with( 'message', $message )
+                       ->with( 'type', 'success' );
     }
   }
 
