@@ -17,7 +17,6 @@ class AlterCallsTable extends Migration
       $table->integer('state_id')
             ->unsigned()
             ->default('7')
-            ->nullable()
             ->after('address');
       $table->foreign('state_id')
             ->references('id')

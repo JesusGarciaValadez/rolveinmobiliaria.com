@@ -72,8 +72,8 @@ class CallController extends Controller
     $updated = Call::create($data);
 
     $message = ($updated)
-               ? 'Llamada actualizada'
-               : 'No se pudo actualizar la llamada.';
+               ? 'Nueva llamada creada'
+               : 'No se pudo crear la llamada.';
 
     $type = ($updated)
             ? 'success'
@@ -85,9 +85,17 @@ class CallController extends Controller
     }
     else
     {
-      return redirect()->back()
-                       ->with( 'message', $message )
-                       ->with( 'type', 'success' );
+      if ($updated)
+      {
+        return redirect('call_trackings')->with( 'message', $message )
+                                         ->with( 'type', 'success' );
+      }
+      else
+      {
+        return redirect()->back()
+                         ->with( 'message', $message )
+                         ->with( 'type', 'success' );
+      }
     }
   }
 
@@ -156,9 +164,17 @@ class CallController extends Controller
     }
     else
     {
-      return redirect()->back()
-                       ->with( 'message', $message )
-                       ->with( 'type', 'success' );
+      if ($updated)
+      {
+        return redirect('call_trackings')->with( 'message', $message )
+                                         ->with( 'type', 'success' );
+      }
+      else
+      {
+        return redirect()->back()
+                         ->with( 'message', $message )
+                         ->with( 'type', 'success' );
+      }
     }
   }
 

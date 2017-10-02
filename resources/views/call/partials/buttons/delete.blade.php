@@ -6,7 +6,7 @@
       <button
       type="submit"
       class="btn btn-danger"
-      title="Eliminar llamada"
+      title="@lang('shared.remove') @lang('call.call')"
       data-toggle="tooltip"
       data-placement="bottom">
       <i class="glyphicon glyphicon-erase"></i>

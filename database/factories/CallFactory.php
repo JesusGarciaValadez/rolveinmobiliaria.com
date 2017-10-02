@@ -4,13 +4,15 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Call::class, function (Faker $faker) {
   return [
+    'expedient' => $faker->swiftBicNumber(),
     'type_of_operation' => $faker->randomElement([
       'Venta',
       'Renta',
-      'Regularización',
+      'Contratos de exclusividad',
       'Jurídico',
-      'Sucesión',
+      'Avalúos',
     ]),
+    'client' => $faker->name(),
     'client_phone_1' => $faker->phoneNumber(),
     'client_phone_2' => $faker->phoneNumber(),
     'email' => $faker->freeEmail(),
@@ -22,6 +24,11 @@ $factory->define(App\Call::class, function (Faker $faker) {
     'status' => $faker->randomElement([
       'Abierto',
       'Cerrado',
+    ]),
+    'priority' => $faker->randomElement([
+      'Baja',
+      'Media',
+      'Alta',
     ]),
     'state_id' => $faker->numberBetween(1, 32),
     'created_at' => $faker->dateTimeBetween('-1 year', 'now', 'America/Mexico_City'),

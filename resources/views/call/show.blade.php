@@ -37,6 +37,7 @@
                 <tr></tr>
                 <tr></tr>
                 <tr></tr>
+                <tr></tr>
               </tfoot>
 
               <tbody>
@@ -51,6 +52,7 @@
                   <td>{{ $call->address }}</td>
                   <td>{{ $call->state->name }}</td>
                   <td>{{ $call->updated }}</td>
+                  <td>{{ $call->status }}</td>
                   <td class="text-center">
                     @include('call.partials.buttons.edit')
 

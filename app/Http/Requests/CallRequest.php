@@ -25,21 +25,39 @@ class CallRequest extends FormRequest
   public function rules()
   {
     return [
+      'expedient' => 'required|string',
       'type_of_operation' => [
+        'sometimes',
         'required' => Rule::in([
           'Venta',
           'Renta',
-          'Regularización',
+          'Contratos de exclusividad',
           'Jurídico',
-          'Sucesión'
+          'Avalúos',
         ]),
       ],
+      'client' => 'required|string',
       'client_phone_1' => 'required|string',
-      'client_phone_2' => 'required|string',
-      'email' => 'required|email',
-      'address' => 'required|string',
-      'state_id' => 'required|numeric|integer|exists:states,id',
+      'client_phone_2' => 'sometimes|nullable|string',
+      'email' => 'sometimes|nullable|email',
+      'address' => 'sometimes|nullable|string',
+      'state_id' => 'sometimes|nullable|numeric|integer|exists:states,id',
       'observations' => 'required|string',
+      'status' => [
+        'sometimes',
+        'required' => Rule::in([
+          'Abierto',
+          'Cerrado',
+        ]),
+      ],
+      'priority' => [
+        'sometimes',
+        'required' => Rule::in([
+          'Baja',
+          'Media',
+          'Alta',
+        ]),
+      ],
     ];
   }
 }

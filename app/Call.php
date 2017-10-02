@@ -15,8 +15,20 @@ class Call extends Model
    *
    * @var array
    */
-  protected $fillable = [ 'type_of_operation', 'client_phone_1',
-  'client_phone_2', 'email', 'address', 'state_id', 'observations', 'user_id'];
+  protected $fillable = [
+    'expedient',
+    'type_of_operation',
+    'client',
+    'client_phone_1',
+    'client_phone_2',
+    'email',
+    'address',
+    'state_id',
+    'observations',
+    'user_id',
+    'status',
+    'priority',
+  ];
 
   /**
    * The attributes that aren't mass assignable.

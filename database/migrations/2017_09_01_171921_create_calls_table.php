@@ -15,19 +15,23 @@ class CreateCallsTable extends Migration
   {
     Schema::create('calls', function (Blueprint $table) {
       $table->increments('id');
+      $table->string('expedient')
+            ->nullable()
+            ->default('Sin número de expediente');
       $table->enum('type_of_operation', [
               'Venta',
               'Renta',
-              'Regularización',
+              'Contratos de exclusividad',
               'Jurídico',
-              'Sucesión',
+              'Avalúos',
             ])
             ->default('Venta');
-      $table->string('client_phone_1')
-            ->default('Teléfono no disponible');
+      $table->string('client');
+      $table->string('client_phone_1');
       $table->string('client_phone_2')
-            ->default('Teléfono no disponible');
-      $table->string('email');
+            ->nullable();
+      $table->string('email')
+            ->nullable();
       $table->integer('user_id')
             ->unsigned()
             ->nullable();
@@ -36,12 +40,21 @@ class CreateCallsTable extends Migration
             ->on('users')
             ->onUpdate('cascade')
             ->onDelete('set null');
-      $table->text('observations');
-      $table->string('address');
+      $table->text('observations')
+            ->nullable();
+      $table->string('address')
+            ->nullable();
       $table->enum('status', [
-        'Abierto',
-        'Cerrado',
-      ]);
+              'Abierto',
+              'Cerrado',
+            ])
+            ->default('Abierto');
+      $table->enum('priority', [
+              'Baja',
+              'Media',
+              'Alta',
+            ])
+            ->default('Media');
       $table->softDeletes();
       $table->timestamps();
     });

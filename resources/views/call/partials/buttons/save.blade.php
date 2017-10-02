@@ -3,8 +3,8 @@
     type="submit"
     class="btn btn-success"
     id="submit"
-    data-loading-text="Guardando..." >
+    data-loading-text="@lang('shared.saving')..." >
     <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span>
-    Guardar
+    @lang('shared.save')
   </button>
 </div>
