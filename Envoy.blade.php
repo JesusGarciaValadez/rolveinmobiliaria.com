@@ -1,32 +1,49 @@
 @servers(['localhost' => '127.0.0.1'])
 
-@task('deploy_dev', ['on' => 'localhost', 'confirm' => true])
-    git pull origin develop
-@endtask
-
 @setup
   $now = new DateTime();
 
   $environment = isset($env) ? $env : "testing";
+
+  $branch = isset($branch) ? $branch : "develop";
 @endsetup
 
-@story('deploy')
+@task('deploy_dev', ['on' => 'localhost', 'confirm' => true])
+  git push origin develop
+@endtask
+
+@story('deploy', ['confirm' => true])
   git
-  composer
+  @if ($environment != 'production')
+    composer_install
+    composer_update
+  @endif
 @endstory
 
 @task('git')
-  git pull origin master
+  @if ($branch)
+    git checkout {{ $branch }};
+
+    git pull origin {{ $branch }};
+
+    git push origin {{ $branch }};
+
+    @if ($branch == 'master')
+      git push heroku {{ $branch }};
+
+      git checkout develop;
+    @endif
+  @endif
 @endtask
 
-@task('composer')
-  composer install
+@task('composer_install')
+  composer install;
 @endtask
 
-@task('seed')
-  php artisan migrate:refresh --seed
+@task('composer_update')
+  composer update;
 @endtask
 
-@task('tinker')
-  artisan tinker
+@task('seed', ['confirm' => true])
+  php artisan migrate:refresh --seed;
 @endtask
