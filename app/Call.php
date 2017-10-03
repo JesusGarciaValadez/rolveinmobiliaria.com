@@ -56,7 +56,7 @@ class Call extends Model
    *
    * @var string
    */
-  protected $dateFormat = 'Y-m-d h:i:s';
+  protected $dateFormat = 'Y-m-d H:i:s';
 
   public function user()
   {
@@ -77,7 +77,9 @@ class Call extends Model
 
   public function getUpdatedAttribute()
   {
-    $date = $this->updated_at->format('Y-M-d h:i a');
+    $date = (isset($this->updated_at))
+              ? $this->updated_at->format('Y-M-d h:i a')
+              : null;
 
     return $date;
   }

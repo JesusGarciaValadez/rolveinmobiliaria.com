@@ -16,6 +16,7 @@ class AlterCallsTable extends Migration
     Schema::table('calls', function (Blueprint $table) {
       $table->integer('state_id')
             ->unsigned()
+            ->nullable()
             ->default('7')
             ->after('address');
       $table->foreign('state_id')

@@ -32,5 +32,6 @@ $factory->define(App\Call::class, function (Faker $faker) {
     ]),
     'state_id' => $faker->numberBetween(1, 32),
     'created_at' => $faker->dateTimeBetween('-1 year', 'now', 'America/Mexico_City'),
+    'updated_at' => null,
   ];
 });

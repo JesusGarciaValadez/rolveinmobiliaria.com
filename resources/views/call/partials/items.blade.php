@@ -12,7 +12,7 @@
   <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
   <td>{{ $call->address }}</td>
   <td>{{ $call->state->name }}</td>
-  <td>{{ $call->updated }}</td>
+  <td>{{ (isset($call->updated)) ? $call->updated : $call->created }}</td>
   <td><span class="label
     @if ($call->status == 'Abierto')
       label-danger
