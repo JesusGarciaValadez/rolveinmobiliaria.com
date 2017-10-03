@@ -20,7 +20,7 @@ return [
     'remove' => 'Eliminar',
     'save' => 'Guardar',
     'saving' => 'Guardando',
-    'low' => 'Baja',
-    'medium' => 'Media',
-    'hight' => 'Alta',
+    'low' => 'Baja !',
+    'medium' => 'Media !!',
+    'hight' => 'Alta !!!',
 ];

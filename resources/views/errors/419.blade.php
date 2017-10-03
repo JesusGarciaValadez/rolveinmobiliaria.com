@@ -46,7 +46,7 @@
       }
 
       .title {
-        font-size: 17.3333333333vw;
+        font-size: 35px;
       }
 
       .links > a {
@@ -66,21 +66,11 @@
   </head>
   <body>
     <div class="flex-center position-ref full-height">
-      @if (Route::has('login'))
-        <div class="top-right links">
-          @auth
-            <a href="{{ url('/dashboard') }}">Dashboard</a>
-          @else
-            <a href="{{ route('login') }}">@lang('auth.login')</a>
-          @endauth
+        <div class="content">
+            <div class="title">
+                <h2>{{ $exception->getMessage() }}</h2>
+            </div>
         </div>
-      @endif
-
-      <div class="content">
-        <div class="title m-b-md">
-          Rolve Inmobiliaria
-        </div>
-      </div>
     </div>
   </body>
 </html>

@@ -20,7 +20,7 @@ return [
     'remove' => 'Remove',
     'save' => 'Save',
     'saving' => 'Saving',
-    'low' => 'Baja',
-    'medium' => 'Media',
-    'hight' => 'Alta',
+    'low' => 'Baja !',
+    'medium' => 'Media !!',
+    'hight' => 'Alta !!!',
 ];

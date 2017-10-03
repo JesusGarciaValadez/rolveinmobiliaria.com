@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 text-center">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
   <button
     type="submit"
     class="btn btn-success"

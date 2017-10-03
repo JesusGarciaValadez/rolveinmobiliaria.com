@@ -59,7 +59,7 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-5 col-xs-offset-4 hidden-sm col-sm-offset-0 hidden-md hidden-lg">
+            <div class="col-xs-6 col-xs-offset-3 hidden-sm col-sm-offset-0 hidden-md hidden-lg">
               @include('call.partials.buttons.create')
             </div>
           </div>

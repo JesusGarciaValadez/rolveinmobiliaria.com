@@ -311,12 +311,16 @@
               </div>
             </div>
 
-            <div class="form-group">
-              @include('call.partials.buttons.save')
+            <div class="form-inline">
+              <div class="form-group">
+                @include('call.partials.buttons.save')
+              </div>
 
-              @include('call.partials.buttons.back', [
+              <div class="form-group">
+                @include('call.partials.buttons.back', [
                 'back' => route('call_trackings')
-              ])
+                ])
+              </div>
             </div>
           </form>
         </div>
