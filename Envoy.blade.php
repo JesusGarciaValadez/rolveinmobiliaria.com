@@ -1,7 +1,8 @@
-@servers([
-  'web' => ['user@192.168.1.1'],
-  'localhost' => '127.0.0.1',
-])
+@servers(['localhost' => '127.0.0.1'])
+
+@task('deploy_dev', ['on' => 'localhost', 'confirm' => true])
+    git pull origin develop
+@endtask
 
 @setup
   $now = new DateTime();
