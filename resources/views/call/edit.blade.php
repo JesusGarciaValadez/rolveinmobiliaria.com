@@ -271,35 +271,20 @@
             <div class="form-group{{ $errors->has('status') ? ' has-error' : ''}}">
               <label
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.status'): </label>
-              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="status"
-                    id="client_1"
-                    value="Abierto"
-                    {{ (old('status') == 'Abierto' ||
-                        $call->status == 'Abierto')
-                          ? 'checked'
-                          : '' }}> @lang('shared.open')
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="status"
-                    id="client_2"
-                    value="Cerrado"
-                    {{ (old('status') == 'Cerrado' ||
-                        $call->status == 'Cerrado')
-                          ? 'checked'
-                          : '' }}> @lang('shared.closed')
-                </label>
+              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  value="{{ old('status') ? old('status') : $call->status }}"
+                  placeholder="@lang('call.status')"
+                  autocorrect="on">
 
-                @if ($errors->has('status'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('status') }}</strong>
-                  </span>
-                @endif
+                  @if ($errors->has('status'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('status') }}</strong>
+                    </span>
+                  @endif
               </div>
             </div>
 

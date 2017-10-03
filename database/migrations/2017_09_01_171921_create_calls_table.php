@@ -44,11 +44,8 @@ class CreateCallsTable extends Migration
             ->nullable();
       $table->string('address')
             ->nullable();
-      $table->enum('status', [
-              'Abierto',
-              'Cerrado',
-            ])
-            ->default('Abierto');
+      $table->text('status')
+            ->nullable();
       $table->enum('priority', [
               'Baja',
               'Media',

@@ -13,12 +13,7 @@
   <td>{{ $call->address }}</td>
   <td>{{ $call->state->name }}</td>
   <td>{{ (isset($call->updated)) ? $call->updated : $call->created }}</td>
-  <td class="text-center"><span class="label
-    @if ($call->status == 'Abierto')
-      label-danger
-    @else
-      label-primary
-    @endif">{{ $call->status }}</span></td>
+  <td>{{ $call->status }}</td>
   <td class="text-center"><span class="label
     @if ($call->priority == 'Baja')
       label-primary

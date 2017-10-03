@@ -21,10 +21,7 @@ $factory->define(App\Call::class, function (Faker $faker) {
     },
     'observations' => $faker->text(),
     'address' => $faker->address(),
-    'status' => $faker->randomElement([
-      'Abierto',
-      'Cerrado',
-    ]),
+    'status' => $faker->sentences(3, true),
     'priority' => $faker->randomElement([
       'Baja',
       'Media',

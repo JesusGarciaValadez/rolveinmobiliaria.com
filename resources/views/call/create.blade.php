@@ -263,29 +263,21 @@
               <label
                 for="status"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.status'): </label>
-              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="status"
-                    id="status_open"
-                    value="@lang('shared.open')"
-                    checked> @lang('shared.open')
-                </label>
-                <label class="radio-inline">
-                  <input
-                    type="radio"
-                    name="status"
-                    id="status_closed"
-                    value="@lang('shared.closed')"> @lang('shared.closed')
-                </label>
+              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="status"
+                  value="{{ old('status') }}"
+                  placeholder="@lang('call.status')"
+                  autocorrect="on">
 
-                @if ($errors->has('status'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('status') }}</strong>
-                  </span>
-                @endif
-              </div>
+                  @if ($errors->has('status'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('status') }}</strong>
+                    </span>
+                  @endif
+                </div>
             </div>
 
             <div class="form-group{{ $errors->has('priority') ? ' has-error' : ''}}">

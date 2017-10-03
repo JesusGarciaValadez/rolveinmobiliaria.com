@@ -43,13 +43,7 @@ class CallRequest extends FormRequest
       'address' => 'sometimes|nullable|string',
       'state_id' => 'sometimes|nullable|numeric|integer|exists:states,id',
       'observations' => 'required|string',
-      'status' => [
-        'sometimes',
-        'required' => Rule::in([
-          'Abierto',
-          'Cerrado',
-        ]),
-      ],
+      'status' => 'sometimes|nullable|string',
       'priority' => [
         'sometimes',
         'required' => Rule::in([
