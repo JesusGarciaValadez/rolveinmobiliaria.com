@@ -14,7 +14,7 @@
 
 @story('deploy', ['confirm' => true])
   git
-  @if ($environment != 'production')
+  @if ($environment == 'production')
     composer_install
     composer_update
   @endif
