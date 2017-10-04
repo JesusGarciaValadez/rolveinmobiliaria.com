@@ -48,14 +48,6 @@
   @endif
 @endtask
 
-@task('heroku_bash')
-  heroku run bash;
-@endtask
-
-@task('heroku_exit')
-  exit;
-@endtask
-
 @task('composer_install')
   composer install;
 @endtask
