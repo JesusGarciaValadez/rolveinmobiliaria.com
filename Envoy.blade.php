@@ -35,6 +35,8 @@
 
       @if ($environment == 'production')
         git push heroku {{ $branch }};
+
+        open https://rolveinmobiliaria.herokuapp.com/;
       @endif
 
       git checkout develop;
