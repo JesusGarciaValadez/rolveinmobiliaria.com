@@ -27,7 +27,6 @@
 
       git pull;
 
-      {{--
       git push;
 
       git checkout {{ $branch }};
@@ -41,7 +40,6 @@
       @endif
 
       git checkout develop;
-      --}}
     @else
       git checkout {{ $branch }};
 
@@ -53,11 +51,11 @@
 @endtask
 
 @task('composer_install')
-  {{--composer install; --}}
+  composer install;
 @endtask
 
 @task('composer_update')
-  {{-- composer update; --}}
+  composer update;
 @endtask
 
 @task('seed', ['confirm' => true])
