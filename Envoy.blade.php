@@ -15,8 +15,17 @@
 @story('deploy', ['confirm' => true])
   git
   @if ($environment == 'production')
+    heroku_bash
+
     composer_install
+
     composer_update
+
+    migrate
+
+    seed
+
+    heroku_exit
   @endif
 @endstory
 
@@ -30,6 +39,8 @@
       git push;
 
       git checkout {{ $branch }};
+
+      git merge develop;
 
       git pull origin {{ $branch }};
 
@@ -50,6 +61,14 @@
   @endif
 @endtask
 
+@task('heroku_bash')
+  heroku run bash;
+@endtask
+
+@task('heroku_exit')
+  exit;
+@endtask
+
 @task('composer_install')
   composer install;
 @endtask
@@ -58,6 +77,12 @@
   composer update;
 @endtask
 
+@task('')
+
+@task('migrate', ['confirm' => true])
+  php artisan migrate:refresh;
+@endtask
+
 @task('seed', ['confirm' => true])
-  php artisan migrate:refresh --seed;
+  php artisan db:seed;
 @endtask
