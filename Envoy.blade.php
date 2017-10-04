@@ -14,9 +14,6 @@
 
 @story('deploy', ['confirm' => true])
   git
-  @if ($environment == 'production')
-    heroku_bash
-  @endif
 @endstory
 
 @task('git')
