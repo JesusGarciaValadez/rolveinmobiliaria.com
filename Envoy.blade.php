@@ -16,16 +16,6 @@
   git
   @if ($environment == 'production')
     heroku_bash
-
-    composer_install
-
-    composer_update
-
-    migrate
-
-    seed
-
-    heroku_exit
   @endif
 @endstory
 
@@ -76,8 +66,6 @@
 @task('composer_update')
   composer update;
 @endtask
-
-@task('')
 
 @task('migrate', ['confirm' => true])
   php artisan migrate:refresh;
