@@ -22,26 +22,42 @@
 
 @task('git')
   @if ($branch)
-    git checkout {{ $branch }};
-
-    git pull origin {{ $branch }};
-
-    git push origin {{ $branch }};
-
     @if ($branch == 'master')
-      git push heroku {{ $branch }};
+      echo 'Master';
+
+      git pull;
+
+      {{--
+      git push;
+
+      git checkout {{ $branch }};
+
+      git pull origin {{ $branch }};
+
+      git push origin {{ $branch }};
+
+      @if ($environment == 'production')
+        git push heroku {{ $branch }};
+      @endif
 
       git checkout develop;
+      --}}
+    @else
+      git checkout {{ $branch }};
+
+      git pull origin {{ $branch }};
+
+      git push origin {{ $branch }};
     @endif
   @endif
 @endtask
 
 @task('composer_install')
-  composer install;
+  {{--composer install; --}}
 @endtask
 
 @task('composer_update')
-  composer update;
+  {{-- composer update; --}}
 @endtask
 
 @task('seed', ['confirm' => true])
