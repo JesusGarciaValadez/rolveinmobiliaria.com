@@ -48,7 +48,7 @@
 
                 <ul class="dropdown-menu" role="menu">
                   @can('calls.menu', App\Call::class)
-                    <li class="hidden-sm hidden-md hidden-lg">
+                    <li class="hidden-md hidden-lg">
                       <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                         @lang('section.call_tracking')
@@ -56,7 +56,7 @@
                     </li>
                   @endcan
                   @can('sales.menu', App\Sale::class)
-                    <li class="hidden-sm hidden-md hidden-lg">
+                    <li class="hidden-md hidden-lg">
                       <a href="#" title="@lang('section.for_sale')">
                         <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>
                         @lang('section.for_sale')

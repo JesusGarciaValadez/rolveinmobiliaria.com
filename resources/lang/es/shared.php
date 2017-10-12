@@ -23,4 +23,5 @@ return [
     'low' => 'Baja !',
     'medium' => 'Media !!',
     'hight' => 'Alta !!!',
+    'send_email_to' => 'Enviar email a',
 ];

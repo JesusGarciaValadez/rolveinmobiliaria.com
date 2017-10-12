@@ -44,8 +44,6 @@
                 <tr></tr>
                 <tr></tr>
                 <tr></tr>
-                <tr></tr>
-                <tr></tr>
               </tfoot>
 
               <tbody>
@@ -59,7 +57,7 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-6 col-xs-offset-3 hidden-sm col-sm-offset-0 hidden-md hidden-lg">
+            <div class="col-xs-6 col-xs-offset-4 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
               @include('call.partials.buttons.create')
             </div>
           </div>

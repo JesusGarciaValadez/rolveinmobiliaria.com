@@ -24,7 +24,22 @@
 
           <div class="row">
             <table class="table table-bordered table-striped table-condensed">
-              @include('call.partials.table-heading')
+              <thead>
+                <th class="text-center">@lang('call.id')</th>
+                <th class="text-center">@lang('call.internal_expedient')</th>
+                <th class="text-center">@lang('call.operation')</th>
+                <th class="text-center">@lang('call.client')</th>
+                <th class="text-center">@lang('call.phone')</th>
+                <th class="text-center">@lang('call.phone')</th>
+                <th class="text-center">@lang('call.email')</th>
+                <th class="hidden-xs hidden-sm text-center">@lang('call.observations')</th>
+                <th class="text-center">@lang('call.direction')</th>
+                <th class="text-center">@lang('call.state')</th>
+                <th class="text-center">@lang('call.hour')</th>
+                <th class="text-center">@lang('call.status')</th>
+                <th class="text-center">@lang('call.priority')</th>
+                <th class="text-center">@lang('call.actions')</th>
+              </thead>
 
               <tfoot>
                 <tr></tr>
@@ -52,18 +67,14 @@
                   <td>{{ $call->client }}</td>
                   <td>{{ $call->client_phone_1 }}</td>
                   <td>{{ $call->client_phone_2 }}</td>
-                  <td>{{ $call->email }}</td>
-                  <td>{{ $call->user->name }}</td>
+                  <td>
+                    <a href="mailto:{{ $call->email }}" title="@lang('shared.send_email_to') {{ $call->client }}" target="_blank">{{ $call->email }}</a>
+                  </td>
                   <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
                   <td>{{ $call->address }}</td>
                   <td>{{ $call->state->name }}</td>
-                  <td>{{ $call->updated }}</td>
-                  <td><span class="label
-                    @if ($call->status == 'Abierto')
-                      label-danger
-                    @else
-                      label-primary
-                    @endif">{{ $call->status }}</span></td>
+                  <td>{{ (isset($call->updated)) ? $call->updated : $call->created }}</td>
+                  <td>{{ $call->status }}</td>
                   <td><span class="label
                     @if ($call->priority == 'Baja')
                       label-primary
@@ -85,7 +96,7 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 hidden-md hidden-lg">
+            <div class="col-xs-6 col-xs-offset-4 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
               @include('call.partials.buttons.create')
             </div>
           </div>

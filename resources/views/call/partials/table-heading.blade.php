@@ -4,9 +4,7 @@
   <th class="text-center">@lang('call.operation')</th>
   <th class="text-center">@lang('call.client')</th>
   <th class="text-center">@lang('call.phone')</th>
-  <th class="text-center">@lang('call.phone')</th>
   <th class="text-center">@lang('call.email')</th>
-  <th class="text-center">@lang('call.user')</th>
   <th class="hidden-xs hidden-sm text-center">@lang('call.observations')</th>
   <th class="text-center">@lang('call.direction')</th>
   <th class="text-center">@lang('call.state')</th>
