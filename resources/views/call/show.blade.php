@@ -9,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ url()->previous() }}" title="Seguimiento de llamadas" class="pull-left visible-sm-block">
+            <a href="{{ url()->previous() }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('section.call_tracking')

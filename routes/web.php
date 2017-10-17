@@ -55,3 +55,29 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
   Route::get('/search/{date?}', 'CallController@search')
        ->name('search_call');
 });
+
+Route::prefix('/sales')->middleware('auth')->group(function () {
+  Route::get('/', 'SaleController@index')
+       ->name('sales');
+
+  Route::get('/new', 'SaleController@create')
+       ->name('create_sale');
+
+  Route::post('/store', 'SaleController@store')
+       ->name('store_sale');
+
+  Route::get('/show/{id}', 'SaleController@show')
+       ->name('show_sale');
+
+  Route::get('/edit/{id}', 'SaleController@edit')
+       ->name('edit_sale');
+
+  Route::put('/uptate/{id}', 'SaleController@update')
+       ->name('update_sale');
+
+  Route::delete('/destroy/{id}', 'SaleController@destroy')
+       ->name('destroy_sale');
+
+  Route::get('/search/{date?}', 'SaleController@search')
+       ->name('search_sale');
+});
