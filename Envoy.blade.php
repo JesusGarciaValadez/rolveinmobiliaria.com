@@ -65,3 +65,7 @@
 @task('seed', ['confirm' => true])
   php artisan db:seed;
 @endtask
+
+@task('phpunit')
+  ./vendor/bin/phpunit;
+@endtask
