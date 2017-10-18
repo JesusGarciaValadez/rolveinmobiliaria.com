@@ -28,27 +28,22 @@
             {{ $calls->links() }}
 
             <table class="table table-bordered table-striped table-condensed">
-              @include('call.partials.table-heading')
+              <thead>
+                <tr>
+                  @include('call.partials.table-header')
+                </tr>
+              </thead>
 
               <tfoot>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
+                <tr>
+                  @include('call.partials.table-footer')
+                </tr>
               </tfoot>
 
               <tbody>
                 @each('call.partials.items', $calls, 'call')
               </tbody>
+
             </table>
 
             {{ $calls->links() }}

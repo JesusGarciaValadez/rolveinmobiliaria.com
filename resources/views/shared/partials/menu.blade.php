@@ -32,6 +32,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
+  <!--
     <a
       href="#"
       class="list-group-item{{ $uri == 'for_rent' ? ' active' : '' }}"
@@ -72,5 +73,6 @@
         class="glyphicon glyphicon-calendar"
         aria-hidden="true"></span>
     </a>
+  -->
   </div>
 </div>
