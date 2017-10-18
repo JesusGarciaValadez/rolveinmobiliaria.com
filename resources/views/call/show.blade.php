@@ -42,21 +42,9 @@
               </thead>
 
               <tfoot>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr class="hidden-xs hidde-sm"></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
+                <tr>
+                  <td colspan="15"></td>
+                </tr>
               </tfoot>
 
               <tbody>

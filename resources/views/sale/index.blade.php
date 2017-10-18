@@ -13,6 +13,9 @@
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('section.for_sale')
+            <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
+              @include('sale.partials.buttons.create')
+            </div>
           </h1>
         </div>
 

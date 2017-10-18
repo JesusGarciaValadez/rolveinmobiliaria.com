@@ -20,7 +20,7 @@ class SaleController extends Controller
 
     $uri = 'for_sales';
 
-    return view('sales.index', compact('sales', 'uri'));
+    return view('sale.index', compact('sales', 'uri'));
   }
 
   /**
