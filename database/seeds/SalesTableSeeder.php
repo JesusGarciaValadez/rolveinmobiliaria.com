@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SalesDocumentTableSeeder extends Seeder
+class SalesTableSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -11,6 +11,6 @@ class SalesDocumentTableSeeder extends Seeder
    */
   public function run()
   {
-    return factory(App\SalesDocument::class, 50)->create();
+    return factory(App\Sale::class, 50)->create();
   }
 }

@@ -22,4 +22,9 @@ return [
     'legal' => 'Jurídico',
     'succession' => 'Sucesión',
 
+    'sale' => 'Venta',
+    'regularization' => 'Regularization',
+    'exclusive_contracts' => 'Contratos de exclusividad',
+    'appraisals' => 'Avalúos',
+
 ];

@@ -7,6 +7,6 @@ $factory->define(App\InternalExpedient::class, function (Faker $faker) {
     'client_id' => function () {
       return factory(App\Client::class)->create()->id;
     },
-    'key' => $faker->swiftBicNumber(),
+    'expedient' => $faker->swiftBicNumber(),
   ];
 });

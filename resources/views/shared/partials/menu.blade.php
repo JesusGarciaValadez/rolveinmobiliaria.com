@@ -22,7 +22,7 @@
   @endcan
   @can('sales.menu', App\Sale::class)
     <a
-      href="{{ route('sales') }}"
+      href="{{ route('for_sales') }}"
       class="list-group-item {{ $uri == 'for_sales' ? ' active' : '' }}"
       title="@lang('section.for_sale')"
       data-toggle="tooltip"

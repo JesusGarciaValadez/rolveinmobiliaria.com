@@ -56,9 +56,9 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
        ->name('search_call');
 });
 
-Route::prefix('/sales')->middleware('auth')->group(function () {
+Route::prefix('/for_sales')->middleware('auth')->group(function () {
   Route::get('/', 'SaleController@index')
-       ->name('sales');
+       ->name('for_sales');
 
   Route::get('/new', 'SaleController@create')
        ->name('create_sale');

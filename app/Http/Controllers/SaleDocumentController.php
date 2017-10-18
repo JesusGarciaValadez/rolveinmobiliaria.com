@@ -14,7 +14,11 @@ class SaleDocumentController extends Controller
      */
     public function index()
     {
-        //
+      $locale = \App::getLocale();
+
+      $uri = 'for_sales';
+
+      return view('sales.index', compact('calls', 'uri'));
     }
 
     /**

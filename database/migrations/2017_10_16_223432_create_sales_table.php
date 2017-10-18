@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesDocumentsTable extends Migration
+class CreateSalesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSalesDocumentsTable extends Migration
    */
   public function up()
   {
-    Schema::create('sales_documents', function (Blueprint $table) {
+    Schema::create('sales', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('internal_expedients_id')
             ->unsigned();
@@ -53,11 +53,11 @@ class CreateSalesDocumentsTable extends Migration
    */
   public function down()
   {
-    Schema::table('sales_documents', function (Blueprint $table) {
-      $table->dropForeign('sales_documents_internal_expedients_id_foreign')
+    Schema::table('sales', function (Blueprint $table) {
+      $table->dropForeign('sales_internal_expedients_id_foreign')
             ->dropColumn('internal_expedients_id');
     });
 
-    Schema::dropIfExists('sales_documents');
+    Schema::dropIfExists('sales');
   }
 }

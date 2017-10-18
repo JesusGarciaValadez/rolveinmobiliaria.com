@@ -57,7 +57,7 @@
                   @endcan
                   @can('sales.menu', App\Sale::class)
                     <li class="hidden-md hidden-lg">
-                      <a href="#" title="@lang('section.for_sale')">
+                      <a href="{{ route('for_sales') }}" title="@lang('section.for_sale')">
                         <span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>
                         @lang('section.for_sale')
                       </a>

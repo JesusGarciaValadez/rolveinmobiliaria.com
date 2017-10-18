@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternalExpedientsTable extends Migration
+class CreateInternalExpedientTable extends Migration
 {
   /**
    * Run the migrations.
@@ -22,7 +22,7 @@ class CreateInternalExpedientsTable extends Migration
             ->on('clients')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->string('key');
+      $table->string('expedient');
       $table->softDeletes();
       $table->timestamps();
     });

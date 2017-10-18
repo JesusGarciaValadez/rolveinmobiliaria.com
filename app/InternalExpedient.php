@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class InternalExpedients extends Model
+class InternalExpedient extends Model
 {
   use SoftDeletes;
 
@@ -14,7 +14,7 @@ class InternalExpedients extends Model
    *
    * @var array
    */
-  protected $fillable = ['client_id', 'internal_expedient'];
+  protected $fillable = ['client_id', 'expedient'];
 
   /**
    * The attributes that aren't mass assignable.

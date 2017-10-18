@@ -14,7 +14,13 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+      $sales = Sale::orderBy('id', 'desc')->paginate(5);
+
+      $locale = \App::getLocale();
+
+      $uri = 'for_sales';
+
+      return view('sales.index', compact('sales', 'uri'));
     }
 
     /**
@@ -35,7 +41,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //
     }
 
     /**
