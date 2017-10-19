@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\State;
+
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
+  use ThrottlesLogins;
+
   /**
    * Display a listing of the resource.
    *
@@ -18,7 +25,7 @@ class SaleController extends Controller
 
     $locale = \App::getLocale();
 
-    $uri = 'for_sales';
+    $uri = 'for_sale';
 
     return view('sale.index', compact('sales', 'uri'));
   }
@@ -30,7 +37,12 @@ class SaleController extends Controller
    */
   public function create()
   {
-      //
+    $uri = 'for_sale';
+
+    $states = State::all();
+
+    return view('sale.create')->withUri($uri)
+                              ->withStates($states);
   }
 
   /**
