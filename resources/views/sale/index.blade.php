@@ -24,24 +24,20 @@
 
           <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <table class="table table-bordered table-striped table-condensed">
+              <thead>
+                <tr>
+                  @include('sale.partials.table-header')
+                </tr>
+              </thead>
 
               <tfoot>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
+                <tr>
+                  @include('sale.partials.table-footer')
+                </tr>
               </tfoot>
 
               <tbody>
+                @each('sale.partials.items', $sales, 'sale')
               </tbody>
             </table>
           </div>
