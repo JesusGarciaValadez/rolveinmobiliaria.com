@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Succession::class, function (Faker $faker) {
+$factory->define(App\SaleSignature::class, function (Faker $faker) {
     return [
         //
     ];
