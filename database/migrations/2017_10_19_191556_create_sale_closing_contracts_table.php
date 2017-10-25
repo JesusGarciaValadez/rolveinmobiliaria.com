@@ -21,9 +21,9 @@ class CreateSaleClosingContractsTable extends Migration
             ->nullable();
       $table->date('publication')
             ->nullable();
-      $table->string('data_sheet')
+      $table->text('data_sheet')
             ->nullable();
-      $table->string('closing_contract_observations')
+      $table->text('closing_contract_observations')
             ->nullable();
       $table->boolean('complete')
             ->default(false);

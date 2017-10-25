@@ -16,49 +16,56 @@ class CreateSalesTable extends Migration
     Schema::create('sales', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('internal_expedients_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('internal_expedients_id')
             ->references('id')
             ->on('internal_expedients')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_documents_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_documents_id')
             ->references('id')
             ->on('sale_documents')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_closing_contracts_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_closing_contracts_id')
             ->references('id')
             ->on('sale_closing_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_logs_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_logs_id')
             ->references('id')
             ->on('sale_logs')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_contracts_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_contracts_id')
             ->references('id')
             ->on('sale_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_notaries_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_notaries_id')
             ->references('id')
             ->on('sale_notaries')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_signatures_id')
-            ->unsigned();
+            ->unsigned()
+            ->nullable();
       $table->foreign('sale_signatures_id')
             ->references('id')
             ->on('sale_signatures')
