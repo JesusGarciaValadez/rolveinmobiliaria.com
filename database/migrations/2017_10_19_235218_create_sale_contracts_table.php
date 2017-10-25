@@ -39,22 +39,30 @@ class CreateSaleContractsTable extends Migration
             ->on('cofinavit_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+      $table->date('mortgage_broker')
+            ->nullable();
+      $table->date('contract_with_the_broker')
+            ->nullable();
       $table->enum('mortgage_credit', [
           'INFONAVIT',
           'FOVISSSTE',
-          'COFINATIV',
+          'COFINAVIT',
           'Bancario',
           'Aliados',
-        ]);
-      $table->date('general_buyer');
-      $table->date('purchase_agreements');
-      $table->date('tax_assessment');
-      $table->date('notary_checklist');
-      $table->date('notary_file');
-      $table->date('contract_with_the_broquet')
+        ])
+        ->default('INFONAVIT');
+      $table->date('general_buyer')
             ->nullable();
-      $table->date('mortgage_broker')
+      $table->date('purchase_agreements')
             ->nullable();
+      $table->date('tax_assessment')
+            ->nullable();
+      $table->date('notary_checklist')
+            ->nullable();
+      $table->date('notary_file')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

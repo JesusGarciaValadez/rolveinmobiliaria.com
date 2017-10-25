@@ -23,17 +23,27 @@ class CreateSaleDocumentsTable extends Migration
             ->nullable();
       $table->date('deed')
             ->nullable();
-      $table->date('generals_sheet');
-      $table->date('INE');
-      $table->date('CURP');
+      $table->date('generals_sheet')
+            ->nullable();
+      $table->date('INE')
+            ->nullable();
+      $table->date('CURP')
+            ->nullable();
       $table->enum('civil_status', [
           'Soltero',
           'Casado',
-        ]);
-      $table->date('birth_certificate');
-      $table->date('account_status');
-      $table->string('email');
-      $table->string('phone');
+        ])
+        ->default('Soltero');
+      $table->date('birth_certificate')
+            ->nullable();
+      $table->date('account_status')
+            ->nullable();
+      $table->string('email')
+            ->nullable();
+      $table->string('phone')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

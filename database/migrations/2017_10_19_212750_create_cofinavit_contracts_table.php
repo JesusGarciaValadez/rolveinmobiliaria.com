@@ -18,18 +18,32 @@ class CreateCofinavitContractsTable extends Migration
       $table->enum('type', [
           'individual',
           'conjugal',
-        ]);
-      $table->date('request_for_credit_inspection');
-      $table->date('birth_certificate');
-      $table->date('official_id');
-      $table->date('curp');
-      $table->date('rfc');
-      $table->date('bank_statement_seller');
-      $table->date('tax_valuation');
-      $table->date('scripture_copy');
-      $table->date('birth_certificate_of_the_spouse');
-      $table->date('official_identification_of_the_spouse');
-      $table->date('marriage_certificate');
+        ])
+        ->default('individual');
+      $table->date('request_for_credit_inspection')
+            ->nullable();
+      $table->date('birth_certificate')
+            ->nullable();
+      $table->date('official_id')
+            ->nullable();
+      $table->date('curp')
+            ->nullable();
+      $table->date('rfc')
+            ->nullable();
+      $table->date('bank_statement_seller')
+            ->nullable();
+      $table->date('tax_valuation')
+            ->nullable();
+      $table->date('scripture_copy')
+            ->nullable();
+      $table->date('birth_certificate_of_the_spouse')
+            ->nullable();
+      $table->date('official_identification_of_the_spouse')
+            ->nullable();
+      $table->date('marriage_certificate')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

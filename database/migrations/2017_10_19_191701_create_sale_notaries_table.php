@@ -18,14 +18,24 @@ class CreateSaleNotariesTable extends Migration
       $table->enum('federal_entity', [
           'CDMX',
           'Edo. Mex.',
-        ]);
-      $table->string('notarys_office');
-      $table->date('freedom_of_lien_certificate');
-      $table->date('zoning');
-      $table->date('water_no-due_constants');
-      $table->date('non_debit_proof_of_property');
-      $table->date('certificate_of_improvement');
-      $table->date('key_and_cadastral_value');
+        ])
+        ->default('CDMX');
+      $table->string('notarys_office')
+            ->nullable();
+      $table->date('freedom_of_lien_certificate')
+            ->nullable();
+      $table->date('zoning')
+            ->nullable();
+      $table->date('water_no_due_constants')
+            ->nullable();
+      $table->date('non_debit_proof_of_property')
+            ->nullable();
+      $table->date('certificate_of_improvement')
+            ->nullable();
+      $table->date('key_and_cadastral_value')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

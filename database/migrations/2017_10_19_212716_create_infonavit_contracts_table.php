@@ -18,25 +18,40 @@ class CreateInfonavitContractsTable extends Migration
       $table->enum('type', [
           'individual',
           'conjugal',
-        ]);
-      $table->date('certified birth certificate');
-      $table->date('official ID');
-      $table->date('curp');
-      $table->date('rfc');
+        ])
+        ->default('individual');
+      $table->date('certified_birth_certificate')
+            ->nullable();
+      $table->date('official_ID')
+            ->nullable();
+      $table->date('curp')
+            ->nullable();
+      $table->date('rfc')
+            ->nullable();
       $table->date('spouses_birth_certificate')
             ->nullable();
       $table->date('official_identification_of_the_spouse')
             ->nullable();
       $table->date('marriage_certificate')
             ->nullable();
-      $table->date('credit_simulator');
-      $table->date('credit_application');
-      $table->date('tax_valuation');
-      $table->date('bank_statement');
-      $table->date('workshop_knowing_how_to_decide');
-      $table->date('retention_sheet');
-      $table->date('credit_activation');
-      $table->date('credit_maturity');
+      $table->date('credit_simulator')
+            ->nullable();
+      $table->date('credit_application')
+            ->nullable();
+      $table->date('tax_valuation')
+            ->nullable();
+      $table->date('bank_statement')
+            ->nullable();
+      $table->date('workshop_knowing_how_to_decide')
+            ->nullable();
+      $table->date('retention_sheet')
+            ->nullable();
+      $table->date('credit_activation')
+            ->nullable();
+      $table->date('credit_maturity')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

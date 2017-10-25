@@ -15,11 +15,18 @@ class CreateSaleSignaturesTable extends Migration
   {
     Schema::create('sale_signatures', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('writing_review');
-      $table->date('scheduled_date_of_writing_signature');
-      $table->date('writing_signature');
-      $table->date('scheduled_payment_date');
-      $table->date('payment_made');
+      $table->date('writing_review')
+            ->nullable();
+      $table->date('scheduled_date_of_writing_signature')
+            ->nullable();
+      $table->date('writing_signature')
+            ->nullable();
+      $table->date('scheduled_payment_date')
+            ->nullable();
+      $table->date('payment_made')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

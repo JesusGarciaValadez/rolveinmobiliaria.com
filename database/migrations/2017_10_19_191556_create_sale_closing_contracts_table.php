@@ -15,11 +15,18 @@ class CreateSaleClosingContractsTable extends Migration
   {
     Schema::create('sale_closing_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('commercial_valuation');
-      $table->date('exclusivity_contract');
-      $table->date('publication');
-      $table->string('data_sheet');
-      $table->string('closing_contract_observations');
+      $table->date('commercial_valuation')
+            ->nullable();
+      $table->date('exclusivity_contract')
+            ->nullable();
+      $table->date('publication')
+            ->nullable();
+      $table->string('data_sheet')
+            ->nullable();
+      $table->string('closing_contract_observations')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });

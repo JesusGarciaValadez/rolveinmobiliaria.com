@@ -7,47 +7,23 @@ $factory->define(App\Sale::class, function (Faker $faker) {
     'internal_expedients_id' => function () {
       return factory(App\InternalExpedient::class)->create()->id;
     },
-    $table->integer('sale_documents_id')
-          ->unsigned();
-    $table->foreign('sale_documents_id')
-          ->references('id')
-          ->on('sale_documents')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
-    $table->integer('sale_closing_contracts_id')
-          ->unsigned();
-    $table->foreign('sale_closing_contracts_id')
-          ->references('id')
-          ->on('sale_closing_contracts')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
-    $table->integer('sale_logs_id')
-          ->unsigned();
-    $table->foreign('sale_logs_id')
-          ->references('id')
-          ->on('sale_logs')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
-    $table->integer('sale_contracts_id')
-          ->unsigned();
-    $table->foreign('sale_contracts_id')
-          ->references('id')
-          ->on('sale_contracts')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
-    $table->integer('sale_notaries_id')
-          ->unsigned();
-    $table->foreign('sale_notaries_id')
-          ->references('id')
-          ->on('sale_notaries')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
-    $table->integer('sale_signatures_id')
-          ->unsigned();
-    $table->foreign('sale_signatures_id')
-          ->references('id')
-          ->on('sale_signatures')
-          ->onUpdate('cascade')
-          ->onDelete('cascade');
+    'sale_documents_id' => function () {
+      return factory(App\SaleDocument::class)->create()->id;
+    },
+    'sale_closing_contracts_id' => function () {
+      return factory(App\SaleClosingContract::class)->create()->id;
+    },
+    'sale_logs_id' => function () {
+      return factory(App\SaleLog::class)->create()->id;
+    },
+    'sale_contracts_id' => function () {
+      return factory(App\SaleContract::class)->create()->id;
+    },
+    'sale_notaries_id' => function () {
+      return factory(App\SaleNotary::class)->create()->id;
+    },
+    'sale_signatures_id' => function () {
+      return factory(App\SaleSignature::class)->create()->id;
+    },
   ];
 });

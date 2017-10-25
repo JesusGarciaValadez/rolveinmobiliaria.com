@@ -15,11 +15,18 @@ class CreateSaleLogsTable extends Migration
   {
     Schema::create('sale_logs', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('date');
-      $table->string('subject');
-      $table->string('log_observations');
-      $table->string('email');
-      $table->string('phone');
+      $table->date('date')
+            ->nullable();
+      $table->string('subject')
+            ->nullable();
+      $table->string('log_observations')
+            ->nullable();
+      $table->string('email')
+            ->nullable();
+      $table->string('phone')
+            ->nullable();
+      $table->boolean('complete')
+            ->default(false);
       $table->softDeletes();
       $table->timestamps();
     });
