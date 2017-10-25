@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use App\User;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardTest extends TestCase
@@ -14,16 +15,11 @@ class DashboardTest extends TestCase
   /** @test */
   public function admins_can_visit_the_admin_dashboard()
   {
-    $admin = factory(App\User::class)->create([
-      'name' => 'Admin',
-      'email' => 'test@rolveinmobiliaria.com.mx',
-      'password' => 'root',
-      'role_id' => 1,
-    ]);
-
-    $this->actionAs($admin)
+    $admin = factory(User::class)->create(['role_id' => 1]);
+    
+    $this->actingAs($admin)
          ->get(route('dashboard'))
-         ->assertStatus(HTTP_OK)
+         ->assertStatus(Response::HTTP_OK)
          ->assertSee('Dashboard');
   }
 
@@ -31,7 +27,6 @@ class DashboardTest extends TestCase
   public function non_registered_users_cannot_visit_the_admin_dashboard()
   {
     $this->get(route('dashboard'))
-         ->assertStatus(HTTP_FORBIDDEN)
-         ->assertSee('Dashboard');
+         ->assertStatus(Response::HTTP_FOUND);
   }
 }
