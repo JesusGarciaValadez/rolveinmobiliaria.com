@@ -50,4 +50,9 @@ class SaleLog extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->hasMany('App\Sale');
+  }
 }

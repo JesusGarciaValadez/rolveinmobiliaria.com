@@ -56,4 +56,24 @@ class SaleContract extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->hasOne('App\Sale');
+  }
+
+  public function infonavitContract()
+  {
+    return $this->belongsTo('App\InfonavitContract');
+  }
+
+  public function fovisssteContract()
+  {
+    return $this->belongsTo('App\FovisssteContract');
+  }
+
+  public function cofinavitContract()
+  {
+    return $this->belongsTo('App\CofinavitContract');
+  }
 }
