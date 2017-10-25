@@ -3,17 +3,9 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Sale::class, function (Faker $faker) {
-  $internal_expedients_id = $faker->randomElement([
-    factory(App\InternalExpedient::class)->create()->id,
-    null,
-  ]);
+  $internal_expedients_id = factory(App\InternalExpedient::class)->create()->id;
 
-  $sale_documents_id = (empty($internal_expedients_id))
-    ? null
-    : $faker->randomElement([
-        factory(App\SaleDocument::class)->create()->id,
-        null,
-      ]);
+  $sale_documents_id = factory(App\SaleDocument::class)->create()->id;
 
   $sale_closing_contracts_id = (empty($sale_documents_id))
     ? null
