@@ -14,7 +14,7 @@ $factory->define(App\SaleLog::class, function (Faker $faker) {
   ]);
 
   $log_observations = $faker->randomElement([
-    $faker->sentence(),
+    $faker->text(),
     null,
   ]);
 

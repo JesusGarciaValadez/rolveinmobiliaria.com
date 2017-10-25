@@ -19,11 +19,11 @@ class CreateSaleLogsTable extends Migration
             ->nullable();
       $table->string('subject')
             ->nullable();
-      $table->string('log_observations')
+      $table->text('log_observations')
             ->nullable();
-      $table->string('email')
+      $table->text('email')
             ->nullable();
-      $table->string('phone')
+      $table->text('phone')
             ->nullable();
       $table->boolean('complete')
             ->default(false);
