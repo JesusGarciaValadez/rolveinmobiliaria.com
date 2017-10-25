@@ -3,27 +3,48 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Sale::class, function (Faker $faker) {
+  $internal_expedients_id = $faker->randomElement([
+    factory(App\InternalExpedient::class)->create()->id,
+    null,
+  ]);
+
+  $sale_documents_id = $faker->randomElement([
+    factory(App\SaleDocument::class)->create()->id,
+    null,
+  ]);
+
+  $sale_closing_contracts_id = $faker->randomElement([
+    factory(App\SaleClosingContract::class)->create()->id,
+    null,
+  ]);
+
+  $sale_logs_id = $faker->randomElement([
+    factory(App\SaleLog::class)->create()->id,
+    null,
+  ]);
+
+  $sale_contracts_id = $faker->randomElement([
+    factory(App\SaleContract::class)->create()->id,
+    null,
+  ]);
+
+  $sale_notaries_id = $faker->randomElement([
+    factory(App\SaleNotary::class)->create()->id,
+    null,
+  ]);
+
+  $sale_signatures_id = $faker->randomElement([
+    factory(App\SaleSignature::class)->create()->id,
+    null,
+  ]);
+
   return [
-    'internal_expedients_id' => function () {
-      return factory(App\InternalExpedient::class)->create()->id;
-    },
-    'sale_documents_id' => function () {
-      return factory(App\SaleDocument::class)->create()->id;
-    },
-    'sale_closing_contracts_id' => function () {
-      return factory(App\SaleClosingContract::class)->create()->id;
-    },
-    'sale_logs_id' => function () {
-      return factory(App\SaleLog::class)->create()->id;
-    },
-    'sale_contracts_id' => function () {
-      return factory(App\SaleContract::class)->create()->id;
-    },
-    'sale_notaries_id' => function () {
-      return factory(App\SaleNotary::class)->create()->id;
-    },
-    'sale_signatures_id' => function () {
-      return factory(App\SaleSignature::class)->create()->id;
-    },
+    'internal_expedients_id' => $internal_expedients_id,
+    'sale_documents_id' => $sale_documents_id,
+    'sale_closing_contracts_id' => $sale_closing_contracts_id,
+    'sale_logs_id' => $sale_logs_id,
+    'sale_contracts_id' => $sale_contracts_id,
+    'sale_notaries_id' => $sale_notaries_id,
+    'sale_signatures_id' => $sale_signatures_id,
   ];
 });
