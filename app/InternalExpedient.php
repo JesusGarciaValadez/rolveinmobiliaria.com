@@ -49,9 +49,9 @@ class InternalExpedient extends Model
     return $this->belongsTo('App\Client');
   }
 
-  public function saleDocument()
+  public function sale()
   {
-    return $this->hasOne('App\SalesDocument');
+    return $this->hasMany('App\Sale', 'id');
   }
 
   public function getCreatedAttribute()

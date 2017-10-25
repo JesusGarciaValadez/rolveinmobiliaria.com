@@ -50,9 +50,4 @@ class SaleSignature extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
-
-  public function sale()
-  {
-    return $this->hasOne('App\Sale');
-  }
 }

@@ -15,6 +15,7 @@ class SaleLog extends Model
    * @var array
    */
   protected $fillable = [
+    'sales_id',
     'commercial_valuation',
     'exclusivity_contract',
     'publication',
@@ -53,6 +54,6 @@ class SaleLog extends Model
 
   public function sale()
   {
-    return $this->hasMany('App\Sale');
+    return $this->hasMany('App\Sale', 'id');
   }
 }

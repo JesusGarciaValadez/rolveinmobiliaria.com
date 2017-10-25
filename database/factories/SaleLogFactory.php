@@ -1,8 +1,14 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Sale;
 
 $factory->define(App\SaleLog::class, function (Faker $faker) {
+  $sale_id = $faker->randomElement([
+    factory(Sale::class)->create()->id,
+    null,
+  ]);
+
   $date = $faker->randomElement([
     $faker->date(),
     null,
@@ -29,6 +35,7 @@ $factory->define(App\SaleLog::class, function (Faker $faker) {
   ]);
 
   return [
+    'sales_id' => $sale_id,
     'date' => $date,
     'subject' => $subject,
     'log_observations' => $log_observations,

@@ -7,45 +7,6 @@ use App\FovisssteContract;
 use App\CofinavitContract;
 
 $factory->define(App\SaleContract::class, function (Faker $faker) {
-  $infonavit_contracts_id = $faker->randomElement([
-    factory(InfonavitContract::class)->create()->id,
-    null,
-  ]);
-
-  $fovissste_contracts_id = (empty($infonavit_contracts_id))
-    ? $faker->randomElement([
-        factory(FovisssteContract::class)->create()->id,
-        null,
-      ])
-    : null;
-
-  $cofinavit_contracts_id = (
-    empty($infonavit_contracts_id) &&
-    empty($fovissste_contracts_id)
-  )
-    ? $faker->randomElement([
-        factory(CofinavitContract::class)->create()->id,
-        null,
-      ])
-    : null;
-
-  $mortgage_broker = (
-    empty($infonavit_contracts_id) ||
-    empty($fovissste_contracts_id) ||
-    empty($cofinavit_contracts_id)
-  )
-    ? $faker->date()
-    : null;
-
-  $contract_with_the_broker = (
-    empty($infonavit_contracts_id) ||
-    empty($fovissste_contracts_id) ||
-    empty($cofinavit_contracts_id) ||
-    empty($mortgage_broker)
-  )
-    ? $faker->date()
-    : null;
-
   $mortgage_credit = $faker->randomElement([
     'INFONAVIT',
     'FOVISSSTE',
@@ -53,6 +14,26 @@ $factory->define(App\SaleContract::class, function (Faker $faker) {
     'Bancario',
     'Aliados',
   ]);
+
+  $infonavit_contracts_id = ($mortgage_credit == 'INFONAVIT')
+    ? factory(InfonavitContract::class)->create()->id
+    : null;
+
+  $fovissste_contracts_id = ($mortgage_credit == 'FOVISSSTE')
+    ? factory(FovisssteContract::class)->create()->id
+    : null;
+
+  $cofinavit_contracts_id = ($mortgage_credit == 'COFINAVIT')
+    ? factory(CofinavitContract::class)->create()->id
+    : null;
+
+  $mortgage_broker = ($mortgage_credit == 'Bancario')
+    ? $faker->date()
+    : null;
+
+  $contract_with_the_broker = ($mortgage_credit == 'Aliados')
+    ? $faker->date()
+    : null;
 
   $general_buyer = $faker->randomElement([
     $faker->date(),
@@ -80,15 +61,18 @@ $factory->define(App\SaleContract::class, function (Faker $faker) {
   ]);
 
   $complete = (
-    empty($infonavit_contracts_id) ||
-    empty($fovissste_contracts_id) ||
-    empty($cofinavit_contracts_id) ||
-    empty($mortgage_broker) ||
-    empty($mortgage_credit) ||
-    empty($general_buyer) ||
-    empty($purchase_agreements) ||
-    empty($tax_assessment) ||
-    empty($notary_checklist) ||
+    (
+      empty($infonavit_contracts_id) ||
+      empty($fovissste_contracts_id) ||
+      empty($cofinavit_contracts_id) ||
+      empty($mortgage_broker) ||
+      empty($contract_with_the_broker)
+    ) &&
+    empty($mortgage_credit) &&
+    empty($general_buyer) &&
+    empty($purchase_agreements) &&
+    empty($tax_assessment) &&
+    empty($notary_checklist) &&
     empty($notary_file)
   )
    ? false

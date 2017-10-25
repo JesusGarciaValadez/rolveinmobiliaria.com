@@ -54,37 +54,37 @@ class Sale extends Model
 
   public function internalExpedient()
   {
-    return $this->belongsTo('App\InternalExpedient');
+    return $this->belongsTo('App\InternalExpedient', 'id');
   }
 
   public function document()
   {
-    return $this->belongsTo('App\SaleDocument');
+    return $this->belongsTo('App\SaleDocument', 'id');
   }
 
   public function closingContract()
   {
-    return $this->belongsTo('App\SaleClosingContracts');
+    return $this->belongsTo('App\SaleClosingContract', 'id');
   }
 
   public function log()
   {
-    return $this->belongsTo('App\SaleLogs');
+    return $this->hasMany('App\SaleLog', 'id');
   }
 
   public function contract()
   {
-    return $this->belongsTo('App\SaleContract');
+    return $this->belongsTo('App\SaleContract', 'id');
   }
 
   public function notary()
   {
-    return $this->belongsTo('App\SaleNotary');
+    return $this->belongsTo('App\SaleNotary', 'id');
   }
 
   public function signature()
   {
-    return $this->belongsTo('App\SaleSignature');
+    return $this->belongsTo('App\SaleSignature', 'id');
   }
 
   public function getCreatedAttribute()
