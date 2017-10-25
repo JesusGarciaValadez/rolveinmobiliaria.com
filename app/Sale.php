@@ -16,18 +16,12 @@ class Sale extends Model
    */
   protected $fillable = [
     'internal_expedients_id',
-    'predial',
-    'light',
-    'water',
-    'deed',
-    'generals_sheet',
-    'INE',
-    'CURP',
-    'civil_status',
-    'birth_certificate',
-    'account_status',
-    'email',
-    'phone',
+    'sale_documents_id',
+    'sale_closing_contracts_id',
+    'sale_logs_id',
+    'sale_contracts_id',
+    'sale_notaries_id',
+    'sale_signatures_id',
   ];
 
   /**
@@ -61,6 +55,36 @@ class Sale extends Model
   public function internalExpedient()
   {
     return $this->belongsTo('App\InternalExpedient');
+  }
+
+  public function document()
+  {
+    return $this->belongsTo('App\SaleDocument');
+  }
+
+  public function closingContract()
+  {
+    return $this->belongsTo('App\SaleClosingContracts');
+  }
+
+  public function log()
+  {
+    return $this->belongsTo('App\SaleLogs');
+  }
+
+  public function contract()
+  {
+    return $this->belongsTo('App\SaleContract');
+  }
+
+  public function notary()
+  {
+    return $this->belongsTo('App\SaleNotary');
+  }
+
+  public function signature()
+  {
+    return $this->belongsTo('App\SaleSignature');
   }
 
   public function getCreatedAttribute()
