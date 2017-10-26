@@ -17,8 +17,8 @@ class DashboardTest extends TestCase
   public function admins_can_visit_the_admin_dashboard()
   {
     factory(Role::class)->create(['name' => 'Super Administrador']);
-    
-    $admin = factory(User::class)->create(['role_id' => 1]);
+
+    $admin = factory(User::class)->create();
 
     $this->actingAs($admin)
          ->get(route('dashboard'))
