@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\User;
+use App\Role;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardTest extends TestCase
@@ -15,8 +16,10 @@ class DashboardTest extends TestCase
   /** @test */
   public function admins_can_visit_the_admin_dashboard()
   {
-    $admin = factory(User::class)->create(['role_id' => 1]);
+    factory(Role::class)->create(['name' => 'Super Administrador']);
     
+    $admin = factory(User::class)->create(['role_id' => 1]);
+
     $this->actingAs($admin)
          ->get(route('dashboard'))
          ->assertStatus(Response::HTTP_OK)
