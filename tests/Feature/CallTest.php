@@ -18,22 +18,25 @@ class CallTest extends TestCase
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
-                        ->id; // id 1
+                        ->id;
     $adminRole = factory(Role::class)
                   ->create(['name' => 'Administrador'])
-                  ->id; // id 2
+                  ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id; // id 3
+                      ->id;
+    $trackingRole = factory(Role::class)
+                      ->create(['name' => 'Seguimiento'])
+                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
-                  ->id; // id 4
+                  ->id;
     $internRole = factory(Role::class)
                     ->create(['name' => 'Pasante'])
-                    ->id; // id 5
+                    ->id;
     $clientRole = factory(Role::class)
                     ->create(['name' => 'Cliente'])
-                    ->id; // id 6
+                    ->id;
 
     $superAdmin = factory(User::class)
                     ->create(['role_id' => $superAdminRole]);
@@ -49,22 +52,25 @@ class CallTest extends TestCase
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
-                        ->id; // id 1
+                        ->id;
     $adminRole = factory(Role::class)
                   ->create(['name' => 'Administrador'])
-                  ->id; // id 2
+                  ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id; // id 3
+                      ->id;
+    $trackingRole = factory(Role::class)
+                      ->create(['name' => 'Seguimiento'])
+                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
-                  ->id; // id 4
+                  ->id;
     $internRole = factory(Role::class)
                     ->create(['name' => 'Pasante'])
-                    ->id; // id 5
+                    ->id;
     $clientRole = factory(Role::class)
                     ->create(['name' => 'Cliente'])
-                    ->id; // id 6
+                    ->id;
 
     $admin = factory(User::class)
                     ->create(['role_id' => $adminRole]);
@@ -80,22 +86,25 @@ class CallTest extends TestCase
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
-                        ->id; // id 1
+                        ->id;
     $adminRole = factory(Role::class)
                   ->create(['name' => 'Administrador'])
-                  ->id; // id 2
+                  ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id; // id 3
+                      ->id;
+    $trackingRole = factory(Role::class)
+                      ->create(['name' => 'Seguimiento'])
+                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
-                  ->id; // id 4
+                  ->id;
     $internRole = factory(Role::class)
                     ->create(['name' => 'Pasante'])
-                    ->id; // id 5
+                    ->id;
     $clientRole = factory(Role::class)
                     ->create(['name' => 'Cliente'])
-                    ->id; // id 6
+                    ->id;
 
     $assistant = factory(User::class)
                     ->create(['role_id' => $assistantRole]);
@@ -111,22 +120,25 @@ class CallTest extends TestCase
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
-                        ->id; // id 1
+                        ->id;
     $adminRole = factory(Role::class)
                   ->create(['name' => 'Administrador'])
-                  ->id; // id 2
+                  ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id; // id 3
+                      ->id;
+    $trackingRole = factory(Role::class)
+                      ->create(['name' => 'Seguimiento'])
+                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
-                  ->id; // id 4
+                  ->id;
     $internRole = factory(Role::class)
                     ->create(['name' => 'Pasante'])
-                    ->id; // id 5
+                    ->id;
     $clientRole = factory(Role::class)
                     ->create(['name' => 'Cliente'])
-                    ->id; // id 6
+                    ->id;
 
     $sales = factory(User::class)
               ->create(['role_id' => $salesRole]);

@@ -13,7 +13,12 @@ class SalePolicy
 
     public function before(User $user)
     {
-      return ($user->isSuperAdmin() || $user->isAdmin() || $user->isSales())
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
         ? true
         : false;
     }
@@ -27,7 +32,14 @@ class SalePolicy
      */
     public function view(User $user)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -38,7 +50,14 @@ class SalePolicy
      */
     public function create(User $user)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -50,7 +69,14 @@ class SalePolicy
      */
     public function update(User $user, Sale $sale)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -62,12 +88,24 @@ class SalePolicy
      */
     public function delete(User $user, Sale $sale)
     {
-      //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
+        ? true
+        : false;
     }
 
     public function viewMenu(User $user)
     {
-      return ($user->isSuperAdmin() || $user->isAdmin() || $user->isSales())
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isSales()
+      )
         ? true
         : false;
     }

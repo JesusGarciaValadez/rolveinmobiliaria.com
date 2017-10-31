@@ -54,32 +54,51 @@ class User extends Authenticatable
 
   public function isSuperAdmin()
   {
-    return ($this->role_id === 1) ? true : false;
+    $role = Role::where('name', 'Super Administrador')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function isAdmin()
   {
-    return ($this->role_id === 2) ? true : false;
+    $role = Role::where('name', 'Administrador')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function isAssistant()
   {
-    return ($this->role_id === 3) ? true : false;
+    $role = Role::where('name', 'Asistente')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isTracking()
+  {
+    $role = Role::where('name', 'Seguimiento')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function isSales()
   {
-    return ($this->role_id === 4) ? true : false;
+    $role = Role::where('name', 'Ventas')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function isIntern()
   {
-    return ($this->role_id === 5) ? true : false;
+    $role = Role::where('name', 'Pasante')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function isClient()
   {
-    return ($this->role_id === 6) ? true : false;
+    $role = Role::where('name', 'Cliente')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
   }
 
   public function hasRole(String $role)

@@ -13,7 +13,12 @@ class CallPolicy
 
     public function before(User $user)
     {
-      return ($user->isSuperAdmin() || $user->isAdmin() || $user->isAssistant())
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
         ? true
         : false;
     }
@@ -27,7 +32,14 @@ class CallPolicy
      */
     public function view(User $user)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -38,7 +50,14 @@ class CallPolicy
      */
     public function create(User $user)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -50,7 +69,14 @@ class CallPolicy
      */
     public function update(User $user, Call $call)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -62,19 +88,36 @@ class CallPolicy
      */
     public function delete(User $user, Call $call)
     {
-        //
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
+        ? true
+        : false;
     }
 
     public function viewMenu(User $user)
     {
-      return ($user->isSuperAdmin() || $user->isAdmin() || $user->isAssistant())
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
         ? true
         : false;
     }
 
     public function viewDeleteButton(User $user)
     {
-      return ($user->isSuperAdmin() || $user->isAdmin())
+      return (
+        $user->isSuperAdmin() ||
+        $user->isAdmin() ||
+        $user->isAssistant() ||
+        $user->isTracking()
+      )
         ? true
         : false;
     }

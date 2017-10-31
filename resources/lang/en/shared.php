@@ -24,4 +24,5 @@ return [
     'medium' => 'Media !!',
     'hight' => 'Alta !!!',
     'send_email_to' => 'Send email to',
+    'error' => 'Error', 
 ];

@@ -18,6 +18,7 @@ class CreateRolesTable extends Migration
       $table->enum('name', [
               'Super Administrador',
               'Administrador',
+              'Seguimiento',
               'Asistente',
               'Ventas',
               'Pasante',

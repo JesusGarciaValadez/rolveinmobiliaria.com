@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/call_trackings')->middleware('auth')->group(function () {
+Route::prefix('/call_trackings')->middleware(['auth'])->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings');
 
@@ -56,7 +56,7 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
        ->name('search_call');
 });
 
-Route::prefix('/for_sales')->middleware('auth')->group(function () {
+Route::prefix('/for_sales')->middleware(['auth'])->group(function () {
   Route::get('/', 'SaleController@index')
        ->name('for_sales');
 

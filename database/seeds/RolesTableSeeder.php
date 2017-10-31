@@ -15,13 +15,17 @@ class RolesTableSeeder extends Seeder
     factory(App\Role::class)->create([
       'name' => 'Super Administrador',
     ]);
-    
+
     factory(App\Role::class)->create([
       'name' => 'Administrador',
     ]);
 
     factory(App\Role::class)->create([
       'name' => 'Asistente',
+    ]);
+
+    factory(App\Role::class)->create([
+      'name' => 'Seguimiento',
     ]);
 
     factory(App\Role::class)->create([

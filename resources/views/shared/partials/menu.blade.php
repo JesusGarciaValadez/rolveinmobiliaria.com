@@ -2,7 +2,9 @@
   <div class="list-group text-center">
     <a
       href="{{ route('dashboard') }}"
-      class="list-group-item{{ $uri == 'dashboard' ? ' active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'dashboard')
+        ? ' active'
+        : '' }}"
       title="@lang('section.dashboard')"
       data-toggle="tooltip"
       data-placement="right">
@@ -11,7 +13,9 @@
   @can('calls.menu', App\Call::class)
     <a
       href="{{ route('call_trackings') }}"
-      class="list-group-item{{ $uri == 'call_trackings' ? ' active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'call_trackings')
+        ? ' active'
+        : '' }}"
       title="@lang('section.call_tracking')"
       data-toggle="tooltip"
       data-placement="right">
@@ -23,7 +27,9 @@
   @can('sales.menu', App\Sale::class)
     <a
       href="{{ route('for_sales') }}"
-      class="list-group-item {{ $uri == 'for_sales' ? ' active' : '' }}"
+      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'for_sales')
+        ? ' active'
+        : '' }}"
       title="@lang('section.for_sale')"
       data-toggle="tooltip"
       data-placement="right">
@@ -35,7 +41,9 @@
   <!--
     <a
       href="#"
-      class="list-group-item{{ $uri == 'for_rent' ? ' active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'for_rent')
+      ? ' active'
+      : '' }}"
       title="@lang('section.rent')"
       data-toggle="tooltip"
       data-placement="right">
@@ -45,7 +53,9 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ $uri == 'mortgage_cancellation' ? 'active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'mortgage_cancellation')
+      ? 'active'
+      : '' }}"
       title="@lang('section.mortgage_cancellation')"
       data-toggle="tooltip"
       data-placement="right">
@@ -55,7 +65,9 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ $uri == 'legal' ? 'active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'legal')
+      ? 'active'
+      : '' }}"
       title="@lang('section.legal')"
       data-toggle="tooltip"
       data-placement="right">
@@ -65,7 +77,9 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ $uri == 'succession' ? 'active' : '' }}"
+      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'succession')
+      ? 'active'
+      : '' }}"
       title="@lang('section.succession')"
       data-toggle="tooltip"
       data-placement="right">

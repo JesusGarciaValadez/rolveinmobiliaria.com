@@ -8,6 +8,7 @@ $factory->define(App\Role::class, function (Faker $faker) {
       'Super Administrador',
       'Administrador',
       'Asistente',
+      'Seguimiento',
       'Ventas',
       'Pasante',
       'Cliente',
