@@ -71,6 +71,14 @@ class CreateSalesTable extends Migration
             ->on('sale_signatures')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+      $table->integer('user_id')
+            ->unsigned()
+            ->nullable();
+      $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
       $table->softDeletes();
       $table->timestamps();
     });
@@ -98,6 +106,8 @@ class CreateSalesTable extends Migration
             ->dropColumn('sale_notaries_id');
       $table->dropForeign('sales_sale_signatures_id_foreign')
             ->dropColumn('sale_signatures_id');
+      $table->dropForeign('sales_user_id_foreign')
+            ->dropColumn('user_id');
     });
 
     Schema::dropIfExists('sales');

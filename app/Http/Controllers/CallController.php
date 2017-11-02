@@ -30,10 +30,6 @@ class CallController extends Controller
    */
   public function index()
   {
-    if (Gate::denies('calls.view')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $locale = \App::getLocale();
 
     $uri = 'call_trackings';
@@ -51,10 +47,6 @@ class CallController extends Controller
    */
   public function create()
   {
-    if (Gate::denies('calls.create')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $locale = \App::getLocale();
 
     $uri = 'call_trackings';
@@ -75,10 +67,6 @@ class CallController extends Controller
    */
   public function store(CallRequest $request)
   {
-    if (Gate::denies('calls.create')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $data = $request->all();
     $data['user_id'] = \Auth::id();
     unset($data['_token']);
@@ -121,10 +109,6 @@ class CallController extends Controller
    */
   public function show(Request $request)
   {
-    if (Gate::denies('calls.view')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $locale = \App::getLocale();
 
     $uri = 'call_trackings';
@@ -142,10 +126,6 @@ class CallController extends Controller
    */
   public function edit(Request $request)
   {
-    if (Gate::denies('calls.update')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $locale = \App::getLocale();
 
     $uri = 'call_trackings';
@@ -166,10 +146,6 @@ class CallController extends Controller
    */
   public function update(CallRequest $request)
   {
-    if (Gate::denies('calls.update')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $data = $request->all();
     unset($data['_token']);
 
@@ -212,10 +188,6 @@ class CallController extends Controller
    */
   public function destroy(Request $request)
   {
-    if (Gate::denies('calls.delete')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $call = Call::findOrFail($request->id);
     $destroyed = $call->delete();
 
@@ -236,10 +208,6 @@ class CallController extends Controller
 
   public function search(CallSearchRequest $request)
   {
-    if (Gate::denies('calls.view')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     $calls = Call::whereBetween('created_at', [$request->date, now()->today()])
                  ->orderBy('id', 'desc')
                  ->paginate(5);

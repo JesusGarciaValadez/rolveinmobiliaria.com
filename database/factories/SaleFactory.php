@@ -42,6 +42,8 @@ $factory->define(App\Sale::class, function (Faker $faker) {
         null,
       ]);
 
+  $user_id = factory(App\User::class)->create()->id;
+
   return [
     'internal_expedients_id' => $internal_expedients_id,
     'sale_documents_id' => $sale_documents_id,
@@ -50,5 +52,6 @@ $factory->define(App\Sale::class, function (Faker $faker) {
     'sale_contracts_id' => $sale_contracts_id,
     'sale_notaries_id' => $sale_notaries_id,
     'sale_signatures_id' => $sale_signatures_id,
+    'user_id' => $user_id,
   ];
 });

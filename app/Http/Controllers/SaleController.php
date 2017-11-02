@@ -54,7 +54,38 @@ class SaleController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $data = $request->all();
+    $data['user_id'] = \Auth::id();
+    unset($data['_token']);
+
+    $updated = Sale::create($data);
+
+    $message = ($updated)
+               ? 'Nueva llamada creada'
+               : 'No se pudo crear la llamada.';
+
+    $type = ($updated)
+            ? 'success'
+            : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      if ($updated)
+      {
+        return redirect('for_sales')->with( 'message', $message )
+                                         ->with( 'type', 'success' );
+      }
+      else
+      {
+        return redirect()->back()
+                         ->with( 'message', $message )
+                         ->with( 'type', 'success' );
+      }
+    }
   }
 
   /**
