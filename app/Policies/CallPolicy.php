@@ -67,7 +67,7 @@ class CallPolicy
      * @param  \App\Call  $call
      * @return mixed
      */
-    public function update(User $user, Call $call)
+    public function update(User $user, $call)
     {
       return (
         $user->isSuperAdmin() ||
@@ -86,7 +86,7 @@ class CallPolicy
      * @param  \App\Call  $call
      * @return mixed
      */
-    public function delete(User $user, Call $call)
+    public function delete(User $user, $call)
     {
       return (
         $user->isSuperAdmin() ||

@@ -33,7 +33,7 @@ class AlterCallsTable extends Migration
               ->references('id')
               ->on('clients')
               ->onUpdate('cascade')
-              ->onDelete('set null');
+              ->onDelete('cascade');
       });
     }
 

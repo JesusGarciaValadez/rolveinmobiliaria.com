@@ -136,7 +136,9 @@ class CallController extends Controller
 
     $call = Call::findOrFail($request->id);
 
-    return view('call.edit', compact('uri', 'states', 'call'));
+    $clients = Client::all()->sortBy('name');
+
+    return view('call.edit', compact('uri', 'states', 'call', 'clients'));
   }
 
   /**
