@@ -5,81 +5,113 @@ namespace App\Http\Controllers;
 use App\Client;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ClientRequest;
+
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    //
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(ClientRequest $request)
+  {
+    $data = $request->all();
+    unset($data['_token']);
+
+    $isRepeated = Client::where('email', $data['email']);
+
+    if ($isRepeated) {
+      return redirect()->back()
+                       ->with('message', 'El cliente ya existe. El email ya se encuentra en la base de datos.')
+                       ->with('type', 'warning');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    $updated = Client::create($data);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    $message = ($updated)
+               ? 'Nuevo cliente creado'
+               : 'No se pudo agregar el cliente.';
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
-    }
+    $type = ($updated)
+            ? 'success'
+            : 'danger';
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
+    if ( $request->ajax() )
     {
-        //
+      return response()->json(['message' => $message]);
     }
+    else
+    {
+      return redirect()->back()
+                       ->with('message', $message)
+                       ->with('type', 'success');
+    }
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
-    {
-        //
-    }
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Client  $client
+   * @return \Illuminate\Http\Response
+   */
+  public function show(Client $client)
+  {
+      //
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
-    {
-        //
-    }
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  \App\Client  $client
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(Client $client)
+  {
+      //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Client  $client
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, Client $client)
+  {
+      //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Client  $client
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Client $client)
+  {
+      //
+  }
 }

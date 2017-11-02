@@ -1,1 +1,1 @@
-                  <td colspan="13"></td>
+                  <td colspan="12"></td>

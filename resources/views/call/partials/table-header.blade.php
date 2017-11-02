@@ -1,4 +1,3 @@
-                  <th class="text-center">@lang('call.id')</th>
                   <th class="text-center">@lang('call.internal_expedient')</th>
                   <th class="text-center">@lang('call.operation')</th>
                   <th class="text-center">@lang('call.client')</th>

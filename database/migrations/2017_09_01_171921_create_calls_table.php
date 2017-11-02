@@ -26,11 +26,7 @@ class CreateCallsTable extends Migration
               'Avalúos',
             ])
             ->default('Venta');
-      $table->string('client');
-      $table->string('client_phone_1');
-      $table->string('client_phone_2')
-            ->nullable();
-      $table->string('email')
+      $table->string('address')
             ->nullable();
       $table->integer('user_id')
             ->unsigned()
@@ -41,8 +37,6 @@ class CreateCallsTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('set null');
       $table->text('observations')
-            ->nullable();
-      $table->string('address')
             ->nullable();
       $table->text('status')
             ->nullable();

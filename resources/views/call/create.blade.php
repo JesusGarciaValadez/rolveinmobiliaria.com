@@ -18,7 +18,10 @@
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
-          <form class="form-horizontal" action="{{ route('store_call') }}" method="post">
+          <form
+            class="form-horizontal"
+            action="{{ route('store_call') }}"
+            method="post">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
@@ -93,92 +96,45 @@
               </div>
             </div>
 
-            <div class="form-group{{ $errors->has('client') ? ' has-error' : ''}}">
+            <div class="form-group{{ $errors->has('client_id') ? ' has-error' : ''}}">
               <label
-                for="client"
+                for="client_id"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.client'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="text"
+              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <select
                   class="form-control"
-                  name="client"
-                  id="client"
-                  value="{{ old('client') }}"
-                  placeholder="@lang('call.clients_name')"
-                  autocorrect="on"
-                  required>
+                  id="client_id"
+                  name="client_id"
+                  required
+                  autofocus>
+                  <option
+                    value=""
+                    selected>
+                    @lang('call.choose_an_option')</option>
+                  @foreach ($clients as $client)
+                    <option
+                    value="{{ $client->id }}"
+                    @if (old('client_id') == $client->id)
+                      selected
+                    @endif>{{ $client->name }}</option>
+                  @endforeach
+                </select>
 
-                  @if ($errors->has('client'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
+                <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  ¿No encuentras al cliente?
+                  <a
+                    href="#"
+                    title="¡Crealo!"
+                    target="_self"
+                    data-toggle="modal"
+                    data-target="#newClient">¡Crealo!</a>
+                </p>
 
-            <div class="form-group{{ $errors->has('client_phone_1') ? ' has-error' : ''}}">
-              <label
-                for="client_phone_1"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.phone') 1: </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
-                  class="form-control"
-                  name="client_phone_1"
-                  id="client_phone_1"
-                  value="{{ old('client_phone_1') }}"
-                  placeholder="@lang('call.phone') 1"
-                  autocorrect="on"
-                  required>
-
-                  @if ($errors->has('client_phone_1'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client_phone_1') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('client_phone_2') ? ' has-error' : ''}}">
-              <label
-                for="client_phone_2"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.phone') 2: </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
-                  class="form-control"
-                  name="client_phone_2"
-                  id="client_phone_2"
-                  value="{{ old('client_phone_2') }}"
-                  placeholder="@lang('call.phone') 2"
-                  autocorrect="on">
-
-                  @if ($errors->has('client_phone_2'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client_phone_2') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
-              <label
-                for="email"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.email'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  value="{{ old('email') }}"
-                  placeholder="@lang('call.email')"
-                  autocorrect="on">
-
-                  @if ($errors->has('email'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                  @endif
+                @if ($errors->has('client'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('client') }}</strong>
+                  </span>
+                @endif
               </div>
             </div>
 
@@ -315,6 +271,121 @@
               </div>
             </div>
           </form>
+
+          <div
+            class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="makeANewClient"
+            id="newClient">
+            <div class="modal-dialog" role="document">
+              <form
+                class="form-horizontal modal-content"
+                action="{{ route('store_client') }}"
+                method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Agregar cliente nuevo</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group{{ $errors->has('name') ? ' has-error' : ''}}">
+                    <label
+                    for="name"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('call.client'): </label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="name"
+                      id="name"
+                      value="{{ old('name') }}"
+                      placeholder="@lang('call.clients_name')"
+                      autocorrect="on"
+                      required>
+
+                      @if ($errors->has('name'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group{{ $errors->has('phone_1') ? ' has-error' : ''}}">
+                    <label
+                    for="phone_1"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('call.phone') 1: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                      <input
+                      type="tel"
+                      class="form-control"
+                      name="phone_1"
+                      id="phone_1"
+                      value="{{ old('phone_1') }}"
+                      placeholder="@lang('call.phone') 1"
+                      autocorrect="on"
+                      required>
+
+                      @if ($errors->has('phone_1'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('phone_1') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group{{ $errors->has('phone_2') ? ' has-error' : ''}}">
+                    <label
+                    for="phone_2"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('call.phone') 2: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                      <input
+                      type="tel"
+                      class="form-control"
+                      name="phone_2"
+                      id="phone_2"
+                      value="{{ old('phone_2') }}"
+                      placeholder="@lang('call.phone') 2"
+                      autocorrect="on">
+
+                      @if ($errors->has('phone_2'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('phone_2') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
+                    <label
+                    for="email"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('call.email'): </label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                      <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      value="{{ old('email') }}"
+                      placeholder="@lang('call.email')"
+                      autocorrect="on">
+
+                      @if ($errors->has('email'))
+                        <span class="help-block">
+                          <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </form><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
         </div>
       </div>
     </div>

@@ -63,9 +63,9 @@ class Call extends Model
     return $this->belongsTo('App\User');
   }
 
-  public function state()
+  public function client()
   {
-    return $this->belongsTo('App\State');
+    return $this->belongsTo('App\Client');
   }
 
   public function getCreatedAttribute()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Call;
 use App\State;
+use App\Client;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -36,7 +37,6 @@ class CallController extends Controller
 
     $calls = Call::orderBy('id', 'desc')->paginate(5);
 
-
     return view('call.index', compact('calls', 'uri'));
   }
 
@@ -49,6 +49,8 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
+    $clients = Client::all()->sortBy('name');
+
     $uri = 'call_trackings';
 
     Carbon::setLocale($locale);
@@ -56,7 +58,7 @@ class CallController extends Controller
 
     $states = State::all();
 
-    return view('call.create', compact('created_at', 'uri', 'states'));
+    return view('call.create', compact('created_at', 'uri', 'states', 'clients'));
   }
 
   /**

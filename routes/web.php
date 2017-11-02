@@ -30,7 +30,33 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/call_trackings')->middleware(['auth'])->group(function () {
+Route::prefix('/clients')->middleware('auth')->group(function () {
+  Route::get('/', 'ClientController@index')
+       ->name('clients');
+
+  Route::get('/new', 'ClientController@create')
+       ->name('create_client');
+
+  Route::post('/store', 'ClientController@store')
+       ->name('store_client');
+
+  Route::get('/show/{id}', 'ClientController@show')
+       ->name('show_client');
+
+  Route::get('/edit/{id}', 'ClientController@edit')
+       ->name('edit_client');
+
+  Route::put('/uptate/{id}', 'ClientController@update')
+       ->name('update_client');
+
+  Route::delete('/destroy/{id}', 'ClientController@destroy')
+       ->name('destroy_client');
+
+  Route::get('/search/{date?}', 'ClientController@search')
+       ->name('search_client');
+});
+
+Route::prefix('/call_trackings')->middleware('auth')->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings')
        ->middleware('can:calls.view, App\Sale');
@@ -64,7 +90,7 @@ Route::prefix('/call_trackings')->middleware(['auth'])->group(function () {
        ->middleware('can:calls.view, call');
 });
 
-Route::prefix('/for_sales')->middleware(['auth'])->group(function () {
+Route::prefix('/for_sales')->middleware('auth')->group(function () {
   Route::get('/', 'SaleController@index')
        ->name('for_sales')
        ->middleware('can:sales.view, App\Sale');

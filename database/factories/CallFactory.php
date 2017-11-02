@@ -12,15 +12,16 @@ $factory->define(App\Call::class, function (Faker $faker) {
       'Jurídico',
       'Avalúos',
     ]),
-    'client' => $faker->name(),
-    'client_phone_1' => $faker->phoneNumber(),
-    'client_phone_2' => $faker->phoneNumber(),
-    'email' => $faker->freeEmail(),
-    'user_id' => function () {
+    'address' => $faker->address(),
+    'client_id' => function ()
+    {
+      return factory(App\Client::class)->create()->id;
+    },
+    'user_id' => function ()
+    {
       return factory(App\User::class)->states('assistant')->create()->id;
     },
     'observations' => $faker->text(),
-    'address' => $faker->address(),
     'status' => $faker->sentences(3, true),
     'priority' => $faker->randomElement([
       'Baja',
