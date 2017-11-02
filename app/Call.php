@@ -68,6 +68,11 @@ class Call extends Model
     return $this->belongsTo('App\Client');
   }
 
+  public function state()
+  {
+    return $this->belongsTo('App\State');
+  }
+
   public function getCreatedAttribute()
   {
     $date = $this->created_at->format('Y-M-d h:i a');
