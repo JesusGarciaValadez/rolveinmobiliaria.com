@@ -20,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
       'App\Model' => 'App\Policies\ModelPolicy',
       App\Call::class => App\Policies\CallPolicy::class,
-      App\Sale::class => App\Policies\SalePolicy::class
+      App\Sale::class => App\Policies\SalePolicy::class,
     ];
 
     /**
@@ -32,14 +32,8 @@ class AuthServiceProvider extends ServiceProvider
     {
       $this->registerPolicies();
 
-      Gate::resource('calls', 'App\Policies\CallPolicy', [
-        'view' => 'view',
-        'menu' => 'viewMenu',
-        'delete' => 'viewDeleteButton',
-      ]);
-      
-      Gate::resource('sales', 'App\Policies\SalePolicy', [
-        'menu' => 'viewMenu'
-      ]);
+      Gate::resource('calls', 'App\Policies\CallPolicy');
+
+      Gate::resource('sales', 'App\Policies\SalePolicy');
     }
 }

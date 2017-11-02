@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class SaleController extends Controller
 {
@@ -25,7 +26,7 @@ class SaleController extends Controller
 
     $locale = \App::getLocale();
 
-    $uri = 'for_sale';
+    $uri = 'for_sales';
 
     return view('sale.index', compact('sales', 'uri'));
   }
@@ -37,7 +38,7 @@ class SaleController extends Controller
    */
   public function create()
   {
-    $uri = 'for_sale';
+    $uri = 'for_sales';
 
     $states = State::all();
 
@@ -62,9 +63,13 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function show(Sale $sale)
+  public function show(Request $request)
   {
-      //
+    $uri = 'for_sales';
+
+    $sale = Sale::findOrFail($request->id);
+
+    return view('sale.show', compact('uri', 'sale'));
   }
 
   /**
@@ -75,7 +80,7 @@ class SaleController extends Controller
    */
   public function edit(Sale $sale)
   {
-      //
+    //
   }
 
   /**
@@ -87,7 +92,7 @@ class SaleController extends Controller
    */
   public function update(Request $request, Sale $sale)
   {
-      //
+    //
   }
 
   /**
@@ -96,8 +101,23 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Sale $sale)
+  public function destroy(Request $request)
   {
-      //
+    $sale = Sale::findOrFail($request->id);
+    $destroyed = $sale->delete();
+
+    $message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
+    $type = ($destroyed) ? 'success' : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return redirect()->back()
+                       ->with( 'message', $message )
+                       ->with( 'type', 'success' );
+    }
   }
 }

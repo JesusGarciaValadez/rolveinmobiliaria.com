@@ -131,10 +131,6 @@ class CallController extends Controller
 
     $call = Call::findOrFail($request->id);
 
-    if (Gate::denies('calls.view')) {
-      return abort(403, 'Acción no autorizada.');
-    }
-
     return view('call.show', compact('call', 'uri'));
   }
 

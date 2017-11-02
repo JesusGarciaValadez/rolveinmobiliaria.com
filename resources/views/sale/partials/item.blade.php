@@ -1,12 +1,6 @@
                 <tr>
                   <td class="text-center">
-                    <a
-                      href="{{ route('show_sale', $sale->internalExpedient->id) }}"
-                      target="_self"
-                      title="{{ $sale->internalExpedient->client->name }}"
-                    >
-                      {{ $sale->internalExpedient->expedient }}
-                    </a>
+                    {{ $sale->internalExpedient->expedient }}
                   </td>
                   <td class="text-center">
                     {{ $sale->internalExpedient->client->name }}
@@ -104,6 +98,6 @@
                   <td class="text-center">
                     @include('sale.partials.buttons.edit')
 
-                    @include('sale.partials.buttons.delete')
+                    @include('sale.partials.buttons.delete', ['sale' => $sale])
                   </td>
                 </tr>

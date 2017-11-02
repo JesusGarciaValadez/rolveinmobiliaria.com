@@ -67,7 +67,7 @@ class SalePolicy
      * @param  \App\Sale  $sale
      * @return mixed
      */
-    public function update(User $user, Sale $sale)
+    public function update(User $user, $sale)
     {
       return (
         $user->isSuperAdmin() ||
@@ -86,19 +86,7 @@ class SalePolicy
      * @param  \App\Sale  $sale
      * @return mixed
      */
-    public function delete(User $user, Sale $sale)
-    {
-      return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
-      )
-        ? true
-        : false;
-    }
-
-    public function viewMenu(User $user)
+    public function delete(User $user, $sale)
     {
       return (
         $user->isSuperAdmin() ||

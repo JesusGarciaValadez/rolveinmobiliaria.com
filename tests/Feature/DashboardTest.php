@@ -16,9 +16,27 @@ class DashboardTest extends TestCase
   /** @test */
   public function admins_can_visit_the_admin_dashboard()
   {
+    $superAdminRole = factory(Role::class)
+                        ->create(['name' => 'Super Administrador'])
+                        ->id;
     $adminRole = factory(Role::class)
                   ->create(['name' => 'Administrador'])
                   ->id;
+    $assistantRole = factory(Role::class)
+                      ->create(['name' => 'Asistente'])
+                      ->id;
+    $trackingRole = factory(Role::class)
+                      ->create(['name' => 'Seguimiento'])
+                      ->id;
+    $salesRole = factory(Role::class)
+                  ->create(['name' => 'Ventas'])
+                  ->id;
+    $internRole = factory(Role::class)
+                    ->create(['name' => 'Pasante'])
+                    ->id;
+    $clientRole = factory(Role::class)
+                    ->create(['name' => 'Cliente'])
+                    ->id;
 
     $admin = factory(User::class)->create(['role_id' => $adminRole]);
 

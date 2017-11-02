@@ -32,51 +32,66 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::prefix('/call_trackings')->middleware(['auth'])->group(function () {
   Route::get('/', 'CallController@index')
-       ->name('call_trackings');
+       ->name('call_trackings')
+       ->middleware('can:calls.view, App\Sale');
 
   Route::get('/new', 'CallController@create')
-       ->name('create_call');
+       ->name('create_call')
+       ->middleware('can:calls.create, App\Call');
 
   Route::post('/store', 'CallController@store')
-       ->name('store_call');
+       ->name('store_call')
+       ->middleware('can:calls.create, call');
 
   Route::get('/show/{id}', 'CallController@show')
-       ->name('show_call');
+       ->name('show_call')
+       ->middleware('can:calls.view, call');
 
   Route::get('/edit/{id}', 'CallController@edit')
-       ->name('edit_call');
+       ->name('edit_call')
+       ->middleware('can:calls.update, call');
 
   Route::put('/uptate/{id}', 'CallController@update')
-       ->name('update_call');
+       ->name('update_call')
+       ->middleware('can:calls.update, call');
 
   Route::delete('/destroy/{id}', 'CallController@destroy')
-       ->name('destroy_call');
+       ->name('destroy_call')
+       ->middleware('can:calls.delete, call');
 
   Route::get('/search/{date?}', 'CallController@search')
-       ->name('search_call');
+       ->name('search_call')
+       ->middleware('can:calls.view, call');
 });
 
 Route::prefix('/for_sales')->middleware(['auth'])->group(function () {
   Route::get('/', 'SaleController@index')
-       ->name('for_sales');
+       ->name('for_sales')
+       ->middleware('can:sales.view, App\Sale');
 
   Route::get('/new', 'SaleController@create')
-       ->name('create_sale');
+       ->name('create_sale')
+       ->middleware('can:sales.create, App\Sale');
 
   Route::post('/store', 'SaleController@store')
-       ->name('store_sale');
+       ->name('store_sale')
+       ->middleware('can:sales.create, sale');
 
   Route::get('/show/{id}', 'SaleController@show')
-       ->name('show_sale');
+       ->name('show_sale')
+       ->middleware('can:sales.view, sale');
 
   Route::get('/edit/{id}', 'SaleController@edit')
-       ->name('edit_sale');
+       ->name('edit_sale')
+       ->middleware('can:sales.update, update');
 
   Route::put('/uptate/{id}', 'SaleController@update')
-       ->name('update_sale');
+       ->name('update_sale')
+       ->middleware('can:sales.update, sale');
 
   Route::delete('/destroy/{id}', 'SaleController@destroy')
-       ->name('destroy_sale');
+       ->name('destroy_sale')
+       ->middleware('can:sales.delete, sale');
 
   Route::get('/search/{date?}', 'SaleController@search')
        ->name('search_sale');

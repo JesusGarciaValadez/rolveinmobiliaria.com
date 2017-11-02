@@ -10,7 +10,7 @@
       data-placement="right">
       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     </a>
-  @can('calls.menu', App\Call::class)
+  @can('calls.view')
     <a
       href="{{ route('call_trackings') }}"
       class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'call_trackings')
@@ -24,7 +24,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('sales.menu', App\Sale::class)
+  @can('sales.view')
     <a
       href="{{ route('for_sales') }}"
       class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'for_sales')

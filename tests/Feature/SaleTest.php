@@ -9,12 +9,12 @@ use App\User;
 use App\Role;
 use Symfony\Component\HttpFoundation\Response;
 
-class CallTest extends TestCase
+class SaleTest extends TestCase
 {
   use RefreshDatabase;
 
   /** @test */
-  public function super_admin_can_visit_the_call_section()
+  public function super_admin_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -42,13 +42,13 @@ class CallTest extends TestCase
                     ->create(['role_id' => $superAdminRole]);
 
     $this->actingAs($superAdmin)
-         ->get(route('call_trackings'))
+         ->get(route('for_sales'))
          ->assertSuccessful()
-         ->assertSee('Seguimiento de llamadas');
+         ->assertSee('Compra venta');
   }
 
   /** @test */
-  public function admins_can_visit_the_call_section()
+  public function admins_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -76,13 +76,13 @@ class CallTest extends TestCase
                     ->create(['role_id' => $adminRole]);
 
     $this->actingAs($admin)
-         ->get(route('call_trackings'))
+         ->get(route('for_sales'))
          ->assertSuccessful()
-         ->assertSee('Seguimiento de llamadas');
+         ->assertSee('Compra venta');
   }
 
   /** @test */
-  public function assistants_can_visit_the_call_section()
+  public function assistants_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -110,13 +110,13 @@ class CallTest extends TestCase
                     ->create(['role_id' => $assistantRole]);
 
     $this->actingAs($assistant)
-         ->get(route('call_trackings'))
+         ->get(route('for_sales'))
          ->assertSuccessful()
-         ->assertSee('Seguimiento de llamadas');
+         ->assertSee('Compra venta');
   }
 
   /** @test */
-  public function trackings_cannot_visit_the_call_section()
+  public function trackings_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -144,13 +144,13 @@ class CallTest extends TestCase
                   ->create(['role_id' => $trackingRole]);
 
     $this->actingAs($tracking)
-         ->get(route('call_trackings'))
-         ->assertSuccessful()
-         ->assertSee('Seguimiento de llamadas');
+         ->get(route('for_sales'))
+         ->assertStatus(Response::HTTP_FORBIDDEN)
+         ->assertDontSee('Compra venta');
   }
 
   /** @test */
-  public function sales_cannot_visit_the_call_section()
+  public function sales_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -178,13 +178,13 @@ class CallTest extends TestCase
               ->create(['role_id' => $salesRole]);
 
     $this->actingAs($sales)
-         ->get(route('call_trackings'))
-         ->assertStatus(Response::HTTP_FORBIDDEN)
-         ->assertDontSee('Seguimiento de llamadas');
+         ->get(route('for_sales'))
+         ->assertSuccessful()
+         ->assertSee('Compra venta');
   }
 
   /** @test */
-  public function interns_cannot_visit_the_call_section()
+  public function interns_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -212,13 +212,13 @@ class CallTest extends TestCase
               ->create(['role_id' => $internRole]);
 
     $this->actingAs($intern)
-         ->get(route('call_trackings'))
+         ->get(route('for_sales'))
          ->assertStatus(Response::HTTP_FORBIDDEN)
-         ->assertDontSee('Seguimiento de llamadas');
+         ->assertDontSee('Compra venta');
   }
 
   /** @test */
-  public function client_cannot_visit_the_call_section()
+  public function client_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -246,8 +246,8 @@ class CallTest extends TestCase
               ->create(['role_id' => $clientRole]);
 
     $this->actingAs($client)
-         ->get(route('call_trackings'))
+         ->get(route('for_sales'))
          ->assertStatus(Response::HTTP_FORBIDDEN)
-         ->assertDontSee('Seguimiento de llamadas');
+         ->assertDontSee('Compra venta');
   }
 }

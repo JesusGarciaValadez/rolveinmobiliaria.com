@@ -97,28 +97,4 @@ class CallPolicy
         ? true
         : false;
     }
-
-    public function viewMenu(User $user)
-    {
-      return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
-      )
-        ? true
-        : false;
-    }
-
-    public function viewDeleteButton(User $user)
-    {
-      return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
-      )
-        ? true
-        : false;
-    }
 }

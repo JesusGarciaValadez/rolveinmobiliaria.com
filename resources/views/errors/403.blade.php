@@ -16,7 +16,10 @@
                       <div class="content">
                           <div class="title">
                               <h2>{{ $exception->getMessage() }}</h2>
-                              <img src="img/you-shall-not-pass.gif" alt="No lograrás pasar" style="display: block; margin: 0 auto;">
+                              <img
+                                src="{{ asset('img/you-shall-not-pass.gif') }}"
+                                style="display: block; margin: 0 auto;"
+                                alt="No lograrás pasar">
                           </div>
                       </div>
                   </div>

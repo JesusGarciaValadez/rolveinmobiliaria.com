@@ -1,5 +1,9 @@
-@can('calls.delete', $call)
-  <form class="form-inline" action="{{ route('destroy_call', ['id' => $call->id]) }}" method="post" class="text-center">
+@can('sales.delete', $sale)
+  <form
+    class="form-inline"
+    action="{{ route('destroy_sale', ['id' => $sale->id]) }}"
+    method="post"
+    class="text-center">
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
     <div class="form-group">
