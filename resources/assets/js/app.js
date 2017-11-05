@@ -53,7 +53,7 @@ if (clientRoot !== null) {
 
           const inicialization = {
             method: 'GET',
-            mode: 'cors',
+            mode: 'no-cors',
             cache: 'default'
           }
 
