@@ -119,14 +119,17 @@
                   @change="getClientInfo">
                   <option
                     value=""
-                    selected>
+                    @if (!old('client_id'))
+                      selected
+                    @endif>
                     @lang('call.choose_an_option')</option>
                   @foreach ($clients as $client)
                     <option
                       value="{{ $client->id }}"
-                      @if (old('client_id') == $client->id)
-                        selected
-                      @endif>{{ $client->name }}</option>
+                      {{ ($client->id == $call->client->id) ||
+                         (old('client_id') == $client->id)
+                            ? 'selected'
+                            : ''}}>{{ $client->name }}</option>
                   @endforeach
                 </select>
 

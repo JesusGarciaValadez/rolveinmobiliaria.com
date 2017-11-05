@@ -25,6 +25,8 @@
           @include('shared.partials.alerts.message')
 
           <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {{ $sales->links() }}
+
             <table class="table table-bordered table-striped table-condensed">
               <thead>
                 <tr>
@@ -42,6 +44,8 @@
                 @each('sale.partials.items', $sales, 'sale')
               </tbody>
             </table>
+
+            {{ $sales->links() }}
           </div>
         </div>
 

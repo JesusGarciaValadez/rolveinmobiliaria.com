@@ -35,7 +35,7 @@ class CallController extends Controller
 
     $uri = 'call_trackings';
 
-    $calls = Call::orderBy('id', 'desc')->paginate(5);
+    $calls = Call::with('state')->orderBy('id', 'desc')->paginate(5);
 
     return view('call.index', compact('calls', 'uri'));
   }
@@ -49,7 +49,7 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $clients = Client::all()->sortBy('name');
+    $clients = Client::with('internalExpedient')->all()->sortBy('name');
 
     $uri = 'call_trackings';
 
@@ -154,7 +154,7 @@ class CallController extends Controller
     unset($data['_token']);
 
     $updated = Call::findOrFail($request->id)
-                   ->update($data);
+                ->update($data);
 
     $message = ($updated)
                ? 'Llamada actualizada'

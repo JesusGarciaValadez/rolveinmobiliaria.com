@@ -1,5 +1,10 @@
                 <tr>
                   <td class="text-center">
+                    @include('sale.partials.buttons.edit')
+
+                    @include('sale.partials.buttons.delete', ['sale' => $sale])
+                  </td>
+                  <td class="text-center">
                     {{ $sale->internalExpedient->expedient }}
                   </td>
                   <td class="text-center">
@@ -94,10 +99,5 @@
                           ? 'Incompleto'
                           : 'Completo' }}
                     </span>
-                  </td>
-                  <td class="text-center">
-                    @include('sale.partials.buttons.edit')
-
-                    @include('sale.partials.buttons.delete', ['sale' => $sale])
                   </td>
                 </tr>

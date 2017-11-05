@@ -936,6 +936,9 @@ var ClientInfo = new Vue({
         self.clientEmail = '';
       }
     }
+  },
+  mounted: function mounted() {
+    this.getClientInfo();
   }
 });
 

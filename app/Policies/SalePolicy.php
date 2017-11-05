@@ -14,10 +14,10 @@ class SalePolicy
     public function before(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -33,10 +33,10 @@ class SalePolicy
     public function view(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -51,10 +51,10 @@ class SalePolicy
     public function create(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -70,10 +70,10 @@ class SalePolicy
     public function update(User $user, $sale)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -89,10 +89,10 @@ class SalePolicy
     public function delete(User $user, $sale)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isSales()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;

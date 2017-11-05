@@ -14,10 +14,10 @@ class CallPolicy
     public function before(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Seguimiento')
       )
         ? true
         : false;
@@ -33,10 +33,10 @@ class CallPolicy
     public function view(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Seguimiento')
       )
         ? true
         : false;
@@ -51,10 +51,10 @@ class CallPolicy
     public function create(User $user)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Seguimiento')
       )
         ? true
         : false;
@@ -70,10 +70,10 @@ class CallPolicy
     public function update(User $user, $call)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Seguimiento')
       )
         ? true
         : false;
@@ -89,10 +89,10 @@ class CallPolicy
     public function delete(User $user, $call)
     {
       return (
-        $user->isSuperAdmin() ||
-        $user->isAdmin() ||
-        $user->isAssistant() ||
-        $user->isTracking()
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador') ||
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Seguimiento')
       )
         ? true
         : false;

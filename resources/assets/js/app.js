@@ -61,5 +61,8 @@ const ClientInfo = new Vue({
         self.clientEmail = ''
       }
     }
+  },
+  mounted: function () {
+    this.getClientInfo()
   }
 })

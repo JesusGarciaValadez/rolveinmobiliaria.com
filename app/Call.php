@@ -18,10 +18,7 @@ class Call extends Model
   protected $fillable = [
     'expedient',
     'type_of_operation',
-    'client',
-    'client_phone_1',
-    'client_phone_2',
-    'email',
+    'client_id',
     'address',
     'state_id',
     'observations',

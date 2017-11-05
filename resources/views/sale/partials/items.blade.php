@@ -1,5 +1,10 @@
                 <tr>
                   <td class="text-center">
+                    @include('sale.partials.buttons.edit')
+
+                    @include('sale.partials.buttons.delete')
+                  </td>
+                  <td class="text-center">
                     <a
                       href="{{ route('show_sale', $sale->internalExpedient->id) }}"
                       target="_self"
@@ -100,10 +105,5 @@
                           ? 'Incompleto'
                           : 'Completo' }}
                     </span>
-                  </td>
-                  <td class="text-center">
-                    @include('sale.partials.buttons.edit')
-
-                    @include('sale.partials.buttons.delete')
                   </td>
                 </tr>

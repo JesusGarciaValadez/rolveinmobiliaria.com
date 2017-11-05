@@ -36,7 +36,7 @@ class CallRequest extends FormRequest
           'Avalúos',
         ]),
       ],
-      'client_id' => 'required|sstring',
+      'client_id' => 'required|string',
       'address' => 'sometimes|nullable|string',
       'state_id' => 'sometimes|nullable|numeric|integer|exists:states,id',
       'observations' => 'required|string',
