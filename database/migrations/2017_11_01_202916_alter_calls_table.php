@@ -51,7 +51,5 @@ class AlterCallsTable extends Migration
         $table->dropForeign('calls_client_id_foreign')
               ->dropColumn('client_id');
       });
-
-      Schema::dropIfExists('calls');
     }
 }
