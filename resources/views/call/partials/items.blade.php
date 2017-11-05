@@ -1,4 +1,9 @@
                 <tr>
+                  <td class="text-center">
+                    @include('call.partials.buttons.edit')
+
+                    @include('call.partials.buttons.delete')
+                  </td>
                   <td>
                     <a href="{{ route('show_call', ['id' => $call->id]) }}">
                       {{ $call->expedient }}
@@ -23,9 +28,4 @@
                     @else
                       label-danger
                     @endif">{{ $call->priority }}</span></td>
-                  <td class="text-center">
-                    @include('call.partials.buttons.edit')
-
-                    @include('call.partials.buttons.delete')
-                  </td>
                 </tr>

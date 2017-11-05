@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Nuevo | " . __('section.call_tracking'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">

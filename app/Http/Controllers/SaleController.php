@@ -77,7 +77,7 @@ class SaleController extends Controller
       if ($updated)
       {
         return redirect('for_sales')->with( 'message', $message )
-                                         ->with( 'type', 'success' );
+                                    ->with( 'type', 'success' );
       }
       else
       {

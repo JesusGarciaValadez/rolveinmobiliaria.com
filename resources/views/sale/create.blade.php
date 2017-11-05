@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Nueva | ".__('sale.new_sale'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">
@@ -316,7 +318,7 @@
 
               <div class="form-group">
                 @include('call.partials.buttons.back', [
-                'back' => route('call_trackings')
+                'back' => route('for_sales')
                 ])
               </div>
             </div>

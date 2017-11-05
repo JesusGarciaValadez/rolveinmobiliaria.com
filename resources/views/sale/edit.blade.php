@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Editar | ".('section.for_sale'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">

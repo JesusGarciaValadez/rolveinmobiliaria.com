@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', __('shared.edit')." | ".__('section.call_tracking'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">
@@ -103,7 +105,7 @@
               </div>
             </div>
 
-            <div class="form-group{{ $errors->has('client_id') ? ' has-error' : ''}}">
+            <div class="form-group{{ $errors->has('client_id') ? ' has-error' : ''}}" id="client-info">
               <label
                 for="client_id"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.client'): </label>
@@ -113,29 +115,20 @@
                   id="client_id"
                   name="client_id"
                   required
-                  autofocus>
+                  autofocus
+                  @change="getClientInfo">
                   <option
                     value=""
                     selected>
                     @lang('call.choose_an_option')</option>
                   @foreach ($clients as $client)
                     <option
-                    value="{{ $client->id }}"
-                    @if (old('client_id') == $client->id)
-                      selected
-                    @endif>{{ $client->name }}</option>
+                      value="{{ $client->id }}"
+                      @if (old('client_id') == $client->id)
+                        selected
+                      @endif>{{ $client->name }}</option>
                   @endforeach
                 </select>
-
-                <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  ¿No encuentras al cliente?
-                  <a
-                    href="#"
-                    title="¡Crealo!"
-                    target="_self"
-                    data-toggle="modal"
-                    data-target="#newClient">¡Crealo!</a>
-                </p>
 
                 @if ($errors->has('client'))
                   <span class="help-block">
@@ -143,6 +136,22 @@
                   </span>
                 @endif
               </div>
+              <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" v-show="!hasClient">
+                ¿No encuentras al cliente?
+                <a
+                  href="#"
+                  title="¡Crealo!"
+                  target="_self"
+                  data-toggle="modal"
+                  data-target="#newClient">¡Crealo!</a>
+              </p>
+
+              <Spinner v-if="loading"></Spinner>
+              <Client
+                :phone-one="clientPhoneOne"
+                :phone-two="clientPhoneTwo"
+                :email="clientEmail"
+                :has-client="hasClient"></Client>
             </div>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">

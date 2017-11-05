@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Búsqueda | ".__('section.call_tracking'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">
@@ -28,7 +30,7 @@
             {{ $calls->links() }}
 
             <table class="table table-bordered table-striped table-condensed">
-              @include('call.partials.table-heading')
+              @include('call.partials.table-header')
 
               <tfoot>
                 <tr></tr>

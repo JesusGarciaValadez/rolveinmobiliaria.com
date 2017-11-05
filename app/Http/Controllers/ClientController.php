@@ -76,9 +76,26 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function show(Client $client)
+  public function show(Request $request)
   {
-      //
+    $client = Client::findOrFail($request->id);
+
+    $message = ($client)
+                ? 'Nuevo cliente creado'
+                : 'No se pudo agregar el cliente.';
+
+    $type = ($client)
+              ? 'success'
+              : 'danger';
+
+    if ($request->ajax())
+    {
+      return response()->json(['client', $client]);
+    }
+    else
+    {
+      return $client;
+    }
   }
 
   /**
@@ -87,9 +104,9 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function edit(Client $client)
+  public function edit(Request $request)
   {
-      //
+    //
   }
 
   /**

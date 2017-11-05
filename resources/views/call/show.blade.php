@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Expediente ".$call->expedient."| ".__('section.call_tracking'))
+
 @section('content')
 <div class="container-fluid">
   <div class="row">
@@ -52,11 +54,11 @@
                   <td>{{ $call->id }}</td>
                   <td>{{ $call->expedient }}</td>
                   <td>{{ $call->type_of_operation }}</td>
-                  <td>{{ $call->client }}</td>
-                  <td>{{ $call->client_phone_1 }}</td>
-                  <td>{{ $call->client_phone_2 }}</td>
+                  <td>{{ $call->client->name }}</td>
+                  <td>{{ $call->client->phone_1 }}</td>
+                  <td>{{ $call->client->phone_2 }}</td>
                   <td>
-                    <a href="mailto:{{ $call->email }}" title="@lang('shared.send_email_to') {{ $call->client }}" target="_blank">{{ $call->email }}</a>
+                    <a href="mailto:{{ $call->client->email }}" title="@lang('shared.send_email_to') {{ $call->client->name }}" target="_blank">{{ $call->client->email }}</a>
                   </td>
                   <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
                   <td>{{ $call->address }}</td>

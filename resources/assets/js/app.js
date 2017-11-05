@@ -5,9 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
+
+const Vue = window.Vue
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,8 +17,49 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('Spinner', require('./components/Spinner.vue'))
+Vue.component('Client', require('./components/Client.vue'))
 
-const app = new Vue({
-    el: '#app'
-});
+const ClientInfo = new Vue({
+  el: '#client-info',
+  data: {
+    clientPhoneOne: '',
+    clientPhoneTwo: '',
+    clientEmail: '',
+    loading: false
+  },
+  computed: {
+    hasClient: function () {
+      return (
+        this.clientPhoneOne.length !== 0 ||
+        this.clientPhoneTwo.length !== 0 ||
+        this.clientEmail.length !== 0
+      )
+    }
+  },
+  methods: {
+    getClientInfo: function () {
+      const clientId = document.getElementById('client_id').value
+      const self = this
+      self.loading = true
+
+      if (clientId !== 'undefined') {
+        const url = `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+
+        fetch(url)
+          .then(response => response.json())
+          .then(function (json) {
+            self.loading = false
+            self.clientPhoneOne = json.phone_1 || ''
+            self.clientPhoneTwo = json.phone_2 || ''
+            self.clientEmail = json.email || ''
+          })
+      } else {
+        self.loading = false
+        self.clientPhoneOne = ''
+        self.clientPhoneTwo = ''
+        self.clientEmail = ''
+      }
+    }
+  }
+})

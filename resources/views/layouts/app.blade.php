@@ -8,13 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title'){{ '@'.config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id="app">
+  <div id="app1">
     <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -99,5 +99,6 @@
       $('[data-toggle="tooltip"]').tooltip()
     })
   </script>
+  @yield('scripts')
 </body>
 </html>

@@ -33,7 +33,7 @@
       </select>
     </div>
 
-    <div class="form-group col-xs-3 col-xs-offset-5 col-sm-7 col-sm-offset-0 col-md-8 col-md-offset-0 col-lg-9 col-lg-offset-0{{ $errors->has('date') ? ' has-error' : ''}}">
+    <div class="form-group col-xs-3 col-xs-offset-4 col-sm-7 col-sm-offset-0 col-md-8 col-md-offset-0 col-lg-9 col-lg-offset-0{{ $errors->has('date') ? ' has-error' : ''}}">
       <button type="submit" class="btn btn-default"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> Buscar</button>
     </div>
 
