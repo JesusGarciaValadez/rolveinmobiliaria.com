@@ -46,10 +46,10 @@ if (clientRoot !== null) {
         const self = this
         self.loading = true
 
-        console.log(clientId)
-
         if (clientId !== '') {
-          const url = `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+          const url = process.env.NODE_ENV !== 'production'
+            ? `http://45.77.197.22/clients/show/${clientId}`
+            : `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
 
           fetch(url)
           .then(response => response.json())
