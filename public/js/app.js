@@ -899,48 +899,54 @@ var Vue = window.Vue;
 Vue.component('Spinner', __webpack_require__(37));
 Vue.component('Client', __webpack_require__(45));
 
-var ClientInfo = new Vue({
-  el: '#client-info',
-  data: {
-    clientPhoneOne: '',
-    clientPhoneTwo: '',
-    clientEmail: '',
-    loading: false
-  },
-  computed: {
-    hasClient: function hasClient() {
-      return this.clientPhoneOne.length !== 0 || this.clientPhoneTwo.length !== 0 || this.clientEmail.length !== 0;
-    }
-  },
-  methods: {
-    getClientInfo: function getClientInfo() {
-      var clientId = document.getElementById('client_id').value;
-      var self = this;
-      self.loading = true;
+var clientRoot = document.getElementById('client-info') || null;
 
-      if (clientId !== 'undefined') {
-        var url = 'https://local.rolveinmobiliaria.com/clients/show/' + clientId;
-
-        fetch(url).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          self.loading = false;
-          self.clientPhoneOne = json.phone_1 || '';
-          self.clientPhoneTwo = json.phone_2 || '';
-          self.clientEmail = json.email || '';
-        });
-      } else {
-        self.loading = false;
-        self.clientPhoneOne = '';
-        self.clientPhoneTwo = '';
-        self.clientEmail = '';
+if (clientRoot !== null) {
+  var ClientInfo = new Vue({
+    el: '#client-info',
+    data: {
+      clientPhoneOne: '',
+      clientPhoneTwo: '',
+      clientEmail: '',
+      loading: false
+    },
+    computed: {
+      hasClient: function hasClient() {
+        return this.clientPhoneOne.length !== 0 || this.clientPhoneTwo.length !== 0 || this.clientEmail.length !== 0;
       }
+    },
+    methods: {
+      getClientInfo: function getClientInfo() {
+        var clientId = document.getElementById('client_id').value;
+        var self = this;
+        self.loading = true;
+
+        console.log(clientId);
+
+        if (clientId !== '') {
+          var url = 'https://local.rolveinmobiliaria.com/clients/show/' + clientId;
+
+          fetch(url).then(function (response) {
+            return response.json();
+          }).then(function (json) {
+            self.loading = false;
+            self.clientPhoneOne = json.phone_1 || '';
+            self.clientPhoneTwo = json.phone_2 || '';
+            self.clientEmail = json.email || '';
+          });
+        } else {
+          self.loading = false;
+          self.clientPhoneOne = '';
+          self.clientPhoneTwo = '';
+          self.clientEmail = '';
+        }
+      }
+    },
+    mounted: function mounted() {
+      this.getClientInfo();
     }
-  },
-  mounted: function mounted() {
-    this.getClientInfo();
-  }
-});
+  });
+}
 
 /***/ }),
 /* 11 */

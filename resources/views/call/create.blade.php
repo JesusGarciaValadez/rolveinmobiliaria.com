@@ -11,7 +11,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ url()->previous() }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
+            <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('call.new_call')</h1>

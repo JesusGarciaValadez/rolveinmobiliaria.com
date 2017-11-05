@@ -11,7 +11,7 @@
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ url()->previous() }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
+            <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('shared.edit') @lang('call.call')
@@ -240,7 +240,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="address"
+                  name="status"
                   value="{{ old('status') ? old('status') : $call->status }}"
                   placeholder="@lang('call.status')"
                   autocorrect="on">
@@ -256,7 +256,7 @@
             <div class="form-group{{ $errors->has('priority') ? ' has-error' : ''}}">
               <label
                 for="priority"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.state_of_the_republic'): </label>
+                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.priority'): </label>
               <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2 control-label">
                 <select
                   class="form-control"

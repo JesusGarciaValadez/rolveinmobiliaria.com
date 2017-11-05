@@ -40,9 +40,9 @@ class ClientController extends Controller
     $data = $request->all();
     unset($data['_token']);
 
-    $isRepeated = Client::where('email', $data['email']);
+    $isRepeated = Client::where('email', $data['email'])->get()->count();
 
-    if ($isRepeated) {
+    if ($isRepeated !== 0) {
       return redirect()->back()
                        ->with('message', 'El cliente ya existe. El email ya se encuentra en la base de datos.')
                        ->with('type', 'warning');
@@ -58,7 +58,7 @@ class ClientController extends Controller
             ? 'success'
             : 'danger';
 
-    if ( $request->ajax() )
+    if ($request->ajax())
     {
       return response()->json(['message' => $message]);
     }

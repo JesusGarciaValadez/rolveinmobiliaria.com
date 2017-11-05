@@ -20,33 +20,38 @@ const Vue = window.Vue
 Vue.component('Spinner', require('./components/Spinner.vue'))
 Vue.component('Client', require('./components/Client.vue'))
 
-const ClientInfo = new Vue({
-  el: '#client-info',
-  data: {
-    clientPhoneOne: '',
-    clientPhoneTwo: '',
-    clientEmail: '',
-    loading: false
-  },
-  computed: {
-    hasClient: function () {
-      return (
-        this.clientPhoneOne.length !== 0 ||
-        this.clientPhoneTwo.length !== 0 ||
-        this.clientEmail.length !== 0
-      )
-    }
-  },
-  methods: {
-    getClientInfo: function () {
-      const clientId = document.getElementById('client_id').value
-      const self = this
-      self.loading = true
+const clientRoot = document.getElementById('client-info') || null
 
-      if (clientId !== 'undefined') {
-        const url = `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+if (clientRoot !== null) {
+  const ClientInfo = new Vue({
+    el: '#client-info',
+    data: {
+      clientPhoneOne: '',
+      clientPhoneTwo: '',
+      clientEmail: '',
+      loading: false
+    },
+    computed: {
+      hasClient: function () {
+        return (
+          this.clientPhoneOne.length !== 0 ||
+          this.clientPhoneTwo.length !== 0 ||
+          this.clientEmail.length !== 0
+        )
+      }
+    },
+    methods: {
+      getClientInfo: function () {
+        const clientId = document.getElementById('client_id').value
+        const self = this
+        self.loading = true
 
-        fetch(url)
+        console.log(clientId)
+
+        if (clientId !== '') {
+          const url = `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+
+          fetch(url)
           .then(response => response.json())
           .then(function (json) {
             self.loading = false
@@ -54,15 +59,16 @@ const ClientInfo = new Vue({
             self.clientPhoneTwo = json.phone_2 || ''
             self.clientEmail = json.email || ''
           })
-      } else {
-        self.loading = false
-        self.clientPhoneOne = ''
-        self.clientPhoneTwo = ''
-        self.clientEmail = ''
+        } else {
+          self.loading = false
+          self.clientPhoneOne = ''
+          self.clientPhoneTwo = ''
+          self.clientEmail = ''
+        }
       }
+    },
+    mounted: function () {
+      this.getClientInfo()
     }
-  },
-  mounted: function () {
-    this.getClientInfo()
-  }
-})
+  })
+}

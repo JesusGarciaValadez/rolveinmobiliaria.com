@@ -49,7 +49,7 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $clients = Client::with('internalExpedient')->all()->sortBy('name');
+    $clients = Client::with('internalExpedient')->get()->sortBy('name');
 
     $uri = 'call_trackings';
 
@@ -213,8 +213,8 @@ class CallController extends Controller
   public function search(CallSearchRequest $request)
   {
     $calls = Call::whereBetween('created_at', [$request->date, now()->today()])
-                 ->orderBy('id', 'desc')
-                 ->paginate(5);
+              ->orderBy('id', 'desc')
+              ->paginate(5);
 
     $message = (count($calls) > 0) ? count($calls).' Llamadas encontradas' : 'No se pudo ninguna llamada.';
     $type = (count($calls) > 0) ? 'success' : 'danger';
