@@ -27,7 +27,7 @@
           <div class="row">
             <table class="table table-bordered table-striped table-condensed">
               <thead>
-                <th class="text-center">@lang('call.id')</th>
+                <th class="text-center">@lang('call.actions')</th>
                 <th class="text-center">@lang('call.internal_expedient')</th>
                 <th class="text-center">@lang('call.operation')</th>
                 <th class="text-center">@lang('call.client')</th>
@@ -40,18 +40,21 @@
                 <th class="text-center">@lang('call.hour')</th>
                 <th class="text-center">@lang('call.status')</th>
                 <th class="text-center">@lang('call.priority')</th>
-                <th class="text-center">@lang('call.actions')</th>
               </thead>
 
               <tfoot>
                 <tr>
-                  <td colspan="15"></td>
+                  <td colspan="13"></td>
                 </tr>
               </tfoot>
 
               <tbody>
                 <tr>
-                  <td>{{ $call->id }}</td>
+                  <td class="text-center">
+                    @include('call.partials.buttons.edit')
+
+                    @include('call.partials.buttons.delete')
+                  </td>
                   <td>{{ $call->expedient }}</td>
                   <td>{{ $call->type_of_operation }}</td>
                   <td>{{ $call->client->name }}</td>
@@ -73,11 +76,6 @@
                     @else
                       label-danger
                     @endif">{{ $call->priority }}</span></td>
-                  <td class="text-center">
-                    @include('call.partials.buttons.edit')
-
-                    @include('call.partials.buttons.delete')
-                  </td>
                 </tr>
               </tbody>
             </table>
