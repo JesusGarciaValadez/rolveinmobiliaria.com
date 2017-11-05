@@ -51,14 +51,20 @@ if (clientRoot !== null) {
             ? `http://45.77.197.22/clients/show/${clientId}`
             : `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
 
-          fetch(url)
-          .then(response => response.json())
-          .then(function (json) {
-            self.loading = false
-            self.clientPhoneOne = json.phone_1 || ''
-            self.clientPhoneTwo = json.phone_2 || ''
-            self.clientEmail = json.email || ''
-          })
+          const inicialization = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default'
+          }
+
+          fetch(url, inicialization)
+            .then(response => response.json())
+            .then(function (json) {
+              self.loading = false
+              self.clientPhoneOne = json.phone_1 || ''
+              self.clientPhoneTwo = json.phone_2 || ''
+              self.clientEmail = json.email || ''
+            })
         } else {
           self.loading = false
           self.clientPhoneOne = ''
