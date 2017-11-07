@@ -48,8 +48,10 @@ if (clientRoot !== null) {
 
         if (clientId !== '') {
           const url = process.env.NODE_ENV !== 'production'
-            ? `http://45.77.197.22/clients/show/${clientId}`
-            : `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+            ? `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+            : `http://45.77.197.22/clients/show/${clientId}`
+
+          console.log(url)
 
           const inicialization = {
             method: 'GET',
