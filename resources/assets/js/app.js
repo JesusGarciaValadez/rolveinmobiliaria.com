@@ -51,8 +51,6 @@ if (clientRoot !== null) {
             ? `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
             : `http://45.77.197.22/clients/show/${clientId}`
 
-          console.log(url)
-
           const inicialization = {
             method: 'GET',
             mode: 'no-cors',
@@ -62,6 +60,7 @@ if (clientRoot !== null) {
           fetch(url, inicialization)
             .then(response => response.json())
             .then(function (json) {
+              console.log(json)
               self.loading = false
               self.clientPhoneOne = json.phone_1 || ''
               self.clientPhoneTwo = json.phone_2 || ''
