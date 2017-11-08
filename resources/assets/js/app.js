@@ -48,24 +48,25 @@ if (clientRoot !== null) {
 
         if (clientId !== '') {
           const url = process.env.NODE_ENV !== 'production'
-            ? `https://local.rolveinmobiliaria.com/clients/show/${clientId}`
+            ? `http://local.rolveinmobiliaria.com/clients/show/${clientId}`
             : `http://45.77.197.22/clients/show/${clientId}`
 
           const inicialization = {
             method: 'GET',
-            mode: 'no-cors',
-            cache: 'default'
+            mode: 'no-cors', // cors, no-cors, or same-origin
+            credentials: 'omit', // omit, same-origin, or include.
+            cache: 'no-cache' // default, no-store, reload, no-cache, force-cache, or only-if-cached.
           }
 
           fetch(url, inicialization)
             .then(response => response.json())
-            .then(function (json) {
-              console.log(json)
+            .then(json => {
               self.loading = false
               self.clientPhoneOne = json.phone_1 || ''
               self.clientPhoneTwo = json.phone_2 || ''
               self.clientEmail = json.email || ''
             })
+
         } else {
           self.loading = false
           self.clientPhoneOne = ''
