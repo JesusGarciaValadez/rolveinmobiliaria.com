@@ -73,13 +73,6 @@ class User extends Authenticatable
     return ($this->role_id === $role->id) ? true : false;
   }
 
-  public function isTracking()
-  {
-    $role = Role::where('name', 'Seguimiento')->get()->first();
-
-    return ($this->role_id === $role->id) ? true : false;
-  }
-
   public function isSales()
   {
     $role = Role::where('name', 'Ventas')->get()->first();

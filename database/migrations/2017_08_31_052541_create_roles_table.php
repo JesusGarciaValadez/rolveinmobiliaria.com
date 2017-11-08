@@ -18,11 +18,10 @@ class CreateRolesTable extends Migration
       $table->enum('name', [
               'Super Administrador',
               'Administrador',
-              'Seguimiento',
-              'Asistente',
-              'Ventas',
-              'Pasante',
-              'Cliente',
+              'Asistente', // Seguimiento de llamadas - Agenda de clientes
+              'Ventas', // Seguimiento de llamadas - Agenda de clientes - Compra Venta
+              // 'Pasante',
+              // 'Cliente',
             ])
             ->default('Cliente');
       $table->softDeletes();

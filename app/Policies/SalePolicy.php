@@ -16,7 +16,6 @@ class SalePolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente') ||
         $user->hasRole('Ventas')
       )
         ? true
@@ -35,7 +34,6 @@ class SalePolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente') ||
         $user->hasRole('Ventas')
       )
         ? true
@@ -53,7 +51,6 @@ class SalePolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente') ||
         $user->hasRole('Ventas')
       )
         ? true
@@ -72,7 +69,6 @@ class SalePolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente') ||
         $user->hasRole('Ventas')
       )
         ? true
@@ -91,7 +87,6 @@ class SalePolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente') ||
         $user->hasRole('Ventas')
       )
         ? true

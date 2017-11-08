@@ -25,10 +25,6 @@ class RolesTableSeeder extends Seeder
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Seguimiento',
-    ]);
-
-    factory(App\Role::class)->create([
       'name' => 'Ventas',
     ]);
 
