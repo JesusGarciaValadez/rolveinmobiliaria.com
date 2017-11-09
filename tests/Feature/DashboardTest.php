@@ -25,9 +25,6 @@ class DashboardTest extends TestCase
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
                       ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
-                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
                   ->id;

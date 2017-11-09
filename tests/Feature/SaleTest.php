@@ -25,9 +25,6 @@ class SaleTest extends TestCase
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
                       ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
-                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
                   ->id;
@@ -59,9 +56,6 @@ class SaleTest extends TestCase
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
                       ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
-                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
                   ->id;
@@ -82,7 +76,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function assistants_can_visit_the_sale_section()
+  public function assistants_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -92,9 +86,6 @@ class SaleTest extends TestCase
                   ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
                       ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
@@ -111,40 +102,6 @@ class SaleTest extends TestCase
 
     $this->actingAs($assistant)
          ->get(route('for_sales'))
-         ->assertSuccessful()
-         ->assertSee('Compra venta');
-  }
-
-  /** @test */
-  public function trackings_cannot_visit_the_sale_section()
-  {
-    $superAdminRole = factory(Role::class)
-                        ->create(['name' => 'Super Administrador'])
-                        ->id;
-    $adminRole = factory(Role::class)
-                  ->create(['name' => 'Administrador'])
-                  ->id;
-    $assistantRole = factory(Role::class)
-                      ->create(['name' => 'Asistente'])
-                      ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
-                      ->id;
-    $salesRole = factory(Role::class)
-                  ->create(['name' => 'Ventas'])
-                  ->id;
-    $internRole = factory(Role::class)
-                    ->create(['name' => 'Pasante'])
-                    ->id;
-    $clientRole = factory(Role::class)
-                    ->create(['name' => 'Cliente'])
-                    ->id;
-
-    $tracking = factory(User::class)
-                  ->create(['role_id' => $trackingRole]);
-
-    $this->actingAs($tracking)
-         ->get(route('for_sales'))
          ->assertStatus(Response::HTTP_FORBIDDEN)
          ->assertDontSee('Compra venta');
   }
@@ -160,9 +117,6 @@ class SaleTest extends TestCase
                   ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
                       ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
@@ -195,9 +149,6 @@ class SaleTest extends TestCase
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
                       ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
-                      ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
                   ->id;
@@ -228,9 +179,6 @@ class SaleTest extends TestCase
                   ->id;
     $assistantRole = factory(Role::class)
                       ->create(['name' => 'Asistente'])
-                      ->id;
-    $trackingRole = factory(Role::class)
-                      ->create(['name' => 'Seguimiento'])
                       ->id;
     $salesRole = factory(Role::class)
                   ->create(['name' => 'Ventas'])
