@@ -16,7 +16,8 @@ class CallPolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente')
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -34,7 +35,8 @@ class CallPolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente')
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -51,7 +53,8 @@ class CallPolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente')
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -69,7 +72,8 @@ class CallPolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente')
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;
@@ -87,7 +91,8 @@ class CallPolicy
       return (
         $user->hasRole('Super Administrador') ||
         $user->hasRole('Administrador') ||
-        $user->hasRole('Asistente')
+        $user->hasRole('Asistente') ||
+        $user->hasRole('Ventas')
       )
         ? true
         : false;

@@ -20,8 +20,8 @@ class CreateRolesTable extends Migration
               'Administrador',
               'Asistente', // Seguimiento de llamadas - Agenda de clientes
               'Ventas', // Seguimiento de llamadas - Agenda de clientes - Compra Venta
-              // 'Pasante',
-              // 'Cliente',
+              'Pasante',
+              'Cliente',
             ])
             ->default('Cliente');
       $table->softDeletes();

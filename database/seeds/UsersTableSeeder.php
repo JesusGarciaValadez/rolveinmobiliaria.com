@@ -44,18 +44,10 @@ class UsersTableSeeder extends Seeder
     ]);
 
     factory(App\User::class)->create([
-      'name' => 'Seguimiento',
-      'email' => 'seguimiento@rolveinmobiliaria.com',
-      'password' => bcrypt('seguimiento'),
-      'role_id' => 4,
-      'remember_token' => str_random(10),
-    ]);
-
-    factory(App\User::class)->create([
       'name' => 'Ventas',
       'email' => 'ventas@rolveinmobiliaria.com',
       'password' => bcrypt('ventas'),
-      'role_id' => 5,
+      'role_id' => 4,
       'remember_token' => str_random(10),
     ]);
 
@@ -63,7 +55,7 @@ class UsersTableSeeder extends Seeder
       'name' => 'Pasante',
       'email' => 'pasante@rolveinmobiliaria.com',
       'password' => bcrypt('pasante'),
-      'role_id' => 6,
+      'role_id' => 5,
       'remember_token' => str_random(10),
     ]);
 
@@ -71,7 +63,7 @@ class UsersTableSeeder extends Seeder
       'name' => 'Cliente',
       'email' => 'zerovamp@hotmail.com',
       'password' => bcrypt('cliente'),
-      'role_id' => 7,
+      'role_id' => 6,
       'remember_token' => str_random(10),
     ]);
 
