@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
       'App\Model' => 'App\Policies\ModelPolicy',
+      App\User::class => App\Policies\AdminPolicy::class,
       App\Call::class => App\Policies\CallPolicy::class,
       App\Sale::class => App\Policies\SalePolicy::class,
       App\Client::class => App\Policies\ClientPolicy::class,
@@ -32,6 +33,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
       $this->registerPolicies();
+
+      Gate::resource('user', 'App\Policies\AdminPolicy');
 
       Gate::resource('calls', 'App\Policies\CallPolicy');
 

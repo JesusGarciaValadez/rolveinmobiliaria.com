@@ -3,11 +3,9 @@
 namespace App\Policies;
 
 use App\User;
-use App\Call;
-
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CallPolicy
+class AdminPolicy
 {
   use HandlesAuthorization;
 
@@ -15,9 +13,7 @@ class CallPolicy
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -27,16 +23,13 @@ class CallPolicy
    * Determine whether the user can view the call.
    *
    * @param  \App\User  $user
-   * @param  \App\Call  $call
    * @return mixed
    */
   public function view(User $user)
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -52,9 +45,7 @@ class CallPolicy
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -64,16 +55,13 @@ class CallPolicy
    * Determine whether the user can update the call.
    *
    * @param  \App\User  $user
-   * @param  \App\Call  $call
    * @return mixed
    */
-  public function update(User $user, $call)
+  public function update(User $user)
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -83,16 +71,13 @@ class CallPolicy
    * Determine whether the user can delete the call.
    *
    * @param  \App\User  $user
-   * @param  \App\Call  $call
    * @return mixed
    */
-  public function delete(User $user, $call)
+  public function delete(User $user)
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;

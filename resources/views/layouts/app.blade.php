@@ -71,12 +71,14 @@
                       </a>
                     </li>
                   @endcan
+                  @can('user.view')
                   <li>
                     <a href="{{ route('register') }}">
                       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                       @lang('auth.register_a_new_user')
                     </a>
                   </li>
+                  @endcan
                   <li>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault();
