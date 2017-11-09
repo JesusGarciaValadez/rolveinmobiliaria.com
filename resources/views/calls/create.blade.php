@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('shared.edit')." | ".__('section.call_tracking'))
+@section('title', "Nuevo | " . __('section.call_tracking'))
 
 @section('content')
 <div class="container-fluid">
@@ -14,18 +14,17 @@
             <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
-            @lang('shared.edit') @lang('call.call')
-          </h1>
+            @lang('call.new_call')</h1>
         </div>
 
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
-          <form class="form-horizontal" action="{{ route('update_call', ['id' => request('id')]) }}" method="post">
+          <form
+            class="form-horizontal"
+            action="{{ route('store_call') }}"
+            method="post">
             {{ csrf_field() }}
-            {{ method_field('PUT') }}
-            <input type="hidden" name="user_id" value="{{ $call->user_id }}">
-
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
                 for="type_of_operation"
@@ -39,37 +38,33 @@
                   autofocus>
                   <option
                     value=""
-                    {{ (!old('type_of_operation')) ? 'selected' : '' }}>@lang('call.choose_an_option')</option>
+                    selected>
+                    @lang('call.choose_an_option')</option>
                   <option
                     value="Venta"
-                    {{ (old('type_of_operation') == 'Venta'
-                    || $call->type_of_operation == 'Venta')
-                        ? 'selected'
-                        : '' }}>@lang('call.sale')</option>
+                    @if (old('type_of_operation') == "Venta")
+                      selected
+                    @endif>@lang('call.sale')</option>
                   <option
                     value="Renta"
-                    {{ (old('type_of_operation') == 'Renta'
-                    || $call->type_of_operation == 'Renta')
-                        ? 'selected'
-                        : '' }}>@lang('call.rent')</option>
+                    @if (old('type_of_operation') == "Renta")
+                      selected
+                    @endif>@lang('call.rent')</option>
                   <option
                     value="Contratos de exclusividad"
-                    {{ (old('type_of_operation') == 'Contratos de exclusividad'
-                    || $call->type_of_operation == 'Contratos de exclusividad')
-                        ? 'selected'
-                        : '' }}>@lang('call.exclusive_contracts')</option>
+                    @if (old('type_of_operation') == "Contratos de exclusividad")
+                      selected
+                    @endif>@lang('call.exclusive_contracts')</option>
                   <option
                     value="Jurídico"
-                    {{ (old('type_of_operation') == 'Jurídico'
-                    || $call->type_of_operation == 'Jurídico')
-                        ? 'selected'
-                        : '' }}>@lang('call.legal')</option>
+                    @if (old('type_of_operation') == "Jurídico")
+                      selected
+                    @endif>@lang('call.legal')</option>
                   <option
                     value="Avalúos"
-                    {{ (old('type_of_operation') == 'Avalúos'
-                    || $call->type_of_operation == 'Avalúos')
-                      ? 'selected'
-                      : '' }}>@lang('call.appraisals')</option>
+                    @if (old('type_of_operation') == "Avalúos")
+                      selected
+                    @endif>@lang('call.appraisals')</option>
                 </select>
 
                 @if ($errors->has('type_of_operation'))
@@ -82,7 +77,7 @@
 
             <div class="form-group{{ $errors->has('expedient') ? ' has-error' : ''}}">
               <label
-                for="expedient"
+                for="expedient_phone_1"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
               <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
                 <input
@@ -90,9 +85,7 @@
                   class="form-control"
                   name="expedient"
                   id="expedient"
-                  value="{{ (old('expedient'))
-                    ? old('expedient')
-                    : $call->expedient }}"
+                  value="{{ old('expedient') }}"
                   placeholder="@lang('call.internal_expedient')"
                   autocorrect="on"
                   required>
@@ -119,17 +112,14 @@
                   @change="getClientInfo">
                   <option
                     value=""
-                    @if (!old('client_id'))
-                      selected
-                    @endif>
+                    selected>
                     @lang('call.choose_an_option')</option>
                   @foreach ($clients as $client)
                     <option
-                      value="{{ $client->id }}"
-                      {{ ($client->id == $call->client->id) ||
-                         (old('client_id') == $client->id)
-                            ? 'selected'
-                            : ''}}>{{ $client->name }}</option>
+                    value="{{ $client->id }}"
+                    @if (old('client_id') == $client->id)
+                      selected
+                    @endif>{{ $client->name }}</option>
                   @endforeach
                 </select>
 
@@ -139,6 +129,7 @@
                   </span>
                 @endif
               </div>
+
               <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" v-show="!hasClient">
                 ¿No encuentras al cliente?
                 <a
@@ -166,7 +157,7 @@
                   type="text"
                   class="form-control"
                   name="address"
-                  value="{{ old('address') ? old('address') : $call->address }}"
+                  value="{{ old('address') }}"
                   placeholder="@lang('call.property_address')"
                   autocorrect="on">
 
@@ -189,15 +180,15 @@
                   id="state_id">
                   <option
                     value=""
-                    @if (!old('state_id'))
+                    @if (old('state_id'))
                       selected
                     @endif>@lang('call.choose_a_state')</option>
                   @foreach ( $states as $state )
                     <option
                       value="{{ $state->id }}"
-                      {{ (old('state_id') == $state->id || $call->state_id == $state->id)
-                          ? 'selected'
-                          : ''}}>
+                      @if (old('state_id') == $state->id || $state->id == '7')
+                        selected
+                      @endif>
                       {{ $state->name }}
                     </option>
                   @endforeach
@@ -221,9 +212,10 @@
                   name="observations"
                   id="observations"
                   placeholder="@lang('call.observations')"
+                  value="{{ old('observations') }}"
                   rows="8"
                   required
-                  autocorrect="on">{{ old('observations') ? old('observations') : $call->observations }}</textarea>
+                  autocorrect="on"></textarea>
 
                   @if ($errors->has('observations'))
                     <span class="help-block">
@@ -235,13 +227,14 @@
 
             <div class="form-group{{ $errors->has('status') ? ' has-error' : ''}}">
               <label
+                for="status"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.status'): </label>
               <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
                 <input
                   type="text"
                   class="form-control"
                   name="status"
-                  value="{{ old('status') ? old('status') : $call->status }}"
+                  value="{{ old('status') }}"
                   placeholder="@lang('call.status')"
                   autocorrect="on">
 
@@ -250,7 +243,7 @@
                       <strong>{{ $errors->first('status') }}</strong>
                     </span>
                   @endif
-              </div>
+                </div>
             </div>
 
             <div class="form-group{{ $errors->has('priority') ? ' has-error' : ''}}">
@@ -263,27 +256,9 @@
                   name="priority"
                   id="priority"
                   required>
-                  <option
-                    value="Baja"
-                    {{ (old('priority') == 'Baja' ||
-                        $call->priority == 'Baja')
-                          ? 'selected'
-                          : ''}}>@lang('shared.low')
-                  </option>
-                  <option
-                    value="Media"
-                    {{ (old('priority') == 'Media' ||
-                        $call->priority == 'Media')
-                          ? 'selected'
-                          : ''}}>@lang('shared.medium')
-                  </option>
-                  <option
-                    value="Alta"
-                    {{ (old('priority') == 'Alta' ||
-                        $call->priority == 'Alta')
-                          ? 'selected'
-                          : ''}}>@lang('shared.hight')
-                  </option>
+                  <option value="Baja">@lang('shared.low')</option>
+                  <option value="Media" selected>@lang('shared.medium')</option>
+                  <option value="Alta">@lang('shared.hight')</option>
                 </select>
 
                 @if ($errors->has('priority'))
@@ -296,11 +271,13 @@
 
             <div class="form-inline">
               <div class="form-group">
-                @include('call.partials.buttons.save')
+                @include('calls.partials.buttons.save')
               </div>
 
               <div class="form-group">
-                @include('call.partials.buttons.back', ['back' => route('call_trackings')])
+                @include('calls.partials.buttons.back', [
+                'back' => route('call_trackings')
+                ])
               </div>
             </div>
           </form>
@@ -418,6 +395,7 @@
               </form><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
           </div><!-- /.modal -->
+
         </div>
       </div>
     </div>

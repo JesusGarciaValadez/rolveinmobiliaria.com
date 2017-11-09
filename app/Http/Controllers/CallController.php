@@ -37,7 +37,7 @@ class CallController extends Controller
 
     $calls = Call::with('state')->orderBy('id', 'desc')->paginate(5);
 
-    return view('call.index', compact('calls', 'uri'));
+    return view('calls.index', compact('calls', 'uri'));
   }
 
   /**
@@ -58,7 +58,7 @@ class CallController extends Controller
 
     $states = State::all();
 
-    return view('call.create', compact('created_at', 'uri', 'states', 'clients'));
+    return view('calls.create', compact('created_at', 'uri', 'states', 'clients'));
   }
 
   /**
@@ -117,7 +117,7 @@ class CallController extends Controller
 
     $call = Call::findOrFail($request->id);
 
-    return view('call.show', compact('call', 'uri'));
+    return view('calls.show', compact('call', 'uri'));
   }
 
   /**
@@ -138,7 +138,7 @@ class CallController extends Controller
 
     $clients = Client::all()->sortBy('name');
 
-    return view('call.edit', compact('uri', 'states', 'call', 'clients'));
+    return view('calls.edit', compact('uri', 'states', 'call', 'clients'));
   }
 
   /**
@@ -236,7 +236,7 @@ class CallController extends Controller
     else
     {
       // \Debugbar::warning($session);
-      return view('call.search')->with('calls', $calls)
+      return view('calls.search')->with('calls', $calls)
                                 ->with('uri', $uri)
                                 ->with('message', $message)
                                 ->with('type', $type);

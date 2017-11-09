@@ -1,8 +1,8 @@
                 <tr>
                   <td class="text-center">
-                    @include('call.partials.buttons.edit')
+                    @include('calls.partials.buttons.edit')
 
-                    @include('call.partials.buttons.delete')
+                    @include('calls.partials.buttons.delete')
                   </td>
                   <td>
                     <a href="{{ route('show_call', ['id' => $call->id]) }}">

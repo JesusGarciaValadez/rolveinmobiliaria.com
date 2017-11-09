@@ -16,7 +16,7 @@
             </a>
             @lang('section.call_tracking')
             <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 pull-right text-right">
-              @include('call.partials.buttons.create')
+              @include('calls.partials.buttons.create')
             </div>
           </h1>
         </div>
@@ -51,9 +51,9 @@
               <tbody>
                 <tr>
                   <td class="text-center">
-                    @include('call.partials.buttons.edit')
+                    @include('calls.partials.buttons.edit')
 
-                    @include('call.partials.buttons.delete')
+                    @include('calls.partials.buttons.delete')
                   </td>
                   <td>{{ $call->expedient }}</td>
                   <td>{{ $call->type_of_operation }}</td>
@@ -85,7 +85,7 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-xs-6 col-xs-offset-4 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
-              @include('call.partials.buttons.create')
+              @include('calls.partials.buttons.create')
             </div>
           </div>
         </div>

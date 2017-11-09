@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Lista | ".__('section.for_sale'))
+@section('title', "Editar | ".__('section.for_sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -16,7 +16,7 @@
             </a>
             @lang('section.for_sale')
             <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
-              @include('sale.partials.buttons.create')
+              @include('sales.partials.buttons.create')
             </div>
           </h1>
         </div>
@@ -25,27 +25,23 @@
           @include('shared.partials.alerts.message')
 
           <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $sales->links() }}
-
             <table class="table table-bordered table-striped table-condensed">
               <thead>
                 <tr>
-                  @include('sale.partials.table-header')
+                  @include('sales.partials.table-header')
                 </tr>
               </thead>
 
               <tfoot>
                 <tr>
-                  @include('sale.partials.table-footer')
+                  @include('sales.partials.table-footer')
                 </tr>
               </tfoot>
 
               <tbody>
-                @each('sale.partials.items', $sales, 'sale')
+                @include('sales.partials.item')
               </tbody>
             </table>
-
-            {{ $sales->links() }}
           </div>
         </div>
 

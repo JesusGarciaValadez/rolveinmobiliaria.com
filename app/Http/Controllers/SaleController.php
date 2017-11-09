@@ -28,7 +28,7 @@ class SaleController extends Controller
 
     $uri = 'for_sales';
 
-    return view('sale.index', compact('sales', 'uri'));
+    return view('sales.index', compact('sales', 'uri'));
   }
 
   /**
@@ -42,7 +42,7 @@ class SaleController extends Controller
 
     $states = State::all();
 
-    return view('sale.create')->withUri($uri)
+    return view('sales.create')->withUri($uri)
                               ->withStates($states);
   }
 
@@ -100,7 +100,7 @@ class SaleController extends Controller
 
     $sale = Sale::findOrFail($request->id);
 
-    return view('sale.show', compact('uri', 'sale'));
+    return view('sales.show', compact('uri', 'sale'));
   }
 
   /**
@@ -146,9 +146,9 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect()->back()
-                       ->with( 'message', $message )
-                       ->with( 'type', 'success' );
+      return redirect(route('for_sales'))
+              ->with( 'message', $message )
+              ->with( 'type', 'success' );
     }
   }
 }
