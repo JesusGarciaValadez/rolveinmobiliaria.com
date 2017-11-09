@@ -14,7 +14,7 @@ class Client extends Model
    *
    * @var array
    */
-  protected $fillable = ['name', 'address', 'phone_1', 'phone_2', 'email'];
+  protected $fillable = ['name', 'phone_1', 'phone_2', 'email'];
 
   /**
    * The attributes that aren't mass assignable.

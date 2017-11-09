@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\ClientRequest;
 
@@ -16,7 +20,13 @@ class ClientController extends Controller
    */
   public function index()
   {
-    //
+    $locale = \App::getLocale();
+
+    $uri = 'clients';
+
+    $clients = Client::orderBy('name', 'asc')->paginate(5);
+
+    return view('clients.index', compact('clients', 'uri'));
   }
 
   /**
@@ -26,7 +36,13 @@ class ClientController extends Controller
    */
   public function create()
   {
-    //
+    $locale = \App::getLocale();
+
+    $clients = Client::with('internalExpedient')->get()->sortBy('name');
+
+    $uri = 'clients';
+
+    return view('clients.create', compact('uri', 'clients'));
   }
 
   /**
@@ -82,21 +98,13 @@ class ClientController extends Controller
   {
     $client = Client::findOrFail($request->id);
 
-    $message = ($client)
-                ? 'Nuevo cliente creado'
-                : 'No se pudo agregar el cliente.';
-
-    $type = ($client)
-              ? 'success'
-              : 'danger';
-
     if ($request->ajax())
     {
       return response()->json(['client', $client]);
     }
     else
     {
-      return $client;
+      return view('clients.show', compact('client'));
     }
   }
 
@@ -108,7 +116,13 @@ class ClientController extends Controller
    */
   public function edit(Request $request)
   {
-    //
+    $locale = \App::getLocale();
+
+    $uri = 'clients';
+
+    $client = Client::findOrFail($request->id);
+
+    return view('clients.edit', compact('client'));
   }
 
   /**
@@ -118,9 +132,41 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Client $client)
+  public function update(ClientRequest $request)
   {
-      //
+    $data = $request->all();
+    unset($data['_token']);
+    $data['name'] = ucwords(strtolower($data['name']));
+
+    $updated = Client::findOrFail($request->id)
+                ->update($data);
+
+    $message = ($updated)
+               ? 'Cliente actualizado'
+               : 'No se pudo actualizar la información del cliente.';
+
+    $type = ($updated)
+            ? 'success'
+            : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      if ($updated)
+      {
+        return redirect('clients')->with( 'message', $message )
+                                  ->with( 'type', $type );
+      }
+      else
+      {
+        return redirect()->back()
+                         ->with( 'message', $message )
+                         ->with( 'type', $type );
+      }
+    }
   }
 
   /**
@@ -129,8 +175,23 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Client $client)
+  public function destroy(Request $request)
   {
-      //
+    $client = Client::findOrFail($request->id);
+    $isDestroyed = $client->delete();
+
+    $message = ($isDestroyed) ? 'Cliente eliminado' : 'No se pudo eliminar al cliente.';
+    $type = ($isDestroyed) ? 'success' : 'danger';
+
+    if ( $request->ajax() )
+    {
+      return response()->json( [ 'message' => $message ] );
+    }
+    else
+    {
+      return redirect(route('clients'))
+              ->with( 'message', $message )
+              ->with( 'type', 'success' );
+    }
   }
 }

@@ -26,5 +26,5 @@ return [
     'regularization' => 'Regularization',
     'exclusive_contracts' => 'Contratos de exclusividad',
     'appraisals' => 'Avalúos',
-
+    'clients' => 'Clientes',
 ];

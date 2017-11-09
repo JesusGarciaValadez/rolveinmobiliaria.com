@@ -63,6 +63,14 @@
                       </a>
                     </li>
                   @endcan
+                  @can('clients.view')
+                    <li class="hidden-md hidden-lg">
+                      <a href="{{ route('clients') }}" title="@lang('section.clients')">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                        @lang('section.clients')
+                      </a>
+                    </li>
+                  @endcan
                   <li>
                     <a href="{{ route('register') }}">
                       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>

@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
       'App\Model' => 'App\Policies\ModelPolicy',
       App\Call::class => App\Policies\CallPolicy::class,
       App\Sale::class => App\Policies\SalePolicy::class,
+      App\Client::class => App\Policies\ClientPolicy::class,
     ];
 
     /**
@@ -35,5 +36,7 @@ class AuthServiceProvider extends ServiceProvider
       Gate::resource('calls', 'App\Policies\CallPolicy');
 
       Gate::resource('sales', 'App\Policies\SalePolicy');
+
+      Gate::resource('clients', 'App\Policies\ClientPolicy');
     }
 }

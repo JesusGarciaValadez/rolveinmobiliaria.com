@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CallRequest;
 use App\Http\Requests\CallSearchRequest;
-use Illuminate\Support\Facades\Gate;
 
 class CallController extends Controller
 {

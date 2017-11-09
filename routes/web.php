@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/clients')->group(function () {
+Route::prefix('/clients')->middleware('auth')->group(function () {
   Route::get('/', 'ClientController@index')
        ->name('clients');
 
