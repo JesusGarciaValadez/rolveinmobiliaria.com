@@ -48,6 +48,8 @@ class ClientController extends Controller
                        ->with('type', 'warning');
     }
 
+    $data['name'] = ucwords(strtolower($data['name']));
+
     $updated = Client::create($data);
 
     $message = ($updated)

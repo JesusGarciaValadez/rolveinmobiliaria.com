@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', "Acción denegada")
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -15,7 +17,9 @@
                   <div class="flex-center position-ref full-height">
                       <div class="content">
                           <div class="title">
-                              <h2>{{ $exception->getMessage() }}</h2>
+                              <h2>{{ empty($exception->getMessage())
+                                ? 'Esta acción no está autorizada.'
+                                : $exception->getMessage() }}</h2>
                               <img
                                 src="{{ asset('img/you-shall-not-pass.gif') }}"
                                 style="display: block; margin: 0 auto;"
