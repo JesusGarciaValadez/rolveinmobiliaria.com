@@ -193,10 +193,10 @@ class CallController extends Controller
   public function destroy(Request $request)
   {
     $call = Call::findOrFail($request->id);
-    $destroyed = $call->delete();
+    $isDestroyed = $call->delete();
 
-    $message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
-    $type = ($destroyed) ? 'success' : 'danger';
+    $message = ($isDestroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
+    $type = ($isDestroyed) ? 'success' : 'danger';
 
     if ( $request->ajax() )
     {
@@ -204,9 +204,9 @@ class CallController extends Controller
     }
     else
     {
-      return redirect()->back()
-                       ->with( 'message', $message )
-                       ->with( 'type', 'success' );
+      return redirect(route('call_trackings'))
+              ->with( 'message', $message )
+              ->with( 'type', 'success' );
     }
   }
 
