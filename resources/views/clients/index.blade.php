@@ -24,29 +24,36 @@
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
-          <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $clients->links() }}
+          @if (count($clients) < 1)
+            <h2 class="text-center">No hay clientes registrados. ¿Porqué no das de alta un nuevo cliente??</h2>
+            <div class="hidden-xs hidden-sm col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 text-center">
+              @include('clients.partials.buttons.create')
+            </div>
+          @else
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {{ $clients->links() }}
 
-            <table class="table table-bordered table-striped table-condensed">
-              <thead>
-                <tr>
-                  @include('clients.partials.table-header')
-                </tr>
-              </thead>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    @include('clients.partials.table-header')
+                  </tr>
+                </thead>
 
-              <tfoot>
-                <tr>
-                  @include('clients.partials.table-footer')
-                </tr>
-              </tfoot>
+                <tfoot>
+                  <tr>
+                    @include('clients.partials.table-footer')
+                  </tr>
+                </tfoot>
 
-              <tbody>
-                @each('clients.partials.items', $clients, 'client')
-              </tbody>
-            </table>
+                <tbody>
+                  @each('clients.partials.items', $clients, 'client')
+                </tbody>
+              </table>
 
-            {{ $clients->links() }}
-          </div>
+              {{ $clients->links() }}
+            </div>
+          @endif
         </div>
 
         <div class="panel-footer">

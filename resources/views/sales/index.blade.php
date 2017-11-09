@@ -24,29 +24,36 @@
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
-          <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $sales->links() }}
+          @if (count($sales) < 1)
+            <h2 class="text-center">No hay compra ventas registradas. ¿Porqué no creas una nueva?</h2>
+            <div class="hidden-xs hidden-sm col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 text-center">
+              @include('sales.partials.buttons.create')
+            </div>
+          @else
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {{ $sales->links() }}
 
-            <table class="table table-bordered table-striped table-condensed">
-              <thead>
-                <tr>
-                  @include('sales.partials.table-header')
-                </tr>
-              </thead>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    @include('sales.partials.table-header')
+                  </tr>
+                </thead>
 
-              <tfoot>
-                <tr>
-                  @include('sales.partials.table-footer')
-                </tr>
-              </tfoot>
+                <tfoot>
+                  <tr>
+                    @include('sales.partials.table-footer')
+                  </tr>
+                </tfoot>
 
-              <tbody>
-                @each('sales.partials.items', $sales, 'sale')
-              </tbody>
-            </table>
+                <tbody>
+                  @each('sales.partials.items', $sales, 'sale')
+                </tbody>
+              </table>
 
-            {{ $sales->links() }}
-          </div>
+              {{ $sales->links() }}
+            </div>
+          @endif
         </div>
 
         <div class="panel-footer">

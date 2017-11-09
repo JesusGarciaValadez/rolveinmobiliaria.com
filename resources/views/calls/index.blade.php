@@ -24,37 +24,45 @@
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
-          @include('calls.partials.search')
+          @if (count($calls) < 1)
+            <h2 class="text-center">No hay llamadas registradas. ¿Porqué no creas una nueva?</h2>
+            <div class="hidden-xs hidden-sm col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 text-center">
+              @include('calls.partials.buttons.create')
+            </div>
+          @else
+            @include('calls.partials.search')
 
-          <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $calls->links() }}
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {{ $calls->links() }}
 
-            <table class="table table-bordered table-striped table-condensed">
-              <thead>
-                <tr>
-                  @include('calls.partials.table-header')
-                </tr>
-              </thead>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    @include('calls.partials.table-header')
+                  </tr>
+                </thead>
 
-              <tfoot>
-                <tr>
-                  @include('calls.partials.table-footer')
-                </tr>
-              </tfoot>
+                <tfoot>
+                  <tr>
+                    @include('calls.partials.table-footer')
+                  </tr>
+                </tfoot>
 
-              <tbody>
-                @each('calls.partials.items', $calls, 'call')
-              </tbody>
+                <tbody>
+                  @each('calls.partials.items', $calls, 'call')
+                </tbody>
 
-            </table>
+              </table>
 
-            {{ $calls->links() }}
-          </div>
+              {{ $calls->links() }}
+            </div>
+
+          @endif
         </div>
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-6 col-xs-offset-4 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
+            <div class="col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
               @include('calls.partials.buttons.create')
             </div>
           </div>
