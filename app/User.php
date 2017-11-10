@@ -96,6 +96,16 @@ class User extends Authenticatable
 
   public function hasRole(String $role)
   {
+    // \Debugbar::info($this->role->name);
+    // if ($this->role->name === $role)
+    // {
+    //   \Debugbar::warning($this->role->name);
+    //   \Debugbar::danger($this->role->name === $role);
+    // }
+    // else
+    // {
+    //   \Debugbar::info($role);
+    // }
     return ($this->role->name === $role)
       ? true
       : false;

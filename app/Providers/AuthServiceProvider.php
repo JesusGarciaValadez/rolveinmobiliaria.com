@@ -6,6 +6,7 @@ use App\Call;
 use App\Sale;
 use App\Policies\CallPolicy;
 use App\Policies\SalePolicy;
+use App\Policies\ClientPolicy;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

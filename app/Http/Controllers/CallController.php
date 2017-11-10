@@ -9,7 +9,6 @@ use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\CallRequest;
 use App\Http\Requests\CallSearchRequest;
@@ -75,12 +74,12 @@ class CallController extends Controller
     $updated = Call::create($data);
 
     $message = ($updated)
-               ? 'Nueva llamada creada'
-               : 'No se pudo crear la llamada.';
+                 ? 'Nueva llamada creada'
+                 : 'No se pudo crear la llamada.';
 
     $type = ($updated)
-            ? 'success'
-            : 'danger';
+              ? 'success'
+              : 'danger';
 
     if ( $request->ajax() )
     {
@@ -156,12 +155,12 @@ class CallController extends Controller
                 ->update($data);
 
     $message = ($updated)
-               ? 'Llamada actualizada'
-               : 'No se pudo actualizar la llamada.';
+                ? 'Llamada actualizada'
+                : 'No se pudo actualizar la llamada.';
 
     $type = ($updated)
-            ? 'success'
-            : 'danger';
+              ? 'success'
+              : 'danger';
 
     if ( $request->ajax() )
     {
@@ -194,8 +193,13 @@ class CallController extends Controller
     $call = Call::findOrFail($request->id);
     $isDestroyed = $call->delete();
 
-    $message = ($isDestroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
-    $type = ($isDestroyed) ? 'success' : 'danger';
+    $message = ($isDestroyed)
+                  ? 'Llamada eliminada'
+                  : 'No se pudo eliminar la llamada.';
+
+    $type = ($isDestroyed)
+              ? 'success'
+              : 'danger';
 
     if ( $request->ajax() )
     {
@@ -215,7 +219,10 @@ class CallController extends Controller
               ->orderBy('id', 'desc')
               ->paginate(5);
 
-    $message = (count($calls) > 0) ? count($calls).' Llamadas encontradas' : 'No se pudo ninguna llamada.';
+    $message = (count($calls) > 0)
+                  ? count($calls).' Llamadas encontradas'
+                  : 'No se pudo ninguna llamada.';
+
     $type = (count($calls) > 0) ? 'success' : 'danger';
 
     $locale = \App::getLocale();

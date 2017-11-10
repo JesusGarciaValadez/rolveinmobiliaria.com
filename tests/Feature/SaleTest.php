@@ -14,7 +14,7 @@ class SaleTest extends TestCase
   use RefreshDatabase;
 
   /** @test */
-  public function super_admin_can_visit_the_sale_section()
+  public function test_super_admin_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -45,7 +45,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function admins_can_visit_the_sale_section()
+  public function test_admins_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -76,7 +76,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function assistants_cannot_visit_the_sale_section()
+  public function test_assistants_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -107,7 +107,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function sales_can_visit_the_sale_section()
+  public function test_sales_can_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -138,7 +138,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function interns_cannot_visit_the_sale_section()
+  public function test_interns_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
@@ -169,7 +169,7 @@ class SaleTest extends TestCase
   }
 
   /** @test */
-  public function client_cannot_visit_the_sale_section()
+  public function test_client_cannot_visit_the_sale_section()
   {
     $superAdminRole = factory(Role::class)
                         ->create(['name' => 'Super Administrador'])
