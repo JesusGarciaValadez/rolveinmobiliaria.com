@@ -52,8 +52,8 @@ if (clientRoot !== null) {
           const localUrl = `http://local.rolveinmobiliaria.com${uri}`
           const productionUrl = `http://45.77.197.22${uri}`
 
-          alert(localUrl)
-          alert(productionUrl)
+          console.log(localUrl)
+          console.log(productionUrl)
 
           const url = (environment != 'production')
             ? localUrl
@@ -69,14 +69,14 @@ if (clientRoot !== null) {
           fetch(url, inicialization)
             .then(response => console.log(response))
 
-          // fetch(url, inicialization)
-          //   .then(response => response.json())
-          //   .then(json => {
-          //     self.loading = false
-          //     self.clientPhoneOne = json.phone_1 || ''
-          //     self.clientPhoneTwo = json.phone_2 || ''
-          //     self.clientEmail = json.email || ''
-          //   })
+          fetch(url, inicialization)
+            .then(response => response.json())
+            .then(json => {
+              self.loading = false
+              self.clientPhoneOne = json.phone_1 || ''
+              self.clientPhoneTwo = json.phone_2 || ''
+              self.clientEmail = json.email || ''
+            })
 
         } else {
           self.loading = false
