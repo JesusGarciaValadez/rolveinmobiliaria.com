@@ -1129,10 +1129,9 @@ if (clientRoot !== null) {
           var localUrl = 'http://local.rolveinmobiliaria.com' + uri;
           var productionUrl = 'http://45.77.197.22' + uri;
 
-          alert(localUrl);
-          alert(productionUrl);
-
           var url = environment != 'production' ? localUrl : productionUrl;
+
+          console.log(url);
 
           var inicialization = {
             method: 'GET',
@@ -1145,14 +1144,14 @@ if (clientRoot !== null) {
             return console.log(response);
           });
 
-          // fetch(url, inicialization)
-          //   .then(response => response.json())
-          //   .then(json => {
-          //     self.loading = false
-          //     self.clientPhoneOne = json.phone_1 || ''
-          //     self.clientPhoneTwo = json.phone_2 || ''
-          //     self.clientEmail = json.email || ''
-          //   })
+          fetch(url, inicialization).then(function (response) {
+            return response.json();
+          }).then(function (json) {
+            self.loading = false;
+            self.clientPhoneOne = json.phone_1 || '';
+            self.clientPhoneTwo = json.phone_2 || '';
+            self.clientEmail = json.email || '';
+          });
         } else {
           self.loading = false;
           self.clientPhoneOne = '';

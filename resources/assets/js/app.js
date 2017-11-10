@@ -52,12 +52,11 @@ if (clientRoot !== null) {
           const localUrl = `http://local.rolveinmobiliaria.com${uri}`
           const productionUrl = `http://45.77.197.22${uri}`
 
-          console.log(localUrl)
-          console.log(productionUrl)
-
           const url = (environment != 'production')
             ? localUrl
             : productionUrl
+
+          console.log(url)
 
           const inicialization = {
             method: 'GET',

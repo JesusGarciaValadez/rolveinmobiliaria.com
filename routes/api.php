@@ -17,4 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
 
-Route::get('/clients/search/{id}', 'ClientController@search');
+Route::middleware('auth:api')->get('/clients/search/{id}', 'ClientController@search');
