@@ -46,4 +46,5 @@ return [
     'succession' => 'Succession',
     'exclusive_contracts' => 'Exclusive contracts',
     'appraisals' => 'Appraisals',
+    'messages' => 'Messages',
 ];

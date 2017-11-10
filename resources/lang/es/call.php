@@ -46,4 +46,5 @@ return [
     'succession' => 'Sucesión',
     'exclusive_contracts' => 'Contratos de exclusividad',
     'appraisals' => 'Avalúos',
+    'messages' => 'Recados',
 ];

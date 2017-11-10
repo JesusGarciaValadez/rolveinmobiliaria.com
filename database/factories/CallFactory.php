@@ -11,6 +11,7 @@ $factory->define(App\Call::class, function (Faker $faker) {
       'Contratos de exclusividad',
       'Jurídico',
       'Avalúos',
+      'Recados',
     ]),
     'address' => $faker->address(),
     'client_id' => function ()

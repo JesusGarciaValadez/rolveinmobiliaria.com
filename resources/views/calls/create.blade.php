@@ -65,6 +65,9 @@
                     @if (old('type_of_operation') == "Avalúos")
                       selected
                     @endif>@lang('call.appraisals')</option>
+                    @if (old('type_of_operation') == "Recados")
+                      selected
+                    @endif>@lang('call.messages')</option>
                 </select>
 
                 @if ($errors->has('type_of_operation'))

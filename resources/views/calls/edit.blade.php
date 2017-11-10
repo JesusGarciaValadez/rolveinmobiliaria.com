@@ -70,6 +70,12 @@
                     || $call->type_of_operation == 'Avalúos')
                       ? 'selected'
                       : '' }}>@lang('call.appraisals')</option>
+                  <option
+                    value="Avalúos"
+                    {{ (old('type_of_operation') == 'Recados'
+                    || $call->type_of_operation == 'Recados')
+                      ? 'selected'
+                      : '' }}>@lang('call.messages')</option>
                 </select>
 
                 @if ($errors->has('type_of_operation'))

@@ -24,6 +24,7 @@ class CreateCallsTable extends Migration
               'Contratos de exclusividad',
               'Jurídico',
               'Avalúos',
+              'Recados',
             ])
             ->default('Venta');
       $table->string('address')
