@@ -47,6 +47,14 @@
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
+                  @can('clients.view')
+                    <li class="hidden-md hidden-lg">
+                      <a href="{{ route('clients') }}" title="@lang('section.clients')">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                        @lang('section.clients')
+                      </a>
+                    </li>
+                  @endcan
                   @can('calls.view')
                     <li class="hidden-md hidden-lg">
                       <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')">
@@ -60,14 +68,6 @@
                       <a href="{{ route('for_sales') }}" title="@lang('section.for_sale')">
                         <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
                         @lang('section.for_sale')
-                      </a>
-                    </li>
-                  @endcan
-                  @can('clients.view')
-                    <li class="hidden-md hidden-lg">
-                      <a href="{{ route('clients') }}" title="@lang('section.clients')">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                        @lang('section.clients')
                       </a>
                     </li>
                   @endcan

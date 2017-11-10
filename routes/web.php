@@ -51,9 +51,6 @@ Route::prefix('/clients')->middleware('auth')->group(function () {
 
   Route::delete('/destroy/{id}', 'ClientController@destroy')
        ->name('destroy_client');
-
-  Route::get('/search/{date?}', 'ClientController@search')
-       ->name('search_client');
 });
 
 Route::prefix('/call_trackings')->middleware('auth')->group(function () {

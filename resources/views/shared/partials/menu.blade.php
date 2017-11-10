@@ -10,6 +10,20 @@
       data-placement="right">
       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     </a>
+  @can('clients.view')
+    <a
+      href="{{ route('clients') }}"
+      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'clients')
+        ? ' active'
+        : '' }}"
+      title="@lang('section.clients')"
+      data-toggle="tooltip"
+      data-placement="right">
+      <span
+        class="glyphicon glyphicon glyphicon-book"
+        aria-hidden="true"></span>
+    </a>
+  @endcan
   @can('calls.view')
     <a
       href="{{ route('call_trackings') }}"
@@ -35,20 +49,6 @@
       data-placement="right">
       <span
         class="glyphicon glyphicon-piggy-bank"
-        aria-hidden="true"></span>
-    </a>
-  @endcan
-  @can('clients.view')
-    <a
-      href="{{ route('clients') }}"
-      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'clients')
-        ? ' active'
-        : '' }}"
-      title="@lang('section.clients')"
-      data-toggle="tooltip"
-      data-placement="right">
-      <span
-        class="glyphicon glyphicon glyphicon-book"
         aria-hidden="true"></span>
     </a>
   @endcan

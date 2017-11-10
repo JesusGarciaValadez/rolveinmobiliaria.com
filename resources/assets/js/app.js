@@ -47,9 +47,17 @@ if (clientRoot !== null) {
         self.loading = true
 
         if (clientId !== '') {
-          const url = process.env.NODE_ENV !== 'production'
-            ? `http://local.rolveinmobiliaria.com/clients/show/${clientId}`
-            : `http://45.77.197.22/clients/show/${clientId}`
+          const environment = process.env.NODE_ENV
+          const uri = `/api/clients/search/${clientId}`
+          const localUrl = `http://local.rolveinmobiliaria.com${uri}`
+          const productionUrl = `http://45.77.197.22${uri}`
+
+          alert(localUrl)
+          alert(productionUrl)
+
+          const url = (environment != 'production')
+            ? localUrl
+            : productionUrl
 
           const inicialization = {
             method: 'GET',
@@ -59,13 +67,16 @@ if (clientRoot !== null) {
           }
 
           fetch(url, inicialization)
-            .then(response => response.json())
-            .then(json => {
-              self.loading = false
-              self.clientPhoneOne = json.phone_1 || ''
-              self.clientPhoneTwo = json.phone_2 || ''
-              self.clientEmail = json.email || ''
-            })
+            .then(response => console.log(response))
+
+          // fetch(url, inicialization)
+          //   .then(response => response.json())
+          //   .then(json => {
+          //     self.loading = false
+          //     self.clientPhoneOne = json.phone_1 || ''
+          //     self.clientPhoneTwo = json.phone_2 || ''
+          //     self.clientEmail = json.email || ''
+          //   })
 
         } else {
           self.loading = false
