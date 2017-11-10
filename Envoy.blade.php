@@ -34,9 +34,7 @@
       git push origin {{ $branch }};
 
       @if ($environment == 'production')
-        git push heroku {{ $branch }};
-
-        open https://rolveinmobiliaria.herokuapp.com/;
+        open http://45.77.197.22/;
       @endif
 
       git checkout develop;
@@ -68,4 +66,22 @@
 
 @task('phpunit')
   ./vendor/bin/phpunit;
+@endtask
+
+@task('npm')
+  @if ($environment)
+    npm run dev;
+
+    @if ($environment == 'production')
+      npm run prod;
+
+      git add public/js;
+
+      git commit -m "Packing js file for prod.";
+
+      git push origin master;
+    @endif
+
+    npm run dev;
+  @endif
 @endtask
