@@ -34,6 +34,7 @@ class CallRequest extends FormRequest
           'Contratos de exclusividad',
           'Jurídico',
           'Avalúos',
+          'Recados',
         ]),
       ],
       'client_id' => 'required|string',
