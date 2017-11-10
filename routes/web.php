@@ -115,7 +115,4 @@ Route::prefix('/for_sales')->middleware('auth')->group(function () {
   Route::delete('/destroy/{id}', 'SaleController@destroy')
        ->name('destroy_sale')
        ->middleware('can:sales.delete, sale');
-
-  Route::get('/search/{date?}', 'SaleController@search')
-       ->name('search_sale');
 });
