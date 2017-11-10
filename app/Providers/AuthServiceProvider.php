@@ -8,6 +8,7 @@ use App\Policies\CallPolicy;
 use App\Policies\SalePolicy;
 use App\Policies\ClientPolicy;
 
+use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -34,6 +35,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
       $this->registerPolicies();
+
+      Passport::routes();
 
       Gate::resource('user', 'App\Policies\AdminPolicy');
 

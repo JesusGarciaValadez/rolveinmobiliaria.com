@@ -48,7 +48,7 @@ if (clientRoot !== null) {
 
         if (clientId !== '') {
           const environment = process.env.NODE_ENV
-          const uri = `/api/clients/search/${clientId}`
+          const uri = `/api/clients/show/${clientId}`
           const localUrl = `http://local.rolveinmobiliaria.com${uri}`
           const productionUrl = `http://45.77.197.22${uri}`
 
@@ -59,24 +59,18 @@ if (clientRoot !== null) {
           console.log(url)
 
           const inicialization = {
-            method: 'GET',
-            mode: 'no-cors', // cors, no-cors, or same-origin
-            credentials: 'omit', // omit, same-origin, or include.
-            cache: 'no-cache' // default, no-store, reload, no-cache, force-cache, or only-if-cached.
+            withCredentials: false
           }
 
-          fetch(url, inicialization)
-            .then(response => console.log(response))
-
-          fetch(url, inicialization)
-            .then(response => response.json())
-            .then(json => {
+          axios.get(url, inicialization)
+            .then(response => response.data[1])
+            .catch(error => console.log(error))
+            .then(response => {
               self.loading = false
-              self.clientPhoneOne = json.phone_1 || ''
-              self.clientPhoneTwo = json.phone_2 || ''
-              self.clientEmail = json.email || ''
+              self.clientPhoneOne = response.phone_1 || ''
+              self.clientPhoneTwo = response.phone_2 || ''
+              self.clientEmail = response.email || ''
             })
-
         } else {
           self.loading = false
           self.clientPhoneOne = ''

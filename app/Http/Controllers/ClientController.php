@@ -196,26 +196,4 @@ class ClientController extends Controller
               ->with( 'type', 'success' );
     }
   }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  \App\Client  $client
-   * @return \Illuminate\Http\Response
-   */
-  public function search(ClientRequest $request)
-  {
-    $client = Client::findOrFail($request->id);
-
-    \Debugbar::warning($request->ajax());
-
-    if ($request->ajax())
-    {
-      return response()->json(['client', $client]);
-    }
-    else
-    {
-      return view('clients.show', compact('client'));
-    }
-  }
 }
