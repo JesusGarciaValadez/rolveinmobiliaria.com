@@ -59,6 +59,7 @@ class ClientController extends Controller
     $data = $request->all();
     $data['first_name'] = ucwords(strtolower($data['first_name']));
     $data['last_name'] = ucwords(strtolower($data['last_name']));
+    $data['user_id'] = \Auth::id();
     unset($data['_token']);
 
     $isRepeated = DB::table('clients')
