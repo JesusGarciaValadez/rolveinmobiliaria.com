@@ -22,6 +22,7 @@ class Client extends Model
     'business',
     'email',
     'reference',
+    'user_id',
   ];
 
   /**
@@ -83,5 +84,10 @@ class Client extends Model
   public function getFullNameAttribute()
   {
     return $this->first_name . ' ' . $this->last_name;
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User');
   }
 }

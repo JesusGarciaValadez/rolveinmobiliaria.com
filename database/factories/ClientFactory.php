@@ -11,5 +11,9 @@ $factory->define(App\Client::class, function (Faker $faker) {
     'business' => $faker->company() ,
     'email' => $faker->freeEmail() ,
     'reference' => $faker->sentence(),
+    'user_id' => function ()
+    {
+      return factory(App\User::class)->states('assistant')->create()->id;
+    },
   ];
 });

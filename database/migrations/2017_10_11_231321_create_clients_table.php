@@ -26,6 +26,14 @@ class CreateClientsTable extends Migration
             ->nullable();
       $table->string('reference')
             ->nullable();
+      $table->integer('user_id')
+            ->unsigned()
+            ->nullable();
+      $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
       $table->softDeletes();
       $table->timestamps();
     });
