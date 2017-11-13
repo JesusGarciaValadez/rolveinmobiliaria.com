@@ -61,12 +61,13 @@ class ClientController extends Controller
     $data['last_name'] = ucwords(strtolower($data['last_name']));
     unset($data['_token']);
 
-    $isRepeated = Client::where([
-      ['first_name', '=',  $data['first_name']],
-      ['last_name', '=',  $data['last_name']],
-      ['phone_1', '=',  $data['phone_1']],
-      ['deleted_at', '!=', null],
-    ])->get()->count();
+    $isRepeated = DB::table('clients')
+                    ->where('first_name', $data['first_name'])
+                    ->where('last_name', $data['last_name'])
+                    ->where('phone_1', $data['phone_1'])
+                    ->whereNull('deleted_at')
+                    ->get()
+                    ->count();
 
     if ($isRepeated !== 0) {
       return redirect()->back()
@@ -147,12 +148,13 @@ class ClientController extends Controller
     $data['first_name'] = ucwords(strtolower($data['first_name']));
     $data['last_name'] = ucwords(strtolower($data['last_name']));
 
-    $isRepeated = Client::where([
-      ['first_name', '=',  $data['first_name']],
-      ['last_name', '=',  $data['last_name']],
-      ['phone_1', '=',  $data['phone_1']],
-      ['deleted_at', '!=', null],
-    ])->get()->count();
+    $isRepeated = DB::table('clients')
+                    ->where('first_name', $data['first_name'])
+                    ->where('last_name', $data['last_name'])
+                    ->where('phone_1', $data['phone_1'])
+                    ->whereNull('deleted_at')
+                    ->get()
+                    ->count();
 
     if ($isRepeated !== 0) {
       return redirect()->back()
