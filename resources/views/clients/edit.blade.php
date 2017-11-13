@@ -205,7 +205,9 @@
             <div class="form-inline">
               @include('clients.partials.buttons.save')
 
-              @include('clients.partials.buttons.back')
+              @include('clients.partials.buttons.back', [
+                'back' => route('clients')
+              ])
             </div>
           </form>
         </div>
