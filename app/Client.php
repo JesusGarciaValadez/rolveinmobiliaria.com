@@ -14,7 +14,15 @@ class Client extends Model
    *
    * @var array
    */
-  protected $fillable = ['name', 'phone_1', 'phone_2', 'email'];
+  protected $fillable = [
+    'first_name',
+    'last_name',
+    'phone_1',
+    'phone_2',
+    'business',
+    'email',
+    'reference',
+  ];
 
   /**
    * The attributes that aren't mass assignable.
@@ -70,5 +78,10 @@ class Client extends Model
     $date = $this->created_at->format('h:i');
 
     return $date.' hrs';
+  }
+
+  public function getFullNameAttribute()
+  {
+    return $this->first_name . ' ' . $this->last_name;
   }
 }

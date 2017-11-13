@@ -10,7 +10,8 @@
                     </a>
                   </td>
                   <td>{{ $call->type_of_operation }}</td>
-                  <td>{{ $call->client->name }}</td>
+                  <td>{{ $call->client->first_name }}</td>
+                  <td>{{ $call->client->last_name }}</td>
                   <td>{{ $call->client->phone_1 }}</td>
                   <td>
                     <a href="mailto:{{ $call->client->email }}" title="@lang('shared.send_email_to') {{ $call->client->name }}" target="_blank">{{ $call->client->email }}</a>

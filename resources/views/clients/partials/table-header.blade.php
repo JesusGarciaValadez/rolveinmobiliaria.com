@@ -2,4 +2,6 @@
                   <th class="text-center">Nombre</th>
                   <th class="text-center">Teléfono 1</th>
                   <th class="text-center">Teléfono 2</th>
+                  <th class="text-center">Empresa</th>
                   <th class="text-center">Email</th>
+                  <th class="text-center">Referencia</th>

@@ -28,7 +28,9 @@ if (clientRoot !== null) {
     data: {
       clientPhoneOne: '',
       clientPhoneTwo: '',
+      clientBusiness: '',
       clientEmail: '',
+      clientReference: '',
       loading: false
     },
     computed: {
@@ -56,20 +58,20 @@ if (clientRoot !== null) {
             ? localUrl
             : productionUrl
 
-          console.log(url)
-
           const inicialization = {
             withCredentials: false
           }
 
           axios.get(url, inicialization)
-            .then(response => response.data[1])
+            .then(response => response.data[0])
             .catch(error => console.log(error))
             .then(response => {
               self.loading = false
               self.clientPhoneOne = response.phone_1 || ''
               self.clientPhoneTwo = response.phone_2 || ''
+              self.clientBusiness = response.business || ''
               self.clientEmail = response.email || ''
+              self.clientReference = response.reference || ''
             })
         } else {
           self.loading = false

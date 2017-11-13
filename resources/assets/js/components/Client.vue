@@ -1,19 +1,23 @@
 <template>
-  <div v-show="hasClient">
-    <p v-show="hasPhoneOne" class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8">Teléfono: {{ phoneOne }}</p>
-    <p v-show="hasPhoneTwo" class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8">Teléfono: {{ phoneTwo }}</p>
-    <p v-show="hasEmail" class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8">Email: <a :href="email | mailto" :title="email">{{ email }}</a></p>
+    <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info" v-show="hasClient">
+      <p v-show="hasPhoneOne"><strong>Teléfono:</strong> {{ phoneOne }}</p>
+      <p v-show="hasPhoneTwo"><strong>Teléfono:</strong> {{ phoneTwo }}</p>
+      <p v-show="hasBusiness"><strong>Empresa:</strong> {{ business }}</p>
+      <p v-show="hasEmail"><strong>Email:</strong> <a :href="email | mailto" :title="email">{{ email }}</a></p>
+      <p v-show="hasReference"><strong>Referencia:</strong> {{ reference }}</p>
 
-    <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8">
-      ¿No es el cliente que querías? Selecciona otro o
-      <a
-        href="#"
-        title="crea uno nuevo"
-        target="_self"
-        data-toggle="modal"
-        data-target="#newClient">crea uno nuevo</a>
-    </p>
-  </div>
+      <p>
+        <strong>
+          ¿No es el cliente que querías? Selecciona otro o
+          <a
+            href="#"
+            title="crea uno nuevo"
+            target="_self"
+            data-toggle="modal"
+            data-target="#newClient">crea uno nuevo</a>
+        </strong>
+      </p>
+    </div>
 </template>
 
 <script>
@@ -29,7 +33,15 @@
         type: String,
         default: ''
       },
+      business: {
+        type: String,
+        default: ''
+      },
       email: {
+        type: String,
+        default: ''
+      },
+      reference: {
         type: String,
         default: ''
       },
@@ -46,9 +58,15 @@
       hasPhoneTwo: function () {
         return this.phoneTwo.length !== 0
       },
+      hasBusiness: function () {
+        return this.business.length !== 0
+      },
       hasEmail: function () {
         return this.email.length !== 0
-      }
+      },
+      hasReference: function () {
+        return this.reference.length !== 0
+      },
     },
     filters: {
       mailto: function (value) {

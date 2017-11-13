@@ -47,7 +47,10 @@ class CallController extends Controller
   {
     $locale = \App::getLocale();
 
-    $clients = Client::with('internalExpedient')->get()->sortBy('name');
+    $clients = Client::with('internalExpedient')
+                      ->get()
+                      ->sortBy('last_name')
+                      ->sortBy('first_name');
 
     $uri = 'call_trackings';
 
@@ -134,7 +137,9 @@ class CallController extends Controller
 
     $call = Call::findOrFail($request->id);
 
-    $clients = Client::all()->sortBy('name');
+    $clients = Client::all()
+                      ->sortBy('last_name')
+                      ->sortBy('first_name');
 
     return view('calls.edit', compact('uri', 'states', 'call', 'clients'));
   }
@@ -155,8 +160,8 @@ class CallController extends Controller
                 ->update($data);
 
     $message = ($updated)
-                ? 'Llamada actualizada'
-                : 'No se pudo actualizar la llamada.';
+                  ? 'Llamada actualizada'
+                  : 'No se pudo actualizar la llamada.';
 
     $type = ($updated)
               ? 'success'

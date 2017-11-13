@@ -32,31 +32,38 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::prefix('/clients')->middleware('auth')->group(function () {
   Route::get('/', 'ClientController@index')
-       ->name('clients');
+       ->name('clients')
+       ->middleware('can:clients.view, App\Client');
 
   Route::get('/new', 'ClientController@create')
-       ->name('create_client');
+       ->name('create_client')
+       ->middleware('can:clients.create, App\Client');
 
   Route::post('/store', 'ClientController@store')
-       ->name('store_client');
+       ->name('store_client')
+       ->middleware('can:clients.create, client');
 
   Route::get('/show/{id}', 'ClientController@show')
-       ->name('show_client');
+       ->name('show_client')
+       ->middleware('can:clients.view, client');
 
   Route::get('/edit/{id}', 'ClientController@edit')
-       ->name('edit_client');
+       ->name('edit_client')
+       ->middleware('can:clients.update, client');
 
   Route::put('/uptate/{id}', 'ClientController@update')
-       ->name('update_client');
+       ->name('update_client')
+       ->middleware('can:clients.update, client');
 
   Route::delete('/destroy/{id}', 'ClientController@destroy')
-       ->name('destroy_client');
+       ->name('destroy_client')
+       ->middleware('can:clients.delete, client');
 });
 
 Route::prefix('/call_trackings')->middleware('auth')->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings')
-       ->middleware('can:calls.view, App\Sale');
+       ->middleware('can:calls.view, App\Call');
 
   Route::get('/new', 'CallController@create')
        ->name('create_call')

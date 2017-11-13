@@ -32,7 +32,10 @@ return [
     'priority' => 'Prioridad',
     'actions' => 'Acciones',
 
-    'clients_name' => 'Nombre del cliente',
+    'clients_first_name' => 'Nombre(s) del cliente',
+    'clients_last_name' => 'Apellidos del cliente',
+    'clients_business' => 'Empresa',
+    'clients_reference' => 'Referencia del cliente',
     'type_of_operation' => 'Tipo de operación',
     'property_address' => 'Dirección del inmueble',
     'state_of_the_republic' => 'Estado de la República',

@@ -32,7 +32,10 @@ return [
     'priority' => 'Priority',
     'actions' => 'Actions',
 
-    'clients_name' => "Client's name",
+    'clients_first_name' => "Client's first name",
+    'clients_last_name' => "Client's last name",
+    'clients_business' => "Client's business",
+    'clients_reference' => "Client's reference",
     'type_of_operation' => 'Type of operation',
     'property_address' => "Property address",
     'state_of_the_republic' => 'State of the Republic',

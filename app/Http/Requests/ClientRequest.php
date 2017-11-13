@@ -24,10 +24,12 @@ class ClientRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|string',
+      'first_name' => 'required|string',
+      'last_name' => 'required|string',
       'phone_1' => 'required|string',
-      'phone_2' => 'sometimes|nullable|string',
-      'email' => 'sometimes|nullable|email',
+      'phone_2' => 'nullable|string',
+      'business' => 'nullable|string',
+      'email' => 'nullable|email',
     ];
   }
 }

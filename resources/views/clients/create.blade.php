@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nueva | ".__('client.new_client'))
+@section('title', __('client.new_client'))
 
 @section('content')
 <div class="container-fluid">
@@ -17,7 +17,8 @@
               class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
-            @lang('client.new_client')</h1>
+            @lang('client.new_client')
+          </h1>
         </div>
 
         <div class="panel-body table-responsive">
@@ -28,24 +29,47 @@
             action="{{ route('store_client') }}"
             method="post">
             {{ csrf_field() }}
-            <div class="form-group{{ $errors->has('name') ? ' has-error' : ''}}">
+            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : ''}}">
               <label
-              for="name"
-              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.client'): </label>
+              for="first_name"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_first_name'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
                 type="text"
                 class="form-control"
-                name="name"
-                id="name"
+                name="first_name"
+                id="first_name"
                 value="{{ old('name') }}"
-                placeholder="@lang('call.clients_name')"
+                placeholder="@lang('call.clients_first_name')"
                 autocorrect="on"
                 required>
 
-                @if ($errors->has('name'))
+                @if ($errors->has('first_name'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
+                    <strong>{{ $errors->first('first_name') }}</strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+
+            <div class="form-group{{ $errors->has('last_name') ? ' has-error' : ''}}">
+              <label
+              for="last_name"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_last_name'): </label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
+                <input
+                type="text"
+                class="form-control"
+                name="last_name"
+                id="last_name"
+                value="{{ old('name') }}"
+                placeholder="@lang('call.clients_last_name')"
+                autocorrect="on"
+                required>
+
+                @if ($errors->has('last_name'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('last_name') }}</strong>
                   </span>
                 @endif
               </div>
@@ -96,6 +120,29 @@
               </div>
             </div>
 
+            <div class="form-group{{ $errors->has('business') ? ' has-error' : ''}}">
+              <label
+              for="business"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_business'): </label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
+                <input
+                type="text"
+                class="form-control"
+                name="business"
+                id="business"
+                value="{{ old('name') }}"
+                placeholder="@lang('call.clients_business')"
+                autocorrect="on"
+                required>
+
+                @if ($errors->has('business'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('business') }}</strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+
             <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
               <label
               for="email"
@@ -117,16 +164,32 @@
               </div>
             </div>
 
-            <div class="form-inline">
-              <div class="form-group">
-                @include('clients.partials.buttons.save')
-              </div>
+            <div class="form-group{{ $errors->has('reference') ? ' has-error' : ''}}">
+              <label
+              for="reference"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_reference'): </label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
+                <input
+                type="text"
+                class="form-control"
+                name="reference"
+                id="reference"
+                value="{{ old('name') }}"
+                placeholder="@lang('call.clients_reference')"
+                autocorrect="on">
 
-              <div class="form-group">
-                @include('clients.partials.buttons.back', [
-                'back' => route('clients')
-                ])
+                @if ($errors->has('reference'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('reference') }}</strong>
+                  </span>
+                @endif
               </div>
+            </div>
+
+            <div class="form-inline">
+              @include('clients.partials.buttons.save')
+
+              @include('clients.partials.buttons.back')
             </div>
           </form>
         </div>

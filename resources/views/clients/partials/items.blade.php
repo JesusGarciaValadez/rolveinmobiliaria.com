@@ -8,9 +8,9 @@
                     <a
                       href="{{ route('show_client', $client->id) }}"
                       target="_self"
-                      title="{{ $client->name }}"
+                      title="{{ $client->full_name }}"
                     >
-                      {{ $client->name }}
+                      {{ $client->full_name }}
                     </a>
                   </td>
                   <td class="text-center">
@@ -20,6 +20,9 @@
                     {{ $client->phone_2 }}
                   </td>
                   <td class="text-center">
+                    {{ $client->business }}
+                  </td>
+                  <td class="text-center">
                     <a
                       href="mailto:{{ $client->email }}"
                       target="_self"
@@ -27,5 +30,8 @@
                     >
                       {{ $client->email }}
                     </a>
+                  </td>
+                  <td class="text-center">
+                    {{ $client->reference }}
                   </td>
                 </tr>

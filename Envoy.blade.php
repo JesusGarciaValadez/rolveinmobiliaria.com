@@ -70,8 +70,6 @@
 
 @task('npm')
   @if ($environment)
-    npm run dev;
-
     @if ($environment == 'production')
       npm run prod;
 

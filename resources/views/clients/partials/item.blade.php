@@ -5,13 +5,16 @@
                     @include('clients.partials.buttons.delete')
                   </td>
                   <td class="text-center">
-                    {{ $client->name }}
+                    {{ $client->full_name }}
                   </td>
                   <td class="text-center">
                     {{ $client->phone_1 }}
                   </td>
                   <td class="text-center">
                     {{ $client->phone_2 }}
+                  </td>
+                  <td class="text-center">
+                    {{ $client->business }}
                   </td>
                   <td class="text-center">
                     <a
@@ -21,5 +24,8 @@
                     >
                       {{ $client->email }}
                     </a>
+                  </td>
+                  <td class="text-center">
+                    {{ $client->reference }}
                   </td>
                 </tr>

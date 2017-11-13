@@ -24,7 +24,8 @@ class ClientController extends Controller
 
     $uri = 'clients';
 
-    $clients = Client::orderBy('name', 'asc')->paginate(5);
+    $clients = Client::orderBy('first_name', 'asc')
+                     ->orderBy('last_name', 'asc')->paginate(5);
 
     return view('clients.index', compact('clients', 'uri'));
   }
@@ -38,7 +39,9 @@ class ClientController extends Controller
   {
     $locale = \App::getLocale();
 
-    $clients = Client::with('internalExpedient')->get()->sortBy('name');
+    $clients = Client::with('internalExpedient')
+                     ->get()
+                     ->sortBy('last_name');
 
     $uri = 'clients';
 
@@ -54,17 +57,22 @@ class ClientController extends Controller
   public function store(ClientRequest $request)
   {
     $data = $request->all();
+    $data['first_name'] = ucwords(strtolower($data['first_name']));
+    $data['last_name'] = ucwords(strtolower($data['last_name']));
     unset($data['_token']);
 
-    $isRepeated = Client::where('email', $data['email'])->get()->count();
+    $isRepeated = Client::where([
+      ['first_name', '=',  $data['first_name']],
+      ['last_name', '=',  $data['last_name']],
+      ['phone_1', '=',  $data['phone_1']],
+      ['deleted_at', '!=', null],
+    ])->get()->count();
 
     if ($isRepeated !== 0) {
       return redirect()->back()
                        ->with('message', 'El cliente ya existe. El email ya se encuentra en la base de datos.')
                        ->with('type', 'warning');
     }
-
-    $data['name'] = ucwords(strtolower($data['name']));
 
     $updated = Client::create($data);
 
@@ -100,7 +108,7 @@ class ClientController extends Controller
 
     if ($request->ajax())
     {
-      return response()->json(['client', $client]);
+      return response()->json([$client]);
     }
     else
     {
@@ -136,18 +144,32 @@ class ClientController extends Controller
   {
     $data = $request->all();
     unset($data['_token']);
-    $data['name'] = ucwords(strtolower($data['name']));
+    $data['first_name'] = ucwords(strtolower($data['first_name']));
+    $data['last_name'] = ucwords(strtolower($data['last_name']));
+
+    $isRepeated = Client::where([
+      ['first_name', '=',  $data['first_name']],
+      ['last_name', '=',  $data['last_name']],
+      ['phone_1', '=',  $data['phone_1']],
+      ['deleted_at', '!=', null],
+    ])->get()->count();
+
+    if ($isRepeated !== 0) {
+      return redirect()->back()
+                       ->with('message', 'El cliente ya existe. El email ya se encuentra en la base de datos.')
+                       ->with('type', 'warning');
+    }
 
     $updated = Client::findOrFail($request->id)
-                ->update($data);
+                     ->update($data);
 
     $message = ($updated)
-               ? 'Cliente actualizado'
-               : 'No se pudo actualizar la información del cliente.';
+                  ? 'Cliente actualizado'
+                  : 'No se pudo actualizar la información del cliente.';
 
     $type = ($updated)
-            ? 'success'
-            : 'danger';
+              ? 'success'
+              : 'danger';
 
     \Debugbar::info($request->ajax());
 
