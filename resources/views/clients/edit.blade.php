@@ -145,8 +145,7 @@
                     ? old('business')
                     : $client->business }}"
                   placeholder="@lang('call.clients_business')"
-                  autocorrect="on"
-                  required>
+                  autocorrect="on">
 
                 @if ($errors->has('business'))
                   <span class="help-block">

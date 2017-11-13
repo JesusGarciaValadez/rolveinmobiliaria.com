@@ -58,14 +58,14 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_last_name'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="text"
-                class="form-control"
-                name="last_name"
-                id="last_name"
-                value="{{ old('name') }}"
-                placeholder="@lang('call.clients_last_name')"
-                autocorrect="on"
-                required>
+                  type="text"
+                  class="form-control"
+                  name="last_name"
+                  id="last_name"
+                  value="{{ old('name') }}"
+                  placeholder="@lang('call.clients_last_name')"
+                  autocorrect="on"
+                  required>
 
                 @if ($errors->has('last_name'))
                   <span class="help-block">
@@ -81,14 +81,14 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.phone') 1: </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="tel"
-                class="form-control"
-                name="phone_1"
-                id="phone_1"
-                value="{{ old('phone_1') }}"
-                placeholder="@lang('call.phone') 1"
-                autocorrect="on"
-                required>
+                  type="tel"
+                  class="form-control"
+                  name="phone_1"
+                  id="phone_1"
+                  value="{{ old('phone_1') }}"
+                  placeholder="@lang('call.phone') 1"
+                  autocorrect="on"
+                  required>
 
                 @if ($errors->has('phone_1'))
                   <span class="help-block">
@@ -104,13 +104,13 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.phone') 2: </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="tel"
-                class="form-control"
-                name="phone_2"
-                id="phone_2"
-                value="{{ old('phone_2') }}"
-                placeholder="@lang('call.phone') 2"
-                autocorrect="on">
+                  type="tel"
+                  class="form-control"
+                  name="phone_2"
+                  id="phone_2"
+                  value="{{ old('phone_2') }}"
+                  placeholder="@lang('call.phone') 2"
+                  autocorrect="on">
 
                 @if ($errors->has('phone_2'))
                   <span class="help-block">
@@ -126,14 +126,13 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_business'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="text"
-                class="form-control"
-                name="business"
-                id="business"
-                value="{{ old('name') }}"
-                placeholder="@lang('call.clients_business')"
-                autocorrect="on"
-                required>
+                  type="text"
+                  class="form-control"
+                  name="business"
+                  id="business"
+                  value="{{ old('name') }}"
+                  placeholder="@lang('call.clients_business')"
+                  autocorrect="on">
 
                 @if ($errors->has('business'))
                   <span class="help-block">
@@ -149,12 +148,12 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.email'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="email"
-                class="form-control"
-                name="email"
-                value="{{ old('email') }}"
-                placeholder="@lang('call.email')"
-                autocorrect="on">
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  value="{{ old('email') }}"
+                  placeholder="@lang('call.email')"
+                  autocorrect="on">
 
                 @if ($errors->has('email'))
                   <span class="help-block">
@@ -170,13 +169,13 @@
               class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_reference'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="text"
-                class="form-control"
-                name="reference"
-                id="reference"
-                value="{{ old('name') }}"
-                placeholder="@lang('call.clients_reference')"
-                autocorrect="on">
+                  type="text"
+                  class="form-control"
+                  name="reference"
+                  id="reference"
+                  value="{{ old('name') }}"
+                  placeholder="@lang('call.clients_reference')"
+                  autocorrect="on">
 
                 @if ($errors->has('reference'))
                   <span class="help-block">
