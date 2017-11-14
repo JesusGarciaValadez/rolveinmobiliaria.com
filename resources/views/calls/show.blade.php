@@ -59,7 +59,7 @@
                   </td>
                   <td>{{ $call->expedient }}</td>
                   <td>{{ $call->type_of_operation }}</td>
-                  <td>{{ $call->client->name }}</td>
+                  <td>{{ $call->client->full_name }}</td>
                   <td>{{ $call->client->phone_1 }}</td>
                   <td>{{ $call->client->phone_2 }}</td>
                   <td>
