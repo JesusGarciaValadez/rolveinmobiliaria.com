@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'sale' => 'venta',
-    'Sale' => 'Venta',
+    'sale' => 'compra venta',
+    'Sale' => 'Compra venta',
     'new_sale' => 'Nueva compra venta',
 
     'id' => 'ID',
@@ -39,7 +39,6 @@ return [
     'choose_a_state' => 'Escoge un Estado',
     'choose_an_option' => 'Escoge una opción',
 
-    'sale' => 'Venta',
     'rent' => 'Renta',
     'regularization' => 'Regularization',
     'legal' => 'Jurídico',

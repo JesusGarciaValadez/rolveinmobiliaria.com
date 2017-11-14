@@ -1,20 +1,26 @@
                 <tr>
                   <td class="text-center">
-                    @include('sales.partials.buttons.edit')
+                    @can('sales.update')
+                      @include('sales.partials.buttons.edit')
+                    @endcan
 
-                    @include('sales.partials.buttons.delete')
+                    @can('sales.delete')
+                      @include('sales.partials.buttons.delete', [
+                        'sale' => $sale
+                      ])
+                    @endcan
                   </td>
                   <td class="text-center">
                     <a
                       href="{{ route('show_sale', $sale->internalExpedient->id) }}"
                       target="_self"
-                      title="{{ $sale->internalExpedient->client->name }}"
+                      title="{{ $sale->internalExpedient->client->full_name }}"
                     >
                       {{ $sale->internalExpedient->expedient }}
                     </a>
                   </td>
                   <td class="text-center">
-                    {{ $sale->internalExpedient->client->name }}
+                    {{ $sale->internalExpedient->client->full_name }}
                   </td>
                   <td class="text-center">
                     <span class="label

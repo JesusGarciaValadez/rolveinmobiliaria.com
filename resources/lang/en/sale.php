@@ -39,7 +39,6 @@ return [
     'choose_a_state' => 'Choose a State',
     'choose_an_option' => 'Choose an option',
 
-    'sale' => 'Sale',
     'rent' => 'Rent',
     'regularization' => 'Regularization',
     'legal' => 'Legal',

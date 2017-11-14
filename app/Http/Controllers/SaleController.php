@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use App\State;
+use App\Client;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -109,9 +110,21 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function edit(Sale $sale)
+  public function edit(Request $request)
   {
-    //
+    $locale = \App::getLocale();
+
+    $uri = 'for_sales';
+
+    $states = State::all();
+
+    $sale = Sale::findOrFail($request->id);
+
+    $clients = Client::all()
+                      ->sortBy('last_name')
+                      ->sortBy('first_name');
+
+    return view('sales.edit', compact('uri', 'states', 'sale', 'clients'));
   }
 
   /**
@@ -121,7 +134,7 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Sale $sale)
+  public function update(Request $request)
   {
     //
   }

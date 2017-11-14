@@ -123,3 +123,13 @@ Route::prefix('/for_sales')->middleware('auth')->group(function () {
        ->name('destroy_sale')
        ->middleware('can:sales.delete, sale');
 });
+
+Route::prefix('/sale_documents')->middleware('auth')->group(function () {
+  Route::post('/store', 'SaleDocumentsController@store')
+       ->name('store_sale_documents')
+       ->middleware('can:sales.create, sale');
+
+  Route::put('/uptate/{id}', 'SaleDocumentsController@update')
+       ->name('update_sale_documents')
+       ->middleware('can:sales.update, sale');
+});

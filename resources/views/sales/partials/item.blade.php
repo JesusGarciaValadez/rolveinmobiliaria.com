@@ -1,14 +1,20 @@
                 <tr>
                   <td class="text-center">
-                    @include('sales.partials.buttons.edit')
+                    @can('sales.update')
+                      @include('sales.partials.buttons.edit')
+                    @endcan
 
-                    @include('sales.partials.buttons.delete', ['sale' => $sale])
+                    @can('sales.delete')
+                      @include('sales.partials.buttons.delete', [
+                        'sale' => $sale
+                      ])
+                    @endcan
                   </td>
                   <td class="text-center">
                     {{ $sale->internalExpedient->expedient }}
                   </td>
                   <td class="text-center">
-                    {{ $sale->internalExpedient->client->name }}
+                    {{ $sale->internalExpedient->client->full_name }}
                   </td>
                   <td class="text-center">
                     <span class="label
