@@ -7,8 +7,11 @@
       <p v-show="hasReference"><strong>Referencia:</strong> {{ reference }}</p>
 
       <p>
+        <strong class="text-danger">
+          ¿No es el cliente que querías?
+        </strong>
         <strong>
-          ¿No es el cliente que querías? Selecciona otro o
+          Selecciona otro o
           <a
             href="#"
             title="crea uno nuevo"
