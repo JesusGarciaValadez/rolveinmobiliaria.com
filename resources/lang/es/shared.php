@@ -24,5 +24,8 @@ return [
     'medium' => 'Media !!',
     'hight' => 'Alta !!!',
     'send_email_to' => 'Enviar email a',
-    'error' => 'Error', 
+    'error' => 'Error',
+    'choose_an_option' => 'Escoge una opción',
+    'received' => 'Recibido',
+    'no-received' => 'No recibido',
 ];

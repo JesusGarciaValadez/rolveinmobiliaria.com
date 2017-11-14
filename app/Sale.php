@@ -22,6 +22,7 @@ class Sale extends Model
     'sale_contracts_id',
     'sale_notaries_id',
     'sale_signatures_id',
+    'user_id',
   ];
 
   /**
@@ -85,6 +86,11 @@ class Sale extends Model
   public function signature()
   {
     return $this->belongsTo('App\SaleSignature', 'id');
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User', 'id');
   }
 
   public function getCreatedAttribute()

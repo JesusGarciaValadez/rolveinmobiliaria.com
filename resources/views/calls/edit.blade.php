@@ -33,7 +33,7 @@
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
                 for="type_of_operation"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.type_of_operation'): </label>
+                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('shared.type_of_operation'): </label>
               <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
                 <select
                   class="form-control"

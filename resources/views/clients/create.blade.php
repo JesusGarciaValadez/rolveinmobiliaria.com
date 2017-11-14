@@ -31,18 +31,18 @@
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : ''}}">
               <label
-              for="first_name"
-              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_first_name'): </label>
+                for="first_name"
+                class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.clients_first_name'): </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
-                type="text"
-                class="form-control"
-                name="first_name"
-                id="first_name"
-                value="{{ old('name') }}"
-                placeholder="@lang('call.clients_first_name')"
-                autocorrect="on"
-                required>
+                  type="text"
+                  class="form-control"
+                  name="first_name"
+                  id="first_name"
+                  value="{{ old('first_name') }}"
+                  placeholder="@lang('call.clients_first_name')"
+                  autocorrect="on"
+                  required>
 
                 @if ($errors->has('first_name'))
                   <span class="help-block">
@@ -62,7 +62,7 @@
                   class="form-control"
                   name="last_name"
                   id="last_name"
-                  value="{{ old('name') }}"
+                  value="{{ old('last_name') }}"
                   placeholder="@lang('call.clients_last_name')"
                   autocorrect="on"
                   required>

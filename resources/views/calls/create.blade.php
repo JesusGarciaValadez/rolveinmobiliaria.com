@@ -40,7 +40,7 @@
                   <option
                     value=""
                     selected>
-                    @lang('call.choose_an_option')</option>
+                    @lang('shared.choose_an_option')</option>
                   <option
                     value="Venta"
                     @if (old('type_of_operation') == "Venta")
@@ -119,7 +119,7 @@
                   <option
                     value=""
                     selected>
-                    @lang('call.choose_an_option')</option>
+                    @lang('shared.choose_an_option')</option>
                   @foreach ($clients as $client)
                     <option
                     value="{{ $client->id }}"
