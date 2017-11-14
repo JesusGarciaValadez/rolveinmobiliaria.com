@@ -286,12 +286,12 @@
           </form>
 
           <div
-            class="modal fade"
+            class="modal fade bs-example-modal-lg"
             tabindex="-1"
             role="dialog"
             aria-labelledby="makeANewClient"
             id="newClient">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
               <form
                 class="form-horizontal modal-content"
                 action="{{ route('store_client') }}"

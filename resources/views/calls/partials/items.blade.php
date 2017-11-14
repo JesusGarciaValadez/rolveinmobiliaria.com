@@ -1,8 +1,12 @@
                 <tr>
                   <td class="text-center">
-                    @include('calls.partials.buttons.edit')
+                    @can('calls.update')
+                      @include('calls.partials.buttons.edit')
+                    @endcan
 
-                    @include('calls.partials.buttons.delete')
+                    @can('calls.delete')
+                      @include('calls.partials.buttons.delete')
+                    @endcan
                   </td>
                   <td>
                     <a href="{{ route('show_call', ['id' => $call->id]) }}">

@@ -1,8 +1,12 @@
                 <tr>
                   <td class="text-center">
-                    @include('clients.partials.buttons.edit')
+                    @can('clients.update')
+                      @include('clients.partials.buttons.edit')
+                    @endcan
 
-                    @include('clients.partials.buttons.delete')
+                    @can('clients.delete')
+                      @include('clients.partials.buttons.delete')
+                    @endcan
                   </td>
                   <td class="text-center">
                     <a
