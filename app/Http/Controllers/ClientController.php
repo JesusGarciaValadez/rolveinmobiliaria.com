@@ -160,7 +160,7 @@ class ClientController extends Controller
               ? 'success'
               : 'danger';
 
-    \Debugbar::info($request->ajax());
+    logger($request->ajax());
 
     if ( $request->ajax() )
     {
