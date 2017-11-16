@@ -15,17 +15,17 @@ class CreateSaleClosingContractsTable extends Migration
   {
     Schema::create('sale_closing_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('commercial_valuation')
+      $table->date('SCC_commercial_valuation')
             ->nullable();
-      $table->date('exclusivity_contract')
+      $table->date('SCC_exclusivity_contract')
             ->nullable();
-      $table->date('publication')
+      $table->date('SCC_publication')
             ->nullable();
-      $table->text('data_sheet')
+      $table->text('SCC_data_sheet')
             ->nullable();
-      $table->text('closing_contract_observations')
+      $table->text('SCC_closing_contract_observations')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('SCC_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();

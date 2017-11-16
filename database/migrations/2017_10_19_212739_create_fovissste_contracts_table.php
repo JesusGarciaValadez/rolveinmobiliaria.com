@@ -15,23 +15,23 @@ class CreateFovisssteContractsTable extends Migration
   {
     Schema::create('fovissste_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('credit_simulator')
+      $table->date('FC_credit_simulator')
             ->nullable();
-      $table->date('curp')
+      $table->date('FC_curp')
             ->nullable();
-      $table->date('birth_certificate')
+      $table->date('FC_birth_certificate')
             ->nullable();
-      $table->date('bank_statement')
+      $table->date('FC_bank_statement')
             ->nullable();
-      $table->date('single_key_housing_payment')
+      $table->date('FC_single_key_housing_payment')
             ->nullable();
-      $table->date('general_buyers_and_sellers')
+      $table->date('FC_general_buyers_and_sellers')
             ->nullable();
-      $table->date('education_course')
+      $table->date('FC_education_course')
             ->nullable();
-      $table->date('last_pay_stub')
+      $table->date('FC_last_pay_stub')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('FC_complete')
             ->default(true);
       $table->softDeletes();
       $table->timestamps();

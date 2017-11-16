@@ -35,11 +35,11 @@ $factory->define(App\SaleLog::class, function (Faker $faker) {
   ]);
 
   return [
-    'sales_id' => $sale_id,
-    'date' => $date,
-    'subject' => $subject,
-    'log_observations' => $log_observations,
-    'email' => $email,
-    'phone' => $phone,
+    'SL_sales_id' => $sale_id,
+    'SL_date' => $date,
+    'SL_subject' => $subject,
+    'SL_log_observations' => $log_observations,
+    'SL_email' => $email,
+    'SL_phone' => $phone,
   ];
 });

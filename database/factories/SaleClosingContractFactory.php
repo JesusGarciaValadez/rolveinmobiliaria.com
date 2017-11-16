@@ -34,11 +34,11 @@ $factory->define(App\SaleClosingContract::class, function (Faker $faker) {
     : true;
 
   return [
-    'commercial_valuation' => $commercial_valuation,
-    'exclusivity_contract' => $exclusivity_contract,
-    'publication' => $publication,
-    'data_sheet' => $data_sheet,
-    'closing_contract_observations' => $closing_contract_observations,
-    'complete' => $complete,
+    'SCC_commercial_valuation' => $commercial_valuation,
+    'SCC_exclusivity_contract' => $exclusivity_contract,
+    'SCC_publication' => $publication,
+    'SCC_data_sheet' => $data_sheet,
+    'SCC_closing_contract_observations' => $closing_contract_observations,
+    'SCC_complete' => $complete,
   ];
 });

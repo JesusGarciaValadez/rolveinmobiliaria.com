@@ -49,14 +49,14 @@ $factory->define(App\SaleNotary::class, function (Faker $faker) {
     : true;
 
   return [
-    'federal_entity' => $federal_entity,
-    'notarys_office' => $notarys_office,
-    'freedom_of_lien_certificate' => $freedom_of_lien_certificate,
-    'zoning' => $zoning,
-    'water_no_due_constants' => $water_no_due_constants,
-    'non_debit_proof_of_property' => $non_debit_proof_of_property,
-    'certificate_of_improvement' => $certificate_of_improvement,
-    'key_and_cadastral_value' => $key_and_cadastral_value,
-    'complete' => $complete,
+    'SN_federal_entity' => $federal_entity,
+    'SN_notarys_office' => $notarys_office,
+    'SN_freedom_of_lien_certificate' => $freedom_of_lien_certificate,
+    'SN_zoning' => $zoning,
+    'SN_water_no_due_constants' => $water_no_due_constants,
+    'SN_non_debit_proof_of_property' => $non_debit_proof_of_property,
+    'SN_certificate_of_improvement' => $certificate_of_improvement,
+    'SN_key_and_cadastral_value' => $key_and_cadastral_value,
+    'SN_complete' => $complete,
   ];
 });

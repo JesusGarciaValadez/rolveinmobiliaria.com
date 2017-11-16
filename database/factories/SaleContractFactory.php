@@ -79,17 +79,17 @@ $factory->define(App\SaleContract::class, function (Faker $faker) {
    : true;
 
   return [
-    'infonavit_contracts_id' => $infonavit_contracts_id,
-    'fovissste_contracts_id' => $fovissste_contracts_id,
-    'cofinavit_contracts_id' => $cofinavit_contracts_id,
-    'mortgage_broker' => $mortgage_broker,
-    'contract_with_the_broker' => $contract_with_the_broker,
-    'mortgage_credit' => $mortgage_credit,
-    'general_buyer' => $general_buyer,
-    'purchase_agreements' => $purchase_agreements,
-    'tax_assessment' => $tax_assessment,
-    'notary_checklist' => $notary_checklist,
-    'notary_file' => $notary_file,
-    'complete' => $complete,
+    'SC_infonavit_contracts_id' => $infonavit_contracts_id,
+    'SC_fovissste_contracts_id' => $fovissste_contracts_id,
+    'SC_cofinavit_contracts_id' => $cofinavit_contracts_id,
+    'SC_mortgage_broker' => $mortgage_broker,
+    'SC_contract_with_the_broker' => $contract_with_the_broker,
+    'SC_mortgage_credit' => $mortgage_credit,
+    'SC_general_buyer' => $general_buyer,
+    'SC_purchase_agreements' => $purchase_agreements,
+    'SC_tax_assessment' => $tax_assessment,
+    'SC_notary_checklist' => $notary_checklist,
+    'SC_notary_file' => $notary_file,
+    'SC_complete' => $complete,
   ];
 });

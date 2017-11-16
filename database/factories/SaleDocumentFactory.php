@@ -60,18 +60,18 @@ $factory->define(App\SaleDocument::class, function (Faker $faker) {
     ? false
     : true;
   return [
-    'predial' => $predial,
-    'light' => $light,
-    'water' => $water,
-    'deed' => $deed,
-    'generals_sheet' => $generals_sheet,
-    'INE' => $INE,
-    'CURP' => $CURP,
-    'civil_status' => $civil_status,
-    'birth_certificate' => $birth_certificate,
-    'account_status' => $account_status,
-    'email' => $email,
-    'phone' => $phone,
-    'complete' => $complete,
+    'SD_predial' => $predial,
+    'SD_light' => $light,
+    'SD_water' => $water,
+    'SD_deed' => $deed,
+    'SD_generals_sheet' => $generals_sheet,
+    'SD_INE' => $INE,
+    'SD_CURP' => $CURP,
+    'SD_civil_status' => $civil_status,
+    'SD_birth_certificate' => $birth_certificate,
+    'SD_account_status' => $account_status,
+    'SD_email' => $email,
+    'SD_phone' => $phone,
+    'SD_complete' => $complete,
   ];
 });

@@ -15,34 +15,34 @@ class CreateSaleDocumentsTable extends Migration
   {
     Schema::create('sale_documents', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('predial')
+      $table->date('SD_predial')
             ->nullable();
-      $table->date('light')
+      $table->date('SD_light')
             ->nullable();
-      $table->date('water')
+      $table->date('SD_water')
             ->nullable();
-      $table->date('deed')
+      $table->date('SD_deed')
             ->nullable();
-      $table->date('generals_sheet')
+      $table->date('SD_generals_sheet')
             ->nullable();
-      $table->date('INE')
+      $table->date('SD_INE')
             ->nullable();
-      $table->date('CURP')
+      $table->date('SD_CURP')
             ->nullable();
-      $table->enum('civil_status', [
+      $table->enum('SD_civil_status', [
           'Soltero',
           'Casado',
         ])
         ->default('Soltero');
-      $table->date('birth_certificate')
+      $table->date('SD_birth_certificate')
             ->nullable();
-      $table->date('account_status')
+      $table->date('SD_account_status')
             ->nullable();
-      $table->string('email')
+      $table->string('SD_email')
             ->nullable();
-      $table->string('phone')
+      $table->string('SD_phone')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('SD_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();

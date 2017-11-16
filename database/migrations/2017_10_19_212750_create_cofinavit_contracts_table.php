@@ -15,34 +15,34 @@ class CreateCofinavitContractsTable extends Migration
   {
     Schema::create('cofinavit_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->enum('type', [
+      $table->enum('CC_type', [
           'individual',
           'conjugal',
         ])
         ->default('individual');
-      $table->date('request_for_credit_inspection')
+      $table->date('CC_request_for_credit_inspection')
             ->nullable();
-      $table->date('birth_certificate')
+      $table->date('CC_birth_certificate')
             ->nullable();
-      $table->date('official_id')
+      $table->date('CC_official_id')
             ->nullable();
-      $table->date('curp')
+      $table->date('CC_curp')
             ->nullable();
-      $table->date('rfc')
+      $table->date('CC_rfc')
             ->nullable();
-      $table->date('bank_statement_seller')
+      $table->date('CC_bank_statement_seller')
             ->nullable();
-      $table->date('tax_valuation')
+      $table->date('CC_tax_valuation')
             ->nullable();
-      $table->date('scripture_copy')
+      $table->date('CC_scripture_copy')
             ->nullable();
-      $table->date('birth_certificate_of_the_spouse')
+      $table->date('CC_birth_certificate_of_the_spouse')
             ->nullable();
-      $table->date('official_identification_of_the_spouse')
+      $table->date('CC_official_identification_of_the_spouse')
             ->nullable();
-      $table->date('marriage_certificate')
+      $table->date('CC_marriage_certificate')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('CC_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();

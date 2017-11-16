@@ -15,42 +15,42 @@ class CreateInfonavitContractsTable extends Migration
   {
     Schema::create('infonavit_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->enum('type', [
+      $table->enum('IC_type', [
           'individual',
           'conjugal',
         ])
         ->default('individual');
-      $table->date('certified_birth_certificate')
+      $table->date('IC_certified_birth_certificate')
             ->nullable();
-      $table->date('official_ID')
+      $table->date('IC_official_ID')
             ->nullable();
-      $table->date('curp')
+      $table->date('IC_curp')
             ->nullable();
-      $table->date('rfc')
+      $table->date('IC_rfc')
             ->nullable();
-      $table->date('spouses_birth_certificate')
+      $table->date('IC_spouses_birth_certificate')
             ->nullable();
-      $table->date('official_identification_of_the_spouse')
+      $table->date('IC_official_identification_of_the_spouse')
             ->nullable();
-      $table->date('marriage_certificate')
+      $table->date('IC_marriage_certificate')
             ->nullable();
-      $table->date('credit_simulator')
+      $table->date('IC_credit_simulator')
             ->nullable();
-      $table->date('credit_application')
+      $table->date('IC_credit_application')
             ->nullable();
-      $table->date('tax_valuation')
+      $table->date('IC_tax_valuation')
             ->nullable();
-      $table->date('bank_statement')
+      $table->date('IC_bank_statement')
             ->nullable();
-      $table->date('workshop_knowing_how_to_decide')
+      $table->date('IC_workshop_knowing_how_to_decide')
             ->nullable();
-      $table->date('retention_sheet')
+      $table->date('IC_retention_sheet')
             ->nullable();
-      $table->date('credit_activation')
+      $table->date('IC_credit_activation')
             ->nullable();
-      $table->date('credit_maturity')
+      $table->date('IC_credit_maturity')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('IC_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();

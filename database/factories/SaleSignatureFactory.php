@@ -34,11 +34,11 @@ $factory->define(App\SaleSignature::class, function (Faker $faker) {
     : true;
 
   return [
-    'writing_review' => $writing_review,
-    'scheduled_date_of_writing_signature' => $scheduled_date_of_writing_signature,
-    'writing_signature' => $writing_signature,
-    'scheduled_payment_date' => $scheduled_payment_date,
-    'payment_made' => $payment_made,
-    'complete' => $complete,
+    'SS_writing_review' => $writing_review,
+    'SS_scheduled_date_of_writing_signature' => $scheduled_date_of_writing_signature,
+    'SS_writing_signature' => $writing_signature,
+    'SS_scheduled_payment_date' => $scheduled_payment_date,
+    'SS_payment_made' => $payment_made,
+    'SS_complete' => $complete,
   ];
 });

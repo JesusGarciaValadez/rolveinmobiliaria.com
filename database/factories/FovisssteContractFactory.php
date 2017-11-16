@@ -49,14 +49,14 @@ $factory->define(App\FovisssteContract::class, function (Faker $faker) {
     : true;
 
   return [
-    'credit_simulator' => $credit_simulator,
-    'curp' => $curp,
-    'birth_certificate' => $birth_certificate,
-    'bank_statement' => $bank_statement,
-    'single_key_housing_payment' => $single_key_housing_payment,
-    'general_buyers_and_sellers' => $general_buyers_and_sellers,
-    'education_course' => $education_course,
-    'last_pay_stub' => $last_pay_stub,
-    'complete' => $complete,
+    'FC_credit_simulator' => $credit_simulator,
+    'FC_curp' => $curp,
+    'FC_birth_certificate' => $birth_certificate,
+    'FC_bank_statement' => $bank_statement,
+    'FC_single_key_housing_payment' => $single_key_housing_payment,
+    'FC_general_buyers_and_sellers' => $general_buyers_and_sellers,
+    'FC_education_course' => $education_course,
+    'FC_last_pay_stub' => $last_pay_stub,
+    'FC_complete' => $complete,
   ];
 });

@@ -15,35 +15,35 @@ class CreateSaleContractsTable extends Migration
   {
     Schema::create('sale_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('infonavit_contracts_id')
+      $table->integer('SC_infonavit_contracts_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('infonavit_contracts_id')
+      $table->foreign('SC_infonavit_contracts_id')
             ->references('id')
             ->on('infonavit_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('fovissste_contracts_id')
+      $table->integer('SC_fovissste_contracts_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('fovissste_contracts_id')
+      $table->foreign('SC_fovissste_contracts_id')
             ->references('id')
             ->on('fovissste_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('cofinavit_contracts_id')
+      $table->integer('SC_cofinavit_contracts_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('cofinavit_contracts_id')
+      $table->foreign('SC_cofinavit_contracts_id')
             ->references('id')
             ->on('cofinavit_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->date('mortgage_broker')
+      $table->date('SC_mortgage_broker')
             ->nullable();
-      $table->date('contract_with_the_broker')
+      $table->date('SC_contract_with_the_broker')
             ->nullable();
-      $table->enum('mortgage_credit', [
+      $table->enum('SC_mortgage_credit', [
           'INFONAVIT',
           'FOVISSSTE',
           'COFINAVIT',
@@ -51,17 +51,17 @@ class CreateSaleContractsTable extends Migration
           'Aliados',
         ])
         ->default('INFONAVIT');
-      $table->date('general_buyer')
+      $table->date('SC_general_buyer')
             ->nullable();
-      $table->date('purchase_agreements')
+      $table->date('SC_purchase_agreements')
             ->nullable();
-      $table->date('tax_assessment')
+      $table->date('SC_tax_assessment')
             ->nullable();
-      $table->date('notary_checklist')
+      $table->date('SC_notary_checklist')
             ->nullable();
-      $table->date('notary_file')
+      $table->date('SC_notary_file')
             ->nullable();
-      $table->boolean('complete')
+      $table->boolean('SC_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();
@@ -76,12 +76,12 @@ class CreateSaleContractsTable extends Migration
   public function down()
   {
     Schema::table('sale_contracts', function (Blueprint $table) {
-      $table->dropForeign('sale_contracts_infonavit_contracts_id_foreign')
-            ->dropColumn('infonavit_contracts_id');
-      $table->dropForeign('sale_contracts_fovissste_contracts_id_foreign')
-            ->dropColumn('fovissste_contracts_id');
-      $table->dropForeign('sale_contracts_cofinavit_contracts_id_foreign')
-            ->dropColumn('cofinavit_contracts_id');
+      $table->dropForeign('sale_contracts_sc_infonavit_contracts_id_foreign')
+            ->dropColumn('SC_infonavit_contracts_id');
+      $table->dropForeign('sale_contracts_sc_fovissste_contracts_id_foreign')
+            ->dropColumn('SC_fovissste_contracts_id');
+      $table->dropForeign('sale_contracts_sc_cofinavit_contracts_id_foreign')
+            ->dropColumn('SC_cofinavit_contracts_id');
     });
 
     Schema::dropIfExists('sale_contracts');

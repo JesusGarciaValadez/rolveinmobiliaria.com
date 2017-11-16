@@ -14,11 +14,11 @@ class AlterSaleLogsTable extends Migration
   public function up()
   {
     Schema::table('sale_logs', function (Blueprint $table) {
-      $table->integer('sales_id')
+      $table->integer('SL_sales_id')
             ->unsigned()
             ->nullable()
             ->after('id');
-      $table->foreign('sales_id')
+      $table->foreign('SL_sales_id')
             ->references('id')
             ->on('sales')
             ->onUpdate('cascade')
@@ -34,8 +34,8 @@ class AlterSaleLogsTable extends Migration
   public function down()
   {
     Schema::table('sale_logs', function (Blueprint $table) {
-      $table->dropForeign('sale_logs_sales_id_foreign')
-            ->dropColumn('sales_id');
+      $table->dropForeign('sale_logs_sl_sales_id_foreign')
+            ->dropColumn('SL_sales_id');
     });
   }
 }
