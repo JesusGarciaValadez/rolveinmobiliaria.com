@@ -75,7 +75,7 @@
                       ? 'selected'
                       : '' }}>@lang('call.appraisals')</option>
                   <option
-                    value="Avalúos"
+                    value="Recados"
                     {{ (old('type_of_operation') == 'Recados'
                     || $call->type_of_operation == 'Recados')
                       ? 'selected'

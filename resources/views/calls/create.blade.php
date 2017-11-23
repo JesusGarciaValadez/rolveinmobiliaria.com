@@ -67,7 +67,7 @@
                       selected
                     @endif>@lang('call.appraisals')</option>
                   <option
-                    value="Avalúos"
+                    value="Recados"
                     @if (old('type_of_operation') == "Recados")
                       selected
                     @endif>@lang('call.messages')</option>
