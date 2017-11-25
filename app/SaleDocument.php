@@ -15,19 +15,19 @@ class SaleDocument extends Model
    * @var array
    */
   protected $fillable = [
-    'predial',
-    'light',
-    'water',
-    'deed',
-    'generals_sheet',
-    'INE',
-    'CURP',
-    'civil_status',
-    'birth_certificate',
-    'account_status',
-    'email',
-    'phone',
-    'complete',
+    'SD_predial',
+    'SD_light',
+    'SD_water',
+    'SD_deed',
+    'SD_generals_sheet',
+    'SD_INE',
+    'SD_CURP',
+    'SD_civil_status',
+    'SD_birth_certificate',
+    'SD_account_status',
+    'SD_email',
+    'SD_phone',
+    'SD_complete',
   ];
 
   /**

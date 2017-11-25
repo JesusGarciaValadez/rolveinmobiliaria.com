@@ -7,7 +7,7 @@ $factory->define(App\SaleNotary::class, function (Faker $faker) {
     'CDMX',
     'Edo. Mex.',
   ]);
-  $notarys_office = $faker->randomElement([
+  $notaries_office = $faker->randomElement([
     $faker->date(),
     null,
   ]);
@@ -37,7 +37,7 @@ $factory->define(App\SaleNotary::class, function (Faker $faker) {
   ]);
   $complete = (
     empty($federal_entity) ||
-    empty($notarys_office) ||
+    empty($notaries_office) ||
     empty($freedom_of_lien_certificate) ||
     empty($zoning) ||
     empty($water_no_due_constants) ||
@@ -50,7 +50,7 @@ $factory->define(App\SaleNotary::class, function (Faker $faker) {
 
   return [
     'SN_federal_entity' => $federal_entity,
-    'SN_notarys_office' => $notarys_office,
+    'SN_notaries_office' => $notaries_office,
     'SN_freedom_of_lien_certificate' => $freedom_of_lien_certificate,
     'SN_zoning' => $zoning,
     'SN_water_no_due_constants' => $water_no_due_constants,

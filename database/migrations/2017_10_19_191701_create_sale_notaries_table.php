@@ -20,7 +20,7 @@ class CreateSaleNotariesTable extends Migration
           'Edo. Mex.',
         ])
         ->default('CDMX');
-      $table->string('SN_notarys_office')
+      $table->string('SN_notaries_office')
             ->nullable();
       $table->date('SN_freedom_of_lien_certificate')
             ->nullable();

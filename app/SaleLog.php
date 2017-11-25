@@ -15,13 +15,12 @@ class SaleLog extends Model
    * @var array
    */
   protected $fillable = [
-    'sales_id',
-    'commercial_valuation',
-    'exclusivity_contract',
-    'publication',
-    'data_sheet',
-    'closing_contract_observations',
-    'complete',
+    'SL_sales_id',
+    'SL_subject',
+    'SL_email',
+    'SL_phone',
+    'SL_observations',
+    'SL_complete',
   ];
 
   /**

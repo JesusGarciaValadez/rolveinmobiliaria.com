@@ -2,343 +2,322 @@
   <div class="panel-heading" role="tab" id="documents">
     <h4 class="panel-title">
       <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Documentos
+        @lang('sale.documents')
       </a>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse-in" role="tabpanel" aria-labelledby="documents">
+  <div id="collapseOne" class="panel-collapse collapse in collapse-in" role="tabpanel" aria-labelledby="documents">
     <div class="panel-body">
-      <form
-        class="form-horizontal"
-        action="{{ route('update_sale_documents', [
-          'id' => request('id')
-        ]) }}"
-        method="post">
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
+      <fieldset>
         <input type="hidden" name="user_id" value="{{ $sale->user->id }}">
 
-        <input type="hidden" name="complete" value="{{ $sale->document->complete }}">
-
-        <div class="form-group{{ $errors->has('predial') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="predial"
-              class="checkbox control-label">
-              <input
-                name="predial"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->predial)) ||
-                  !empty($sale->document->predial)
-                  )
-                  checked
-                @endif
-                required> @lang('sale.documents_predial')
-            </label>
-
-            @if ($errors->has('predial'))
-              <span class="help-block">
-                <strong>{{ $errors->first('predial') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('light') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="predial"
-              class="checkbox control-label">
-              <input
-                name="light"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->light)) ||
-                  !empty($sale->document->light)
-                  )
-                  checked
-                @endif
-                required> @lang('sale.documents_light')
-            </label>
-
-            @if ($errors->has('light'))
-              <span class="help-block">
-                <strong>{{ $errors->first('light') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('water') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="water"
-              class="checkbox control-label">
-              <input
-                name="water"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->water)) ||
-                  !empty($sale->document->water)
-                  )
-                  checked
-                @endif
-                required> @lang('sale.documents_water')
-                {{ $sale->document->water }}
-            </label>
-
-            @if ($errors->has('water'))
-              <span class="help-block">
-                <strong>{{ $errors->first('water') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('deed') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="deed"
-              class="checkbox control-label">
-              <input
-                name="deed"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->deed)) ||
-                  !empty($sale->document->deed)
-                  )
-                  checked
-                @endif
-                required> @lang('sale.documents_deed')
-            </label>
-
-            @if ($errors->has('deed'))
-              <span class="help-block">
-                <strong>{{ $errors->first('deed') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('general_sheet') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="general_sheet"
-              class="checkbox control-label">
-              <input
-                name="general_sheet"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->general_sheet)) ||
-                  !empty($sale->document->general_sheet)
-                  )
-                  checked
-                @endif> @lang('sale.documents_general_sheet')
-            </label>
-
-            @if ($errors->has('general_sheet'))
-              <span class="help-block">
-                <strong>{{ $errors->first('general_sheet') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('INE') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="INE"
-              class="checkbox control-label">
-              <input
-                name="INE"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->INE)) ||
-                  !empty($sale->document->INE)
-                  )
-                  checked
-                @endif> @lang('sale.documents_ine')
-            </label>
-
-            @if ($errors->has('INE'))
-              <span class="help-block">
-                <strong>{{ $errors->first('INE') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('CURP') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="CURP"
-              class="checkbox control-label">
-              <input
-                name="CURP"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->CURP)) ||
-                  !empty($sale->document->CURP)
-                  )
-                  checked
-                @endif> @lang('sale.documents_curp')
-            </label>
-
-            @if ($errors->has('CURP'))
-              <span class="help-block">
-                <strong>{{ $errors->first('CURP') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('civil_status') ? ' has-error' : ''}}">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_predial') ? ' has-error' : ''}}">
           <label
-            for="civil_status"
-            class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3 control-label">@lang('sale.documents_civil_status'):
+            for="SD_predial"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_predial"
+              type="checkbox"
+              required
+              v-model="documents.predial.default"
+              @if (
+                !empty(old($sale->document->SD_predial)) ||
+                !empty($sale->document->SD_predial)
+              )
+                checked
+              @endif> @lang('sale.documents_predial')
           </label>
-          <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
+
+          @if ($errors->has('SD_predial'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_predial') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_light') ? ' has-error' : ''}}">
+          <label
+            for="SD_light"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_light"
+              type="checkbox"
+              value="1"
+              required
+              v-model="documents.light.default"
+              @if (
+                !empty(old($sale->document->SD_light)) ||
+                !empty($sale->document->SD_light)
+                )
+                checked
+              @endif> @lang('sale.documents_light')
+          </label>
+
+          @if ($errors->has('SD_light'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_light') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_water') ? ' has-error' : ''}}">
+          <label
+            for="SD_water"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_water"
+              type="checkbox"
+              value="1"
+              required
+              v-model="documents.water.default"
+              @if (
+                !empty(old($sale->document->SD_water)) ||
+                !empty($sale->document->SD_water)
+                )
+                checked
+              @endif> @lang('sale.documents_water')
+          </label>
+
+          @if ($errors->has('SD_water'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_water') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">
+          <label
+            for="SD_deed"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_deed"
+              type="checkbox"
+              value="1"
+              required
+              v-model="documents.deed.default"
+              @if (
+                !empty(old($sale->document->SD_deed)) ||
+                !empty($sale->document->SD_deed)
+                )
+                checked
+              @endif> @lang('sale.documents_deed')
+          </label>
+
+          @if ($errors->has('SD_deed'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_deed') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_general_sheet') ? ' has-error' : ''}}">
+          <label
+            for="SD_general_sheet"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_general_sheet"
+              type="checkbox"
+              value="1"
+              v-model="documents.general_sheet.default"
+              @if (
+                !empty(old($sale->document->SD_general_sheet)) ||
+                !empty($sale->document->SD_general_sheet)
+                )
+                checked
+              @endif> @lang('sale.documents_general_sheet')
+          </label>
+
+          @if ($errors->has('SD_general_sheet'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_general_sheet') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_INE') ? ' has-error' : ''}}">
+          <label
+            for="SD_INE"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_INE"
+              type="checkbox"
+              value="1"
+              v-model="documents.INE.default"
+              @if (
+                !empty(old($sale->document->SD_INE)) ||
+                !empty($sale->document->SD_INE)
+                )
+                checked
+              @endif> @lang('sale.documents_ine')
+          </label>
+
+          @if ($errors->has('SD_INE'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_INE') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_CURP') ? ' has-error' : ''}}">
+          <label
+            for="SD_CURP"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_CURP"
+              type="checkbox"
+              value="1"
+              v-model="documents.CURP.default"
+              @if (
+                !empty(old($sale->document->SD_CURP)) ||
+                !empty($sale->document->SD_CURP)
+                )
+                checked
+              @endif> @lang('sale.documents_curp')
+          </label>
+
+          @if ($errors->has('SD_CURP'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_CURP') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_birth_certificate') ? ' has-error' : ''}}">
+          <label
+            for="SD_birth_certificate"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_birth_certificate"
+              type="checkbox"
+              value="1"
+              v-model="documents.birth_certificate.default"
+              @if (
+                !empty(old($sale->document->SD_birth_certificate)) ||
+                !empty($sale->document->SD_birth_certificate)
+                )
+                checked
+              @endif> @lang('sale.documents_birth_certificate')
+          </label>
+
+          @if ($errors->has('SD_birth_certificate'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_birth_certificate') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_account_status') ? ' has-error' : ''}}">
+          <label
+            for="SD_account_status"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_account_status"
+              type="checkbox"
+              value="1"
+              v-model="documents.account_status.default"
+              @if (
+                !empty(old($sale->document->SD_account_status)) ||
+                !empty($sale->document->SD_account_status)
+                )
+                checked
+              @endif> @lang('sale.documents_account_status')
+          </label>
+
+          @if ($errors->has('SD_account_status'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_account_status') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_email') ? ' has-error' : ''}}">
+          <label
+            for="SD_email"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_email"
+              type="checkbox"
+              value="1"
+              v-model="documents.email.default"
+              @if (
+                !empty(old($sale->document->SD_email)) ||
+                !empty($sale->document->SD_email)
+                )
+                checked
+              @endif> @lang('shared.email')
+          </label>
+
+          @if ($errors->has('SD_email'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_email') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_phone') ? ' has-error' : ''}}">
+          <label
+            for="SD_phone"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_phone"
+              type="checkbox"
+              value="1"
+              v-model="documents.phone.default"
+              @if (
+                !empty(old($sale->document->SD_phone)) ||
+                !empty($sale->document->SD_phone)
+                )
+                checked
+              @endif> @lang('shared.phone')
+          </label>
+
+          @if ($errors->has('SD_phone'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_phone') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="form-group{{ $errors->has('SD_civil_status') ? ' has-error' : ''}} col-xs-12 col-sm-12 col-md-12 col-lg-12 clearfix">
+          <label
+            for="SD_civil_status"
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.documents_civil_status'):</label>
+          <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3">
             <select
               class="form-control"
-              id="civil_status"
-              name="civil_status"
+              id="SD_civil_status"
+              name="SD_civil_status"
               autofocus
-              required>
+              required
+              v-model="documents.civil_status.default">
               <option
                 value=""
-                {{ (!old('civil_status')) ? 'selected' : '' }}>@lang('shared.choose_an_option')</option>
+                disabled
+                {{ (!old('SD_civil_status'))
+                  ? 'selected'
+                  : '' }}>@lang('shared.choose_an_option')</option>
               <option
                 value="Soltero"
-                {{ (old('civil_status') == 'Soltero'
-                || $sale->document->civil_status == 'Soltero')
-                    ? 'selected'
-                    : '' }}>@lang('sale.documents_single')</option>
+                {{ (old('SD_civil_status') == 'Soltero'
+                || $sale->document->SD_civil_status == 'Soltero')
+                ? 'selected'
+                : '' }}>@lang('sale.documents_single')</option>
               <option
                 value="Casado"
-                {{ (old('civil_status') == 'Casado'
-                || $sale->document->civil_status == 'Casado')
-                    ? 'selected'
-                    : '' }}>@lang('sale.documents_married')</option>
+                {{ (old('SD_civil_status') == 'Casado'
+                || $sale->document->SD_civil_status == 'Casado')
+                ? 'selected'
+                : '' }}>@lang('sale.documents_married')</option>
             </select>
 
-            @if ($errors->has('civil_status'))
+            @if ($errors->has('SD_civil_status'))
               <span class="help-block">
-                <strong>{{ $errors->first('civil_status') }}</strong>
+                <strong>{{ $errors->first('SD_civil_status') }}</strong>
               </span>
             @endif
           </div>
         </div>
-
-        <div class="form-group{{ $errors->has('birth_certificate') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="birth_certificate"
-              class="checkbox control-label">
-              <input
-                name="birth_certificate"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->birth_certificate)) ||
-                  !empty($sale->document->birth_certificate)
-                  )
-                  checked
-                @endif> @lang('sale.documents_birth_certificate')
-            </label>
-
-            @if ($errors->has('birth_certificate'))
-              <span class="help-block">
-                <strong>{{ $errors->first('birth_certificate') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('account_status') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="account_status"
-              class="checkbox control-label">
-              <input
-                name="account_status"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->account_status)) ||
-                  !empty($sale->document->account_status)
-                  )
-                  checked
-                @endif> @lang('sale.documents_account_status')
-            </label>
-
-            @if ($errors->has('account_status'))
-              <span class="help-block">
-                <strong>{{ $errors->first('account_status') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="email"
-              class="checkbox control-label">
-              <input
-                name="email"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->email)) ||
-                  !empty($sale->document->email)
-                  )
-                  checked
-                @endif> @lang('sale.email')
-            </label>
-
-            @if ($errors->has('email'))
-              <span class="help-block">
-                <strong>{{ $errors->first('email') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('phone') ? ' has-error' : ''}}">
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-offset-3">
-            <label
-              for="phone"
-              class="checkbox control-label">
-              <input
-                name="phone"
-                type="checkbox"
-                value="1"
-                @if (
-                  !empty(old($sale->document->phone)) ||
-                  !empty($sale->document->phone)
-                  )
-                  checked
-                @endif> @lang('sale.documents_phone')
-            </label>
-
-            @if ($errors->has('phone'))
-              <span class="help-block">
-                <strong>{{ $errors->first('phone') }}</strong>
-              </span>
-            @endif
-          </div>
-        </div>
-
-        @include('sales.partials.buttons.save')
-      </form>
+      </fieldset>
     </div>
   </div>
 </div>

@@ -9,18 +9,8 @@ $factory->define(App\SaleLog::class, function (Faker $faker) {
     null,
   ]);
 
-  $date = $faker->randomElement([
-    $faker->date(),
-    null,
-  ]);
-
   $subject = $faker->randomElement([
     $faker->sentence(),
-    null,
-  ]);
-
-  $log_observations = $faker->randomElement([
-    $faker->text(),
     null,
   ]);
 
@@ -34,12 +24,26 @@ $factory->define(App\SaleLog::class, function (Faker $faker) {
     null,
   ]);
 
+  $observations = $faker->randomElement([
+    $faker->text(),
+    null,
+  ]);
+
+  $complete = (
+    empty($subject) ||
+    empty($email) ||
+    empty($phone) ||
+    empty($observations)
+  )
+    ? false
+    : true;
+
   return [
     'SL_sales_id' => $sale_id,
-    'SL_date' => $date,
     'SL_subject' => $subject,
-    'SL_log_observations' => $log_observations,
     'SL_email' => $email,
     'SL_phone' => $phone,
+    'SL_observations' => $observations,
+    'SL_complete' => $complete,
   ];
 });

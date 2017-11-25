@@ -4,8 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\InfonavitContract::class, function (Faker $faker) {
   $type = $faker->randomElement([
-    'individual',
-    'conjugal',
+    'Individual',
+    'Conyugal',
   ]);
   $certified_birth_certificate = $faker->randomElement([
     $faker->date(),

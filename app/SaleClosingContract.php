@@ -15,12 +15,12 @@ class SaleClosingContract extends Model
    * @var array
    */
   protected $fillable = [
-    'commercial_valuation',
-    'exclusivity_contract',
-    'publication',
-    'data_sheet',
-    'closing_contract_observations',
-    'complete',
+    'SCC_commercial_valuation',
+    'SCC_exclusivity_contract',
+    'SCC_publication',
+    'SCC_data_sheet',
+    'SCC_closing_contract_observations',
+    'SCC_complete',
   ];
 
   /**
