@@ -1,94 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta Information -->
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', config('app.name'))</title>
+    <title>Rolve Inmobiliaria</title>
 
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+    <!-- Styles -->
     <style>
-        body, html {
-            background: url('/img/spark-bg.png');
-            background-repeat: repeat;
-            background-size: 300px 200px;
-            height: 100%;
-            margin: 0;
-        }
+      html, body {
+        background-color: #fff;
+        color: #636b6f;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        height: 100vh;
+        margin: 0;
+      }
 
-        .full-height {
-            min-height: 100%;
-        }
+      .full-height {
+        height: 100vh;
+      }
 
-        .flex-column {
-            display: flex;
-            flex-direction: column;
-        }
+      .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
 
-        .flex-fill {
-            flex: 1;
-        }
+      .position-ref {
+        position: relative;
+      }
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
+      .top-right {
+        position: absolute;
+        right: 10px;
+        top: 18px;
+      }
 
+      .content {
+        text-align: center;
+      }
 
-        .text-center {
-            text-align: center;
-        }
+      .title {
+        font-size: 17.3333333333vw;
+      }
 
-        .links {
-            padding: 1em;
-            text-align: right;
-        }
+      .links > a {
+        color: #636b6f;
+        padding: 0 25px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
 
-        .links a {
-            text-decoration: none;
-        }
-
-        .links button {
-            background-color: #3097D1;
-            border: 0;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            font-family: 'Open Sans';
-            font-size: 14px;
-            font-weight: 600;
-            padding: 15px;
-            text-transform: uppercase;
-            width: 100px;
-        }
+      .m-b-md {
+        margin-bottom: 30px;
+      }
     </style>
-</head>
-<body>
-    <div class="full-height flex-column">
-        <nav class="links">
-            <a href="/login" style="margin-right: 15px;">
-                <button>
-                    Login
-                </button>
-            </a>
-
-            <a href="/register">
-                <button>
-                    Register
-                </button>
-            </a>
-        </nav>
-
-        <div class="flex-fill flex-center">
-            <h1 class="text-center">
-                <img src="/img/color-logo.png">
-            </h1>
+  </head>
+  <body>
+    <div class="flex-center position-ref full-height">
+      @if (Route::has('login'))
+        <div class="top-right links">
+          @auth
+            <a href="{{ url('/dashboard') }}">Dashboard</a>
+          @else
+            <a href="{{ route('login') }}">@lang('auth.login')</a>
+          @endauth
         </div>
+      @endif
+
+      <div class="content">
+        <div class="title m-b-md">
+          Rolve Inmobiliaria
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

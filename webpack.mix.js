@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-var path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,18 +11,5 @@ var path = require('path');
  |
  */
 
-mix.less('resources/assets/less/app.less', 'public/css')
-   .copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/js/sweetalert.min.js')
-   .copy('node_modules/sweetalert/dist/sweetalert.css', 'public/css/sweetalert.css')
-   .js('resources/assets/js/app.js', 'public/js')
-   .webpackConfig({
-        resolve: {
-            modules: [
-                path.resolve(__dirname, 'vendor/laravel/spark/resources/assets/js'),
-                'node_modules'
-            ],
-            alias: {
-                'vue$': 'vue/dist/vue.js'
-            }
-        }
-   });
+mix.js('resources/assets/js/app.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css');

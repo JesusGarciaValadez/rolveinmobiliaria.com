@@ -2,49 +2,114 @@
 
 namespace App;
 
-use Laravel\Spark\User as SparkUser;
+use App\Call;
+use App\Role;
 
-class User extends SparkUser
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-    ];
+  use HasApiTokens;
+  use Notifiable;
+  use SoftDeletes;
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-        'authy_id',
-        'country_code',
-        'phone',
-        'card_brand',
-        'card_last_four',
-        'card_country',
-        'billing_address',
-        'billing_address_line_2',
-        'billing_city',
-        'billing_zip',
-        'billing_country',
-        'extra_billing_information',
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = ['name', 'email', 'password', 'role_id'];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'trial_ends_at' => 'datetime',
-        'uses_two_factor_auth' => 'boolean',
-    ];
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = ['password', 'remember_token'];
+
+  /**
+   * The attributes that should be mutated to dates.
+   *
+   * @var array
+   */
+  protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+  /**
+   * The storage format of the model's date columns.
+   *
+   * @var string
+   */
+  protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function role()
+  {
+    return $this->belongsTo('App\Role');
+  }
+
+  public function call()
+  {
+    return $this->belongsToMany('App\Call');
+  }
+
+  public function isSuperAdmin()
+  {
+    $role = Role::where('name', 'Super Administrador')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isAdmin()
+  {
+    $role = Role::where('name', 'Administrador')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isAssistant()
+  {
+    $role = Role::where('name', 'Asistente')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isSales()
+  {
+    $role = Role::where('name', 'Ventas')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isIntern()
+  {
+    $role = Role::where('name', 'Pasante')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function isClient()
+  {
+    $role = Role::where('name', 'Cliente')->get()->first();
+
+    return ($this->role_id === $role->id) ? true : false;
+  }
+
+  public function hasRole(String $role)
+  {
+    // \Debugbar::info($this->role->name);
+    // if ($this->role->name === $role)
+    // {
+    //   \Debugbar::warning($this->role->name);
+    //   \Debugbar::danger($this->role->name === $role);
+    // }
+    // else
+    // {
+    //   \Debugbar::info($role);
+    // }
+    return ($this->role->name === $role)
+      ? true
+      : false;
+  }
 }
