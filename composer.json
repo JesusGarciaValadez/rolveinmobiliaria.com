@@ -12,6 +12,8 @@
         "laravel/horizon": "^1.0",
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
+        "laravel/spark": "~5.0",
+        "laravel/cashier": "~7.0",
         "laravelcollective/html": "^5.5",
         "predis/predis": "^1.1",
         "themsaid/laravel-mail-preview": "^2.0"
@@ -61,5 +63,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "repositories": [
+      {
+        "type": "composer",
+        "url": "https://spark-satis.laravel.com"
+      }
+    ]
 }

@@ -169,6 +169,9 @@ return [
          * Package Service Providers...
          */
         Themsaid\MailPreview\MailPreviewServiceProvider::class,
+        Laravel\Spark\Providers\SparkServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        App\Providers\SparkServiceProvider::class,
 
         /*
          * Application Service Providers...
