@@ -30,6 +30,7 @@
             <table class="table table-bordered table-striped table-condensed">
               <thead>
                 <th class="text-center">@lang('call.actions')</th>
+                <th class="text-center">@lang('call.attended')</th>
                 <th class="text-center">@lang('call.internal_expedient')</th>
                 <th class="text-center">@lang('call.operation')</th>
                 <th class="text-center">@lang('call.client')</th>
@@ -46,7 +47,7 @@
 
               <tfoot>
                 <tr>
-                  <td colspan="13"></td>
+                  <td colspan="14"></td>
                 </tr>
               </tfoot>
 
@@ -57,6 +58,7 @@
 
                     @include('calls.partials.buttons.delete')
                   </td>
+                  <td>{{ $call->user->name }}</td>
                   <td>{{ $call->expedient }}</td>
                   <td>{{ $call->type_of_operation }}</td>
                   <td>{{ $call->client->full_name }}</td>

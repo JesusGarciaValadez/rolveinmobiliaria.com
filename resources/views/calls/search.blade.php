@@ -44,6 +44,7 @@
                 <tr></tr>
                 <tr></tr>
                 <tr></tr>
+                <tr></tr>
               </tfoot>
 
               <tbody>

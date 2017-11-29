@@ -9,6 +9,9 @@
                     @endcan
                   </td>
                   <td>
+                    {{ $call->user->name }}
+                  </td>
+                  <td>
                     <a href="{{ route('show_call', ['id' => $call->id]) }}">
                       {{ $call->expedient }}
                     </a>
