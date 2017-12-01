@@ -65,14 +65,13 @@ class ClientController extends Controller
     $isRepeated = DB::table('clients')
                     ->where('first_name', $data['first_name'])
                     ->where('last_name', $data['last_name'])
-                    ->where('phone_1', $data['phone_1'])
                     ->whereNull('deleted_at')
                     ->get()
                     ->count();
 
     if ($isRepeated !== 0) {
       return redirect()->back()
-                       ->with('message', 'El cliente ya existe. El email ya se encuentra en la base de datos.')
+                       ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
                        ->with('type', 'warning');
     }
 
