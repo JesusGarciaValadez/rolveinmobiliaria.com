@@ -30,7 +30,8 @@ if (clientRoot !== null) {
       clientPhoneOne: '',
       clientPhoneTwo: '',
       clientBusiness: '',
-      clientEmail: '',
+      clientEmailOne: '',
+      clientEmailTwo: '',
       clientReference: '',
       loading: false
     },
@@ -39,7 +40,8 @@ if (clientRoot !== null) {
         return (
           this.clientPhoneOne.length !== 0 ||
           this.clientPhoneTwo.length !== 0 ||
-          this.clientEmail.length !== 0
+          this.clientEmailOne.length !== 0
+          this.clientEmailTwo.length !== 0
         )
       }
     },
@@ -71,14 +73,16 @@ if (clientRoot !== null) {
               self.clientPhoneOne = response.phone_1 || ''
               self.clientPhoneTwo = response.phone_2 || ''
               self.clientBusiness = response.business || ''
-              self.clientEmail = response.email || ''
+              self.clientEmailOne = response.email_1 || ''
+              self.clientEmailTwo = response.email_2 || ''
               self.clientReference = response.reference || ''
             })
         } else {
           self.loading = false
           self.clientPhoneOne = ''
           self.clientPhoneTwo = ''
-          self.clientEmail = ''
+          self.clientEmailOne = ''
+          self.clientEmailTwo = ''
         }
       }
     },
@@ -149,9 +153,9 @@ if (salesRoot !== null) {
           required: false
         },
         civil_status: {
-          type: Boolean,
-          default: false,
-          required: false
+          type: String,
+          default: '',
+          required: true
         }
       },
       closingContract: {
@@ -464,27 +468,27 @@ if (salesRoot !== null) {
         writing_review: {
           type: Boolean,
           default: false,
-          required: false
+          required: true
         },
         scheduled_date_of_writing_signature: {
           type: Boolean,
           default: false,
-          required: false
+          required: true
         },
         writing_signature: {
           type: Boolean,
           default: false,
-          required: false
+          required: true
         },
         scheduled_payment_date: {
           type: Boolean,
           default: false,
-          required: false
+          required: true
         },
         payment_made: {
           type: Boolean,
           default: false,
-          required: false
+          required: true
         }
       }
     },
@@ -495,7 +499,7 @@ if (salesRoot !== null) {
           this.documents.light.default &&
           this.documents.water.default &&
           this.documents.deed.default &&
-          this.documents.civil_status.default
+          this.documents.civil_status.default !== ''
         )
       },
       closingContractIsComplete: function () {
@@ -532,10 +536,17 @@ if (salesRoot !== null) {
             this.purchaseAgreement.infonavit.retention_sheet.default &&
             this.purchaseAgreement.infonavit.credit_activation.default &&
             this.purchaseAgreement.infonavit.credit_maturity.default &&
-            this.purchaseAgreement.infonavit.type.default !== '' &&
-            this.purchaseAgreement.infonavit.spouses_birth_certificate.default &&
-            this.purchaseAgreement.infonavit.official_identification_of_the_spouse.default &&
-            this.purchaseAgreement.infonavit.marriage_certificate.default
+            (
+              this.purchaseAgreement.infonavit.type.default === 'Individual' ||
+              (
+                this.purchaseAgreement.infonavit.type.default === 'Conyugal' &&
+                (
+                  this.purchaseAgreement.infonavit.spouses_birth_certificate.default &&
+                  this.purchaseAgreement.infonavit.official_identification_of_the_spouse.default &&
+                  this.purchaseAgreement.infonavit.marriage_certificate.default
+                )
+              )
+            )
           ) ||
           (
             this.purchaseAgreement.fovissste.credit_simulator.default &&
@@ -557,10 +568,17 @@ if (salesRoot !== null) {
             this.purchaseAgreement.cofinavit.bank_statement_seller.default &&
             this.purchaseAgreement.cofinavit.ax_valuation.default &&
             this.purchaseAgreement.cofinavit.scripture_copy.default &&
-            this.purchaseAgreement.cofinavit.ype.default !== '' &&
-            this.purchaseAgreement.cofinavit.birth_certificate_of_the_spouse.default &&
-            this.purchaseAgreement.cofinavit.official_identification_of_the_spouse.default &&
-            this.purchaseAgreement.cofinavit.marriage_certificate.default
+            (
+              this.purchaseAgreement.cofinavit.type.default === 'Individual' ||
+              (
+                this.purchaseAgreement.cofinavit.type.default === 'Conyugal' &&
+                (
+                  this.purchaseAgreement.cofinavit.birth_certificate_of_the_spouse.default &&
+                  this.purchaseAgreement.cofinavit.official_identification_of_the_spouse.default &&
+                  this.purchaseAgreement.cofinavit.marriage_certificate.default
+                )
+              )
+            )
           ) ||
           this.purchaseAgreement.banking.contract_with_the_broker.default ||
           this.purchaseAgreement.allies.mortgage_broker.default
@@ -580,32 +598,57 @@ if (salesRoot !== null) {
       },
       signatureIsComplete: function () {
         return (
-          this.writing_review.default &&
-          this.scheduled_date_of_writing_signature.default &&
-          this.writing_signature.default &&
-          this.scheduled_payment_date.default &&
-          this.payment_made.default
+          this.signature.writing_review.default &&
+          this.signature.scheduled_date_of_writing_signature.default &&
+          this.signature.writing_signature.default &&
+          this.signature.scheduled_payment_date.default &&
+          this.signature.payment_made.default
         )
       },
       isINFONAVIT: function () {
+        this.resetFovisssteData()
+        this.resetCofinavitData()
+        this.resetBankingData()
+        this.resetAlliesData()
+
         return (this.purchaseAgreement.mortgage_credit.default === 'INFONAVIT')
       },
       isINFONAVITMarried: function () {
         return (this.purchaseAgreement.infonavit.type.default === 'Conyugal')
       },
       isFOVISSSTE: function () {
+        this.resetInfonavitData()
+        this.resetCofinavitData()
+        this.resetBankingData()
+        this.resetAlliesData()
+
         return (this.purchaseAgreement.mortgage_credit.default === 'FOVISSSTE')
       },
       isCOFINAVIT: function () {
+        this.resetInfonavitData()
+        this.resetFovisssteData()
+        this.resetBankingData()
+        this.resetAlliesData()
+
         return (this.purchaseAgreement.mortgage_credit.default === 'COFINAVIT')
       },
       isCOFINAVITMarried: function () {
         return (this.purchaseAgreement.cofinavit.type.default === 'Conyugal')
       },
       isBanking: function () {
+        this.resetInfonavitData()
+        this.resetFovisssteData()
+        this.resetCofinavitData()
+        this.resetAlliesData()
+
         return (this.purchaseAgreement.mortgage_credit.default === 'Bancario')
       },
       isAllies: function () {
+        this.resetInfonavitData()
+        this.resetFovisssteData()
+        this.resetCofinavitData()
+        this.resetBankingData()
+
         return (this.purchaseAgreement.mortgage_credit.default === 'Aliados')
       },
       showClosingContract: function () {
@@ -643,6 +686,55 @@ if (salesRoot !== null) {
       }
     },
     methods: {
+      resetInfonavitData: function () {
+        this.purchaseAgreement.infonavit.certified_birth_certificate.default = false
+        this.purchaseAgreement.infonavit.official_ID.default = false
+        this.purchaseAgreement.infonavit.curp.default = false
+        this.purchaseAgreement.infonavit.rfc.default = false
+        this.purchaseAgreement.infonavit.credit_simulator.default = false
+        this.purchaseAgreement.infonavit.credit_application.default = false
+        this.purchaseAgreement.infonavit.tax_valuation.default = false
+        this.purchaseAgreement.infonavit.bank_statement.default = false
+        this.purchaseAgreement.infonavit.workshop_knowing_how_to_decide.default = false
+        this.purchaseAgreement.infonavit.retention_sheet.default = false
+        this.purchaseAgreement.infonavit.credit_activation.default = false
+        this.purchaseAgreement.infonavit.credit_maturity.default = false
+        this.purchaseAgreement.infonavit.type.default = false
+        this.purchaseAgreement.infonavit.spouses_birth_certificate.default = false
+        this.purchaseAgreement.infonavit.official_identification_of_the_spouse.default = false
+        this.purchaseAgreement.infonavit.marriage_certificate.default = false
+      },
+      resetFovisssteData: function () {
+        this.purchaseAgreement.fovissste.credit_simulator.default = false
+        this.purchaseAgreement.fovissste.curp.default = false
+        this.purchaseAgreement.fovissste.birth_certificate.default = false
+        this.purchaseAgreement.fovissste.bank_statement.default = false
+        this.purchaseAgreement.fovissste.single_key_housing_payment.default = false
+        this.purchaseAgreement.fovissste.general_buyers_and_sellers.default = false
+        this.purchaseAgreement.fovissste.education_course.default = false
+        this.purchaseAgreement.fovissste.last_pay_stub.default = false
+        this.purchaseAgreement.fovissste.notary_file.default = false
+      },
+      resetCofinavitData: function () {
+        this.purchaseAgreement.cofinavit.request_for_credit_inspection.default = false
+        this.purchaseAgreement.cofinavit.birth_certificate.default = false
+        this.purchaseAgreement.cofinavit.official_id.default = false
+        this.purchaseAgreement.cofinavit.curp.default = false
+        this.purchaseAgreement.cofinavit.rfc.default = false
+        this.purchaseAgreement.cofinavit.bank_statement_seller.default = false
+        this.purchaseAgreement.cofinavit.tax_valuation.default = false
+        this.purchaseAgreement.cofinavit.scripture_copy.default = false
+        this.purchaseAgreement.cofinavit.type.default = false
+        this.purchaseAgreement.cofinavit.birth_certificate_of_the_spouse.default = false
+        this.purchaseAgreement.cofinavit.official_identification_of_the_spouse.default = false
+        this.purchaseAgreement.cofinavit.marriage_certificate.default = false
+      },
+      resetBankingData: function () {
+        this.purchaseAgreement.banking.contract_with_the_broker.default = false
+      },
+      resetAlliesData: function () {
+        this.purchaseAgreement.allies.mortgage_broker.default = false
+      },
       onUpload: function (event) {
         const fileUpload = event.currentTarget
 

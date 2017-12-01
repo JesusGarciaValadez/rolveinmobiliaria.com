@@ -20,7 +20,8 @@ class Client extends Model
     'phone_1',
     'phone_2',
     'business',
-    'email',
+    'email_1',
+    'email_2',
     'reference',
     'user_id',
   ];

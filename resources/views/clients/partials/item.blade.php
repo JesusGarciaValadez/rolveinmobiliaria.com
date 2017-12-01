@@ -22,11 +22,20 @@
                   </td>
                   <td class="text-center">
                     <a
-                      href="mailto:{{ $client->email }}"
+                      href="mailto:{{ $client->email_1 }}"
                       target="_self"
                       title="@lang('shared.send_email_to') {{ $client->name }}"
                     >
-                      {{ $client->email }}
+                      {{ $client->email_1 }}
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <a
+                      href="mailto:{{ $client->email_2 }}"
+                      target="_self"
+                      title="@lang('shared.send_email_to') {{ $client->name }}"
+                    >
+                      {{ $client->email_2 }}
                     </a>
                   </td>
                   <td class="text-center">

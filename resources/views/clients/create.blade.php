@@ -142,22 +142,43 @@
               </div>
             </div>
 
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
+            <div class="form-group{{ $errors->has('email_1') ? ' has-error' : ''}}">
               <label
-              for="email"
-              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.email'): </label>
+              for="email_1"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.email') 1: </label>
               <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
                 <input
                   type="email"
                   class="form-control"
-                  name="email"
-                  value="{{ old('email') }}"
+                  name="email_1"
+                  value="{{ old('email_1') }}"
                   placeholder="@lang('call.email')"
                   autocorrect="on">
 
-                @if ($errors->has('email'))
+                @if ($errors->has('email_1'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
+                    <strong>{{ $errors->first('email_1') }}</strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+
+            <div class="form-group{{ $errors->has('email_1') ? ' has-error' : ''}}">
+              <label
+              for="email_2"
+              class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-2 control-label">@lang('call.email') 2: </label>
+              <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email_2"
+                  value="{{ old('email_2') }}"
+                  placeholder="@lang('call.email')"
+                  autocorrect="on">
+
+                @if ($errors->has('email_2'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('email_2') }}</strong>
                   </span>
                 @endif
               </div>
