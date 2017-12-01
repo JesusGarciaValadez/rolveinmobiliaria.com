@@ -22,7 +22,9 @@ class CreateClientsTable extends Migration
             ->nullable();
       $table->string('business')
             ->nullable();
-      $table->string('email')
+      $table->string('email_1')
+            ->nullable();
+      $table->string('email_2')
             ->nullable();
       $table->string('reference')
             ->nullable();

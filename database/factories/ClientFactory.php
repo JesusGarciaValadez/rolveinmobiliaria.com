@@ -9,7 +9,8 @@ $factory->define(App\Client::class, function (Faker $faker) {
     'phone_1' => $faker->phoneNumber(),
     'phone_2' => $faker->phoneNumber(),
     'business' => $faker->company() ,
-    'email' => $faker->freeEmail() ,
+    'email_1' => $faker->freeEmail() ,
+    'email_2' => $faker->freeEmail() ,
     'reference' => $faker->sentence(),
     'user_id' => function ()
     {

@@ -29,7 +29,8 @@ class ClientRequest extends FormRequest
       'phone_1' => 'required|string',
       'phone_2' => 'nullable|string',
       'business' => 'nullable|string',
-      'email' => 'nullable|email',
+      'email_1' => 'nullable|email',
+      'email_2' => 'nullable|email',
     ];
   }
 }

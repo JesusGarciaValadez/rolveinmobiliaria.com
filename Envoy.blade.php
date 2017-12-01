@@ -74,8 +74,9 @@
       npm run prod;
 
       git add public/js;
+      git add public/css;
 
-      git commit -m "Packing js file for prod.";
+      git commit -m "Packing js and css files for production.";
 
       git push origin master;
     @endif
