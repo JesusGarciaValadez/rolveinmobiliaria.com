@@ -58,6 +58,9 @@
 
         <div class="panel-footer">
           <div class="row">
+            <div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center">
+              @include('clients.partials.buttons.create')
+            </div>
           </div>
         </div>
         </div>
