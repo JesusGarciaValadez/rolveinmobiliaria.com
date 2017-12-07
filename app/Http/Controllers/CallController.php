@@ -106,19 +106,14 @@ class CallController extends Controller
     $data = $request->all();
     $data['user_id'] = \Auth::id();
     unset($data['_token']);
-
-    $expedient = [
-      'client_id' => $data['client_id'],
-      'expedient' => $data['expedient'],
-    ];
-
-    $expedientStored = new InternalExpedient($expedient);
+    \Debugbar::info($request->all());
 
     $call = [
       'user_id' => $data['user_id'],
       'type_of_operation' => $data['type_of_operation'],
-      'expedient_id' => $expedientStored,
+      'internal_expedient_id' => $data['internal_expedient_id'],
       'address' => $data['address'],
+      'state_id' => $data['state_id'],
       'observations' => $data['observations'],
       'status' => $data['status'],
       'priority' => $data['priority']

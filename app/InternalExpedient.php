@@ -21,7 +21,7 @@ class InternalExpedient extends Model
    *
    * @var array
    */
-  protected $fillable = ['client_id', 'user_id',  'expedient', 'user_id'];
+  protected $fillable = ['client_id', 'user_id',  'expedient'];
 
   /**
    * The attributes that aren't mass assignable.

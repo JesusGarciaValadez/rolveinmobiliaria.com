@@ -38,7 +38,8 @@ if (clientRoot !== null) {
       clientEmailOne: '',
       clientEmailTwo: '',
       clientReference: '',
-      loading: false
+      loading: false,
+      empty: true
     },
     computed: {
       hasClient: function () {
@@ -90,6 +91,7 @@ if (clientRoot !== null) {
                 this.clientEmailOne = response.email_1 || ''
                 this.clientEmailTwo = response.email_2 || ''
                 this.clientReference = response.reference || ''
+                this.empty = false
               })
         } else {
           this.loading = false
@@ -100,10 +102,11 @@ if (clientRoot !== null) {
           this.clientPhoneTwo = ''
           this.clientEmailOne = ''
           this.clientEmailTwo = ''
+          this.empty = false
         }
       },
       getExpedientInfo: function () {
-        const expedientId = document.getElementById('expedient_id').value
+        const expedientId = document.getElementById('internal_expedient_id').value
         this.loading = true
 
         if (expedientId !== '') {
@@ -124,7 +127,6 @@ if (clientRoot !== null) {
             .then(response => response.data[0])
             .catch(error => console.log(error))
             .then(response => {
-              this.loading = false
               this.clientId = response.id || ''
               this.clientExpedient = response.expedient || ''
               this.clientFirstName = response.client.first_name || ''
@@ -135,6 +137,8 @@ if (clientRoot !== null) {
               this.clientEmailOne = response.client.email_1 || ''
               this.clientEmailTwo = response.client.email_2 || ''
               this.clientReference = response.client.reference || ''
+              this.loading = false
+              this.empty = false
             })
         } else {
           this.loading = false
@@ -145,12 +149,22 @@ if (clientRoot !== null) {
           this.clientPhoneTwo = ''
           this.clientEmailOne = ''
           this.clientEmailTwo = ''
+          this.empty = false
         }
       }
     },
-    mounted: function () {
-      this.getExpedientInfo()
+    created: function () {
+      const withExpedient = document.getElementById('internal_expedient_id').value
+
+      if (withExpedient !== '') {
+        this.empty = false
+      }
     },
+    mounted: function () {
+      if (this.empty === false) {
+        this.getExpedientInfo()
+      }
+    }
   })
 }
 

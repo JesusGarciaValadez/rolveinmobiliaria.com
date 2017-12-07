@@ -1,5 +1,5 @@
 <template>
-  <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info">
+  <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info" v-if="!isEmpty">
     <div>
       <p v-show="hasExpedient"><strong>Expediente interno:</strong> {{ expedient }}</p>
     </div>
@@ -59,9 +59,17 @@
         type: Boolean,
         default: false,
         required: true
+      },
+      empty: {
+        type: Boolean,
+        default: true,
+        required: false
       }
     },
     computed: {
+      isEmpty: function () {
+        return this.empty
+      },
       hasExpedient: function () {
         return this.expedient.length !== 0
       }

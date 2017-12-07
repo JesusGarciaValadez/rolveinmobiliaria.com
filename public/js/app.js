@@ -1119,7 +1119,8 @@ if (clientRoot !== null) {
       clientEmailOne: '',
       clientEmailTwo: '',
       clientReference: '',
-      loading: false
+      loading: false,
+      empty: true
     },
     computed: {
       hasClient: function hasClient() {
@@ -1165,6 +1166,7 @@ if (clientRoot !== null) {
             _this.clientEmailOne = response.email_1 || '';
             _this.clientEmailTwo = response.email_2 || '';
             _this.clientReference = response.reference || '';
+            _this.empty = false;
           });
         } else {
           this.loading = false;
@@ -1175,12 +1177,13 @@ if (clientRoot !== null) {
           this.clientPhoneTwo = '';
           this.clientEmailOne = '';
           this.clientEmailTwo = '';
+          this.empty = false;
         }
       },
       getExpedientInfo: function getExpedientInfo() {
         var _this2 = this;
 
-        var expedientId = document.getElementById('expedient_id').value;
+        var expedientId = document.getElementById('internal_expedient_id').value;
         this.loading = true;
 
         if (expedientId !== '') {
@@ -1200,7 +1203,6 @@ if (clientRoot !== null) {
           }).catch(function (error) {
             return console.log(error);
           }).then(function (response) {
-            _this2.loading = false;
             _this2.clientId = response.id || '';
             _this2.clientExpedient = response.expedient || '';
             _this2.clientFirstName = response.client.first_name || '';
@@ -1211,6 +1213,8 @@ if (clientRoot !== null) {
             _this2.clientEmailOne = response.client.email_1 || '';
             _this2.clientEmailTwo = response.client.email_2 || '';
             _this2.clientReference = response.client.reference || '';
+            _this2.loading = false;
+            _this2.empty = false;
           });
         } else {
           this.loading = false;
@@ -1221,11 +1225,21 @@ if (clientRoot !== null) {
           this.clientPhoneTwo = '';
           this.clientEmailOne = '';
           this.clientEmailTwo = '';
+          this.empty = false;
         }
       }
     },
+    created: function created() {
+      var withExpedient = document.getElementById('internal_expedient_id').value;
+
+      if (withExpedient !== '') {
+        this.empty = false;
+      }
+    },
     mounted: function mounted() {
-      this.getExpedientInfo();
+      if (this.empty === false) {
+        this.getExpedientInfo();
+      }
     }
   });
 }
@@ -44366,9 +44380,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Boolean,
       default: false,
       required: true
+    },
+    empty: {
+      type: Boolean,
+      default: true,
+      required: false
     }
   },
   computed: {
+    isEmpty: function isEmpty() {
+      return this.empty;
+    },
     hasExpedient: function hasExpedient() {
       return this.expedient.length !== 0;
     }
@@ -44383,48 +44405,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info"
-    },
-    [
-      _c("div", [
-        _c(
-          "p",
-          {
-            directives: [
+  return !_vm.isEmpty
+    ? _c(
+        "div",
+        {
+          staticClass:
+            "clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info"
+        },
+        [
+          _c("div", [
+            _c(
+              "p",
               {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.hasExpedient,
-                expression: "hasExpedient"
-              }
-            ]
-          },
-          [
-            _c("strong", [_vm._v("Expediente interno:")]),
-            _vm._v(" " + _vm._s(_vm.expedient))
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("Client", {
-        attrs: {
-          name: _vm.name,
-          "phone-one": _vm.phoneOne,
-          "phone-two": _vm.phoneTwo,
-          business: _vm.business,
-          "email-one": _vm.emailOne,
-          "email-two": _vm.emailTwo,
-          reference: _vm.reference,
-          "has-client": _vm.hasClient
-        }
-      })
-    ],
-    1
-  )
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.hasExpedient,
+                    expression: "hasExpedient"
+                  }
+                ]
+              },
+              [
+                _c("strong", [_vm._v("Expediente interno:")]),
+                _vm._v(" " + _vm._s(_vm.expedient))
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("Client", {
+            attrs: {
+              name: _vm.name,
+              "phone-one": _vm.phoneOne,
+              "phone-two": _vm.phoneTwo,
+              business: _vm.business,
+              "email-one": _vm.emailOne,
+              "email-two": _vm.emailTwo,
+              reference: _vm.reference,
+              "has-client": _vm.hasClient
+            }
+          })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

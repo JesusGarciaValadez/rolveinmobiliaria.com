@@ -90,15 +90,15 @@
               </div>
             </div>
 
-            <div class="form-group{{ $errors->has('expedient_id') ? ' has-error' : ''}}">
+            <div class="form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">
               <label
                 for="expedient_id"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
               <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
                 <select
                   class="form-control"
-                  id="expedient_id"
-                  name="expedient_id"
+                  id="internal_expedient_id"
+                  name="internal_expedient_id"
                   autofocus
                   @change="getExpedientInfo">
                   <option
@@ -109,7 +109,7 @@
                   @foreach ($expedients as $expedient)
                     <option
                       value="{{ $expedient->id }}"
-                      {{ (old('expedient_id') === $expedient->id || $call->internal_expedient->id === $expedient->id)
+                      {{ (old('internal_expedient_id') === $expedient->id || $call->internal_expedient->id === $expedient->id)
                           ? 'selected'
                           : ''}}>{{ $expedient->expedient }}</option>
                   @endforeach
@@ -117,9 +117,9 @@
                 <input type="hidden" name="client_id" :value="clientId">
                 <input type="hidden" name="expedient" :value="clientExpedient">
 
-                @if ($errors->has('expedient_id'))
+                @if ($errors->has('internal_expedient_id'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('expedient_id') }}</strong>
+                    <strong>{{ $errors->first('internal_expedient_id') }}</strong>
                   </span>
                 @endif
               </div>
@@ -148,6 +148,7 @@
               :email-two="clientEmailTwo"
               :reference="clientReference"
               :has-client="hasClient"
+              :empty="empty"
               v-if="!loading"></Expedient>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
@@ -182,6 +183,7 @@
                   id="state_id">
                   <option
                     value=""
+                    disabled
                     @if (!old('state_id'))
                       selected
                     @endif>@lang('call.choose_a_state')</option>
