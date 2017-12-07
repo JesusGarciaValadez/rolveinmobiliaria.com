@@ -14,7 +14,7 @@ class InternalExpedient extends Model
    *
    * @var array
    */
-  protected $fillable = ['client_id', 'expedient'];
+  protected $fillable = ['client_id', 'user_id',  'expedient'];
 
   /**
    * The attributes that aren't mass assignable.
@@ -47,6 +47,11 @@ class InternalExpedient extends Model
   public function client()
   {
     return $this->belongsTo('App\Client');
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User', 'id');
   }
 
   public function sale()

@@ -125,11 +125,19 @@ Route::prefix('/for_sales')->middleware('auth')->group(function () {
 });
 
 Route::prefix('/sale_documents')->middleware('auth')->group(function () {
-  Route::post('/store', 'SaleDocumentsController@store')
-       ->name('store_sale_documents')
+  Route::post('/store', 'SaleController@store')
+       ->name('store_sale')
        ->middleware('can:sales.create, sale');
 
-  Route::put('/uptate/{id}', 'SaleDocumentsController@update')
-       ->name('update_sale_documents')
+  Route::put('/update/{id}', 'SaleController@update')
+       ->name('update_sale')
        ->middleware('can:sales.update, sale');
+});
+
+Route::prefix('/internal_expedients')->middleware('auth')->group(function () {
+  Route::post('/store', 'InternalExpedientController@store')
+       ->name('store_internal_expedient');
+
+  Route::put('/update/{id}', 'InternalExpedientController@update')
+       ->name('update_internal_expedient');
 });

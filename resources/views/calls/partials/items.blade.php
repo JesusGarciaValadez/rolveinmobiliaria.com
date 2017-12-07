@@ -23,7 +23,7 @@
                       label-danger
                     @endif">{{ $call->priority }}</span>
                   </td>
-                  <td>{{ $call->client->full_name }}</td>
+                  <td>{{ $call->internal_expedient->client->full_name }}</td>
                   <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
                   <td class="text-center">{{ $call->status }}</td>
                   <td class="text-center">{{ $call->type_of_operation }}</td>

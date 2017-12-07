@@ -83,24 +83,33 @@
 
             <div class="form-group{{ $errors->has('expedient') ? ' has-error' : ''}}">
               <label
-                for="expedient_phone_1"
+                for="expedient_id"
                 class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
+              <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
+                <select
                   class="form-control"
-                  name="expedient"
-                  id="expedient"
-                  value="{{ old('expedient') }}"
-                  placeholder="@lang('call.internal_expedient')"
-                  autocorrect="on"
-                  required>
+                  id="expedient_id"
+                  name="expedient_id"
+                  autofocus>
+                  <option
+                    value=""
+                    selected
+                    disabled>
+                    @lang('shared.choose_an_option')</option>
+                  @foreach ($expedients as $expedient)
+                    <option
+                    value="{{ $expedient->id }}"
+                    @if (old('expedient_id') == $expedient->expedient )
+                      selected
+                    @endif>{{ $expedient->expedient }}</option>
+                  @endforeach
+                </select>
 
-                  @if ($errors->has('expedient'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('expedient') }}</strong>
-                    </span>
-                  @endif
+                @if ($errors->has('expedient'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('expedient') }}</strong>
+                  </span>
+                @endif
               </div>
             </div>
 
@@ -224,7 +233,7 @@
                   value="{{ old('observations') }}"
                   rows="8"
                   required
-                  autocorrect="on"></textarea>
+                  autocorrect="on">{{ old('observations') }}</textarea>
 
                   @if ($errors->has('observations'))
                     <span class="help-block">

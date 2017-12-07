@@ -18,6 +18,7 @@ const Vue = window.Vue
  */
 
 Vue.component('Spinner', require('./components/Spinner.vue'))
+Vue.component('Expedient', require('./components/Expedient.vue'))
 Vue.component('Client', require('./components/Client.vue'))
 
 const clientRoot = document.getElementById('client-info') || null
@@ -27,6 +28,7 @@ if (clientRoot !== null) {
   const ClientInfo = new Vue({
     el: '#client-info',
     data: {
+      clientExpedient: '',
       clientPhoneOne: '',
       clientPhoneTwo: '',
       clientBusiness: '',
@@ -40,8 +42,13 @@ if (clientRoot !== null) {
         return (
           this.clientPhoneOne.length !== 0 ||
           this.clientPhoneTwo.length !== 0 ||
-          this.clientEmailOne.length !== 0
+          this.clientEmailOne.length !== 0 ||
           this.clientEmailTwo.length !== 0
+        )
+      },
+      hasExpedient: function () {
+        return (
+          this.clientReference.length !== 0
         )
       }
     },
@@ -66,16 +73,56 @@ if (clientRoot !== null) {
           }
 
           axios.get(url, inicialization)
+              .then(response => response.data[0])
+              .catch(error => console.log(error))
+              .then(response => {
+                self.loading = false
+                self.clientPhoneOne = response.phone_1 || ''
+                self.clientPhoneTwo = response.phone_2 || ''
+                self.clientBusiness = response.business || ''
+                self.clientEmailOne = response.email_1 || ''
+                self.clientEmailTwo = response.email_2 || ''
+                self.clientReference = response.reference || ''
+              })
+        } else {
+          self.loading = false
+          self.clientPhoneOne = ''
+          self.clientPhoneTwo = ''
+          self.clientEmailOne = ''
+          self.clientEmailTwo = ''
+        }
+      },
+      getExpedientInfo: function () {
+        const expedientId = document.getElementById('expedient_id').value
+        const self = this
+        self.loading = true
+
+        if (expedientId !== '') {
+          const environment = process.env.NODE_ENV
+          const uri = `/api/internal_expedients/show/${expedientId}`
+          const localUrl = `http://local.rolveinmobiliaria.com${uri}`
+          const productionUrl = `http://45.77.197.22${uri}`
+
+          const url = (environment !== 'production')
+            ? localUrl
+            : productionUrl
+
+          const inicialization = {
+            withCredentials: false
+          }
+
+          axios.get(url, inicialization)
             .then(response => response.data[0])
             .catch(error => console.log(error))
             .then(response => {
               self.loading = false
-              self.clientPhoneOne = response.phone_1 || ''
-              self.clientPhoneTwo = response.phone_2 || ''
-              self.clientBusiness = response.business || ''
-              self.clientEmailOne = response.email_1 || ''
-              self.clientEmailTwo = response.email_2 || ''
-              self.clientReference = response.reference || ''
+              self.clientExpedient = response.expedient || ''
+              self.clientPhoneOne = response.client.phone_1 || ''
+              self.clientPhoneTwo = response.client.phone_2 || ''
+              self.clientBusiness = response.client.business || ''
+              self.clientEmailOne = response.client.email_1 || ''
+              self.clientEmailTwo = response.client.email_2 || ''
+              self.clientReference = response.client.reference || ''
             })
         } else {
           self.loading = false
@@ -87,7 +134,7 @@ if (clientRoot !== null) {
       }
     },
     mounted: function () {
-      this.getClientInfo()
+      this.getExpedientInfo()
     }
   })
 }

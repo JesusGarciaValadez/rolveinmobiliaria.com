@@ -69,14 +69,18 @@ class CallPolicy
    */
   public function update(User $user, $call)
   {
-    return (
+    if (
       $user->hasRole('Super Administrador') ||
       $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )
-      ? true
-      : false;
+    {
+      if (Auth::id() == $call->user_id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -88,13 +92,17 @@ class CallPolicy
    */
   public function delete(User $user, $call)
   {
-    return (
+    if (
       $user->hasRole('Super Administrador') ||
       $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )
-      ? true
-      : false;
+    {
+      if (Auth::id() == $call->user_id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

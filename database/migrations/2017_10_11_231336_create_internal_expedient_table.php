@@ -22,7 +22,17 @@ class CreateInternalExpedientTable extends Migration
             ->on('clients')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->string('expedient');
+      $table->integer('user_id')
+            ->unsigned()
+            ->nullable();
+      $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
+      $table->string('expedient')
+            ->nullable()
+            ->default('Sin expediente');
       $table->softDeletes();
       $table->timestamps();
     });

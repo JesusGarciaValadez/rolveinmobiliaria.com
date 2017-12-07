@@ -48,7 +48,7 @@
               </tfoot>
 
               <tbody>
-                @each('call.partials.items', $calls, 'call')
+                @each('calls.partials.items', $calls, 'call')
               </tbody>
             </table>
 

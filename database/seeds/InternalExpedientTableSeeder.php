@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class InternalExpedientTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class InternalExpedientTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(App\InternalExpedient::class, 50)->create();
+    factory(App\InternalExpedient::class)->create([
+      'expedient' => 'Sin expediente',
+    ]);
   }
 }

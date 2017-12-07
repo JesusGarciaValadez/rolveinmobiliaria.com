@@ -13,6 +13,17 @@ use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
+  use ThrottlesLogins;
+
+  private $_locale = '';
+  private $_uri = '';
+
+  public function __constructor()
+  {
+    $this->_locale = \App::getLocale();
+    $this->_uri = 'clients';
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -20,14 +31,16 @@ class ClientController extends Controller
    */
   public function index()
   {
-    $locale = \App::getLocale();
+    $clients = Client::with([
+                'internalExpedient',
+                'user'
+              ])
+              ->orderBy('first_name', 'asc')
+              ->orderBy('last_name', 'asc')
+              ->paginate(5);
+    logger('hola');
 
-    $uri = 'clients';
-
-    $clients = Client::orderBy('first_name', 'asc')
-                     ->orderBy('last_name', 'asc')->paginate(5);
-
-    return view('clients.index', compact('clients', 'uri'));
+    return view('clients.index', compact('clients', 'this->_uri'));
   }
 
   /**
@@ -37,15 +50,14 @@ class ClientController extends Controller
    */
   public function create()
   {
-    $locale = \App::getLocale();
+    $clients = Client::with([
+                'internalExpedient',
+                'user',
+              ])
+              ->get()
+              ->sortBy('last_name');
 
-    $clients = Client::with('internalExpedient')
-                     ->get()
-                     ->sortBy('last_name');
-
-    $uri = 'clients';
-
-    return view('clients.create', compact('uri', 'clients'));
+    return view('clients.create', compact('this->_uri', 'clients'));
   }
 
   /**
@@ -105,7 +117,11 @@ class ClientController extends Controller
    */
   public function show(Request $request)
   {
-    $client = Client::findOrFail($request->id);
+    $client = Client::with([
+                'internalExpedient',
+                'user',
+              ])
+              ->findOrFail($request->id);
 
     if ($request->ajax())
     {
@@ -125,11 +141,11 @@ class ClientController extends Controller
    */
   public function edit(Request $request)
   {
-    $locale = \App::getLocale();
-
-    $uri = 'clients';
-
-    $client = Client::findOrFail($request->id);
+    $client = Client::with([
+                'internalExpedient',
+                'user'
+              ])
+              ->findOrFail($request->id);
 
     return view('clients.edit', compact('client'));
   }

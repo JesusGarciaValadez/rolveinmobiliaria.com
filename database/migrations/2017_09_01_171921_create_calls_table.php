@@ -15,9 +15,6 @@ class CreateCallsTable extends Migration
   {
     Schema::create('calls', function (Blueprint $table) {
       $table->increments('id');
-      $table->string('expedient')
-            ->nullable()
-            ->default('Sin número de expediente');
       $table->enum('type_of_operation', [
               'Venta',
               'Renta',

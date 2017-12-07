@@ -1,10 +1,10 @@
 <template>
-  <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info" v-show="hasClient">
+  <div>
     <p v-show="hasPhoneOne"><strong>Teléfono:</strong> {{ phoneOne }}</p>
     <p v-show="hasPhoneTwo"><strong>Teléfono:</strong> {{ phoneTwo }}</p>
     <p v-show="hasBusiness"><strong>Empresa:</strong> {{ business }}</p>
-    <p v-show="hasEmailOne"><strong>Email:</strong> <a :href="emailOne | mailto" :title="email">{{ emailOne }}</a></p>
-    <p v-show="hasEmailTwo"><strong>Email:</strong> <a :href="emailTwo | mailto" :title="email">{{ emailTwo }}</a></p>
+    <p v-show="hasEmailOne"><strong>Email:</strong> <a :href="emailOne | mailto" :title="emailOne">{{ emailOne }}</a></p>
+    <p v-show="hasEmailTwo"><strong>Email:</strong> <a :href="emailTwo | mailto" :title="emailTwo">{{ emailTwo }}</a></p>
     <p v-show="hasReference"><strong>Referencia:</strong> {{ reference }}</p>
 
     <p>
@@ -26,7 +26,6 @@
 
 <script>
   export default {
-    template: '#client',
     props: {
       phoneOne: {
         type: String,

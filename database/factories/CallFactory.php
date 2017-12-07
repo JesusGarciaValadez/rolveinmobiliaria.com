@@ -4,7 +4,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Call::class, function (Faker $faker) {
   return [
-    'expedient' => $faker->swiftBicNumber(),
+    'expedient_id' => function ()
+    {
+      return factory(App\InternalExpedient::class)->create()->id;
+    },
     'type_of_operation' => $faker->randomElement([
       'Venta',
       'Renta',
@@ -14,10 +17,6 @@ $factory->define(App\Call::class, function (Faker $faker) {
       'Recados',
     ]),
     'address' => $faker->address(),
-    'client_id' => function ()
-    {
-      return factory(App\Client::class)->create()->id;
-    },
     'user_id' => function ()
     {
       return factory(App\User::class)->states('assistant')->create()->id;

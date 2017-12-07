@@ -27,62 +27,58 @@
           @include('shared.partials.alerts.message')
 
           <div class="row">
-            <table class="table table-bordered table-striped table-condensed">
-              <thead>
-                <th class="text-center">@lang('call.actions')</th>
-                <th class="text-center">@lang('call.attended')</th>
-                <th class="text-center">@lang('call.internal_expedient')</th>
-                <th class="text-center">@lang('call.operation')</th>
-                <th class="text-center">@lang('call.client')</th>
-                <th class="text-center">@lang('call.phone')</th>
-                <th class="text-center">@lang('call.phone')</th>
-                <th class="text-center">@lang('call.email')</th>
-                <th class="hidden-xs hidden-sm text-center">@lang('call.observations')</th>
-                <th class="text-center">@lang('call.direction')</th>
-                <th class="text-center">@lang('call.state')</th>
-                <th class="text-center">@lang('call.hour')</th>
-                <th class="text-center">@lang('call.status')</th>
-                <th class="text-center">@lang('call.priority')</th>
-              </thead>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h2>@lang('call.clients_information')</h2>
+              <p class="text-left"><strong>@lang('call.client'):</strong> {{ $call->internal_expedient->client->full_name }}</p>
 
-              <tfoot>
-                <tr>
-                  <td colspan="14"></td>
-                </tr>
-              </tfoot>
+              <p class="text-left"><strong>@lang('call.phone'):</strong> {{ $call->internal_expedient->client->phone_1 }}</p>
 
-              <tbody>
-                <tr>
-                  <td class="text-center">
-                    @include('calls.partials.buttons.edit')
+              <p class="text-left"><strong>@lang('call.phone'):</strong> {{ $call->internal_expedient->client->phone_2 }}</p>
 
-                    @include('calls.partials.buttons.delete')
-                  </td>
-                  <td>{{ $call->user->name }}</td>
-                  <td>{{ $call->expedient }}</td>
-                  <td>{{ $call->type_of_operation }}</td>
-                  <td>{{ $call->client->full_name }}</td>
-                  <td>{{ $call->client->phone_1 }}</td>
-                  <td>{{ $call->client->phone_2 }}</td>
-                  <td>
-                    <a href="mailto:{{ $call->client->email }}" title="@lang('shared.send_email_to') {{ $call->client->name }}" target="_blank">{{ $call->client->email }}</a>
-                  </td>
-                  <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
-                  <td>{{ $call->address }}</td>
-                  <td>{{ $call->state->name }}</td>
-                  <td>{{ (isset($call->updated)) ? $call->updated : $call->created }}</td>
-                  <td>{{ $call->status }}</td>
-                  <td><span class="label
-                    @if ($call->priority == 'Baja')
-                      label-primary
-                    @elseif ($call->priority == 'Media')
-                      label-warning
-                    @else
-                      label-danger
-                    @endif">{{ $call->priority }}</span></td>
-                </tr>
-              </tbody>
-            </table>
+              <p class="text-left"><strong>@lang('call.email'):</strong>
+                <a href="mailto:{{ $call->internal_expedient->client->email_1 }}" title="@lang('shared.send_email_to') {{ $call->internal_expedient->client->full_name }}" target="_blank">{{ $call->internal_expedient->client->email_1 }}</a>
+              </p>
+
+              <p class="text-left"><strong>@lang('call.email'):</strong>
+                <a href="mailto:{{ $call->internal_expedient->client->email_2 }}" title="@lang('shared.send_email_to') {{ $call->internal_expedient->client->full_name }}" target="_blank">{{ $call->internal_expedient->client->email_2 }}</a>
+              </p>
+
+              <p class="text-left"><strong>@lang('call.address'):</strong> {{ $call->address }}</p>
+
+              <p class="text-left"><strong>@lang('call.state'):</strong> {{ $call->state->name }}</p>
+
+              <p class="text-left">
+                <strong>@lang('call.internal_expedient'):</strong> {{ $call->internal_expedient->expedient }}
+              </p>
+
+              <p class="text-left"><strong>@lang('call.status'):</strong> {{ $call->status }}</p>
+
+              <p class="text-left"><strong>@lang('call.operation'):</strong> {{ $call->type_of_operation }}</p>
+
+              <p class="text-left"><strong>@lang('call.observations'):</strong> {{ $call->observations }}</p>
+
+              <p class="text-left"><strong>@lang('call.attended'):</strong> {{ $call->user->name }}</p>
+
+              <p class="text-left">
+                <strong>@lang('call.priority'):</strong> <span class="label
+                  @if ($call->priority == 'Baja')
+                    label-primary
+                  @elseif ($call->priority == 'Media')
+                    label-warning
+                  @else
+                    label-danger
+                  @endif">{{ $call->priority }}</span>
+              </p>
+
+              <p class="text-left"><strong>@lang('call.hour'):</strong> {{ (isset($call->updated)) ? $call->updated : $call->created }}</p>
+
+              <p class="text-left"><strong>@lang('call.actions')</strong></p>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                @include('calls.partials.buttons.edit-complete')
+
+                @include('calls.partials.buttons.delete-complete')
+              </div>
+            </div>
           </div>
         </div>
 

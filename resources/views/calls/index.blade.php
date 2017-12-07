@@ -15,7 +15,7 @@
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
             @lang('section.call_tracking')
-            <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 pull-right text-right">
+            <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
               @include('calls.partials.buttons.create')
             </div>
           </h1>
@@ -62,7 +62,7 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center">
               @include('calls.partials.buttons.create')
             </div>
           </div>

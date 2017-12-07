@@ -11,6 +11,6 @@ class CallsTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(App\Call::class, 100)->create();
+    factory(App\Call::class, 10)->create();
   }
 }

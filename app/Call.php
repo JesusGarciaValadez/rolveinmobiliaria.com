@@ -70,6 +70,11 @@ class Call extends Model
     return $this->belongsTo('App\State');
   }
 
+  public function internal_expedient()
+  {
+    return $this->belongsTo('App\InternalExpedient', 'id');
+  }
+
   public function getCreatedAttribute()
   {
     $date = $this->created_at->format('Y-M-d h:i a');

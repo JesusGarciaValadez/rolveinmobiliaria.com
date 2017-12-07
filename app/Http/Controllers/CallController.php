@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Call;
 use App\State;
 use App\Client;
+use App\InternalExpedient;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Http\Requests\CallRequest;
@@ -17,9 +20,14 @@ class CallController extends Controller
 {
   use ThrottlesLogins;
 
+  private $_uri = '';
+  private $_locale = '';
+
   public function __constructor()
   {
-    //
+    $this->_locale = \App::getLocale();
+
+    $this->_uri = 'call_trackings';
   }
 
   /**
@@ -29,13 +37,36 @@ class CallController extends Controller
    */
   public function index()
   {
-    $locale = \App::getLocale();
+    $currentUser = User::with('role')->find(Auth::id());
 
-    $uri = 'call_trackings';
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    )
+    {
+      $calls = Call::with([
+                    'internal_expedient',
+                    'state',
+                    'user',
+                    'client'
+                  ])
+                  ->orderBy('id', 'desc')
+                  ->paginate(5);
+    }
+    else
+    {
+      $calls = Call::with([
+                    'internal_expedient',
+                    'state',
+                    'user',
+                    'client'
+                  ])
+                  ->where('user_id', '=', $currentUser->id)
+                  ->orderBy('id', 'desc')
+                  ->paginate(5);
+    }
 
-    $calls = Call::with('state')->orderBy('id', 'desc')->paginate(5);
-
-    return view('calls.index', compact('calls', 'uri'));
+    return view('calls.index', compact('calls', 'this->_uri'));
   }
 
   /**
@@ -45,21 +76,35 @@ class CallController extends Controller
    */
   public function create()
   {
-    $locale = \App::getLocale();
+    $currentUser = User::with('role')->find(Auth::id());
 
-    $clients = Client::with('internalExpedient')
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $expedients = InternalExpedient::with('client')
                       ->get()
-                      ->sortBy('last_name')
-                      ->sortBy('first_name');
+                      ->sortBy('expedient');
+      $clients = Client::all()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+    } else {
+      $expedients = InternalExpedient::with('client')
+                      ->where('user_id', Auth::id())
+                      ->get()
+                      ->sortBy('expedient');
+      $clients = Client::where('user_id', Auth::id())
+                  ->get()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+    }
 
-    $uri = 'call_trackings';
-
-    Carbon::setLocale($locale);
+    Carbon::setLocale($this->_locale);
     $created_at = Carbon::now('America/Mexico_City')->toDateTimeString();
 
     $states = State::all();
 
-    return view('calls.create', compact('created_at', 'uri', 'states', 'clients'));
+    return view('calls.create', compact('created_at', 'this->_uri', 'states', 'expedients', 'clients'));
   }
 
   /**
@@ -74,7 +119,25 @@ class CallController extends Controller
     $data['user_id'] = \Auth::id();
     unset($data['_token']);
 
-    $updated = Call::create($data);
+    $expedient = [
+      'client_id' => $data['client_id'],
+      'expedient' => $data['expedient'],
+    ];
+
+    $expedientStored = InternalExpedient::create($expedient);
+
+    $call = [
+      'user_id' => $data['user_id'],
+      'type_of_operation' => $data['type_of_operation'],
+      'expedient_id' => $expedientStored->id,
+      'client_id' => $data['client_id'],
+      'address' => $data['address'],
+      'observations' => $data['observations'],
+      'status' => $data['status'],
+      'priority' => $data['priority']
+    ];
+
+    $updated = Call::create($call);
 
     $message = ($updated)
                  ? 'Nueva llamada creada'
@@ -112,13 +175,23 @@ class CallController extends Controller
    */
   public function show(Request $request)
   {
-    $locale = \App::getLocale();
+    $currentUser = User::with('role')->find(Auth::id());
 
-    $uri = 'call_trackings';
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                  ->findOrFail($request->id);
+    } else {
+      Call::with(['internal_expedient', 'state', 'user', 'client'])
+           ->where('id', $request->id)
+           ->where('user_id', Auth::id())
+           ->get()
+           ->first();
+    }
 
-    $call = Call::findOrFail($request->id);
-
-    return view('calls.show', compact('call', 'uri'));
+    return view('calls.show', compact('call', 'this->_uri'));
   }
 
   /**
@@ -129,19 +202,48 @@ class CallController extends Controller
    */
   public function edit(Request $request)
   {
-    $locale = \App::getLocale();
-
-    $uri = 'call_trackings';
-
     $states = State::all();
 
-    $call = Call::findOrFail($request->id);
+    $currentUser = User::with('role')
+                       ->find(Auth::id());
 
-    $clients = Client::all()
-                      ->sortBy('last_name')
-                      ->sortBy('first_name');
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    )
+    {
+      $expedients = InternalExpedient::with('client')
+                      ->get()
+                      ->sortBy('expedient');
+      $clients = Client::all()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+      $call = Call::with([
+                'internal_expedient',
+                'state',
+                'user',
+                'client'
+              ])
+              ->findOrFail($request->id);
+    }
+    else
+    {
+      $expedients = InternalExpedient::with('client')
+                      ->where('user_id', Auth::id())
+                      ->get()
+                      ->sortBy('expedient');
+      $clients = Client::where('user_id', Auth::id())
+                  ->get()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+      $call = Call::with(['internal_expedient', 'state', 'user',  'client'])
+                  ->where('id', $request->id)
+                  ->where('user_id', Auth::id())
+                  ->get()
+                  ->first();
+    }
 
-    return view('calls.edit', compact('uri', 'states', 'call', 'clients'));
+    return view('calls.edit', compact('this->_uri', 'states', 'call', 'clients', 'expedients'));
   }
 
   /**
@@ -156,8 +258,48 @@ class CallController extends Controller
     $data = $request->all();
     unset($data['_token']);
 
-    $updated = Call::findOrFail($request->id)
-                ->update($data);
+    $currentUser = User::with('role')->find(Auth::id());
+
+    $expedient = [
+      'id'  => $data['expedient_id'],
+      'client_id' => $data['client_id'],
+      'expedient' => $data['expedient'],
+    ];
+
+    $updated = Call::create($call);
+
+    $expedientStored = InternalExpedient::find($expedient['id'])
+                                        ->update($expedient);
+
+    $call = [
+      'user_id' => $data['user_id'],
+      'type_of_operation' => $data['type_of_operation'],
+      'expedient_id' => $expedientStored->id,
+      'client_id' => $data['client_id'],
+      'address' => $data['address'],
+      'observations' => $data['observations'],
+      'status' => $data['status'],
+      'priority' => $data['priority']
+    ];
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    )
+    {
+      $updated = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                     ->findOrFail($request->id)
+                     ->update($call);
+    }
+    else
+    {
+      $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                  ->where('id', $request->id)
+                  ->where('user_id', Auth::id())
+                  ->get()
+                  ->first()
+                  ->update($call);
+    }
 
     $message = ($updated)
                   ? 'Llamada actualizada'
@@ -195,7 +337,8 @@ class CallController extends Controller
    */
   public function destroy(Request $request)
   {
-    $call = Call::findOrFail($request->id);
+    $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                ->findOrFail($request->id);
     $isDestroyed = $call->delete();
 
     $message = ($isDestroyed)
@@ -220,19 +363,34 @@ class CallController extends Controller
 
   public function search(CallSearchRequest $request)
   {
-    $calls = Call::whereBetween('created_at', [$request->date, now()->today()])
-              ->orderBy('id', 'desc')
-              ->paginate(5);
+    $currentUser = User::with('role')
+                       ->find(Auth::id());
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                   ->whereBetween('created_at', [
+                    $request->date, now()->tomorrow()
+                   ])
+                   ->orderBy('id', 'desc')
+                   ->paginate(5);
+    } else {
+      $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
+                   ->whereBetween('created_at', [
+                     $request->date, now()->tomorrow()
+                   ])
+                   ->where('user_id', '=', $currentUser->id)
+                   ->orderBy('id', 'desc')
+                   ->paginate(5);
+    }
 
     $message = (count($calls) > 0)
                   ? count($calls).' Llamadas encontradas'
                   : 'No se pudo ninguna llamada.';
 
     $type = (count($calls) > 0) ? 'success' : 'danger';
-
-    $locale = \App::getLocale();
-
-    $uri = 'call_trackings';
 
     $request->session()->flash('date', $request->date);
 
@@ -246,11 +404,10 @@ class CallController extends Controller
     }
     else
     {
-      // \Debugbar::warning($session);
       return view('calls.search')->with('calls', $calls)
-                                ->with('uri', $uri)
-                                ->with('message', $message)
-                                ->with('type', $type);
+                                 ->with('uri', $this->_uri)
+                                 ->with('message', $message)
+                                 ->with('type', $type);
     }
   }
 }

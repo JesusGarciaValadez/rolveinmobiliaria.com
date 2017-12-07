@@ -25,7 +25,6 @@ class CallRequest extends FormRequest
   public function rules()
   {
     return [
-      'expedient' => 'required|string',
       'type_of_operation' => [
         'sometimes',
         'required' => Rule::in([
@@ -37,7 +36,7 @@ class CallRequest extends FormRequest
           'Recados',
         ]),
       ],
-      'client_id' => 'required|string',
+      'expedient_id' => 'nullable|alpha_numeric',
       'address' => 'sometimes|nullable|string',
       'state_id' => 'sometimes|nullable|numeric|integer|exists:states,id',
       'observations' => 'required|string',

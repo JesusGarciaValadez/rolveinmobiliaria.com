@@ -25,13 +25,13 @@ class AlterCallsTable extends Migration
               ->onUpdate('cascade')
               ->onDelete('set null');
 
-        $table->integer('client_id')
+        $table->integer('expedient_id')
               ->unsigned()
               ->nullable()
-              ->after('type_of_operation');
-        $table->foreign('client_id')
+              ->after('id');
+        $table->foreign('expedient_id')
               ->references('id')
-              ->on('clients')
+              ->on('internal_expedients')
               ->onUpdate('cascade')
               ->onDelete('cascade');
       });
@@ -50,6 +50,9 @@ class AlterCallsTable extends Migration
 
         $table->dropForeign('calls_client_id_foreign')
               ->dropColumn('client_id');
+
+        $table->dropForeign('calls_expedient_id_foreign')
+              ->dropColumn('expedient_id');
       });
     }
 }
