@@ -73,8 +73,7 @@
     @if ($environment == 'production')
       npm run prod;
 
-      git add public/js;
-      git add public/css;
+      git add public/js public/css;
 
       git commit -m "Packing js and css files for production.";
 
