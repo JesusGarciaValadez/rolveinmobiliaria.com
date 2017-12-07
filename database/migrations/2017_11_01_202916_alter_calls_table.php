@@ -25,7 +25,6 @@ class AlterCallsTable extends Migration
               ->onUpdate('cascade')
               ->onDelete('set null');
 
-        $table->renameColumn('expedient_id', 'internal_expedient_id');
         $table->integer('internal_expedient_id')
               ->unsigned()
               ->nullable()
