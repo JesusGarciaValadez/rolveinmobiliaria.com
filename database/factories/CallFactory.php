@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Call::class, function (Faker $faker) {
   return [
-    'expedient_id' => function ()
+    'internal_expedient_id' => function ()
     {
       return factory(App\InternalExpedient::class)->create()->id;
     },

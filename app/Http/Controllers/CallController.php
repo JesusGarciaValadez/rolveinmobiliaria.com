@@ -44,24 +44,12 @@ class CallController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $calls = Call::with([
-                    'internal_expedient',
-                    'state',
-                    'user',
-                    'client'
-                  ])
-                  ->orderBy('id', 'desc')
+      $calls = Call::orderBy('id', 'desc')
                   ->paginate(5);
     }
     else
     {
-      $calls = Call::with([
-                    'internal_expedient',
-                    'state',
-                    'user',
-                    'client'
-                  ])
-                  ->where('user_id', '=', $currentUser->id)
+      $calls = Call::where('user_id', '=', $currentUser->id)
                   ->orderBy('id', 'desc')
                   ->paginate(5);
     }
@@ -124,13 +112,12 @@ class CallController extends Controller
       'expedient' => $data['expedient'],
     ];
 
-    $expedientStored = InternalExpedient::create($expedient);
+    $expedientStored = new InternalExpedient($expedient);
 
     $call = [
       'user_id' => $data['user_id'],
       'type_of_operation' => $data['type_of_operation'],
-      'expedient_id' => $expedientStored->id,
-      'client_id' => $data['client_id'],
+      'expedient_id' => $expedientStored,
       'address' => $data['address'],
       'observations' => $data['observations'],
       'status' => $data['status'],
@@ -260,23 +247,12 @@ class CallController extends Controller
 
     $currentUser = User::with('role')->find(Auth::id());
 
-    $expedient = [
-      'id'  => $data['expedient_id'],
-      'client_id' => $data['client_id'],
-      'expedient' => $data['expedient'],
-    ];
-
-    $updated = Call::create($call);
-
-    $expedientStored = InternalExpedient::find($expedient['id'])
-                                        ->update($expedient);
-
     $call = [
       'user_id' => $data['user_id'],
       'type_of_operation' => $data['type_of_operation'],
-      'expedient_id' => $expedientStored->id,
-      'client_id' => $data['client_id'],
+      'internal_expedient_id' => $data['expedient_id'],
       'address' => $data['address'],
+      'state_id' => $data['state_id'],
       'observations' => $data['observations'],
       'status' => $data['status'],
       'priority' => $data['priority']
@@ -287,17 +263,14 @@ class CallController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $updated = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                     ->findOrFail($request->id)
-                     ->update($call);
+      $updated = Call::findOrFail($request->id)
+                  ->update($call);
+      \Debugbar::info($updated);
     }
     else
     {
-      $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                  ->where('id', $request->id)
+      $updated = Call::where('id', $request->id)
                   ->where('user_id', Auth::id())
-                  ->get()
-                  ->first()
                   ->update($call);
     }
 
@@ -309,7 +282,7 @@ class CallController extends Controller
               ? 'success'
               : 'danger';
 
-    if ( $request->ajax() )
+    if ($request->ajax())
     {
       return response()->json( [ 'message' => $message ] );
     }
@@ -338,7 +311,7 @@ class CallController extends Controller
   public function destroy(Request $request)
   {
     $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                ->findOrFail($request->id);
+              ->findOrFail($request->id);
     $isDestroyed = $call->delete();
 
     $message = ($isDestroyed)
@@ -371,19 +344,19 @@ class CallController extends Controller
       $currentUser->hasRole('Administrador')
     ) {
       $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                   ->whereBetween('created_at', [
-                    $request->date, now()->tomorrow()
-                   ])
-                   ->orderBy('id', 'desc')
-                   ->paginate(5);
+                ->whereBetween('created_at', [
+                  $request->date, now()->tomorrow()
+                ])
+                ->orderBy('id', 'desc')
+                ->paginate(5);
     } else {
       $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                   ->whereBetween('created_at', [
-                     $request->date, now()->tomorrow()
-                   ])
-                   ->where('user_id', '=', $currentUser->id)
-                   ->orderBy('id', 'desc')
-                   ->paginate(5);
+                ->whereBetween('created_at', [
+                  $request->date, now()->tomorrow()
+                ])
+                ->where('user_id', '=', $currentUser->id)
+                ->orderBy('id', 'desc')
+                ->paginate(5);
     }
 
     $message = (count($calls) > 0)

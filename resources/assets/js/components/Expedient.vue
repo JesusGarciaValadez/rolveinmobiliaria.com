@@ -5,6 +5,7 @@
     </div>
 
     <Client
+      :name="name"
       :phone-one="phoneOne"
       :phone-two="phoneTwo"
       :business="business"
@@ -20,6 +21,11 @@
     template: '#expedient',
     props: {
       expedient: {
+        type: String,
+        default: '',
+        required: true
+      },
+      name: {
         type: String,
         default: '',
         required: true

@@ -17,6 +17,13 @@ class User extends Authenticatable
   use SoftDeletes;
 
   /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = ['role'];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array

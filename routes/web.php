@@ -51,7 +51,7 @@ Route::prefix('/clients')->middleware('auth')->group(function () {
        ->name('edit_client')
        ->middleware('can:clients.update, client');
 
-  Route::put('/uptate/{id}', 'ClientController@update')
+  Route::put('/update/{id}', 'ClientController@update')
        ->name('update_client')
        ->middleware('can:clients.update, client');
 
@@ -81,7 +81,7 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
        ->name('edit_call')
        ->middleware('can:calls.update, call');
 
-  Route::put('/uptate/{id}', 'CallController@update')
+  Route::put('/update/{id}', 'CallController@update')
        ->name('update_call')
        ->middleware('can:calls.update, call');
 
@@ -115,7 +115,7 @@ Route::prefix('/for_sales')->middleware('auth')->group(function () {
        ->name('edit_sale')
        ->middleware('can:sales.update, update');
 
-  Route::put('/uptate/{id}', 'SaleController@update')
+  Route::put('/update/{id}', 'SaleController@update')
        ->name('update_sale')
        ->middleware('can:sales.update, sale');
 

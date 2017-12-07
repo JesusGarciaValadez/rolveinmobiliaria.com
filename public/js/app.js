@@ -1109,6 +1109,9 @@ if (clientRoot !== null) {
   var ClientInfo = new Vue({
     el: '#client-info',
     data: {
+      clientId: '',
+      clientFirstName: '',
+      clientLastName: '',
       clientExpedient: '',
       clientPhoneOne: '',
       clientPhoneTwo: '',
@@ -1124,13 +1127,16 @@ if (clientRoot !== null) {
       },
       hasExpedient: function hasExpedient() {
         return this.clientReference.length !== 0;
+      },
+      fullName: function fullName() {
+        return this.clientFirstName + ' ' + this.clientLastName;
       }
     },
     methods: {
       getClientInfo: function getClientInfo() {
+        var _this = this;
+
         var clientId = document.getElementById('client_id').value;
-        var self = this;
-        self.loading = true;
 
         if (clientId !== '') {
           var environment = "development";
@@ -1149,26 +1155,33 @@ if (clientRoot !== null) {
           }).catch(function (error) {
             return console.log(error);
           }).then(function (response) {
-            self.loading = false;
-            self.clientPhoneOne = response.phone_1 || '';
-            self.clientPhoneTwo = response.phone_2 || '';
-            self.clientBusiness = response.business || '';
-            self.clientEmailOne = response.email_1 || '';
-            self.clientEmailTwo = response.email_2 || '';
-            self.clientReference = response.reference || '';
+            _this.loading = false;
+            _this.clientId = response.id || '';
+            _this.clientFirstName = response.first_name || '';
+            _this.clientLastName = response.last_name || '';
+            _this.clientPhoneOne = response.phone_1 || '';
+            _this.clientPhoneTwo = response.phone_2 || '';
+            _this.clientBusiness = response.business || '';
+            _this.clientEmailOne = response.email_1 || '';
+            _this.clientEmailTwo = response.email_2 || '';
+            _this.clientReference = response.reference || '';
           });
         } else {
-          self.loading = false;
-          self.clientPhoneOne = '';
-          self.clientPhoneTwo = '';
-          self.clientEmailOne = '';
-          self.clientEmailTwo = '';
+          this.loading = false;
+          this.clientId = '';
+          this.clientFirstName = '';
+          this.clientLastName = '';
+          this.clientPhoneOne = '';
+          this.clientPhoneTwo = '';
+          this.clientEmailOne = '';
+          this.clientEmailTwo = '';
         }
       },
       getExpedientInfo: function getExpedientInfo() {
+        var _this2 = this;
+
         var expedientId = document.getElementById('expedient_id').value;
-        var self = this;
-        self.loading = true;
+        this.loading = true;
 
         if (expedientId !== '') {
           var environment = "development";
@@ -1187,21 +1200,27 @@ if (clientRoot !== null) {
           }).catch(function (error) {
             return console.log(error);
           }).then(function (response) {
-            self.loading = false;
-            self.clientExpedient = response.expedient || '';
-            self.clientPhoneOne = response.client.phone_1 || '';
-            self.clientPhoneTwo = response.client.phone_2 || '';
-            self.clientBusiness = response.client.business || '';
-            self.clientEmailOne = response.client.email_1 || '';
-            self.clientEmailTwo = response.client.email_2 || '';
-            self.clientReference = response.client.reference || '';
+            _this2.loading = false;
+            _this2.clientId = response.id || '';
+            _this2.clientExpedient = response.expedient || '';
+            _this2.clientFirstName = response.client.first_name || '';
+            _this2.clientLastName = response.client.last_name || '';
+            _this2.clientPhoneOne = response.client.phone_1 || '';
+            _this2.clientPhoneTwo = response.client.phone_2 || '';
+            _this2.clientBusiness = response.client.business || '';
+            _this2.clientEmailOne = response.client.email_1 || '';
+            _this2.clientEmailTwo = response.client.email_2 || '';
+            _this2.clientReference = response.client.reference || '';
           });
         } else {
-          self.loading = false;
-          self.clientPhoneOne = '';
-          self.clientPhoneTwo = '';
-          self.clientEmailOne = '';
-          self.clientEmailTwo = '';
+          this.loading = false;
+          this.clientId = '';
+          this.clientFirstName = '';
+          this.clientLastName = '';
+          this.clientPhoneOne = '';
+          this.clientPhoneTwo = '';
+          this.clientEmailOne = '';
+          this.clientEmailTwo = '';
         }
       }
     },
@@ -43981,9 +44000,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
+    name: {
+      type: String,
+      default: '',
+      required: true
+    },
     phoneOne: {
       type: String,
       default: '',
@@ -44053,6 +44078,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("p", [
+      _c("strong", [_vm._v("Cliente: ")]),
+      _vm._v(" " + _vm._s(_vm.name))
+    ]),
+    _vm._v(" "),
     _c(
       "p",
       {
@@ -44292,11 +44322,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   template: '#expedient',
   props: {
     expedient: {
+      type: String,
+      default: '',
+      required: true
+    },
+    name: {
       type: String,
       default: '',
       required: true
@@ -44376,6 +44412,7 @@ var render = function() {
       _vm._v(" "),
       _c("Client", {
         attrs: {
+          name: _vm.name,
           "phone-one": _vm.phoneOne,
           "phone-two": _vm.phoneTwo,
           business: _vm.business,

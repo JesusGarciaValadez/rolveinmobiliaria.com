@@ -82,9 +82,10 @@ class ClientController extends Controller
                     ->count();
 
     if ($isRepeated !== 0) {
-      return redirect()->back()
-                       ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
-                       ->with('type', 'warning');
+      return redirect()
+              ->back()
+              ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
+              ->with('type', 'warning');
     }
 
     $updated = Client::create($data);
@@ -103,9 +104,10 @@ class ClientController extends Controller
     }
     else
     {
-      return redirect()->back()
-                       ->with('message', $message)
-                       ->with('type', 'success');
+      return redirect()
+              ->back()
+              ->with('message', $message)
+              ->with('type', 'success');
     }
   }
 
@@ -185,14 +187,16 @@ class ClientController extends Controller
     {
       if ($updated)
       {
-        return redirect('clients')->with( 'message', $message )
-                                  ->with( 'type', $type );
+        return redirect('clients')
+                ->with( 'message', $message )
+                ->with( 'type', $type );
       }
       else
       {
-        return redirect()->back()
-                         ->with( 'message', $message )
-                         ->with( 'type', $type );
+        return redirect()
+                ->back()
+                ->with( 'message', $message )
+                ->with( 'type', $type );
       }
     }
   }

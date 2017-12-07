@@ -25,11 +25,11 @@ class AlterCallsTable extends Migration
               ->onUpdate('cascade')
               ->onDelete('set null');
 
-        $table->integer('expedient_id')
+        $table->integer('internal_expedient_id')
               ->unsigned()
               ->nullable()
               ->after('id');
-        $table->foreign('expedient_id')
+        $table->foreign('internal_expedient_id')
               ->references('id')
               ->on('internal_expedients')
               ->onUpdate('cascade')
@@ -47,9 +47,6 @@ class AlterCallsTable extends Migration
       Schema::table('calls', function (Blueprint $table) {
         $table->dropForeign('calls_state_id_foreign')
               ->dropColumn('state_id');
-
-        $table->dropForeign('calls_client_id_foreign')
-              ->dropColumn('client_id');
 
         $table->dropForeign('calls_expedient_id_foreign')
               ->dropColumn('expedient_id');

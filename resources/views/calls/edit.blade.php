@@ -42,6 +42,7 @@
                   autofocus>
                   <option
                     value=""
+                    disabled
                     {{ (!old('type_of_operation')) ? 'selected' : '' }}>@lang('call.choose_an_option')</option>
                   <option
                     value="Venta"
@@ -108,11 +109,13 @@
                   @foreach ($expedients as $expedient)
                     <option
                       value="{{ $expedient->id }}"
-                      {{ (old('expedient_id') == $expedient->id || $call->expedient_id == $expedient->id)
+                      {{ (old('expedient_id') === $expedient->id || $call->internal_expedient->id === $expedient->id)
                           ? 'selected'
                           : ''}}>{{ $expedient->expedient }}</option>
                   @endforeach
                 </select>
+                <input type="hidden" name="client_id" :value="clientId">
+                <input type="hidden" name="expedient" :value="clientExpedient">
 
                 @if ($errors->has('expedient_id'))
                   <span class="help-block">
@@ -137,6 +140,7 @@
             <Spinner v-if="loading"></Spinner>
             <Expedient
               :expedient="clientExpedient"
+              :name="fullName"
               :phone-one="clientPhoneOne"
               :phone-two="clientPhoneTwo"
               :business="clientBusiness"
@@ -362,15 +366,18 @@
                   </div>
                   <div class="form-group">
                     <Spinner v-if="loading"></Spinner>
-                    <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="!loading">
+                    <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="hasClient">
                       <Client
+                        :name="fullName"
                         :phone-one="clientPhoneOne"
                         :phone-two="clientPhoneTwo"
                         :business="clientBusiness"
                         :email-one="clientEmailOne"
                         :email-two="clientEmailTwo"
                         :reference="clientReference"
-                        :has-client="hasClient"></Client>
+                        :empty="true"
+                        :has-client="hasClient"
+                        ></Client>
                     </div>
                   </div>
                 </div>

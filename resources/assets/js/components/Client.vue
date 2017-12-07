@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p><strong>Cliente: </strong> {{ name }}</p>
     <p v-show="hasPhoneOne"><strong>Teléfono:</strong> {{ phoneOne }}</p>
     <p v-show="hasPhoneTwo"><strong>Teléfono:</strong> {{ phoneTwo }}</p>
     <p v-show="hasBusiness"><strong>Empresa:</strong> {{ business }}</p>
@@ -27,6 +28,11 @@
 <script>
   export default {
     props: {
+      name: {
+        type: String,
+        default: '',
+        required: true
+      },
       phoneOne: {
         type: String,
         default: '',

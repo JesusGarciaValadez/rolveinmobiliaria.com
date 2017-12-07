@@ -11,18 +11,24 @@ class Call extends Model
   use SoftDeletes;
 
   /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = ['internal_expedient', 'user', 'state'];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
   protected $fillable = [
-    'expedient',
+    'user_id',
     'type_of_operation',
-    'client_id',
+    'internal_expedient_id',
     'address',
     'state_id',
     'observations',
-    'user_id',
     'status',
     'priority',
   ];
@@ -72,7 +78,7 @@ class Call extends Model
 
   public function internal_expedient()
   {
-    return $this->belongsTo('App\InternalExpedient', 'id');
+    return $this->belongsTo('App\InternalExpedient');
   }
 
   public function getCreatedAttribute()
