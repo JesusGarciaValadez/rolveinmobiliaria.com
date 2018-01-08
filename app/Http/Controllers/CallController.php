@@ -106,7 +106,6 @@ class CallController extends Controller
     $data = $request->all();
     $data['user_id'] = \Auth::id();
     unset($data['_token']);
-    \Debugbar::info($request->all());
 
     $call = [
       'user_id' => $data['user_id'],
