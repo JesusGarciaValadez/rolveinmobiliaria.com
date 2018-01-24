@@ -137,7 +137,7 @@
               </p>
             </div>
 
-            <Spinner v-if="loading"></Spinner>
+            <Spinner v-if="loading" v-cloak></Spinner>
             <Expedient
               :expedient="clientExpedient"
               :name="fullName"
@@ -149,7 +149,8 @@
               :reference="clientReference"
               :has-client="hasClient"
               :empty="empty"
-              v-if="!loading"></Expedient>
+              v-if="!loading"
+              v-cloak></Expedient>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
               <label
@@ -368,7 +369,7 @@
                   </div>
                   <div class="form-group">
                     <Spinner v-if="loading"></Spinner>
-                    <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="hasClient">
+                    <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="hasClient" v-cloak>
                       <Client
                         :name="fullName"
                         :phone-one="clientPhoneOne"

@@ -57,9 +57,4 @@ class CofinavitContract extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
-
-  public function saleContract()
-  {
-    return $this->hasOne('App\SaleContract');
-  }
 }

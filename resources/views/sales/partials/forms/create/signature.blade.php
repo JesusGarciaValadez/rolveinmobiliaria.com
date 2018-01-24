@@ -18,11 +18,7 @@
               id="SS_writing_review"
               type="checkbox"
               v-model="signature.writing_review"
-              @if (
-                !empty(old('SS_writing_review')) ||
-                ($sale->signature !== null &&
-                 !empty($sale->signature->SS_writing_review))
-              )
+              @if (old('SS_writing_review'))
                 checked
               @endif> @lang('sale.signature_writing_review')
           </label>
@@ -43,11 +39,7 @@
               id="SS_scheduled_date_of_writing_signature"
               type="checkbox"
               v-model="signature.scheduled_date_of_writing_signature"
-              @if (
-                !empty(old('SS_scheduled_date_of_writing_signature')) ||
-                ($sale->signature !== null &&
-                 !empty($sale->signature->SS_scheduled_date_of_writing_signature))
-              )
+              @if (old('SS_scheduled_date_of_writing_signature'))
                 checked
               @endif> @lang('sale.signature_scheduled_date_of_writing_signature')
           </label>
@@ -68,11 +60,7 @@
               id="SS_writing_signature"
               type="checkbox"
               v-model="signature.writing_signature"
-              @if (
-                !empty(old('SS_writing_signature')) ||
-                ($sale->signature !== null &&
-                 !empty($sale->signature->SS_writing_signature))
-              )
+              @if (old('SS_writing_signature'))
                 checked
               @endif> @lang('sale.signature_writing_signature')
           </label>
@@ -93,11 +81,7 @@
               id="SS_scheduled_payment_date"
               type="checkbox"
               v-model="signature.scheduled_payment_date"
-              @if (
-                !empty(old('SS_scheduled_payment_date')) ||
-                ($sale->signature !== null &&
-                 !empty($sale->signature->SS_scheduled_payment_date))
-              )
+              @if (old('SS_scheduled_payment_date'))
                 checked
               @endif> @lang('sale.signature_scheduled_payment_date')
           </label>
@@ -118,10 +102,7 @@
               id="SS_payment_made"
               type="checkbox"
               v-model="signature.payment_made"
-              @if (
-                !empty(old('SS_payment_made')) ||
-                ($sale->signature !== null && !empty($sale->signature->SS_payment_made))
-              )
+              @if (old('SS_payment_made'))
                 checked
               @endif> @lang('sale.signature_payment_made')
           </label>

@@ -23,19 +23,15 @@
               <option
                 value=""
                 disabled
-                {{ (!old('SN_federal_entity')) ? 'selected' : '' }}>@lang('shared.choose_an_option')</option>
+                {{ !old('SN_federal_entity') ? 'selected' : '' }}>@lang('shared.choose_an_option')</option>
               <option
                 value="CDMX"
-                {{ (old('SN_federal_entity') == 'CDMX' ||
-                   ($sale->notary !== null &&
-                    $sale->notary->SN_federal_entity == 'CDMX'))
+                {{ old('SN_federal_entity') == 'CDMX'
                     ? 'selected'
                     : '' }}>@lang('shared.cdmx')</option>
               <option
                 value="Edo. Mex."
-                {{ (old('SN_federal_entity') == 'Edo. Mex.' ||
-                   ($sale->notary !== null &&
-                    $sale->notary->SN_federal_entity == 'Edo. Mex.'))
+                {{ old('SN_federal_entity') == 'Edo. Mex.'
                     ? 'selected'
                     : '' }}>@lang('shared.edo_mex')</option>
             </select>
@@ -60,9 +56,7 @@
               id="SN_notaries_office"
               value="{{ (old('SN_notaries_office'))
                 ? old('SN_notaries_office')
-                : ($sale->notary !== null)
-                  ? $sale->notary->SN_notaries_office
-                  : '' }}"
+                : '' }}"
               placeholder="@lang('sale.notary_notaries_office')"
               autocorrect="on"
               v-model="notary.notaries_office">
@@ -84,11 +78,7 @@
               id="SN_freedom_of_lien_certificate"
               type="checkbox"
               v-model="notary.freedom_of_lien_certificate"
-              @if (
-                !empty(old('SN_freedom_of_lien_certificate')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_freedom_of_lien_certificate))
-              )
+              @if (old('SN_freedom_of_lien_certificate'))
                 checked
               @endif> @lang('sale.notary_freedom_of_lien_certificate')
           </label>
@@ -109,11 +99,7 @@
               id="SN_zoning"
               type="checkbox"
               v-model="notary.zoning"
-              @if (
-                !empty(old('SN_zoning')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_zoning))
-              )
+              @if (old('SN_zoning'))
                 checked
               @endif> @lang('sale.notary_zoning')
           </label>
@@ -134,11 +120,7 @@
               id="SN_water_no_due_constants"
               type="checkbox"
               v-model="notary.water_no_due_constants"
-              @if (
-                !empty(old('SN_water_no_due_constants')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_water_no_due_constants))
-              )
+              @if (old('SN_water_no_due_constants'))
                 checked
               @endif> @lang('sale.notary_water_no_due_constants')
           </label>
@@ -159,11 +141,7 @@
               id="SN_non_debit_proof_of_property"
               type="checkbox"
               v-model="notary.non_debit_proof_of_property"
-              @if (
-                !empty(old('SN_non_debit_proof_of_property')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_non_debit_proof_of_property))
-              )
+              @if (old('SN_non_debit_proof_of_property'))
                 checked
               @endif> @lang('sale.notary_non_debit_proof_of_property')
           </label>
@@ -184,11 +162,7 @@
               id="SN_certificate_of_improvement"
               type="checkbox"
               v-model="notary.certificate_of_improvement"
-              @if (
-                !empty(old('SN_certificate_of_improvement')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_certificate_of_improvement))
-              )
+              @if (old('SN_certificate_of_improvement'))
                 checked
               @endif> @lang('sale.notary_certificate_of_improvement')
           </label>
@@ -209,11 +183,7 @@
               id="SN_key_and_cadastral_value"
               type="checkbox"
               v-model="notary.key_and_cadastral_value"
-              @if (
-                !empty(old('SN_key_and_cadastral_value')) ||
-                ($sale->notary !== null &&
-                 !empty($sale->notary->SN_key_and_cadastral_value))
-              )
+              @if (old('SN_key_and_cadastral_value'))
                 checked
               @endif> @lang('sale.notary_key_and_cadastral_value')
           </label>

@@ -32,13 +32,12 @@ class ClientController extends Controller
   public function index()
   {
     $clients = Client::with([
-                'internalExpedient',
-                'user'
-              ])
-              ->orderBy('first_name', 'asc')
-              ->orderBy('last_name', 'asc')
-              ->paginate(5);
-    logger('hola');
+        'internalExpedient',
+        'user'
+      ])
+      ->orderBy('first_name', 'asc')
+      ->orderBy('last_name', 'asc')
+      ->paginate(5);
 
     return view('clients.index', compact('clients', 'this->_uri'));
   }
@@ -51,11 +50,11 @@ class ClientController extends Controller
   public function create()
   {
     $clients = Client::with([
-                'internalExpedient',
-                'user',
-              ])
-              ->get()
-              ->sortBy('last_name');
+        'internalExpedient',
+        'user',
+      ])
+      ->get()
+      ->sortBy('last_name');
 
     return view('clients.create', compact('this->_uri', 'clients'));
   }

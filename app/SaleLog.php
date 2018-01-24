@@ -10,6 +10,13 @@ class SaleLog extends Model
   use SoftDeletes;
 
   /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = ['sale'];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array

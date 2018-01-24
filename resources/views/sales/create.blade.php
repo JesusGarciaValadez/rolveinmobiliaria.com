@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nueva | ".__('sale.new_sale'))
+@section('title', "Editar | ".__('section.for_sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -10,320 +10,163 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a
-              href="{{ url()->previous() }}"
-              title="@lang('section.for_sale')"
-              class="pull-left visible-sm-block">
+          <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <a href="{{ route('dashboard') }}" title="@lang('section.sales')" class="pull-left visible-sm-block">
               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
-            @lang('sale.new_sale')</h1>
+            @lang('shared.edit') @lang('sale.sale')
+          </h1>
         </div>
 
         <div class="panel-body table-responsive">
           @include('shared.partials.alerts.message')
 
           <form
-            class="form-horizontal"
+            id="purchase-sale"
+            class="form-vertical"
             action="{{ route('store_sale') }}"
-            method="post">
-            {{ csrf_field() }}
-            <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
-              <label
-                for="type_of_operation"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.type_of_operation'): </label>
-              <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
-                <select
-                  class="form-control"
-                  id="type_of_operation"
-                  name="type_of_operation"
-                  required
-                  autofocus>
-                  <option
-                    value=""
-                    selected>
-                    @lang('sale.choose_an_option')</option>
-                  <option
-                    value="Venta"
-                    @if (old('type_of_operation') == "Venta")
-                      selected
-                    @endif>@lang('sale.sale')</option>
-                  <option
-                    value="Renta"
-                    @if (old('type_of_operation') == "Renta")
-                      selected
-                    @endif>@lang('sale.rent')</option>
-                  <option
-                    value="Contratos de exclusividad"
-                    @if (old('type_of_operation') == "Contratos de exclusividad")
-                      selected
-                    @endif>@lang('sale.exclusive_contracts')</option>
-                  <option
-                    value="Jurídico"
-                    @if (old('type_of_operation') == "Jurídico")
-                      selected
-                    @endif>@lang('sale.legal')</option>
-                  <option
-                    value="Avalúos"
-                    @if (old('type_of_operation') == "Avalúos")
-                      selected
-                    @endif>@lang('sale.appraisals')</option>
-                </select>
+            method="post"
+            enctype="multipart/form-data"
+            autocapitalize="sentences" v-cloak>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              {{ csrf_field() }}
 
-                @if ($errors->has('type_of_operation'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('type_of_operation') }}</strong>
-                  </span>
-                @endif
-              </div>
+              @include('sales.partials.forms.create.documents')
+              @include('sales.partials.forms.create.closing-contract')
+              @include('sales.partials.forms.create.log-of-visits-and-calls')
+              @include('sales.partials.forms.create.contract')
+              @include('sales.partials.forms.create.notary')
+              @include('sales.partials.forms.create.signature')
+              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
+              <h2 v-else="!saleIsComplete">Este expediente aún no tiene toda la documentación necesaria.</h2>
             </div>
 
-            <div class="form-group{{ $errors->has('expedient') ? ' has-error' : ''}}">
-              <label
-                for="expedient_phone_1"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.internal_expedient'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
-                  class="form-control"
-                  name="expedient"
-                  id="expedient"
-                  value="{{ old('expedient') }}"
-                  placeholder="@lang('sale.internal_expedient')"
-                  autocorrect="on"
-                  required>
-
-                  @if ($errors->has('expedient'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('expedient') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('client') ? ' has-error' : ''}}">
-              <label
-                for="client"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.client'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="client"
-                  id="client"
-                  value="{{ old('client') }}"
-                  placeholder="@lang('sale.clients_name')"
-                  autocorrect="on"
-                  required>
-
-                  @if ($errors->has('client'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('client_phone_1') ? ' has-error' : ''}}">
-              <label
-                for="client_phone_1"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.phone') 1: </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
-                  class="form-control"
-                  name="client_phone_1"
-                  id="client_phone_1"
-                  value="{{ old('client_phone_1') }}"
-                  placeholder="@lang('sale.phone') 1"
-                  autocorrect="on"
-                  required>
-
-                  @if ($errors->has('client_phone_1'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client_phone_1') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('client_phone_2') ? ' has-error' : ''}}">
-              <label
-                for="client_phone_2"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.phone') 2: </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="tel"
-                  class="form-control"
-                  name="client_phone_2"
-                  id="client_phone_2"
-                  value="{{ old('client_phone_2') }}"
-                  placeholder="@lang('sale.phone') 2"
-                  autocorrect="on">
-
-                  @if ($errors->has('client_phone_2'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('client_phone_2') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
-              <label
-                for="email"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.email'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  value="{{ old('email') }}"
-                  placeholder="@lang('sale.email')"
-                  autocorrect="on">
-
-                  @if ($errors->has('email'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
-              <label
-                for="address"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.property_address'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="address"
-                  value="{{ old('address') }}"
-                  placeholder="@lang('sale.property_address')"
-                  autocorrect="on">
-
-                  @if ($errors->has('address'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('address') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('state_id') ? ' has-error' : ''}}">
-              <label
-                for="state_id"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.state_of_the_republic'): </label>
-              <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2 control-label">
-                <select
-                  class="form-control"
-                  name="state_id"
-                  id="state_id">
-                  <option
-                    value=""
-                    @if (old('state_id'))
-                      selected
-                    @endif>@lang('sale.choose_a_state')</option>
-                  @foreach ( $states as $state )
-                    <option
-                      value="{{ $state->id }}"
-                      @if (old('state_id') == $state->id || $state->id == '7')
-                        selected
-                      @endif>
-                      {{ $state->name }}
-                    </option>
-                  @endforeach
-                </select>
-
-                @if ($errors->has('state_id'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('state_id') }}</strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('observations') ? ' has-error' : ''}}">
-              <label
-                for="observations"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.observations'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
-                <textarea
-                  class="form-control"
-                  name="observations"
-                  id="observations"
-                  placeholder="@lang('sale.observations')"
-                  value="{{ old('observations') }}"
-                  rows="8"
-                  required
-                  autocorrect="on"></textarea>
-
-                  @if ($errors->has('observations'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('observations') }}</strong>
-                    </span>
-                  @endif
-              </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('status') ? ' has-error' : ''}}">
-              <label
-                for="status"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.status'): </label>
-              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="status"
-                  value="{{ old('status') }}"
-                  placeholder="@lang('sale.status')"
-                  autocorrect="on">
-
-                  @if ($errors->has('status'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('status') }}</strong>
-                    </span>
-                  @endif
-                </div>
-            </div>
-
-            <div class="form-group{{ $errors->has('priority') ? ' has-error' : ''}}">
-              <label
-                for="priority"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.priority'): </label>
-              <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2 control-label">
-                <select
-                  class="form-control"
-                  name="priority"
-                  id="priority"
-                  required>
-                  <option value="Baja">@lang('shared.low')</option>
-                  <option value="Media" selected>@lang('shared.medium')</option>
-                  <option value="Alta">@lang('shared.hight')</option>
-                </select>
-
-                @if ($errors->has('priority'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('priority') }}</strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-
-            <div class="form-inline">
-              <div class="form-group">
+            <div class="panel-footer">
+              <div class="form-inline">
                 @include('sales.partials.buttons.save')
-              </div>
 
-              <div class="form-group">
                 @include('sales.partials.buttons.back', [
-                'back' => route('for_sales')
+                  'back' => route('for_sales')
                 ])
               </div>
             </div>
           </form>
         </div>
+
+        <div
+          class="modal fade bs-example-modal-sm"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="makeANewLogAndVisit"
+          id="newLogAndVisit">
+          <div class="modal-dialog modal-sm" role="document">
+            <form
+              class="form-horizontal modal-content"
+              action="{{ route('store_client') }}"
+              method="post">
+              {{ csrf_field() }}
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar cliente nuevo</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group{{ $errors->has('SL_subject') ? ' has-error' : ''}} clearfix">
+                  <label
+                    for="SL_subject"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('shared.subject')</label>
+
+                  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                    <input
+                      name="SL_subject"
+                      type="text"
+                      class="form-control"
+                      value="{{ old('SL_subject') }}"
+                      placeholder="@lang('shared.subject')"
+                      autocorrect="on"
+                      required>
+
+                    @if ($errors->has('SL_subject'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('SL_subject') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('SL_email') ? ' has-error' : ''}} clearfix">
+                  <label
+                    for="SL_email"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('shared.email')</label>
+
+                  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                    <input
+                      name="SL_email"
+                      type="text"
+                      class="form-control"
+                      value="{{ old('SL_email') }}"
+                      placeholder="@lang('shared.email')"
+                      autocorrect="on">
+
+                    @if ($errors->has('SL_email'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('SL_email') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('SL_phone') ? ' has-error' : ''}} clearfix">
+                  <label
+                    for="SL_phone"
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-label">@lang('shared.phone')</label>
+
+                  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                    <input
+                      name="SL_phone"
+                      type="text"
+                      class="form-control"
+                      value="{{ old('SL_phone') }}"
+                      placeholder="@lang('shared.phone')"
+                      autocorrect="on"
+                      required>
+
+                    @if ($errors->has('SL_phone'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('SL_phone') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('SL_observations') ? ' has-error' : ''}} clearfix">
+                  <label
+                    for="SL_observations"
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">@lang('shared.observations')</label>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <textarea
+                      class="form-control"
+                      name="SL_observations"
+                      id="SL_observations"
+                      placeholder="@lang('shared.observations')"
+                      required
+                      autocorrect="on">{{ old('SL_observations') }}</textarea>
+
+                    @if ($errors->has('SL_observations'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('SL_observations') }}</strong>
+                      </span>
+                    @endif
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+              </div>
+            </form><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
       </div>
     </div>
   </div>

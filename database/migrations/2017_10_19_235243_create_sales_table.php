@@ -39,14 +39,6 @@ class CreateSalesTable extends Migration
             ->on('sale_closing_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_logs_id')
-            ->unsigned()
-            ->nullable();
-      $table->foreign('sale_logs_id')
-            ->references('id')
-            ->on('sale_logs')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
       $table->integer('sale_contracts_id')
             ->unsigned()
             ->nullable();

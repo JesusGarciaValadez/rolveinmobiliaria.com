@@ -12,22 +12,22 @@
                   </td>
                   <td class="text-center">
                     <a
-                      href="{{ route('show_sale', $sale->internalExpedient->id) }}"
+                      href="{{ route('show_sale', $sale->internal_expedient->id) }}"
                       target="_self"
-                      title="{{ $sale->internalExpedient->client->full_name }}"
+                      title="{{ $sale->internal_expedient->client->full_name }}"
                     >
-                      {{ $sale->internalExpedient->expedient }}
+                      {{ $sale->internal_expedient->expedient }}
                     </a>
                   </td>
                   <td class="text-center">
-                    {{ $sale->internalExpedient->client->full_name }}
+                    {{ $sale->internal_expedient->client->full_name }}
                   </td>
                   <td class="text-center">
                     <span class="label
-                      {{ (empty($sale->document) || $sale->document->complete == 0)
+                      {{ (empty($sale->document) || $sale->document->SD_complete === 0)
                         ? 'label-warning'
                         : 'label-primary' }}">
-                        {{ (empty($sale->document) || $sale->document->complete == 0)
+                        {{ (empty($sale->document) || $sale->document->SD_complete === 0)
                           ? 'Incompleto'
                           : 'Completo' }}
                     </span>
@@ -35,14 +35,14 @@
                   <td class="text-center">
                     <span class="label
                       {{ (
-                          empty($sale->closingContract) ||
-                          $sale->closingContract->complete == 0
+                          empty($sale->closing_contract) ||
+                          $sale->closing_contract->SCC_complete === 0
                         )
                         ? 'label-warning'
                         : 'label-primary' }}">
                         {{ (
-                            empty($sale->closingContract) ||
-                            $sale->closingContract->complete == 0
+                            empty($sale->closing_contract) ||
+                            $sale->closing_contract->SCC_complete === 0
                           )
                           ? 'Incompleto'
                           : 'Completo' }}
@@ -51,14 +51,14 @@
                   <td class="text-center">
                     <span class="label
                       {{ (
-                          empty($sale->document) ||
-                          $sale->document->complete == 0
+                          empty($sale->contract) ||
+                          $sale->contract->SC_complete === 0
                         )
                         ? 'label-warning'
                         : 'label-primary' }}">
                         {{ (
-                            empty($sale->document) ||
-                            $sale->document->complete == 0
+                            empty($sale->contract) ||
+                            $sale->contract->SC_complete === 0
                           )
                           ? 'Incompleto'
                           : 'Completo' }}
@@ -67,14 +67,14 @@
                   <td class="text-center">
                     <span class="label
                       {{ (
-                          empty($sale->document) ||
-                          $sale->document->complete == 0
+                          empty($sale->notary) ||
+                          $sale->notary->SN_complete === 0
                         )
                         ? 'label-warning'
                         : 'label-primary' }}">
                         {{ (
-                            empty($sale->document) ||
-                            $sale->document->complete == 0
+                            empty($sale->notary) ||
+                            $sale->notary->SN_complete === 0
                           )
                           ? 'Incompleto'
                           : 'Completo' }}
@@ -83,14 +83,14 @@
                   <td class="text-center">
                     <span class="label
                       {{ (
-                          empty($sale->document) ||
-                          $sale->document->complete == 0
+                          empty($sale->notary) ||
+                          $sale->notary->SN_complete === 0
                         )
                         ? 'label-warning'
                         : 'label-primary' }}">
                         {{ (
-                            empty($sale->document) ||
-                            $sale->document->complete == 0
+                            empty($sale->notary) ||
+                            $sale->notary->SN_complete === 0
                           )
                           ? 'Incompleto'
                           : 'Completo' }}
@@ -99,14 +99,14 @@
                   <td class="text-center">
                     <span class="label
                       {{ (
-                          empty($sale->document) ||
-                          $sale->document->complete == 0
+                          empty($sale->signature) ||
+                          $sale->signature->SS_complete === 0
                         )
                         ? 'label-warning'
                         : 'label-primary' }}">
                         {{ (
-                            empty($sale->document) ||
-                            $sale->document->complete == 0
+                            empty($sale->signature) ||
+                            $sale->signature->SS_complete === 0
                           )
                           ? 'Incompleto'
                           : 'Completo' }}

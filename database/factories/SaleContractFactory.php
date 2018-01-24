@@ -15,23 +15,23 @@ $factory->define(App\SaleContract::class, function (Faker $faker) {
     'Aliados',
   ]);
 
-  $infonavit_contracts_id = ($mortgage_credit == 'INFONAVIT')
+  $infonavit_contracts_id = ($mortgage_credit === 'INFONAVIT')
     ? factory(InfonavitContract::class)->create()->id
     : null;
 
-  $fovissste_contracts_id = ($mortgage_credit == 'FOVISSSTE')
+  $fovissste_contracts_id = ($mortgage_credit === 'FOVISSSTE')
     ? factory(FovisssteContract::class)->create()->id
     : null;
 
-  $cofinavit_contracts_id = ($mortgage_credit == 'COFINAVIT')
+  $cofinavit_contracts_id = ($mortgage_credit === 'COFINAVIT')
     ? factory(CofinavitContract::class)->create()->id
     : null;
 
-  $mortgage_broker = ($mortgage_credit == 'Bancario')
+  $mortgage_broker = ($mortgage_credit === 'Bancario')
     ? $faker->date()
     : null;
 
-  $contract_with_the_broker = ($mortgage_credit == 'Aliados')
+  $contract_with_the_broker = ($mortgage_credit === 'Aliados')
     ? $faker->date()
     : null;
 

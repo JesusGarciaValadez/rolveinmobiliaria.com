@@ -61,11 +61,6 @@ class InternalExpedient extends Model
     return $this->belongsTo('App\User', 'id');
   }
 
-  public function sale()
-  {
-    return $this->hasMany('App\Sale', 'id');
-  }
-
   public function getCreatedAttribute()
   {
     $date = $this->created_at->format('Y-M-d h:i a');

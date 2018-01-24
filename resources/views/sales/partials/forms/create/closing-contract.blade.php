@@ -18,11 +18,7 @@
               id="SCC_commercial_valuation"
               type="checkbox"
               v-model="closingContract.commercial_valuation"
-              @if (
-                !empty(old('SCC_commercial_valuation')) ||
-                ($sale->closing_contract !== null &&
-                 !empty($sale->closing_contract->SCC_commercial_valuation))
-              )
+              @if (!empty(old('SCC_commercial_valuation')))
                 checked
               @endif> @lang('sale.closing_contracts_commercial_valuation')
           </label>
@@ -43,11 +39,7 @@
               id="SCC_exclusivity_contract"
               type="checkbox"
               v-model="closingContract.exclusivity_contract"
-              @if (
-                !empty(old('SCC_exclusivity_contract')) ||
-                ($sale->closing_contract !== null &&
-                 !empty($sale->closing_contract->SCC_exclusivity_contract))
-              )
+              @if (!empty(old('SCC_exclusivity_contract')))
                 checked
               @endif> @lang('sale.closing_contracts_exclusivity_contract')
           </label>
@@ -68,11 +60,7 @@
               id="SCC_publication"
               type="checkbox"
               v-model="closingContract.publication"
-              @if (
-                !empty(old('SCC_publication')) ||
-                ($sale->closing_contract !== null &&
-                 !empty($sale->closing_contract->SCC_publication))
-              )
+              @if (!empty(old('SCC_publication')))
                 checked
               @endif> @lang('sale.closing_contracts_publication')
           </label>
@@ -95,11 +83,7 @@
               id="SCC_data_sheet"
               type="file"
               class="form-control"
-              value="{{ (old('SCC_data_sheet'))
-                ? old('SCC_data_sheet')
-                : ($sale->closing_contract !== null)
-                  ? $sale->closing_contract->SCC_data_sheet
-                  : ''}}"
+              value="{{ old('SCC_data_sheet') }}"
               placeholder="@lang('sale.closing_contracts_data_sheet')"
               autocorrect="on"
               accept=".pdf, .doc, .docx"
@@ -111,13 +95,6 @@
               </span>
             @endif
           </p>
-
-          @if ($sale->closing_contract->SCC_data_sheet)
-            <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix">
-              @lang('sale.current_file'): <a href="{{ 'storage/'.asset($sale->closing_contract->SCC_data_sheet) }}" title="@lang('sale.current_file')" target="_blank" id="SCC_data_sheet_current">{{ asset($sale->closing_contract->SCC_data_sheet) }}</a>
-            </p>
-            <input type="hidden" name="SCC_data_sheet_exists" value="{{ $sale->closing_contract->SCC_data_sheet }}">
-          @endif
         </div>
 
         <div class="form-group{{ $errors->has('SCC_closing_contract_observations') ? ' has-error' : ''}} clearfix">
@@ -131,12 +108,7 @@
               id="SCC_closing_contract_observations"
               placeholder="@lang('shared.observations')"
               autocorrect="on"
-              v-model="closingContract.observations">{{ old('SCC_closing_contract_observations')
-                ? old('SCC_closing_contract_observations')
-                : ($sale->closing_contract !== null)
-                  ? $sale->closing_contract->SCC_closing_contract_observations
-                  : ''
-              }}</textarea>
+              v-model="closingContract.observations">{{ old('SCC_closing_contract_observations') }}</textarea>
 
             @if ($errors->has('SCC_closing_contract_observations'))
               <span class="help-block">

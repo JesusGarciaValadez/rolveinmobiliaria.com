@@ -24,12 +24,12 @@
           <form
             id="purchase-sale"
             class="form-vertical"
-            action="{{ route('update_sale_documents', [
+            action="{{ route('update_sale', [
               'id' => request('id')
             ]) }}"
             method="post"
             enctype="multipart/form-data"
-            autocapitalize="sentences">
+            autocapitalize="sentences" v-cloak>
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               {{ csrf_field() }}
               {{ method_field('PUT') }}
@@ -37,9 +37,11 @@
               @include('sales.partials.forms.edit.documents')
               @include('sales.partials.forms.edit.closing-contract')
               @include('sales.partials.forms.edit.log-of-visits-and-calls')
-              @include('sales.partials.forms.edit.purchase-agreement')
+              @include('sales.partials.forms.edit.contract')
               @include('sales.partials.forms.edit.notary')
               @include('sales.partials.forms.edit.signature')
+              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
+              <h2 v-else="!saleIsComplete">Este expediente aún no tiene toda la documentación necesaria.</h2>
             </div>
 
             <div class="panel-footer">

@@ -14,14 +14,7 @@ $factory->define(App\Sale::class, function (Faker $faker) {
         null,
       ]);
 
-  $sale_logs_id = (empty($sale_closing_contracts_id))
-    ? null
-    : $faker->randomElement([
-        factory(App\SaleLog::class)->create()->id,
-        null,
-      ]);
-
-  $sale_contracts_id = (empty($sale_logs_id))
+  $sale_contracts_id = (empty($sale_closing_contracts_id))
     ? null
     : $faker->randomElement([
         factory(App\SaleContract::class)->create()->id,
@@ -48,7 +41,6 @@ $factory->define(App\Sale::class, function (Faker $faker) {
     'internal_expedients_id' => $internal_expedients_id,
     'sale_documents_id' => $sale_documents_id,
     'sale_closing_contracts_id' => $sale_closing_contracts_id,
-    'sale_logs_id' => $sale_logs_id,
     'sale_contracts_id' => $sale_contracts_id,
     'sale_notaries_id' => $sale_notaries_id,
     'sale_signatures_id' => $sale_signatures_id,

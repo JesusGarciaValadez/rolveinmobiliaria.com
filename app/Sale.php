@@ -10,6 +10,21 @@ class Sale extends Model
   use SoftDeletes;
 
   /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = [
+    'user',
+    'internal_expedient',
+    'document',
+    'closing_contract',
+    'contract',
+    'notary',
+    'signature'
+  ];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -53,7 +68,7 @@ class Sale extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  public function internalExpedient()
+  public function internal_expedient()
   {
     return $this->belongsTo('App\InternalExpedient', 'id');
   }
@@ -63,14 +78,9 @@ class Sale extends Model
     return $this->belongsTo('App\SaleDocument', 'id');
   }
 
-  public function closingContract()
+  public function closing_contract()
   {
     return $this->belongsTo('App\SaleClosingContract', 'id');
-  }
-
-  public function log()
-  {
-    return $this->hasMany('App\SaleLog', 'id');
   }
 
   public function contract()

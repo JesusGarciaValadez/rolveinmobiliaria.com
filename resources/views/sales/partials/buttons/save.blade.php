@@ -5,7 +5,7 @@
       class="btn btn-success"
       id="submit"
       data-loading-text="@lang('shared.saving')..."
-      @submit.stop.prevent="onSubmit">
+      @click="onSubmit">
       <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span>
       @lang('shared.save')
     </button>

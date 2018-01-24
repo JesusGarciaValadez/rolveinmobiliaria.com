@@ -10,6 +10,17 @@ class SaleContract extends Model
   use SoftDeletes;
 
   /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = [
+    'infonavit_contract',
+    'fovissste_contract',
+    'cofinavit_contract'
+  ];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -18,9 +29,9 @@ class SaleContract extends Model
     'infonavit_contracts_id',
     'fovissste_contracts_id',
     'cofinavit_contracts_id',
+    'mortgage_credit',
     'mortgage_broker',
     'contract_with_the_broker',
-    'mortgage_credit',
     'general_buyer',
     'purchase_agreements',
     'tax_assessment',
@@ -57,17 +68,17 @@ class SaleContract extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  public function infonavitContract()
+  public function infonavit_contract()
   {
     return $this->belongsTo('App\InfonavitContract', 'id');
   }
 
-  public function fovisssteContract()
+  public function fovissste_contract()
   {
     return $this->belongsTo('App\FovisssteContract', 'id');
   }
 
-  public function cofinavitContract()
+  public function cofinavit_contract()
   {
     return $this->belongsTo('App\CofinavitContract', 'id');
   }

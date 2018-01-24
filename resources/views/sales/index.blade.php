@@ -16,7 +16,7 @@
             </a>
             @lang('section.for_sale')
             <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
-              {{-- @include('sales.partials.buttons.create') --}}
+              @include('sales.partials.buttons.create')
             </div>
           </h1>
         </div>
@@ -27,7 +27,7 @@
           @if (count($sales) < 1)
             <h2 class="text-center">No hay compra ventas registradas. ¿Porqué no creas una nueva?</h2>
             <div class="hidden-xs hidden-sm col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 text-center">
-              {{-- @include('sales.partials.buttons.create') --}}
+              @include('sales.partials.buttons.create')
             </div>
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -58,8 +58,8 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-6 col-xs-offset-5 col-sm-6 col-sm-offset-5 hidden-md hidden-lg">
-              {{-- @include('sales.partials.buttons.create') --}}
+            <div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center">
+              @include('sales.partials.buttons.create')
             </div>
           </div>
         </div>

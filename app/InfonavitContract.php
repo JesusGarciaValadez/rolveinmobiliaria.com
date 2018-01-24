@@ -62,8 +62,8 @@ class InfonavitContract extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  public function saleContract()
+  public function contract ()
   {
-    return $this->hasOne('App\SaleContract');
+    return $this->hasOne('App\SaleContract', 'id');
   }
 }

@@ -1,12 +1,12 @@
-<div class="panel panel-default" v-if="showPurchaseAgreement">
-  <div class="panel-heading" role="tab" id="purchaseAgreement">
+<div class="panel panel-default" v-if="showContract" v-cloak>
+  <div class="panel-heading" role="tab" id="contract">
     <h4 class="panel-title">
       <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-        @lang('sale.purchase_agreement')
+        @lang('sale.contract')
       </a>
     </h4>
   </div>
-  <div id="collapseFour" class="panel-collapse collapse-in collapse in" role="tabpanel" aria-labelledby="purchaseAgreement">
+  <div id="collapseFour" class="panel-collapse collapse-in collapse in" role="tabpanel" aria-labelledby="contract">
     <div class="panel-body">
       <fieldset>
         <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SC_general_buyer') ? ' has-error' : ''}}">
@@ -15,15 +15,16 @@
             class="checkbox-inline control-label">
             <input
               name="SC_general_buyer"
+              id="SC_general_buyer"
               type="checkbox"
-              required
-              v-model="purchaseAgreement.general_buyer.default"
+              v-model="contract.general_buyer"
               @if (
-                !empty(old($sale->document->SC_general_buyer)) ||
-                !empty($sale->document->SC_general_buyer)
-                )
+                !empty(old('SC_general_buyer')) ||
+                ($sale->contract !== null &&
+                 !empty($sale->contract->SC_general_buyer))
+              )
                 checked
-              @endif> @lang('sale.purchase_agreement_general_buyer')
+              @endif> @lang('sale.contract_general_buyer')
           </label>
 
           @if ($errors->has('SC_general_buyer'))
@@ -39,15 +40,16 @@
             class="checkbox-inline control-label">
             <input
               name="SC_purchase_agreements"
+              id="SC_purchase_agreements"
               type="checkbox"
-              required
-              v-model="purchaseAgreement.purchase_agreements.default"
+              v-model="contract.purchase_agreements"
               @if (
-                !empty(old($sale->document->SC_purchase_agreements)) ||
-                !empty($sale->document->SC_purchase_agreements)
-                )
+                !empty(old('SC_purchase_agreements')) ||
+                ($sale->contract !== null &&
+                 !empty($sale->contract->SC_purchase_agreements))
+              )
                 checked
-              @endif> @lang('sale.purchase_agreement_purchase_agreements')
+              @endif> @lang('sale.contract_purchase_agreements')
           </label>
 
           @if ($errors->has('SC_purchase_agreements'))
@@ -63,15 +65,16 @@
             class="checkbox-inline control-label">
             <input
               name="SC_tax_assessment"
+              id="SC_tax_assessment"
               type="checkbox"
-              required
-              v-model="purchaseAgreement.tax_assessment.default"
+              v-model="contract.tax_assessment"
               @if (
-                !empty(old($sale->document->SC_tax_assessment)) ||
-                !empty($sale->document->SC_tax_assessment)
-                )
+                !empty(old('SC_tax_assessment')) ||
+                ($sale->contract !== null &&
+                 !empty($sale->contract->SC_tax_assessment))
+              )
                 checked
-              @endif> @lang('sale.purchase_agreement_tax_assessment')
+              @endif> @lang('sale.contract_tax_assessment')
           </label>
 
           @if ($errors->has('SC_tax_assessment'))
@@ -87,15 +90,16 @@
             class="checkbox-inline control-label">
             <input
               name="SC_notary_checklist"
+              id="SC_notary_checklist"
               type="checkbox"
-              required
-              v-model="purchaseAgreement.notary_checklist.default"
+              v-model="contract.notary_checklist"
               @if (
-                !empty(old($sale->document->SC_notary_checklist)) ||
-                !empty($sale->document->SC_notary_checklist)
-                )
+                !empty(old('SC_notary_checklist')) ||
+                ($sale->contract !== null &&
+                 !empty($sale->contract->SC_notary_checklist))
+              )
                 checked
-              @endif> @lang('sale.purchase_agreement_notary_checklist')
+              @endif> @lang('sale.contract_notary_checklist')
           </label>
 
           @if ($errors->has('SC_notary_checklist'))
@@ -111,15 +115,16 @@
             class="checkbox-inline control-label">
             <input
               name="SC_notary_file"
+              id="SC_notary_file"
               type="checkbox"
-              required
-              v-model="purchaseAgreement.notary_file.default"
+              v-model="contract.notary_file"
               @if (
-                !empty(old($sale->document->SC_notary_file)) ||
-                !empty($sale->document->SC_notary_file)
-                )
+                !empty(old('SC_notary_file')) ||
+                ($sale->contract !== null &&
+                 !empty($sale->contract->SC_notary_file))
+              )
                 checked
-              @endif> @lang('sale.purchase_agreement_notary_file')
+              @endif> @lang('sale.contract_notary_file')
           </label>
 
           @if ($errors->has('SC_notary_file'))
@@ -132,46 +137,63 @@
         <div class="form-group{{ $errors->has('SC_mortgage_credit') ? ' has-error' : ''}} col-xs-12 col-sm-12 col-md-12 col-lg-12 clearfix">
           <label
             for="SC_mortgage_credit"
-            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.purchase_agreement_contract_mortgage_credit'): </label>
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('sale.contract_contract_mortgage_credit'): </label>
           <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3">
             <select
               class="form-control"
-              id="SC_mortgage_credit"
               name="SC_mortgage_credit"
-              required
+              id="SC_mortgage_credit"
               autofocus
-              v-model="purchaseAgreement.mortgage_credit.default">
+              v-model="contract.mortgage_credit">
               <option
                 value=""
                 disabled
-                {{ (!old('SC_mortgage_credit'))
+                {{ (old('SC_mortgage_credit') === '')
                   ? 'selected'
-                  : '' }}>@lang('shared.choose_an_option')</option>
+                  : ($sale->contract === null ||
+                     $sale->contract->SC_mortgage_credit === null)
+                     ? 'selected'
+                     : '' }}>@lang('shared.choose_an_option')</option>
               <option
                 value="INFONAVIT"
                 {{ (old('SC_mortgage_credit') === 'INFONAVIT')
                   ? 'selected'
-                  : '' }}>@lang('sale.purchase_agreement_infonavit')</option>
+                  : ($sale->contract !== null &&
+                     $sale->contract->SC_mortgage_credit === 'INFONAVIT')
+                     ? 'selected'
+                     : '' }}>@lang('sale.contract_infonavit')</option>
               <option
                 value="FOVISSSTE"
                 {{ (old('SC_mortgage_credit') === 'FOVISSSTE')
                   ? 'selected'
-                  : '' }}>@lang('sale.purchase_agreement_fovissste')</option>
+                  : ($sale->contract !== null &&
+                     $sale->contract->SC_mortgage_credit === 'FOVISSSTE')
+                     ? 'selected'
+                     : '' }}>@lang('sale.contract_fovissste')</option>
               <option
                 value="COFINAVIT"
-                {{ (old('SC_mortgage_credit') == 'COFINAVIT')
+                {{ (old('SC_mortgage_credit') === 'COFINAVIT')
                   ? 'selected'
-                  : '' }}>@lang('sale.purchase_agreement_cofinavit')</option>
+                  : ($sale->contract !== null &&
+                     $sale->contract->SC_mortgage_credit === 'COFINAVIT')
+                     ? 'selected'
+                     : '' }}>@lang('sale.contract_cofinavit')</option>
               <option
                 value="Bancario"
-                {{ (old('SC_mortgage_credit') == 'Bancario')
+                {{ (old('SC_mortgage_credit') === 'Bancario')
                   ? 'selected'
-                  : '' }}>@lang('shared.banking')</option>
+                  : ($sale->contract !== null &&
+                     $sale->contract->SC_mortgage_credit === 'Bancario')
+                     ? 'selected'
+                     : '' }}>@lang('shared.banking')</option>
               <option
                 value="Aliados"
-                {{ (old('SC_mortgage_credit') == 'Aliados')
+                {{ (old('SC_mortgage_credit') === 'Aliados')
                   ? 'selected'
-                  : '' }}>@lang('shared.allies')</option>
+                  : ($sale->contract !== null &&
+                     $sale->contract->SC_mortgage_credit === 'Aliados')
+                     ? 'selected'
+                     : '' }}>@lang('shared.allies')</option>
             </select>
 
             @if ($errors->has('SC_mortgage_credit'))
@@ -191,13 +213,15 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_certified_birth_certificate"
+                id="IC_certified_birth_certificate"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.certified_birth_certificate.default"
+                v-model="contract.infonavit.certified_birth_certificate"
                 @if (
-                  !empty(old($sale->document->IC_certified_birth_certificate)) ||
-                  !empty($sale->document->IC_certified_birth_certificate)
-                  )
+                  !empty(old('IC_certified_birth_certificate')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_certified_birth_certificate))
+                )
                   checked
                 @endif> @lang('shared.certified_birth_certificate')
             </label>
@@ -215,13 +239,15 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_official_ID"
+                id="IC_official_ID"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.official_ID.default"
+                v-model="contract.infonavit.official_ID"
                 @if (
-                  !empty(old($sale->document->IC_official_ID)) ||
-                  !empty($sale->document->IC_official_ID)
-                  )
+                  !empty(old('IC_official_ID')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_official_ID))
+                )
                   checked
                 @endif> @lang('shared.official_ID')
             </label>
@@ -239,13 +265,15 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_curp"
+                id="IC_curp"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.curp.default"
+                v-model="contract.infonavit.curp"
                 @if (
-                  !empty(old($sale->document->IC_curp)) ||
-                  !empty($sale->document->IC_curp)
-                  )
+                  !empty(old('IC_curp')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_curp))
+                )
                   checked
                 @endif> @lang('shared.CURP')
             </label>
@@ -263,13 +291,15 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_rfc"
+                id="IC_rfc"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.rfc.default"
+                v-model="contract.infonavit.rfc"
                 @if (
-                  !empty(old($sale->document->IC_rfc)) ||
-                  !empty($sale->document->IC_rfc)
-                  )
+                  !empty(old('IC_rfc')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_rfc))
+                )
                   checked
                 @endif> @lang('shared.RFC')
             </label>
@@ -287,15 +317,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_credit_simulator"
+                id="IC_credit_simulator"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.credit_simulator.default"
+                v-model="contract.infonavit.credit_simulator"
                 @if (
-                  !empty(old($sale->document->IC_credit_simulator)) ||
-                  !empty($sale->document->IC_credit_simulator)
-                  )
+                  !empty(old('IC_credit_simulator')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_credit_simulator))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_credit_simulator')
+                @endif> @lang('sale.contract_infonavit_credit_simulator')
             </label>
 
             @if ($errors->has('IC_credit_simulator'))
@@ -311,15 +343,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_credit_application"
+                id="IC_credit_application"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.credit_application.default"
+                v-model="contract.infonavit.credit_application"
                 @if (
-                  !empty(old($sale->document->IC_credit_application)) ||
-                  !empty($sale->document->IC_credit_application)
-                  )
+                  !empty(old('IC_credit_application')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_credit_application))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_credit_application')
+                @endif> @lang('sale.contract_infonavit_credit_application')
             </label>
 
             @if ($errors->has('IC_credit_application'))
@@ -335,15 +369,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_tax_valuation"
+                id="IC_tax_valuation"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.tax_valuation.default"
+                v-model="contract.infonavit.tax_valuation"
                 @if (
-                  !empty(old($sale->document->IC_tax_valuation)) ||
-                  !empty($sale->document->IC_tax_valuation)
+                  !empty(old('IC_tax_valuation')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_tax_valuation))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_tax_valuation')
+                @endif> @lang('sale.contract_infonavit_tax_valuation')
             </label>
 
             @if ($errors->has('IC_tax_valuation'))
@@ -359,15 +395,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_bank_statement"
+                id="IC_bank_statement"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.bank_statement.default"
+                v-model="contract.infonavit.bank_statement"
                 @if (
-                  !empty(old($sale->document->IC_bank_statement)) ||
-                  !empty($sale->document->IC_bank_statement)
+                  !empty(old('IC_bank_statement')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_bank_statement))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_bank_statement')
+                @endif> @lang('sale.contract_infonavit_bank_statement')
             </label>
 
             @if ($errors->has('IC_bank_statement'))
@@ -383,15 +421,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_workshop_knowing_how_to_decide"
+                id="IC_workshop_knowing_how_to_decide"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.workshop_knowing_how_to_decide.default"
+                v-model="contract.infonavit.workshop_knowing_how_to_decide"
                 @if (
-                  !empty(old($sale->document->IC_workshop_knowing_how_to_decide)) ||
-                  !empty($sale->document->IC_workshop_knowing_how_to_decide)
-                  )
+                  !empty(old('IC_workshop_knowing_how_to_decide')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_workshop_knowing_how_to_decide))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_workshop_knowing_how_to_decide')
+                @endif> @lang('sale.contract_infonavit_workshop_knowing_how_to_decide')
             </label>
 
             @if ($errors->has('IC_workshop_knowing_how_to_decide'))
@@ -407,15 +447,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_retention_sheet"
+                id="IC_retention_sheet"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.retention_sheet.default"
+                v-model="contract.infonavit.retention_sheet"
                 @if (
-                  !empty(old($sale->document->IC_retention_sheet)) ||
-                  !empty($sale->document->IC_retention_sheet)
-                  )
+                  !empty(old('IC_retention_sheet')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_retention_sheet))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_retention_sheet')
+                @endif> @lang('sale.contract_infonavit_retention_sheet')
             </label>
 
             @if ($errors->has('IC_retention_sheet'))
@@ -431,15 +473,17 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_credit_activation"
+                id="IC_credit_activation"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.credit_activation.default"
+                v-model="contract.infonavit.credit_activation"
                 @if (
-                  !empty(old($sale->document->IC_credit_activation)) ||
-                  !empty($sale->document->IC_credit_activation)
-                  )
+                  !empty(old('IC_credit_activation')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) &&
+                   !empty($sale->contract->infonavit_contract->IC_credit_activation))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_credit_activation')
+                @endif> @lang('sale.contract_infonavit_credit_activation')
             </label>
 
             @if ($errors->has('IC_credit_activation'))
@@ -455,15 +499,16 @@
               class="checkbox-inline control-label">
               <input
                 name="IC_credit_maturity"
+                id="IC_credit_maturity"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.infonavit.credit_maturity.default"
+                v-model="contract.infonavit.credit_maturity"
                 @if (
-                  !empty(old($sale->document->IC_credit_maturity)) ||
-                  !empty($sale->document->IC_credit_maturity)
-                  )
+                  !empty(old('IC_credit_maturity')) ||
+                  (($sale->contract !== null &&
+                     $sale->contract->infonavit_contract !== null) && !empty($sale->contract->infonavit_contract->IC_credit_maturity))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_infonavit_credit_maturity')
+                @endif> @lang('sale.contract_infonavit_credit_maturity')
             </label>
 
             @if ($errors->has('IC_credit_maturity'))
@@ -480,24 +525,30 @@
             <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
               <select
                 class="form-control"
-                id="IC_type"
                 name="IC_type"
-                required
-                v-model="purchaseAgreement.infonavit.type.default">
+                id="IC_type"
+                v-model="contract.infonavit.type">
                 <option
                   value=""
-                  disabled
-                  {{ (!old('IC_type')) ? 'selected' : '' }}>@lang('shared.choose_an_option')</option>
+                  disabled>@lang('shared.choose_an_option')</option>
                 <option
                   value="Individual"
-                  {{ (old('IC_type') == 'Individual')
+                  {{ (old('IC_type') === 'Individual')
                     ? 'selected'
-                    : '' }}>@lang('shared.individual')</option>
+                    : (($sale->contract !== null &&
+                       $sale->contract->infonavit_contract !== null) &&
+                       $sale->contract->infonavit_contract->IC_type == 'Individual')
+                       ? 'selected'
+                       : '' }}>@lang('shared.individual')</option>
                 <option
                   value="Conyugal"
-                  {{ (old('IC_type') == 'Conyugal')
+                  {{ (old('IC_type') === 'Conyugal')
                     ? 'selected'
-                    : '' }}>@lang('shared.conyugal')</option>
+                    : (($sale->contract !== null &&
+                       $sale->contract->infonavit_contract !== null) &&
+                       $sale->contract->infonavit_contract->IC_type == 'Conyugal')
+                       ? 'selected'
+                       : '' }}>@lang('shared.conyugal')</option>
               </select>
 
               @if ($errors->has('IC_type'))
@@ -515,13 +566,15 @@
                 class="checkbox-inline control-label">
                 <input
                   name="IC_spouses_birth_certificate"
+                  id="IC_spouses_birth_certificate"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.infonavit.spouses_birth_certificate.default"
+                  v-model="contract.infonavit.spouses_birth_certificate"
                   @if (
-                    !empty(old($sale->document->IC_spouses_birth_certificate)) ||
-                    !empty($sale->document->IC_spouses_birth_certificate)
-                    )
+                    !empty(old('IC_spouses_birth_certificate')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->infonavit_contract !== null) &&
+                      !empty($sale->contract->infonavit_contract->IC_spouses_birth_certificate))
+                  )
                     checked
                   @endif> @lang('shared.birth_certificate')
               </label>
@@ -538,16 +591,18 @@
                 for="IC_official_identification_of_the_spouse"
                 class="checkbox-inline control-label">
                 <input
-                name="IC_official_identification_of_the_spouse"
+                  name="IC_official_identification_of_the_spouse"
+                  id="IC_official_identification_of_the_spouse"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.infonavit.official_identification_of_the_spouse.default"
+                  v-model="contract.infonavit.official_identification_of_the_spouse"
                   @if (
-                    !empty(old($sale->document->IC_official_identification_of_the_spouse)) ||
-                    !empty($sale->document->IC_official_identification_of_the_spouse)
+                    !empty(old('IC_official_identification_of_the_spouse')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->infonavit_contract !== null) &&
+                      !empty($sale->contract->infonavit_contract->IC_official_identification_of_the_spouse))
                     )
                     checked
-                  @endif> @lang('sale.purchase_agreement_infonavit_official_identification_of_the_spouse')
+                  @endif> @lang('sale.contract_infonavit_official_identification_of_the_spouse')
               </label>
 
               @if ($errors->has('IC_official_identification_of_the_spouse'))
@@ -563,15 +618,17 @@
                 class="checkbox-inline control-label">
                 <input
                   name="IC_marriage_certificate"
+                  id="IC_marriage_certificate"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.infonavit.marriage_certificate.default"
+                  v-model="contract.infonavit.marriage_certificate"
                   @if (
-                    !empty(old($sale->document->IC_marriage_certificate)) ||
-                    !empty($sale->document->IC_marriage_certificate)
+                    !empty(old('IC_marriage_certificate')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->infonavit_contract !== null) &&
+                      !empty($sale->contract->infonavit_contract->IC_marriage_certificate))
                     )
                     checked
-                  @endif> @lang('sale.purchase_agreement_infonavit_marriage_certificate')
+                  @endif> @lang('sale.contract_infonavit_marriage_certificate')
               </label>
 
               @if ($errors->has('IC_marriage_certificate'))
@@ -591,15 +648,17 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_credit_simulator"
+                id="FC_credit_simulator"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.credit_simulator.defadefault"
+                v-model="contract.fovissste.credit_simulator"
                 @if (
-                  !empty(old($sale->document->FC_credit_simulator)) ||
-                  !empty($sale->document->FC_credit_simulator)
-                  )
+                  !empty(old('FC_credit_simulator')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_credit_simulator))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_credit_simulator')
+                @endif> @lang('sale.contract_fovissste_credit_simulator')
             </label>
 
             @if ($errors->has('FC_credit_simulator'))
@@ -615,13 +674,15 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_curp"
+                id="FC_curp"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.curp.default"
+                v-model="contract.fovissste.curp"
                 @if (
-                  !empty(old($sale->document->FC_curp)) ||
-                  !empty($sale->document->FC_curp)
-                  )
+                  !empty(old('FC_curp')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_curp))
+                )
                   checked
                 @endif> @lang('shared.CURP')
             </label>
@@ -639,13 +700,15 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_birth_certificate"
+                id="FC_birth_certificate"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.birth_certificate.defdefault"
+                v-model="contract.fovissste.birth_certificate"
                 @if (
-                  !empty(old($sale->document->FC_birth_certificate)) ||
-                  !empty($sale->document->FC_birth_certificate)
-                  )
+                  !empty(old('FC_birth_certificate')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_birth_certificate))
+                )
                   checked
                 @endif> @lang('shared.birth_certificate')
             </label>
@@ -663,15 +726,17 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_bank_statement"
+                id="FC_bank_statement"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.bank_statement.default"
+                v-model="contract.fovissste.bank_statement"
                 @if (
-                  !empty(old($sale->document->FC_bank_statement)) ||
-                  !empty($sale->document->FC_bank_statement)
-                  )
+                  !empty(old('FC_bank_statement')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_bank_statement))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_bank_statement')
+                @endif> @lang('sale.contract_fovissste_bank_statement')
             </label>
 
             @if ($errors->has('FC_bank_statement'))
@@ -687,15 +752,17 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_single_key_housing_payment"
+                id="FC_single_key_housing_payment"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.single_key_housing_payment.default"
+                v-model="contract.fovissste.single_key_housing_payment"
                 @if (
-                  !empty(old($sale->document->FC_single_key_housing_payment)) ||
-                  !empty($sale->document->FC_single_key_housing_payment)
-                  )
+                  !empty(old('FC_single_key_housing_payment')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_single_key_housing_payment))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_single_key_housing_payment')
+                @endif> @lang('sale.contract_fovissste_single_key_housing_payment')
             </label>
 
             @if ($errors->has('FC_single_key_housing_payment'))
@@ -711,15 +778,17 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_general_buyers_and_sellers"
+                id="FC_general_buyers_and_sellers"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.general_buyers_and_sellers.default"
+                v-model="contract.fovissste.general_buyers_and_sellers"
                 @if (
-                  !empty(old($sale->document->FC_general_buyers_and_sellers)) ||
-                  !empty($sale->document->FC_general_buyers_and_sellers)
-                  )
+                  !empty(old('FC_general_buyers_and_sellers')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_general_buyers_and_sellers))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_general_buyers_and_sellers')
+                @endif> @lang('sale.contract_fovissste_general_buyers_and_sellers')
             </label>
 
             @if ($errors->has('FC_general_buyers_and_sellers'))
@@ -735,15 +804,17 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_education_course"
+                id="FC_education_course"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.education_course.default"
+                v-model="contract.fovissste.education_course"
                 @if (
-                  !empty(old($sale->document->FC_education_course)) ||
-                  !empty($sale->document->FC_education_course)
-                  )
+                  !empty(old('FC_education_course')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_education_course))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_education_course')
+                @endif> @lang('sale.contract_fovissste_education_course')
             </label>
 
             @if ($errors->has('FC_education_course'))
@@ -759,44 +830,22 @@
               class="checkbox-inline control-label">
               <input
                 name="FC_last_pay_stub"
+                id="FC_last_pay_stub"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.last_pay_stub.default"
+                v-model="contract.fovissste.last_pay_stub"
                 @if (
-                  !empty(old($sale->document->FC_last_pay_stub)) ||
-                  !empty($sale->document->FC_last_pay_stub)
-                  )
+                  !empty(old('FC_last_pay_stub')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->fovissste_contract !== null) &&
+                    !empty($sale->contract->fovissste_contract->FC_last_pay_stub))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_fovissste_last_pay_stub')
+                @endif> @lang('sale.contract_fovissste_last_pay_stub')
             </label>
 
             @if ($errors->has('FC_last_pay_stub'))
               <span class="help-block">
                 <strong>{{ $errors->first('FC_last_pay_stub') }}</strong>
-              </span>
-            @endif
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SC_notary_file') ? ' has-error' : ''}}">
-            <label
-              for="SC_notary_file"
-              class="checkbox-inline control-label">
-              <input
-                name="SC_notary_file"
-                type="checkbox"
-                required
-                v-model="purchaseAgreement.fovissste.notary_file.default"
-                @if (
-                  !empty(old($sale->document->SC_notary_file)) ||
-                  !empty($sale->document->SC_notary_file)
-                  )
-                  checked
-                @endif> @lang('sale.purchase_agreement_notary_file')
-            </label>
-
-            @if ($errors->has('SC_notary_file'))
-              <span class="help-block">
-                <strong>{{ $errors->first('SC_notary_file') }}</strong>
               </span>
             @endif
           </div>
@@ -811,15 +860,17 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_request_for_credit_inspection"
+                id="CC_request_for_credit_inspection"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.request_for_credit_inspection.default"
+                v-model="contract.cofinavit.request_for_credit_inspection"
                 @if (
-                  !empty(old($sale->document->CC_request_for_credit_inspection)) ||
-                  !empty($sale->document->CC_request_for_credit_inspection)
+                  !empty(old('CC_request_for_credit_inspection')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_request_for_credit_inspection))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_cofinavit_request_for_credit_inspection')
+                @endif> @lang('sale.contract_cofinavit_request_for_credit_inspection')
             </label>
 
             @if ($errors->has('CC_request_for_credit_inspection'))
@@ -835,12 +886,14 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_birth_certificate"
+                id="CC_birth_certificate"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.birth_certificate.defdefault"
+                v-model="contract.cofinavit.birth_certificate"
                 @if (
-                  !empty(old($sale->document->CC_birth_certificate)) ||
-                  !empty($sale->document->CC_birth_certificate)
+                  !empty(old('CC_birth_certificate')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_birth_certificate))
                 )
                   checked
                 @endif> @lang('shared.birth_certificate')
@@ -859,12 +912,14 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_official_id"
+                id="CC_official_id"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.official_id.default"
+                v-model="contract.cofinavit.official_id"
                 @if (
-                  !empty(old($sale->document->CC_official_id)) ||
-                  !empty($sale->document->CC_official_id)
+                  !empty(old('CC_official_id')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_official_id))
                 )
                   checked
                 @endif> @lang('shared.official_ID')
@@ -883,12 +938,14 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_curp"
+                id="CC_curp"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.curp.default"
+                v-model="contract.cofinavit.curp"
                 @if (
-                  !empty(old($sale->document->CC_curp)) ||
-                  !empty($sale->document->CC_curp)
+                  !empty(old('CC_curp')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_curp))
                 )
                   checked
                 @endif> @lang('shared.CURP')
@@ -907,12 +964,14 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_rfc"
+                id="CC_rfc"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.rfc.default"
+                v-model="contract.cofinavit.rfc"
                 @if (
-                  !empty(old($sale->document->CC_rfc)) ||
-                  !empty($sale->document->CC_rfc)
+                  !empty(old('CC_rfc')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_rfc))
                 )
                   checked
                 @endif> @lang('shared.RFC')
@@ -931,15 +990,17 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_bank_statement_seller"
+                id="CC_bank_statement_seller"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.bank_statement_seller.default"
+                v-model="contract.cofinavit.bank_statement_seller"
                 @if (
-                  !empty(old($sale->document->CC_bank_statement_seller)) ||
-                  !empty($sale->document->CC_bank_statement_seller)
+                  !empty(old('CC_bank_statement_seller')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_bank_statement_seller))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_cofinavit_bank_statement_seller')
+                @endif> @lang('sale.contract_cofinavit_bank_statement_seller')
             </label>
 
             @if ($errors->has('CC_bank_statement_seller'))
@@ -955,15 +1016,17 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_tax_valuation"
+                id="CC_tax_valuation"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.tax_valuation.default"
+                v-model="contract.cofinavit.tax_valuation"
                 @if (
-                  !empty(old($sale->document->CC_tax_valuation)) ||
-                  !empty($sale->document->CC_tax_valuation)
+                  !empty(old('CC_tax_valuation')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_tax_valuation))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_cofinavit_tax_valuation')
+                @endif> @lang('sale.contract_cofinavit_tax_valuation')
             </label>
 
             @if ($errors->has('CC_tax_valuation'))
@@ -979,15 +1042,17 @@
               class="checkbox-inline control-label">
               <input
                 name="CC_scripture_copy"
+                id="CC_scripture_copy"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.cofinavit.scripture_copy.default"
+                v-model="contract.cofinavit.scripture_copy"
                 @if (
-                  !empty(old($sale->document->CC_scripture_copy)) ||
-                  !empty($sale->document->CC_scripture_copy)
+                  !empty(old('CC_scripture_copy')) ||
+                  (($sale->contract !== null &&
+                    $sale->contract->cofinavit_contract !== null) &&
+                    !empty($sale->contract->cofinavit_contract->CC_scripture_copy))
                 )
                   checked
-                @endif> @lang('sale.purchase_agreement_cofinavit_scripture_copy')
+                @endif> @lang('sale.contract_cofinavit_scripture_copy')
             </label>
 
             @if ($errors->has('CC_scripture_copy'))
@@ -1004,24 +1069,30 @@
             <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
               <select
                 class="form-control"
-                id="CC_type"
                 name="CC_type"
-                required
-                v-model="purchaseAgreement.cofinavit.type.default">
+                id="CC_type"
+                v-model="contract.cofinavit.type">
                 <option
                   value=""
-                  disabled
-                  {{ (!old('CC_type')) ? 'selected' : '' }}>@lang('shared.choose_an_option')</option>
+                  disabled>@lang('shared.choose_an_option')</option>
                 <option
                   value="Individual"
                   {{ (old('CC_type') == 'Individual')
                     ? 'selected'
-                    : '' }}>@lang('shared.individual')</option>
+                    : (($sale->contract !== null &&
+                      $sale->contract->cofinavit_contract !== null) &&
+                        $sale->contract->cofinavit_contract->CC_type == 'Individual')
+                       ? 'selected'
+                       : '' }}>@lang('shared.individual')</option>
                 <option
                   value="Conyugal"
                   {{ (old('CC_type') == 'Conyugal')
                     ? 'selected'
-                    : '' }}>@lang('shared.conyugal')</option>
+                    : (($sale->contract !== null &&
+                      $sale->contract->cofinavit_contract !== null) &&
+                        $sale->contract->cofinavit_contract->CC_type == 'Conyugal')
+                       ? 'selected'
+                       : '' }}>@lang('shared.conyugal')</option>
               </select>
 
               @if ($errors->has('CC_type'))
@@ -1039,15 +1110,17 @@
                 class="checkbox-inline control-label">
                 <input
                   name="CC_birth_certificate_of_the_spouse"
+                  id="CC_birth_certificate_of_the_spouse"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.cofinavit.birth_certificate_of_the_spouse.default"
+                  v-model="contract.cofinavit.birth_certificate_of_the_spouse"
                   @if (
-                    !empty(old($sale->document->CC_birth_certificate_of_the_spouse)) ||
-                    !empty($sale->document->CC_birth_certificate_of_the_spouse)
+                    !empty(old('CC_birth_certificate_of_the_spouse')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->cofinavit_contract !== null) &&
+                      !empty($sale->contract->cofinavit_contract->CC_birth_certificate_of_the_spouse))
                   )
                     checked
-                  @endif> @lang('sale.purchase_agreement_cofinavit_birth_certificate_of_the_spouse')
+                  @endif> @lang('sale.contract_cofinavit_birth_certificate_of_the_spouse')
               </label>
 
               @if ($errors->has('CC_birth_certificate_of_the_spouse'))
@@ -1063,15 +1136,17 @@
                 class="checkbox-inline control-label">
                 <input
                   name="CC_official_identification_of_the_spouse"
+                  id="CC_official_identification_of_the_spouse"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.cofinavit.official_identification_of_the_spouse.default"
+                  v-model="contract.cofinavit.official_identification_of_the_spouse"
                   @if (
-                    !empty(old($sale->document->CC_official_identification_of_the_spouse)) ||
-                    !empty($sale->document->CC_official_identification_of_the_spouse)
+                    !empty(old('CC_official_identification_of_the_spouse')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->cofinavit_contract !== null) &&
+                      !empty($sale->contract->cofinavit_contract->CC_official_identification_of_the_spouse))
                   )
                     checked
-                  @endif> @lang('sale.purchase_agreement_cofinavit_official_identification_of_the_spouse')
+                  @endif> @lang('sale.contract_cofinavit_official_identification_of_the_spouse')
               </label>
 
               @if ($errors->has('CC_official_identification_of_the_spouse'))
@@ -1087,15 +1162,17 @@
                 class="checkbox-inline control-label">
                 <input
                   name="CC_marriage_certificate"
+                  id="CC_marriage_certificate"
                   type="checkbox"
-                  required
-                  v-model="purchaseAgreement.cofinavit.marriage_certificate.default"
+                  v-model="contract.cofinavit.marriage_certificate"
                   @if (
-                    !empty(old($sale->document->CC_marriage_certificate)) ||
-                    !empty($sale->document->CC_marriage_certificate)
+                    !empty(old('CC_marriage_certificate')) ||
+                    (($sale->contract !== null &&
+                      $sale->contract->cofinavit_contract !== null) &&
+                      !empty($sale->contract->cofinavit_contract->CC_marriage_certificate))
                   )
                     checked
-                  @endif> @lang('sale.purchase_agreement_cofinavit_marriage_certificate')
+                  @endif> @lang('sale.contract_cofinavit_marriage_certificate')
               </label>
 
               @if ($errors->has('CC_marriage_certificate'))
@@ -1114,15 +1191,16 @@
               class="checkbox-inline control-label">
               <input
                 name="SC_contract_with_the_broker"
+                id="SC_contract_with_the_broker"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.banking.contract_with_the_broker.default"
+                v-model="contract.banking.contract_with_the_broker"
                 @if (
-                  !empty(old($sale->document->SC_contract_with_the_broker)) ||
-                  !empty($sale->document->SC_contract_with_the_broker)
-                  )
+                  !empty(old('SC_contract_with_the_broker')) ||
+                  ($sale->contract !== null &&
+                   !empty($sale->contract->SC_contract_with_the_broker))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_banking_contract_with_the_broker')
+                @endif> @lang('sale.contract_banking_contract_with_the_broker')
             </label>
 
             @if ($errors->has('SC_contract_with_the_broker'))
@@ -1140,15 +1218,16 @@
               class="checkbox-inline control-label">
               <input
                 name="SC_mortgage_broker"
+                id="SC_mortgage_broker"
                 type="checkbox"
-                required
-                v-model="purchaseAgreement.allies.mortgage_broker.default"
+                v-model="contract.allies.mortgage_broker"
                 @if (
-                  !empty(old($sale->document->SC_mortgage_broker)) ||
-                  !empty($sale->document->SC_mortgage_broker)
-                  )
+                  !empty(old('SC_mortgage_broker')) ||
+                  ($sale->contract !== null &&
+                   !empty($sale->contract->SC_mortgage_broker))
+                )
                   checked
-                @endif> @lang('sale.purchase_agreement_allies_mortgage_broker')
+                @endif> @lang('sale.contract_allies_mortgage_broker')
             </label>
 
             @if ($errors->has('SC_mortgage_broker'))

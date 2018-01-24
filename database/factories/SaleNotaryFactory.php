@@ -7,10 +7,7 @@ $factory->define(App\SaleNotary::class, function (Faker $faker) {
     'CDMX',
     'Edo. Mex.',
   ]);
-  $notaries_office = $faker->randomElement([
-    $faker->date(),
-    null,
-  ]);
+  $notaries_office = $faker->randomDigitNotNull();
   $freedom_of_lien_certificate = $faker->randomElement([
     $faker->date(),
     null,
