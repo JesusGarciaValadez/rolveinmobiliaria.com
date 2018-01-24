@@ -25,6 +25,7 @@ class SaleRequest extends FormRequest
   public function rules()
   {
     return [
+      "user_id" => 'string',
       // Documents
       "SD_predial" => 'nullable|string',
       "SD_light" => 'nullable|string',

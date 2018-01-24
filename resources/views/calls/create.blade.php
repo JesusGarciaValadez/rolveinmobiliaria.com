@@ -25,6 +25,7 @@
             action="{{ route('store_call') }}"
             method="post">
             {{ csrf_field() }}
+
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
                 for="type_of_operation"

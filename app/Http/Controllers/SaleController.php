@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sale as Sale;
 use App\State as State;
 use App\Client as Client;
+use App\User as User;
 use App\SaleDocument as Document;
 use App\SaleClosingContract as ClosingContract;
 use App\SaleContract as Contract;
@@ -16,6 +17,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\SaleRequest;
 use App\Events\FileWillUpload;
@@ -26,6 +28,8 @@ class SaleController extends Controller
 
   private $_uri = '';
   private $_locale = '';
+  private $_expedients;
+  private $_clients;
   // Documents
   private $_documents;
   // Closing contract
@@ -48,8 +52,8 @@ class SaleController extends Controller
   private $_file;
 
   private $_documents_id;
-  private $closing_contracts_id;
-  private $contracts_id;
+  private $_closing_contracts_id;
+  private $_contracts_id;
   private $_notaries_id;
   private $_signatures_id;
 
@@ -112,7 +116,9 @@ class SaleController extends Controller
 
     return view('sales.create')
             ->withUri($this->_uri)
-            ->withStates($states);
+            ->withStates($states)
+            ->withExpedients($this->_expedients)
+            ->withClients($this->_clients);
   }
 
   /**
@@ -161,6 +167,8 @@ class SaleController extends Controller
       'sale_notaries_id' => $this->_notaries_id,
       'sale_signatures_id' => $this->_signatures_id
     ]);
+
+    $sale->save();
 
     if (empty($this->_message))
     {
@@ -408,6 +416,30 @@ class SaleController extends Controller
 
   private function _setInitialVariables(Request $request)
   {
+    $currentUser = User::with('role')->find(Auth::id());
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $this->_expedients = InternalExpedient::with('client')
+                      ->get()
+                      ->sortBy('expedient');
+      $$this->_clients = Client::all()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+    } else {
+      $this->_expedients = InternalExpedient::with('client')
+                      ->where('user_id', Auth::id())
+                      ->get()
+                      ->sortBy('expedient');
+      $this->_clients = Client::where('user_id', Auth::id())
+                  ->get()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
+    }
+
+    $this->_user_id = User::with('role')->find(Auth::id());
     $this->_document = $this->_setDocumentVariables($request);
     $this->_closing_contract = $this->_setClosingContractVariables($request);
     $this->_infonavit_contract = $this->_setInfonavitContractVariables($request);
