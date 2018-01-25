@@ -112,13 +112,28 @@ class SaleController extends Controller
    */
   public function create ()
   {
+    $currentUser = User::with('role')->find(Auth::id());
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $expedients = InternalExpedient::with('client')
+                      ->get()
+                      ->sortBy('expedient');
+    } else {
+      $expedients = InternalExpedient::with('client')
+                      ->where('user_id', Auth::id())
+                      ->get()
+                      ->sortBy('expedient');
+    }
+
     $states = State::all();
 
     return view('sales.create')
             ->withUri($this->_uri)
             ->withStates($states)
-            ->withExpedients($this->_expedients)
-            ->withClients($this->_clients);
+            ->withExpedients($expedients);
   }
 
   /**
