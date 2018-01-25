@@ -122,11 +122,18 @@ class SaleController extends Controller
       $expedients = InternalExpedient::with('client')
                       ->get()
                       ->sortBy('expedient');
+      $clients = Client::all()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
     } else {
       $expedients = InternalExpedient::with('client')
                       ->where('user_id', Auth::id())
                       ->get()
                       ->sortBy('expedient');
+      $clients = Client::where('user_id', Auth::id())
+                  ->get()
+                  ->sortBy('last_name')
+                  ->sortBy('first_name');
     }
 
     $states = State::all();
