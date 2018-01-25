@@ -28,70 +28,9 @@
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
+            {{ csrf_field() }}
+
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              {{ csrf_field() }}
-
-              <div class="form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">
-                <label
-                  for="expedient_id"
-                  class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
-                <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
-                  <select
-                    class="form-control"
-                    id="internal_expedient_id"
-                    name="internal_expedient_id"
-                    autofocus
-                    @change="getExpedientInfo">
-                    <option
-                      value=""
-                      selected
-                      disabled>
-                      @lang('shared.choose_an_option')</option>
-                    @foreach ($expedients as $expedient)
-                      <option
-                        value="{{ $expedient->id }}"
-                        {{ (old('internal_expedient_id') === $expedient->id)
-                            ? 'selected'
-                            : ''}}>{{ $expedient->expedient }}</option>
-                    @endforeach
-                  </select>
-                  <input type="hidden" name="client_id" :value="clientId">
-                  <input type="hidden" name="expedient" :value="clientExpedient">
-
-                  @if ($errors->has('internal_expedient_id'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('internal_expedient_id') }}</strong>
-                    </span>
-                  @endif
-                </div>
-              </div>
-
-              <div class="block row clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" :has-expedient="hasExpedient">
-                  ¿No encuentras el expediente?
-                  <a
-                  href="#"
-                  title="¡Crealo!"
-                  target="_self"
-                  data-toggle="modal"
-                  data-target="#newExpedient">¡Crealo!</a>
-                </p>
-              </div>
-
-              <Spinner v-if="loading"></Spinner>
-              <Expedient
-                :expedient="clientExpedient"
-                :name="fullName"
-                :phone-one="clientPhoneOne"
-                :phone-two="clientPhoneTwo"
-                :business="clientBusiness"
-                :email-one="clientEmailOne"
-                :email-two="clientEmailTwo"
-                :reference="clientReference"
-                :has-client="hasClient"
-                :empty="empty"
-                v-if="!loading"></Expedient>
-
               @include('sales.partials.forms.create.documents')
               @include('sales.partials.forms.create.closing-contract')
               @include('sales.partials.forms.create.log-of-visits-and-calls')

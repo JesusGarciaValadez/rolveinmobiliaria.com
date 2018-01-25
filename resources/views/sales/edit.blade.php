@@ -33,7 +33,6 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               {{ csrf_field() }}
               {{ method_field('PUT') }}
-              <input type="hidden" name="user_id" value="{{ $sale->user_id }}">
 
               @include('sales.partials.forms.edit.documents')
               @include('sales.partials.forms.edit.closing-contract')
