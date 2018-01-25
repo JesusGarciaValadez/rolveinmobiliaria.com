@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Sale as Sale;
 use App\State as State;
-use App\Client as Client;
+use App\Client;
+use App\InternalExpedient;
 use App\User as User;
 use App\SaleDocument as Document;
 use App\SaleClosingContract as ClosingContract;
