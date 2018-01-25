@@ -141,7 +141,8 @@ class SaleController extends Controller
     return view('sales.create')
             ->withUri($this->_uri)
             ->withStates($states)
-            ->withExpedients($expedients);
+            ->withExpedients($expedients)
+            ->withClients($clients);
   }
 
   /**
