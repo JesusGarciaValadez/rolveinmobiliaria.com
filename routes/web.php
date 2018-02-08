@@ -60,6 +60,40 @@ Route::prefix('/clients')->middleware('auth')->group(function () {
        ->middleware('can:clients.delete, client');
 });
 
+Route::prefix('/messages')->middleware('auth')->group(function () {
+  Route::get('/', 'MessagesController@index')
+       ->name('messages')
+       ->middleware('can:messages.view, App\Messages');
+
+  Route::get('/new', 'MessagesController@create')
+       ->name('create_message')
+       ->middleware('can:messages.create, App\Message');
+
+  Route::post('/store', 'MessagesController@store')
+       ->name('store_message')
+       ->middleware('can:messages.create, message');
+
+  Route::get('/show/{id}', 'MessagesController@show')
+       ->name('show_message')
+       ->middleware('can:messages.view, message');
+
+  Route::get('/edit/{id}', 'MessagesController@edit')
+       ->name('edit_message')
+       ->middleware('can:messages.update, message');
+
+  Route::put('/update/{id}', 'MessagesController@update')
+       ->name('update_message')
+       ->middleware('can:messages.update, message');
+
+  Route::delete('/destroy/{id}', 'MessagesController@destroy')
+       ->name('destroy_message')
+       ->middleware('can:messages.delete, message');
+
+  Route::get('/search/{date?}', 'MessagesController@search')
+       ->name('search_message')
+       ->middleware('can:messages.view, message');
+});
+
 Route::prefix('/call_trackings')->middleware('auth')->group(function () {
   Route::get('/', 'CallController@index')
        ->name('call_trackings')

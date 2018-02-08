@@ -103,19 +103,15 @@ class CallController extends Controller
    */
   public function store(CallRequest $request)
   {
-    $data = $request->all();
-    $data['user_id'] = \Auth::id();
-    unset($data['_token']);
-
     $call = [
-      'user_id' => $data['user_id'],
-      'type_of_operation' => $data['type_of_operation'],
-      'internal_expedient_id' => $data['internal_expedient_id'],
-      'address' => $data['address'],
-      'state_id' => $data['state_id'],
-      'observations' => $data['observations'],
-      'status' => $data['status'],
-      'priority' => $data['priority']
+      'user_id' => \Auth::id(),
+      'type_of_operation' => $request->type_of_operation,
+      'internal_expedient_id' => $request->internal_expedient_id,
+      'address' => $request->address,
+      'state_id' => $request->state_id,
+      'observations' => $request->observations,
+      'status' => $request->status,
+      'priority' => $request->priority,
     ];
 
     $updated = Call::create($call);
@@ -355,7 +351,7 @@ class CallController extends Controller
 
     $message = (count($calls) > 0)
                   ? count($calls).' Llamadas encontradas'
-                  : 'No se pudo ninguna llamada.';
+                  : 'No se pudo encontrar ninguna llamada.';
 
     $type = (count($calls) > 0) ? 'success' : 'danger';
 

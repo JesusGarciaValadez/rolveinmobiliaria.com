@@ -4,18 +4,31 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
-class Call extends Model
+class Message extends Model
 {
   use SoftDeletes;
+
+  /**
+   * The table associated with the model.
+   *
+   * @var string
+   */
+  protected $table = 'messages';
+
+  /**
+   * Indicates if the model should be timestamped.
+   *
+   * @var bool
+   */
+  public $timestamps = true;
 
   /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
    */
-  protected $with = ['internal_expedient', 'user', 'state'];
+  protected $with = ['user', 'state'];
 
   /**
    * The attributes that are mass assignable.
@@ -25,7 +38,6 @@ class Call extends Model
   protected $fillable = [
     'user_id',
     'type_of_operation',
-    'internal_expedient_id',
     'address',
     'state_id',
     'observations',
@@ -76,19 +88,9 @@ class Call extends Model
     return $this->belongsTo('App\User');
   }
 
-  public function client()
-  {
-    return $this->belongsTo('App\Client');
-  }
-
   public function state()
   {
     return $this->belongsTo('App\State');
-  }
-
-  public function internal_expedient()
-  {
-    return $this->belongsTo('App\InternalExpedient');
   }
 
   public function getHourAttribute()
