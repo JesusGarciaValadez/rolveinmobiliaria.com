@@ -15,4 +15,4 @@ yarn-error.log
 *.key
 .DS_Store
 *.pem
-
+/.vscode
