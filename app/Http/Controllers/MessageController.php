@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+use App\Http\Requests\MessageRequest;
+
 class MessageController extends Controller
 {
   use ThrottlesLogins;
@@ -39,12 +41,12 @@ class MessageController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $messages = Messages::orderBy('id', 'desc')
+      $messages = Message::orderBy('id', 'desc')
                     ->paginate(5);
     }
     else
     {
-      $messages = Messages::where('user_id', '=', $currentUser->id)
+      $messages = Message::where('user_id', '=', $currentUser->id)
                     ->orderBy('id', 'desc')
                     ->paginate(5);
     }
@@ -65,11 +67,11 @@ class MessageController extends Controller
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     ) {
-      $messages = Messages::all()
+      $messages = Message::all()
                     ->sortBy('last_name')
                     ->sortBy('first_name');
     } else {
-      $messages = Messages::where('user_id', Auth::id())
+      $messages = Message::where('user_id', Auth::id())
                     ->get()
                     ->sortBy('last_name')
                     ->sortBy('first_name');
@@ -89,32 +91,31 @@ class MessageController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(MessageRequest $request)
   {
     $message = [
       'user_id' => \Auth::id(),
-      'address' => $request->address,
-      'state_id' => $request->state_id,
+      'name' => $request->name,
       'observations' => $request->observations,
     ];
 
-    $updated = Message::create($message);
+    $messageCreated = Message::create($message);
 
-    $message = ($updated)
+    $message = ($messageCreated)
                  ? 'Nuevo recado creado'
                  : 'No se pudo crear el recado.';
 
-    $type = ($updated)
+    $type = ($messageCreated)
               ? 'success'
               : 'danger';
 
-    if ( $request->ajax() )
+    if ($request->ajax())
     {
-      return response()->json( [ 'message' => $message ] );
+      return response()->json(['message' => $message]);
     }
     else
     {
-      if ($updated)
+      if ($messageCreated)
       {
         return redirect('messages')
                 ->with('message', $message)
@@ -135,7 +136,7 @@ class MessageController extends Controller
    * @param  \App\Message  $message
    * @return \Illuminate\Http\Response
    */
-  public function show(Message $message)
+  public function show(Message $message, Request $request)
   {
     $currentUser = User::with('role')->find(Auth::id());
 
@@ -160,7 +161,7 @@ class MessageController extends Controller
    * @param  \App\Message  $message
    * @return \Illuminate\Http\Response
    */
-  public function edit(Message $message)
+  public function edit(Message $message, Request $request)
   {
     $states = State::all();
 
@@ -172,17 +173,17 @@ class MessageController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $call = $message::findOrFail($request->id);
+      $message = $message::findOrFail($request->id);
     }
     else
     {
-      $call = $message::where('id', $request->id)
-                ->where('user_id', Auth::id())
-                ->get()
-                ->first();
+      $message = $message::where('id', $request->id)
+                  ->where('user_id', Auth::id())
+                  ->get()
+                  ->first();
     }
 
-    return view('messages.edit', compact('this->_uri', 'states', 'messages'));
+    return view('messages.edit', compact('this->_uri', 'message'));
   }
 
   /**
@@ -192,14 +193,13 @@ class MessageController extends Controller
    * @param  \App\Message  $message
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Message $message)
+  public function update(MessageRequest $request, Message $message)
   {
     $currentUser = User::with('role')->find(Auth::id());
 
     $newMessage = [
       'user_id' => $request->user_id,
-      'address' => $request->address,
-      'state_id' => $request->state_id,
+      'name' => $request->name,
       'observations' => $request->observations,
     ];
 
@@ -210,7 +210,6 @@ class MessageController extends Controller
     {
       $updated = $message::findOrFail($request->id)
                     ->update($newMessage);
-      \Debugbar::info($updated);
     }
     else
     {
@@ -254,7 +253,7 @@ class MessageController extends Controller
    * @param  \App\Message  $message
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Message $message)
+  public function destroy(Message $message, Request $request)
   {
     $messageDeleted = $message::findOrFail($request->id);
     $isDestroyed = $messageDeleted->delete();
@@ -279,7 +278,7 @@ class MessageController extends Controller
     }
   }
 
-  public function search(Request $request, Message $message)
+  public function filter(Request $request, Message $message)
   {
     $currentUser = User::with('role')
                        ->find(Auth::id());
@@ -322,7 +321,7 @@ class MessageController extends Controller
     }
     else
     {
-      return view('message.search')
+      return view('messages.filter')
               ->with('messages', $messages)
               ->with('uri', $this->_uri)
               ->with('message', $message)

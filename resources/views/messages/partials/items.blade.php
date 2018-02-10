@@ -1,34 +1,21 @@
                 <tr>
                   <td class="text-center">
-                    @can('calls.update')
-                      @include('calls.partials.buttons.edit')
+                    @can('messages.update')
+                      @messagesButtonEdit(['message' => $message])
+                      @endmessagesButtonEdit
                     @endcan
 
-                    @can('calls.delete')
-                      @include('calls.partials.buttons.delete')
+                    @can('messages.delete')
+                      @messagesButtonDelete(['message' => $message])
+                      @endmessagesButtonDelete
                     @endcan
                   </td>
                   <td class="text-center">
-                    <a href="{{ route('show_call', ['id' => $call->id]) }}">
-                      {{ $call->internal_expedient->expedient }}
-                    </a>
+                    <a href="{{ route('show_message', ['id' => $message->id]) }}">{{ $message->name }}</a>
                   </td>
-                  <td class="text-center">
-                    <span class="label
-                    @if ($call->priority == 'Baja')
-                      label-primary
-                    @elseif ($call->priority == 'Media')
-                      label-warning
-                    @else
-                      label-danger
-                    @endif">{{ $call->priority }}</span>
-                  </td>
-                  <td>{{ $call->internal_expedient->client->full_name }}</td>
-                  <td class="hidden-xs hidden-sm">{{ $call->observations }}</td>
-                  <td class="text-center">{{ $call->status }}</td>
-                  <td class="text-center">{{ $call->type_of_operation }}</td>
-                  <td class="text-center">
-                    {{ $call->user->name }}
-                  </td>
-                  <td>{{ (isset($call->updated)) ? $call->updated : $call->created }}</td>
+                  <td class="hidden-xs hidden-sm">{{ $message->observations }}</td>
+                  <td class="text-center">{{ $message->user->name }}</td>
+                  <td>{{ isset($message->updated)
+                        ? $message->updated
+                        : $message->created }}</td>
                 </tr>

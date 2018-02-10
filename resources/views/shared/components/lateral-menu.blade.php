@@ -10,6 +10,20 @@
       data-placement="right">
       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     </a>
+  @can('messages.view')
+    <a
+      href="{{ route('messages') }}"
+      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'messages')
+        ? ' active'
+        : '' }}"
+      title="@lang('section.messages')"
+      data-toggle="tooltip"
+      data-placement="right">
+      <span
+        class="glyphicon glyphicon glyphicon-envelope"
+        aria-hidden="true"></span>
+    </a>
+  @endcan
   @can('clients.view')
     <a
       href="{{ route('clients') }}"

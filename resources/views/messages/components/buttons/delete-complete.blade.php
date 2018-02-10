@@ -1,7 +1,10 @@
-@can('calls.delete', $call)
-  <form class="col-xs-12 col-sm-12 col-md-2 col-lg-2 form-inline text-center" action="{{ route('destroy_call', ['id' => $call->id]) }}" method="post" class="text-center">
-    {{ csrf_field() }}
-    {{ method_field('DELETE') }}
+@can('messages.delete', $message)
+  <form class="col-xs-12 col-sm-12 col-md-2 col-lg-2 form-inline text-center" action="{{ route('destroy_message', [
+    'id' => $message->id
+  ]) }}" method="post" class="text-center">
+    @csrf
+    @method('DELETE')
+
     <div class="form-group">
       <button
       type="submit"

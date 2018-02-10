@@ -28,7 +28,7 @@ class Message extends Model
    *
    * @var array
    */
-  protected $with = ['user', 'state'];
+  protected $with = ['user'];
 
   /**
    * The attributes that are mass assignable.
@@ -37,12 +37,8 @@ class Message extends Model
    */
   protected $fillable = [
     'user_id',
-    'type_of_operation',
-    'address',
-    'state_id',
+    'name',
     'observations',
-    'status',
-    'priority',
   ];
 
   /**
@@ -79,18 +75,29 @@ class Message extends Model
    * @var array
    */
   protected $casts = [
-    'created_at' => 'datetime:Y-M-d h:i a',
-    'updated_at' => 'datetime:Y-M-d h:i a',
+    'created' => 'date:Y-M-d',
+    'updated' => 'date:Y-M-d',
   ];
 
   public function user()
   {
-    return $this->belongsTo('App\User');
+    return $this->belongsTo('App\User', 'user_id');
   }
 
-  public function state()
+  public function getCreatedAttribute()
   {
-    return $this->belongsTo('App\State');
+    $date = $this->created_at->format('Y-M-d h:i a');
+
+    return $date;
+  }
+
+  public function getUpdatedAttribute()
+  {
+    $date = (isset($this->updated_at))
+              ? $this->updated_at->format('Y-M-d h:i a')
+              : null;
+
+    return $date;
   }
 
   public function getHourAttribute()

@@ -26,19 +26,7 @@ class CreateMessagesTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('set null');
 
-      $table->string('address')
-            ->nullable();
-
-      $table->integer('state_id')
-            ->unsigned()
-            ->nullable()
-            ->default('7');
-
-      $table->foreign('state_id')
-            ->references('id')
-            ->on('states')
-            ->onUpdate('cascade')
-            ->onDelete('set null');
+      $table->string('name');
 
       $table->text('observations')
             ->nullable();
@@ -58,9 +46,6 @@ class CreateMessagesTable extends Migration
     Schema::table('messages', function (Blueprint $table) {
       $table->dropForeign('messages_user_id_foreign')
             ->dropColumn('user_id');
-
-      $table->dropForeign('messages_state_id_foreign')
-            ->dropColumn('state_id');
     });
 
     Schema::dropIfExists('messages');

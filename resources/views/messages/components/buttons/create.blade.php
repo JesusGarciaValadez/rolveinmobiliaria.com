@@ -1,8 +1,8 @@
 <a
-  href="{{ route('create_call') }}"
-  title="@lang('call.new_call')"
+  href="{{ route('create_message') }}"
+  title="@lang('message.new_message')"
   class="btn btn-primary"
   role="button">
   <span aria-hidden="true" class="glyphicon glyphicon-plus-sign"></span>
-  @lang('call.new_call')
+  @lang('message.new_message')
 </a>

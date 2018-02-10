@@ -1,6 +1,7 @@
 <div class="panel panel-default">
-  <form class="panel-heading form-inline clearfix" role="search" action="{{ route('search_call') }}" method="get">
-    {{ csrf_field() }}
+  <form class="panel-heading form-inline clearfix" role="search" action="{{ route('search_message') }}" method="get">
+    @csrf
+
     <div class="form-group col-xs-12 col-sm-5 col-md-4 col-lg-3{{ $errors->has('date') ? ' has-error' : ''}}">
       <label for="date" class="form-label">Filtrar por: </label>
 
@@ -37,9 +38,9 @@
       <button type="submit" class="btn btn-default"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> Buscar</button>
     </div>
 
-    @if ($errors->has('type_of_operation'))
+    @if ($errors->has('date'))
       <span class="help-block">
-        <strong>{{ $errors->first('type_of_operation') }}</strong>
+        <strong>{{ $errors->first('date') }}</strong>
       </span>
     @endif
   </form>
