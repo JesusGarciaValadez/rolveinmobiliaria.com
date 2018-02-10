@@ -232,20 +232,17 @@ class CallController extends Controller
    */
   public function update(CallRequest $request)
   {
-    $data = $request->all();
-    unset($data['_token']);
-
     $currentUser = User::with('role')->find(Auth::id());
 
     $call = [
-      'user_id' => $data['user_id'],
-      'type_of_operation' => $data['type_of_operation'],
-      'internal_expedient_id' => $data['expedient_id'],
-      'address' => $data['address'],
-      'state_id' => $data['state_id'],
-      'observations' => $data['observations'],
-      'status' => $data['status'],
-      'priority' => $data['priority']
+      'user_id' => $request->user_id,
+      'type_of_operation' => $request->type_of_operation,
+      'internal_expedient_id' => $request->expedient_id,
+      'address' => $request->address,
+      'state_id' => $request->state_id,
+      'observations' => $request->observations,
+      'status' => $request->status,
+      'priority' => $request->priority,
     ];
 
     if (

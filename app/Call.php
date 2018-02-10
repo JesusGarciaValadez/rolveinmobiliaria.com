@@ -91,6 +91,22 @@ class Call extends Model
     return $this->belongsTo('App\InternalExpedient');
   }
 
+  public function getCreatedAttribute()
+  {
+    $date = $this->created_at->format('Y-M-d h:i a');
+
+    return $date;
+  }
+
+  public function getUpdatedAttribute()
+  {
+    $date = (isset($this->updated_at))
+              ? $this->updated_at->format('Y-M-d h:i a')
+              : null;
+
+    return $date;
+  }
+
   public function getHourAttribute()
   {
     $date = $this->created_at->format('h:i');
