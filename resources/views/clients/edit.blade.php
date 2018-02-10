@@ -5,33 +5,29 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a
-              href="{{ url()->previous() }}"
-              title="@lang('section.client')"
-              class="pull-left visible-sm-block">
-              <span
-                class="glyphicon glyphicon-chevron-left"
-                aria-hidden="true"></span>
-            </a>
-            @lang('shared.edit') @lang('client.client')
-          </h1>
-        </div>
+        @panelHeading([
+          'route' => url()->previous(),
+          'routeTitle' => __('section.client'),
+          'title' => __('shared.edit') . ' ' . __('client.client')
+        ])
+        @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <form
             class="form-horizontal"
             action="{{ route('update_client', ['id' => request('id')]) }}"
             method="post">
-            {{ csrf_field() }}
-            {{ method_field('PUT') }}
+            @csrf
+            @method('PUT')
+
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : ''}}">
               <label
                 for="first_name"
@@ -226,11 +222,11 @@
             </div>
 
             <div class="form-inline">
-              @include('clients.partials.buttons.save')
+              @clientsButtonSave
+              @endclientsButtonSave
 
-              @include('clients.partials.buttons.back', [
-                'back' => route('clients')
-              ])
+              @clientsButtonBack(['back' => route('clients')])
+              @endclientsButtonBack
             </div>
           </form>
         </div>

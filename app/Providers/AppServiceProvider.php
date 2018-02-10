@@ -32,13 +32,19 @@ class AppServiceProvider extends ServiceProvider
       Blade::component('shared.components.alert', 'alert');
 
       Blade::component('messages.components.filter', 'messagesFilter');
-      Blade::component('messages.components.buttons.create', 'messagesButtonCreate');
-      Blade::component('messages.components.buttons.save', 'messagesButtonSave');
       Blade::component('messages.components.buttons.back', 'messagesButtonBack');
-      Blade::component('messages.components.buttons.edit', 'messagesButtonEdit');
+      Blade::component('messages.components.buttons.create', 'messagesButtonCreate');
+      Blade::component('messages.components.buttons.delete-complete', 'messagesButtonDeleteComplete');
       Blade::component('messages.components.buttons.delete', 'messagesButtonDelete');
       Blade::component('messages.components.buttons.edit-complete', 'messagesButtonEditComplete');
-      Blade::component('messages.components.buttons.delete-complete', 'messagesButtonDeleteComplete');
+      Blade::component('messages.components.buttons.edit', 'messagesButtonEdit');
+      Blade::component('messages.components.buttons.save', 'messagesButtonSave');
+
+      Blade::component('clients.components.buttons.back', 'clientsButtonBack');
+      Blade::component('clients.components.buttons.create', 'clientsButtonCreate');
+      Blade::component('clients.components.buttons.delete', 'clientsButtonDelete');
+      Blade::component('clients.components.buttons.edit', 'clientsButtonEdit');
+      Blade::component('clients.components.buttons.save', 'clientsButtonSave');
     }
 
     /**

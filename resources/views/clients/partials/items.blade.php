@@ -1,11 +1,13 @@
                 <tr>
                   <td class="text-center">
                     @can('clients.update')
-                      @include('clients.partials.buttons.edit')
+                      @clientsButtonEdit(['client' => $client])
+                      @endclientsButtonEdit
                     @endcan
 
                     @can('clients.delete')
-                      @include('clients.partials.buttons.delete')
+                      @clientsButtonDelete(['client' => $client])
+                      @endclientsButtonDelete
                     @endcan
                   </td>
                   <td class="text-center">
