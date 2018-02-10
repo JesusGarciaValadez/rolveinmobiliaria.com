@@ -7,7 +7,7 @@
     <div class="row">
       @lateralMenu
       @endlateralMenu
-      
+
       <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -15,7 +15,8 @@
           </div>
 
           <div class="panel-body">
-            @include('shared.partials.alerts.message')
+            @alert(['type' => session('type'), 'message' => session('message')])
+            @endalert
 
             @lang('auth.you_are_logged_in')
           </div>
