@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
       Blade::component('shared.components.lateral-menu', 'lateralMenu');
       Blade::component('shared.components.panel-heading', 'panelHeading');
       Blade::component('shared.components.alert', 'alert');
+      Blade::component('shared.components.blank-slate', 'blankSlate');
 
       Blade::component('messages.components.filter', 'messagesFilter');
       Blade::component('messages.components.buttons.back', 'messagesButtonBack');

@@ -26,10 +26,12 @@
           @endalert
 
           @if (count($messages) < 1)
-            @blankSlate(['message' => __('message.blank_slate')])
+            @blankSlate([
+              'message' => __('message.blank_slate')
+            ])
               @messagesButtonCreate
               @endmessagesButtonCreate
-            @blankSlateend
+            @endblankSlate
           @else
             @messagesFilter
             @endmessagesFilter

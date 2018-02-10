@@ -26,10 +26,12 @@
           @endalert
 
           @if (count($clients) < 1)
-            @blankSlate(['message' => 'No hay clientes registrados. ¿Porqué no das de alta un nuevo cliente?'])
+            @blankSlate([
+              'message' => 'No hay clientes registrados. ¿Porqué no das de alta un nuevo cliente?'
+            ])
               @clientsButtonCreate
               @endclientsButtonCreate
-            @blankSlateend
+            @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {{ $clients->links() }}
