@@ -5,7 +5,8 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">

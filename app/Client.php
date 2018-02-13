@@ -63,7 +63,7 @@ class Client extends Model
 
   public function internalExpedient()
   {
-    return $this->hasMany('App\InternalExpedient', 'id');
+    return $this->belongsToMany('App\InternalExpedient', 'id');
   }
 
   public function getCreatedAttribute()

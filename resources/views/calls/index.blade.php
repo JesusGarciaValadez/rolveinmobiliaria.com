@@ -5,32 +5,36 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('dashboard') }}" title="Seguimiento de llamadas" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            @lang('section.call_tracking')
-            <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
-              @include('calls.partials.buttons.create')
-            </div>
-          </h1>
-        </div>
+        @panelHeading([
+          'route' => route('dashboard'),
+          'routeTitle' => "Seguimiento de llamadas",
+          'title' => __('section.call_tracking'),
+        ])
+          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
+            @callsButtonCreate
+            @endcallsButtonCreate
+          </div>
+        @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           @if (count($calls) < 1)
-            <h2 class="text-center">No hay llamadas registradas. ¿Porqué no creas una nueva?</h2>
-            <div class="hidden-xs hidden-sm col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 text-center">
-              @include('calls.partials.buttons.create')
-            </div>
+            @blankSlate([
+              'message' => __('No hay llamadas registradas. ¿Porqué no creas una nueva?')
+            ])
+              @callsButtonCreate
+              @endcallsButtonCreate
+            @endblankSlate
           @else
-            @include('calls.partials.search')
+            @messagesFilter
+            @endmessagesFilter
 
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {{ $calls->links() }}
@@ -63,7 +67,8 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center">
-              @include('calls.partials.buttons.create')
+              @callsButtonCreate
+              @endcallsButtonCreate
             </div>
           </div>
         </div>

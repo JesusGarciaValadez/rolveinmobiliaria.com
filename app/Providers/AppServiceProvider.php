@@ -46,6 +46,15 @@ class AppServiceProvider extends ServiceProvider
       Blade::component('clients.components.buttons.delete', 'clientsButtonDelete');
       Blade::component('clients.components.buttons.edit', 'clientsButtonEdit');
       Blade::component('clients.components.buttons.save', 'clientsButtonSave');
+
+      Blade::component('calls.components.filter', 'callsFilter');
+      Blade::component('calls.components.buttons.back', 'callsButtonBack');
+      Blade::component('calls.components.buttons.create', 'callsButtonCreate');
+      Blade::component('calls.components.buttons.delete-complete', 'callsButtonDeleteComplete');
+      Blade::component('calls.components.buttons.delete', 'callsButtonDelete');
+      Blade::component('calls.components.buttons.edit-complete', 'callsButtonEditComplete');
+      Blade::component('calls.components.buttons.edit', 'callsButtonEdit');
+      Blade::component('calls.components.buttons.save', 'callsButtonSave');
     }
 
     /**

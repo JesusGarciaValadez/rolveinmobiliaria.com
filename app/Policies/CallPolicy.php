@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\User;
 use App\Call;
-
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CallPolicy
@@ -15,9 +14,7 @@ class CallPolicy
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -33,8 +30,6 @@ class CallPolicy
   public function view(User $user)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )
@@ -51,8 +46,6 @@ class CallPolicy
   public function create(User $user)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )
@@ -70,8 +63,6 @@ class CallPolicy
   public function update(User $user, $call)
   {
     if (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )
@@ -93,8 +84,6 @@ class CallPolicy
   public function delete(User $user, $call)
   {
     if (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
       $user->hasRole('Asistente') ||
       $user->hasRole('Ventas')
     )

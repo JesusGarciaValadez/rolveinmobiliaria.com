@@ -5,26 +5,25 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-            <a href="{{ url()->previous() }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            @lang('section.call_tracking')
-          </h1>
-          <h1 class="hidden-xs hidden-sm col-md-3 col-lg-2">
-            <div class="pull-right text-right text-center">
-              @include('calls.partials.buttons.create')
-            </div>
-          </h1>
-        </div>
+        @panelHeading([
+          'route' => url()->previous(),
+          'routeTitle' => __('section.call_tracking'),
+          'title' => __('section.call_tracking'),
+        ])
+          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
+            @callsButtonCreate
+            @endcallsButtonCreate
+          </div>
+        @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -74,9 +73,15 @@
 
               <p class="text-left"><strong>@lang('call.actions')</strong></p>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @include('calls.partials.buttons.edit-complete')
+                @can('calls.update')
+                @callsButtonEditComplete(['call' => $call])
+                @endcallsButtonEditComplete
+                @endcan
 
-                @include('calls.partials.buttons.delete-complete')
+                @can('calls.delete')
+                @callsButtonDeleteComplete(['call' => $call])
+                @endcallsButtonDeleteComplete
+                @endcan
               </div>
             </div>
           </div>
@@ -87,11 +92,13 @@
             <div class="form-group clearfix">
               <div
                 class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center block clearfix">
-                @include('calls.partials.buttons.create')
+                @callsButtonCreate
+                @endcallsButtonCreate
               </div>
             </div>
 
-            @include('calls.partials.buttons.back')
+            @callsButtonBack
+            @endcallsButtonBack
           </div>
         </div>
       </div>

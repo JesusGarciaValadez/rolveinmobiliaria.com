@@ -37,9 +37,9 @@
       <button type="submit" class="btn btn-default"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> Buscar</button>
     </div>
 
-    @if ($errors->has('type_of_operation'))
+    @if ($errors->has('date'))
       <span class="help-block">
-        <strong>{{ $errors->first('type_of_operation') }}</strong>
+        <strong>{{ $errors->first('date') }}</strong>
       </span>
     @endif
   </form>

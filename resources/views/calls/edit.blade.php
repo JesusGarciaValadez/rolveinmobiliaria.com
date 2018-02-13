@@ -5,28 +5,31 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            @lang('shared.edit') @lang('call.call')
-          </h1>
-        </div>
+        @panelHeading([
+          'route' => route('call_trackings'),
+          'routeTitle' => __('section.call_tracking')
+        ])
+          @slot('title')
+            @lang('shared.edit') @lang('message.message')
+          @endslot
+        @endpanelHeading
 
         <div class="panel-body table-responsive" id="client-info">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <form
             class="form-horizontal"
             action="{{ route('update_call', ['id' => request('id')]) }}"
             method="post">
-            {{ csrf_field() }}
-            {{ method_field('PUT') }}
+            @csrf
+            @method('PUT')
+
             <input type="hidden" name="user_id" value="{{ $call->user_id }}">
 
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
@@ -291,9 +294,11 @@
             </div>
 
             <div class="form-inline">
-              @include('calls.partials.buttons.save')
+              @callsButtonSave
+              @endcallsButtonSave
 
-              @include('calls.partials.buttons.back')
+              @callsButtonBack
+              @endcallsButtonBack
             </div>
           </form>
 
@@ -309,7 +314,8 @@
                 id="expedient-info"
                 action="{{ route('store_internal_expedient') }}"
                 method="post">
-                {{ csrf_field() }}
+                @csrf
+
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">@lang('call.new_expedient')</h4>

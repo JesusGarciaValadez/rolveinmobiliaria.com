@@ -76,11 +76,6 @@ class Call extends Model
     return $this->belongsTo('App\User');
   }
 
-  public function client()
-  {
-    return $this->belongsTo('App\Client');
-  }
-
   public function state()
   {
     return $this->belongsTo('App\State');

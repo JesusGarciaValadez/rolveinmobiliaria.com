@@ -123,8 +123,8 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
        ->name('destroy_call')
        ->middleware('can:calls.delete, call');
 
-  Route::get('/search/{date?}', 'CallController@search')
-       ->name('search_call')
+  Route::get('/filter/{date?}', 'CallController@filter')
+       ->name('filter_call')
        ->middleware('can:calls.view, call');
 });
 

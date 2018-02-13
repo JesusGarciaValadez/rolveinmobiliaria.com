@@ -45,13 +45,13 @@ class CallController extends Controller
     )
     {
       $calls = Call::orderBy('id', 'desc')
-                  ->paginate(5);
+                ->paginate(5);
     }
     else
     {
       $calls = Call::where('user_id', '=', $currentUser->id)
-                  ->orderBy('id', 'desc')
-                  ->paginate(5);
+                ->orderBy('id', 'desc')
+                ->paginate(5);
     }
 
     return view('calls.index', compact('calls', 'this->_uri'));
@@ -70,15 +70,13 @@ class CallController extends Controller
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     ) {
-      $expedients = InternalExpedient::with('client')
-                      ->get()
+      $expedients = InternalExpedient::all()
                       ->sortBy('expedient');
       $clients = Client::all()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
     } else {
-      $expedients = InternalExpedient::with('client')
-                      ->where('user_id', Auth::id())
+      $expedients = InternalExpedient::where('user_id', Auth::id())
                       ->get()
                       ->sortBy('expedient');
       $clients = Client::where('user_id', Auth::id())
@@ -158,14 +156,12 @@ class CallController extends Controller
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     ) {
-      $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                  ->findOrFail($request->id);
+      $call = Call::findOrFail($request->id);
     } else {
-      Call::with(['internal_expedient', 'state', 'user', 'client'])
-           ->where('id', $request->id)
-           ->where('user_id', Auth::id())
-           ->get()
-           ->first();
+      Call::where('id', $request->id)
+        ->where('user_id', Auth::id())
+        ->get()
+        ->first();
     }
 
     return view('calls.show', compact('call', 'this->_uri'));
@@ -181,40 +177,30 @@ class CallController extends Controller
   {
     $states = State::all();
 
-    $currentUser = User::with('role')
-                       ->find(Auth::id());
+    $currentUser = User::find(Auth::id());
 
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     )
     {
-      $expedients = InternalExpedient::with('client')
-                      ->get()
+      $expedients = InternalExpedient::all()
                       ->sortBy('expedient');
       $clients = Client::all()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
-      $call = Call::with([
-                'internal_expedient',
-                'state',
-                'user',
-                'client'
-              ])
-              ->findOrFail($request->id);
+      $call = Call::findOrFail($request->id);
     }
     else
     {
-      $expedients = InternalExpedient::with('client')
-                      ->where('user_id', Auth::id())
+      $expedients = InternalExpedient::where('user_id', Auth::id())
                       ->get()
                       ->sortBy('expedient');
       $clients = Client::where('user_id', Auth::id())
                   ->get()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
-      $call = Call::with(['internal_expedient', 'state', 'user',  'client'])
-                  ->where('id', $request->id)
+      $call = Call::where('id', $request->id)
                   ->where('user_id', Auth::id())
                   ->get()
                   ->first();
@@ -297,8 +283,7 @@ class CallController extends Controller
    */
   public function destroy(Request $request)
   {
-    $call = Call::with(['internal_expedient', 'state', 'user', 'client'])
-              ->findOrFail($request->id);
+    $call = Call::findOrFail($request->id);
     $isDestroyed = $call->delete();
 
     $message = ($isDestroyed)
@@ -321,24 +306,21 @@ class CallController extends Controller
     }
   }
 
-  public function search(CallSearchRequest $request)
+  public function filter(CallSearchRequest $request)
   {
-    $currentUser = User::with('role')
-                       ->find(Auth::id());
+    $currentUser = User::find(Auth::id());
 
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     ) {
-      $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                ->whereBetween('created_at', [
+      $calls = Call::whereBetween('created_at', [
                   $request->date, now()->tomorrow()
                 ])
                 ->orderBy('id', 'desc')
                 ->paginate(5);
     } else {
-      $calls = Call::with(['internal_expedient', 'state', 'user', 'client'])
-                ->whereBetween('created_at', [
+      $calls = Call::whereBetween('created_at', [
                   $request->date, now()->tomorrow()
                 ])
                 ->where('user_id', '=', $currentUser->id)
@@ -364,7 +346,7 @@ class CallController extends Controller
     }
     else
     {
-      return view('calls.search')->with('calls', $calls)
+      return view('calls.filter')->with('calls', $calls)
                                  ->with('uri', $this->_uri)
                                  ->with('message', $message)
                                  ->with('type', $type);
