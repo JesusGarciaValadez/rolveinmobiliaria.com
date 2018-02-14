@@ -25,7 +25,7 @@ class SaleRequest extends FormRequest
   public function rules()
   {
     return [
-      "user_id" => 'string',
+      "internal_expedient_id" => 'required|string',
       // Documents
       "SD_predial" => 'nullable|string',
       "SD_light" => 'nullable|string',
@@ -39,6 +39,7 @@ class SaleRequest extends FormRequest
       "SD_email" => 'nullable|string',
       "SD_phone" => 'nullable|string',
       "SD_civil_status" => [
+        'string',
         Rule::in([
           'Soltero',
           'Casado'
@@ -57,13 +58,16 @@ class SaleRequest extends FormRequest
       "SC_tax_assessment" => 'sometimes|nullable|string',
       "SC_notary_checklist" => 'sometimes|nullable|string',
       "SC_notary_file" => 'sometimes|nullable|string',
-      "SC_mortgage_credit" => Rule::in([
-        'INFONAVIT',
-        'FOVISSSTE',
-        'COFINAVIT',
-        'Bancario',
-        'Aliados'
-      ]),
+      "SC_mortgage_credit" => [
+        'string',
+        Rule::in([
+          'INFONAVIT',
+          'FOVISSSTE',
+          'COFINAVIT',
+          'Bancario',
+          'Aliados'
+        ])
+      ],
       // Infonavit contract
       "IC_certified_birth_certificate" => 'sometimes|nullable|string',
       "IC_official_ID" => 'sometimes|nullable|string',
@@ -77,10 +81,13 @@ class SaleRequest extends FormRequest
       "IC_retention_sheet" => 'sometimes|nullable|string',
       "IC_credit_activation" => 'sometimes|nullable|string',
       "IC_credit_maturity" => 'sometimes|nullable|string',
-      "IC_type" => Rule::in([
-        'Individual',
-        'Conyugal'
-      ]),
+      "IC_type" => [
+        'string',
+        Rule::in([
+          'Individual',
+          'Conyugal'
+        ])
+      ],
       "IC_spouses_birth_certificate" => 'sometimes|nullable|string',
       "IC_official_identification_of_the_spouse" => 'sometimes|nullable|string',
       "IC_marriage_certificate" => 'sometimes|nullable|string',
@@ -102,10 +109,13 @@ class SaleRequest extends FormRequest
       "CC_bank_statement_seller" => 'sometimes|nullable|string',
       "CC_tax_valuation" => 'sometimes|nullable|string',
       "CC_scripture_copy" => 'sometimes|nullable|string',
-      "CC_type" => Rule::in([
-        'Individual',
-        'Conyugal'
-      ]),
+      "CC_type" => [
+        'string',
+        Rule::in([
+          'Individual',
+          'Conyugal'
+        ])
+      ],
       "CC_birth_certificate_of_the_spouse" => 'sometimes|nullable|string',
       "CC_official_identification_of_the_spouse" => 'sometimes|nullable|string',
       "CC_marriage_certificate" => 'sometimes|nullable|string',
@@ -114,10 +124,13 @@ class SaleRequest extends FormRequest
       // Allies contract
       "SC_mortgage_broker" => 'sometimes|nullable|string',
       // Notary
-      "SN_federal_entity" => Rule::in([
-        'CDMX',
-        'Edo. Mex.'
-      ]),
+      "SN_federal_entity" => [
+        'string',
+        Rule::in([
+          'CDMX',
+          'Edo. Mex.'
+        ])
+      ],
       "SN_notaries_office" => 'sometimes|nullable|numeric',
       "SN_freedom_of_lien_certificate" => 'sometimes|nullable|string',
       "SN_zoning" => 'sometimes|nullable|string',

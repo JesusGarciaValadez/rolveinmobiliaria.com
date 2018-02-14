@@ -31,6 +31,7 @@ class SaleController extends Controller
   private $_locale = '';
   private $_expedients;
   private $_clients;
+  private $_internal_expedient_id;
   // Documents
   private $_documents;
   // Closing contract
@@ -343,14 +344,14 @@ class SaleController extends Controller
       $this->_contractUpdated = Contract::where('id', $contractID)->update($this->_contract);
     }
 
-    if (empty($contractID) && $this->_notaryIsComplete) {
+    if (empty($notaryID) && $this->_notaryIsComplete) {
       $this->_notaryCreated = Notary::create($this->_notary);
       $sale->sale_notaries_id = $this->_notaryCreated->id;
       $sale->save();
     }
     elseif ($this->_notaryIsComplete)
     {
-      $this->_notaryUpdated = Notary::where('id', $contractID)->update($this->_notary);
+      $this->_notaryUpdated = Notary::where('id', $notaryID)->update($this->_notary);
     }
 
     if (empty($signatureID) && $this->_signatureIsComplete) {
@@ -464,6 +465,7 @@ class SaleController extends Controller
     }
 
     $this->_user_id = User::with('role')->find(Auth::id());
+    $this->_internal_expedient_id = $request->internal_expedient_id;
     $this->_document = $this->_setDocumentVariables($request);
     $this->_closing_contract = $this->_setClosingContractVariables($request);
     $this->_infonavit_contract = $this->_setInfonavitContractVariables($request);

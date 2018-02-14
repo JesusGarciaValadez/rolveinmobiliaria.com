@@ -5,24 +5,25 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('dashboard') }}" title="@lang('section.sales')" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            @lang('section.for_sale')
-            <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
-              @include('sales.partials.buttons.create')
-            </div>
-          </h1>
-        </div>
+        @panelHeading( [
+          'route' => route('dashboard'),
+          'routeTitle' => __(route('dashboard')),
+          'title' => __('section.for_sale'),
+        ])
+          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
+            @salesButtonCreate
+            @endsalesButtonCreate
+          </div>
+        @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <table class="table table-bordered table-striped table-condensed">

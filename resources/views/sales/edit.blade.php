@@ -5,21 +5,23 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @include('shared.partials.menu')
+    @lateralMenu
+    @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('dashboard') }}" title="@lang('section.sales')" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
+        @panelHeading( [
+          'route' => route('dashboard'),
+          'routeTitle' => __('section.saless'),
+        ])
+          @slot('title')
             @lang('shared.edit') @lang('sale.sale')
-          </h1>
-        </div>
+          @endslot
+        @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <form
             id="purchase-sale"
@@ -31,8 +33,8 @@
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              {{ csrf_field() }}
-              {{ method_field('PUT') }}
+              @csrf
+              @method('PUT')
 
               @include('sales.partials.forms.edit.documents')
               @include('sales.partials.forms.edit.closing-contract')
@@ -46,11 +48,11 @@
 
             <div class="panel-footer">
               <div class="form-inline">
-                @include('sales.partials.buttons.save')
+                @salesButtonSave
+                @endsalesButtonSave
 
-                @include('sales.partials.buttons.back', [
-                  'back' => route('for_sales')
-                ])
+                @salesButtonBack(['back' => route('for_sales')])
+                @endsalesButtonBack
               </div>
             </div>
           </form>
@@ -67,7 +69,8 @@
               class="form-horizontal modal-content"
               action="{{ route('store_client') }}"
               method="post">
-              {{ csrf_field() }}
+              @csrf
+
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar cliente nuevo</h4>
