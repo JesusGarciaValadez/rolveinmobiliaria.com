@@ -10,22 +10,22 @@
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h1 class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-            <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')" class="pull-left visible-sm-block">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </a>
-            @lang('call.new_call')</h1>
-        </div>
+        @panelHeading( [
+          'route' => route('call_trackings'),
+          'routeTitle' => __('section.call_tracking'),
+          'title' => __('call.new_call'),
+        ])
+        @endpanelHeading
 
         <div class="panel-body table-responsive" id="client-info">
-          @include('shared.partials.alerts.message')
+          @alert(['type' => session('type'), 'message' => session('message')])
+          @endalert
 
           <form
             class="form-horizontal"
             action="{{ route('store_call') }}"
             method="post">
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group{{ $errors->has('type_of_operation') ? ' has-error' : ''}}">
               <label
@@ -285,7 +285,8 @@
                 id="expedient-info"
                 action="{{ route('store_internal_expedient') }}"
                 method="post">
-                {{ csrf_field() }}
+                @csrf
+
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">@lang('call.new_expedient')</h4>
@@ -378,7 +379,8 @@
                 class="form-horizontal modal-content"
                 action="{{ route('store_client') }}"
                 method="post">
-                {{ csrf_field() }}
+                @csrf
+
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">@lang('call.new_client')</h4>
