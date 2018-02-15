@@ -31,7 +31,6 @@ class MessageCreatedListener
    */
   public function handle(MessageCreatedEvent $event)
   {
-    // dd($event->messageCreated);
     Mail::to('alejandro.rojas@rolveinmobiliaria.com')
       ->cc('fernanda.ornelas@rolveinmobiliaria.com')
       ->bcc('jesus.garciav@me.com')
