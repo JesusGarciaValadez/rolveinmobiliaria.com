@@ -31,11 +31,7 @@ class ClientController extends Controller
    */
   public function index()
   {
-    $clients = Client::with([
-        'internalExpedient',
-        'user'
-      ])
-      ->orderBy('first_name', 'asc')
+    $clients = Client::orderBy('first_name', 'asc')
       ->orderBy('last_name', 'asc')
       ->paginate(5);
 
@@ -49,11 +45,7 @@ class ClientController extends Controller
    */
   public function create()
   {
-    $clients = Client::with([
-        'internalExpedient',
-        'user',
-      ])
-      ->get()
+    $clients = Client::all()
       ->sortBy('last_name');
 
     return view('clients.create', compact('this->_uri', 'clients'));
@@ -118,11 +110,7 @@ class ClientController extends Controller
    */
   public function show(Request $request)
   {
-    $client = Client::with([
-                'internalExpedient',
-                'user',
-              ])
-              ->findOrFail($request->id);
+    $client = Client::findOrFail($request->id);
 
     if ($request->ajax())
     {
@@ -142,11 +130,7 @@ class ClientController extends Controller
    */
   public function edit(Request $request)
   {
-    $client = Client::with([
-                'internalExpedient',
-                'user'
-              ])
-              ->findOrFail($request->id);
+    $client = Client::findOrFail($request->id);
 
     return view('clients.edit', compact('client'));
   }

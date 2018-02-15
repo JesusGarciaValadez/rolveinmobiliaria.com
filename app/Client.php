@@ -61,9 +61,9 @@ class Client extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  public function internalExpedient()
+  public function user()
   {
-    return $this->belongsToMany('App\InternalExpedient', 'id');
+    return $this->belongsTo('App\User');
   }
 
   public function getCreatedAttribute()
@@ -92,10 +92,5 @@ class Client extends Model
   public function getFullNameAttribute()
   {
     return $this->first_name . ' ' . $this->last_name;
-  }
-
-  public function user()
-  {
-    return $this->belongsTo('App\User');
   }
 }
