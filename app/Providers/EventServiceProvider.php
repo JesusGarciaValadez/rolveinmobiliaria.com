@@ -13,8 +13,11 @@ class EventServiceProvider extends ServiceProvider
    * @var array
    */
   protected $listen = [
-    'App\Events\FileWillUpload' => [
-      'App\Listeners\FileUploader',
+    'App\Events\MessageCreatedEvent' => [
+      'App\Listeners\MessageCreatedListener',
+    ],
+    'App\Events\MessageDeletedEvent' => [
+      'App\Listeners\MessageDeletedEvent',
     ],
   ];
 

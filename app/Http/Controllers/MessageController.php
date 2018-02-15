@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Http\Requests\MessageRequest;
+use App\Events\MessageCreatedEvent;
 
 class MessageController extends Controller
 {
@@ -100,6 +101,8 @@ class MessageController extends Controller
     ];
 
     $messageCreated = Message::create($message);
+
+    event(new MessageCreatedEvent($messageCreated));
 
     $message = ($messageCreated)
                  ? 'Nuevo recado creado'
