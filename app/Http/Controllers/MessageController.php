@@ -97,6 +97,7 @@ class MessageController extends Controller
     $message = [
       'user_id' => \Auth::id(),
       'name' => $request->name,
+      'email' => $request->email,
       'observations' => $request->observations,
     ];
 
@@ -203,6 +204,7 @@ class MessageController extends Controller
     $newMessage = [
       'user_id' => $request->user_id,
       'name' => $request->name,
+      'email' => $request->email,
       'observations' => $request->observations,
     ];
 

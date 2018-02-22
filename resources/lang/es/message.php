@@ -21,6 +21,7 @@ return [
     'id' => 'ID',
     'attended' => 'Atendió',
     'name' => 'Nombre',
+    'email' => 'Email',
     'observations' => 'Observaciones',
     'hour' => 'Hora',
     'actions' => 'Acciones',

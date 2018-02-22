@@ -30,6 +30,8 @@
               <h2>@lang('message.information')</h2>
               <p class="text-left"><strong>@lang('message.name'):</strong> {{ $message->name }}</p>
 
+              <p class="text-left"><strong>@lang('message.email'):</strong> {{ $message->email }}</p>
+
               <p class="text-left"><strong>@lang('message.observations'):</strong> {{ $message->observations }}</p>
 
               <p class="text-left"><strong>@lang('message.attended'):</strong> {{ $message->user->name }}</p>

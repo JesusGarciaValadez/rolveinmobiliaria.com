@@ -27,6 +27,7 @@ class CreateMessagesTable extends Migration
             ->onDelete('set null');
 
       $table->string('name');
+      $table->string('email');
 
       $table->text('observations')
             ->nullable();

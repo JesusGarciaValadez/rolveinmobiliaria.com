@@ -49,6 +49,28 @@
               </div>
             </div>
 
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
+              <label
+                for="email"
+                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('message.email'): </label>
+              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 control-label">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  value="{{ old('email') }}"
+                  placeholder="@lang('message.email')"
+                  required
+                  autocorrect="on">
+
+                  @if ($errors->has('email'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                  @endif
+              </div>
+            </div>
+
             <div class="form-group{{ $errors->has('observations') ? ' has-error' : ''}}">
               <label
                 for="observations"
