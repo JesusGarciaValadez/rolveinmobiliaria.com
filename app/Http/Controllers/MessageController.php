@@ -97,8 +97,8 @@ class MessageController extends Controller
     $message = [
       'user_id' => \Auth::id(),
       'name' => $request->name,
-      'email' => $request->email,
-      'observations' => $request->observations,
+      'email' => $request->email ?? 'Sin correo',
+      'observations' => $request->observations ?? 'Sin observaciones',
     ];
 
     $messageCreated = Message::create($message);
@@ -204,8 +204,8 @@ class MessageController extends Controller
     $newMessage = [
       'user_id' => $request->user_id,
       'name' => $request->name,
-      'email' => $request->email,
-      'observations' => $request->observations,
+      'email' => $request->email ?? 'Sin correo',
+      'observations' => $request->observations ?? 'Sin observaciones',
     ];
 
     if (

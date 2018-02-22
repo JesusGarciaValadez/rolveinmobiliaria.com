@@ -60,7 +60,6 @@
                   name="email"
                   value="{{ old('email') }}"
                   placeholder="@lang('message.email')"
-                  required
                   autocorrect="on">
 
                   @if ($errors->has('email'))
