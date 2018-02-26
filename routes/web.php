@@ -24,13 +24,15 @@ Auth::routes();
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
   return view('welcome');
 });
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/clients')->middleware('auth')->group(function () {
+Route::prefix('/clients')->middleware('auth')->group(function ()
+{
   Route::get('/', 'ClientController@index')
        ->name('clients')
        ->middleware('can:clients.view, App\Client');
@@ -60,7 +62,8 @@ Route::prefix('/clients')->middleware('auth')->group(function () {
        ->middleware('can:clients.delete, client');
 });
 
-Route::prefix('/messages')->middleware('auth')->group(function () {
+Route::prefix('/messages')->middleware('auth')->group(function ()
+{
   Route::get('/', 'MessageController@index')
        ->name('messages')
        ->middleware('can:messages.view, App\Messages');
@@ -94,7 +97,8 @@ Route::prefix('/messages')->middleware('auth')->group(function () {
        ->middleware('can:messages.view, message');
 });
 
-Route::prefix('/call_trackings')->middleware('auth')->group(function () {
+Route::prefix('/call_trackings')->middleware('auth')->group(function ()
+{
   Route::get('/', 'CallController@index')
        ->name('call_trackings')
        ->middleware('can:calls.view, App\Call');
@@ -128,7 +132,8 @@ Route::prefix('/call_trackings')->middleware('auth')->group(function () {
        ->middleware('can:calls.view, call');
 });
 
-Route::prefix('/for_sales')->middleware('auth')->group(function () {
+Route::prefix('/for_sales')->middleware('auth')->group(function ()
+{
   Route::get('/', 'SaleController@index')
        ->name('for_sales')
        ->middleware('can:sales.view, App\Sale');
@@ -158,10 +163,20 @@ Route::prefix('/for_sales')->middleware('auth')->group(function () {
        ->middleware('can:sales.delete, sale');
 });
 
-Route::prefix('/internal_expedients')->middleware('auth')->group(function () {
+Route::prefix('/internal_expedients')->middleware('auth')->group(function ()
+{
   Route::post('/store', 'InternalExpedientController@store')
        ->name('store_internal_expedient');
 
   Route::put('/update/{id}', 'InternalExpedientController@update')
        ->name('update_internal_expedient');
+});
+
+Route::prefix('/mailable')->middleware('auth')->group(function ()
+{
+  Route::get('/message_created', function () {
+    $messageCreated = App\Message::find(1);
+
+    return new App\Mail\MessageCreated($messageCreated);
+  });
 });
