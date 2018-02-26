@@ -38,6 +38,7 @@ class MessageCreated extends Mailable
   public function build()
   {
     return $this->view('mails.message.created')
-                ->text('mails.message.created_plain');
+                ->text('mails.message.created_plain')
+                ->subject('Nuevo recado creado');
   }
 }
