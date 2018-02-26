@@ -37,7 +37,7 @@
   <body style="background-color: #F2F2E9; display: flex; flex-flow: column nowrap; margin: 0; padding: 0;">
     <table border="0" cellspacing="0" cellpadding="0" height="228" style="margin: 0 auto;" width="100%">
       <thead border="0" cellspacing="0" cellpadding="0" height="228">
-        <tr border="0" bgcolor="#0C457A" background="{{ asset('storage/mailings/shared/background.jpg') }}" cellspacing="0" cellpadding="0" height="228">
+        <tr border="0" bgcolor="#0C457A" background="{{ asset('img/mailings/shared/background.jpg') }}" cellspacing="0" cellpadding="0" height="228">
           <th align="center" border="0" cellspacing="0" cellpadding="0" height="228" valign="center">
             <table border="0" cellspacing="0" cellpadding="0" height="228" style="margin: 0 auto;" width="600">
               <tr border="0" cellspacing="0" cellpadding="0" height="76">
@@ -45,7 +45,7 @@
               </tr>
               <tr border="0" cellspacing="0" cellpadding="0" height="152" width="600">
                 <td align="center" border="0" cellspacing="0" cellpadding="0" valign="middle" height="152">
-                  <img src="{{ asset('storage/mailings/shared/logo.png') }}" alt="Rolve Inmobiliaria" width="152" height="152" style="margin: 0 auto; padding: 0;" align="center" valign="middle">
+                  <img src="{{ asset('img/mailings/shared/logo.png') }}" alt="Rolve Inmobiliaria" width="152" height="152" style="margin: 0 auto; padding: 0;" align="center" valign="middle">
                 </td>
               </tr>
             </table>
