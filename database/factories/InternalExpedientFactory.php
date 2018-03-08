@@ -10,6 +10,14 @@ $factory->define(App\InternalExpedient::class, function (Faker $faker) {
     'user_id' => function () {
       return factory(App\User::class)->create()->id;
     },
-    'expedient' => $faker->swiftBicNumber(),
+    'expedient_key' => $faker->randomElement([
+      'VNT',
+      'RNT',
+      'CEX',
+      'JRD',
+      'AVA'
+    ]),
+    'expedient_number' => $faker->numerify('###'),
+    'expedient_year' => $faker->date('y')
   ];
 });

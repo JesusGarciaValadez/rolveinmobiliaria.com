@@ -12,8 +12,6 @@ class InternalExpedientTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(App\InternalExpedient::class)->create([
-      'expedient' => 'Sin expediente',
-    ]);
+    factory(App\InternalExpedient::class)->create();
   }
 }

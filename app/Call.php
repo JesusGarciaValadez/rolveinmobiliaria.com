@@ -4,11 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Call extends Model
 {
   use SoftDeletes;
+
+  /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'calls';
 
   /**
    * The attributes that represents the models who has relationship with

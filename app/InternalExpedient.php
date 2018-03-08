@@ -10,6 +10,12 @@ class InternalExpedient extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'internal_expedients';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
@@ -21,7 +27,13 @@ class InternalExpedient extends Model
    *
    * @var array
    */
-  protected $fillable = ['client_id', 'user_id',  'expedient'];
+  protected $fillable = [
+    'client_id',
+    'user_id',
+    'expedient_key',
+    'expedient_number',
+    'expedient_year'
+  ];
 
   /**
    * The attributes that aren't mass assignable.
