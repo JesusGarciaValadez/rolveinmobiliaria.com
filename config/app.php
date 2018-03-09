@@ -151,7 +151,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Themsaid\MailPreview\MailPreviewServiceProvider::class,
 
         /*
          * Application Service Providers...
