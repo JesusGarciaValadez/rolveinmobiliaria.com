@@ -21,7 +21,6 @@ class AlterInternalExpedientTable extends Migration
         $date = Carbon::now();
         $date->formatLocalized('%y');
 
-        $table->renameColumn('expedient', 'expedient_number');
         $table->enum('expedient_key', [
                 'VNT',
                 'RNT',
@@ -37,7 +36,8 @@ class AlterInternalExpedientTable extends Migration
               ->default($date)
               ->charset('utf8')
               ->collation('utf8_unicode_ci')
-              ->after('expedient_number');
+              ->after('expedient');
+        $table->renameColumn('expedient', 'expedient_number');
       });
     }
 
