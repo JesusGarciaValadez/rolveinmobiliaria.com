@@ -17,7 +17,7 @@ $factory->define(App\InternalExpedient::class, function (Faker $faker) {
       'JRD',
       'AVA'
     ]),
-    'expedient_number' => $faker->numerify('###'),
+    'expedient_number' => $faker->numerify('##'),
     'expedient_year' => $faker->date('y')
   ];
 });
