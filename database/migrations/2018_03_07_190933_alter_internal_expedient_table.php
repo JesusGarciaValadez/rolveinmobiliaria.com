@@ -19,7 +19,6 @@ class AlterInternalExpedientTable extends Migration
         Carbon::setLocale('mx');
         Carbon::setUtf8(true);
         $date = Carbon::now();
-        $date->formatLocalized('%y');
 
         $table->enum('expedient_key', [
                 'VNT',
@@ -33,7 +32,7 @@ class AlterInternalExpedientTable extends Migration
               ->collation('utf8_unicode_ci')
               ->after('user_id');
         $table->string('expedient_year', 4)
-              ->default($date)
+              ->default($date->formatLocalized('%y'))
               ->charset('utf8')
               ->collation('utf8_unicode_ci')
               ->after('expedient');
