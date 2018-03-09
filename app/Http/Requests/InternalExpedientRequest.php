@@ -26,7 +26,9 @@ class InternalExpedientRequest extends FormRequest
   {
     return [
       'client_id' => 'required',
-      'expedient' => 'nullable'
+      'expedient_key' => 'required|string',
+      'expedient_number' => 'required|string|size:2',
+      'expedient_year' => 'required|string|size:2|date_format:y'
     ];
   }
 }

@@ -21,12 +21,12 @@ Vue.component('Spinner', require('./components/Spinner.vue'))
 Vue.component('Expedient', require('./components/Expedient.vue'))
 Vue.component('Client', require('./components/Client.vue'))
 
-const clientRoot = document.getElementById('client-info') || null
+const callRoot = document.getElementById('call-info') || null
 const salesRoot = document.getElementById('purchase-sale') || null
 
-if (clientRoot !== null) {
-  const ClientInfo = new Vue({
-    el: '#client-info',
+if (callRoot !== null) {
+  const callInfo = new Vue({
+    el: '#call-info',
     data: {
       clientId: '',
       clientFirstName: '',
@@ -61,6 +61,7 @@ if (clientRoot !== null) {
     },
     methods: {
       getClientInfo: function () {
+        this.loading = true
         const clientId = document.getElementById('client_id').value
 
         if (clientId !== '') {
@@ -147,6 +148,7 @@ if (clientRoot !== null) {
       }
     },
     mounted: function () {
+      console.log('mounted')
       if (this.empty === false) {
         this.getExpedientInfo()
       }

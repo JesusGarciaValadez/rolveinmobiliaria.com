@@ -32,12 +32,14 @@ class AlterInternalExpedientTable extends Migration
               ->charset('utf8')
               ->collation('utf8_unicode_ci')
               ->after('user_id');
-        $table->string('expedient_year')
+        $table->string('expedient_year', 4)
               ->default($date)
               ->charset('utf8')
               ->collation('utf8_unicode_ci')
               ->after('expedient');
         $table->renameColumn('expedient', 'expedient_number');
+        $table->string('expedient_number', 4)
+              ->change();
       });
     }
 

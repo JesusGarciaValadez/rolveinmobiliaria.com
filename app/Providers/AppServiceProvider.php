@@ -62,6 +62,9 @@ class AppServiceProvider extends ServiceProvider
       Blade::component('sales.components.buttons.delete', 'salesButtonDelete');
       Blade::component('sales.components.buttons.edit', 'salesButtonEdit');
       Blade::component('sales.components.buttons.save', 'salesButtonSave');
+
+      Blade::component('shared.components.modal-expedient', 'modalExpedient');
+      Blade::component('shared.components.modal-client', 'modalClient');
     }
 
     /**

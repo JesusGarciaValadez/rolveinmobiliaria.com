@@ -8,7 +8,7 @@
       title="@lang('section.dashboard')"
       data-toggle="tooltip"
       data-placement="right">
-      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
     </a>
   @can('messages.view')
     <a
@@ -20,7 +20,7 @@
       data-toggle="tooltip"
       data-placement="right">
       <span
-        class="glyphicon glyphicon glyphicon-envelope"
+        class="glyphicon glyphicon glyphicon-send"
         aria-hidden="true"></span>
     </a>
   @endcan
@@ -34,7 +34,7 @@
       data-toggle="tooltip"
       data-placement="right">
       <span
-        class="glyphicon glyphicon glyphicon-book"
+        class="glyphicon glyphicon glyphicon-user"
         aria-hidden="true"></span>
     </a>
   @endcan
@@ -48,7 +48,7 @@
       data-toggle="tooltip"
       data-placement="right">
       <span
-        class="glyphicon glyphicon-phone-alt"
+        class="glyphicon glyphicon-phone"
         aria-hidden="true"></span>
     </a>
   @endcan
@@ -62,7 +62,7 @@
       data-toggle="tooltip"
       data-placement="right">
       <span
-        class="glyphicon glyphicon-piggy-bank"
+        class="glyphicon glyphicon-usd"
         aria-hidden="true"></span>
     </a>
   @endcan

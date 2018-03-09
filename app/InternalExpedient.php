@@ -65,7 +65,7 @@ class InternalExpedient extends Model
 
   public function client()
   {
-    return $this->belongsTo('App\Client', 'id');
+    return $this->belongsTo('App\Client', 'client_id');
   }
 
   public function user()
@@ -94,5 +94,10 @@ class InternalExpedient extends Model
     $date = $this->created_at->format('h:i');
 
     return $date.' hrs';
+  }
+
+  public function getExpedientAttribute()
+  {
+    return $this->expedient_key . '/' . $this->expedient_number . '/' . $this->expedient_year;
   }
 }

@@ -53,13 +53,16 @@ class InternalExpedientController extends Controller
    */
   public function store(InternalExpedientRequest $request)
   {
-    $expedient = ($request->expedient === null)
-                    ? 'SC-' . Carbon::now('America/Mexico_City')->toDateTimeString()
-                    : $request->expedient;
+    Carbon::setLocale('mx');
+    Carbon::setUtf8(true);
+    $year = Carbon::createFromDate($request->expedient_year);
+
     $data = [
       'client_id' => $request->client_id,
       'user_id' => \Auth::id(),
-      'expedient' => $expedient
+      'expedient_key' => $request->expedient_key,
+      'expedient_number' => $request->expedient_number,
+      'expedient_year' => $year->formatLocalized('%y')
     ];
 
     $updated = InternalExpedient::create($data);
@@ -94,11 +97,7 @@ class InternalExpedientController extends Controller
    */
   public function show(Request $request)
   {
-    $expedient = InternalExpedient::with([
-                  'user',
-                  'client'
-                ])
-                ->findOrFail($request->id);
+    $expedient = InternalExpedient::findOrFail($request->id);
 
     if ($request->ajax())
     {
