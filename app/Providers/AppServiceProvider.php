@@ -41,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
       Blade::component('messages.components.buttons.edit', 'messagesButtonEdit');
       Blade::component('messages.components.buttons.save', 'messagesButtonSave');
 
+      Blade::component('clients.components.filter', 'clientsFilter');
       Blade::component('clients.components.buttons.back', 'clientsButtonBack');
       Blade::component('clients.components.buttons.create', 'clientsButtonCreate');
       Blade::component('clients.components.buttons.delete', 'clientsButtonDelete');
