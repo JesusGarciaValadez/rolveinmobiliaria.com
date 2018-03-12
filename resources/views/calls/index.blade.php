@@ -12,7 +12,7 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => route('dashboard'),
-          'routeTitle' => "Seguimiento de llamadas",
+          'routeTitle' => __('section.call_tracking'),
           'title' => __('section.call_tracking'),
         ])
           <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
