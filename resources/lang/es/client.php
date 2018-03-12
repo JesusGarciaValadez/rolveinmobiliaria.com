@@ -18,4 +18,10 @@ return [
     'Cliente' => 'Cliente',
     'Clientes' => 'Clientes',
     'new_client' => 'Nuevo cliente',
+    'first_name' => 'Nombre',
+    'last_name' => 'Apellidos',
+    'phone' => 'Teléfono',
+    'business' => 'Empresa',
+    'email' => 'Email',
+    'reference' => 'Referencia',
 ];

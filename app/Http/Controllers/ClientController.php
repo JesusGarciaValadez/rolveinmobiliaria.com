@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Client;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\ClientRequest;
+use App\Http\Requests\ClientFilterRequest;
 
 class ClientController extends Controller
 {
@@ -207,6 +210,54 @@ class ClientController extends Controller
       return redirect(route('clients'))
               ->with( 'message', $message )
               ->with( 'type', 'success' );
+    }
+  }
+
+  public function filter(ClientFilterRequest $request)
+  {
+    dd($request);
+    $currentUser = User::find(Auth::id());
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    ) {
+      $clients = Client::whereBetween('created_at', [
+                  $request->date, now()->tomorrow()
+                ])
+                ->orderBy('id', 'desc')
+                ->paginate(5);
+    } else {
+      $clients = Client::whereBetween('created_at', [
+                  $request->date, now()->tomorrow()
+                ])
+                ->where('user_id', '=', $currentUser->id)
+                ->orderBy('id', 'desc')
+                ->paginate(5);
+    }
+
+    $message = (count($clients) > 0)
+                  ? count($clients).' Clientes encontrados'
+                  : 'No se pudo encontrar ningún cliente.';
+
+    $type = (count($clients) > 0) ? 'success' : 'danger';
+
+    $request->session()->flash('date', $request->date);
+
+    if ($request->ajax())
+    {
+      return response()->json([
+        'calls' => $clients,
+        'message' => $message,
+        'type' => $type,
+      ]);
+    }
+    else
+    {
+      return view('clients.filter')->with('clients', $clients)
+                                 ->with('uri', $this->_uri)
+                                 ->with('message', $message)
+                                 ->with('type', $type);
     }
   }
 }

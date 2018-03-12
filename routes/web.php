@@ -60,6 +60,10 @@ Route::prefix('/clients')->middleware('auth')->group(function ()
   Route::delete('/destroy/{id}', 'ClientController@destroy')
        ->name('destroy_client')
        ->middleware('can:clients.delete, client');
+
+  Route::get('/filter/{parameter?}', 'ClientController@filter')
+        ->name('filter_client')
+        ->middleware('can:clients.view, client');
 });
 
 Route::prefix('/messages')->middleware('auth')->group(function ()
@@ -93,7 +97,7 @@ Route::prefix('/messages')->middleware('auth')->group(function ()
        ->middleware('can:messages.delete, message');
 
   Route::get('/filter/{date?}', 'MessageController@filter')
-       ->name('search_message')
+       ->name('filter_message')
        ->middleware('can:messages.view, message');
 });
 

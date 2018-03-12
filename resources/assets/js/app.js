@@ -21,10 +21,11 @@ Vue.component('Spinner', require('./components/Spinner.vue'))
 Vue.component('Expedient', require('./components/Expedient.vue'))
 Vue.component('Client', require('./components/Client.vue'))
 
-const callRoot = document.getElementById('call-info') || null
+const callFilterRoot = document.getElementById('call-filter') || null
+const callInfoRoot = document.getElementById('call-info') || null
 const salesRoot = document.getElementById('purchase-sale') || null
 
-if (callRoot !== null) {
+if (callInfoRoot !== null) {
   const callInfo = new Vue({
     el: '#call-info',
     data: {
@@ -751,5 +752,26 @@ if (salesRoot !== null) {
         this.getExpedientInfo()
       }
     }
+  })
+}
+
+if (callFilterRoot) {
+  const callFilter = new Vue({
+    el: '#call-filter',
+    data: {
+      filter: '',
+      first_name: '',
+      last_name: '',
+      phone_1: '',
+      phone_2: '',
+      business: '',
+      email_1: '',
+      email_2: '',
+      reference: ''
+    },
+    computed: {},
+    methods: {},
+    created: function () {},
+    mounted: function () {}
   })
 }
