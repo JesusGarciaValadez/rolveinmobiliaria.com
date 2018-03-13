@@ -33,7 +33,7 @@
 
       git push origin {{ $branch }};
 
-      @if ($environment == 'production')
+      @if ($environment === 'production' || $environment === 'prod')
         open http://45.77.197.22/;
       @endif
 
@@ -70,7 +70,7 @@
 
 @task('npm')
   @if ($environment)
-    @if ($environment == 'production')
+    @if ($environment === 'production' || $environment === 'prod')
       npm run prod;
 
       git add public/js public/css;
