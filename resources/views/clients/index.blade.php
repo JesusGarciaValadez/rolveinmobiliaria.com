@@ -25,17 +25,17 @@
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
+          @clientsFilter
+          @endclientsFilter
+
           @if (count($clients) < 1)
             @blankSlate([
-              'message' => 'No hay clientes registrados. ¿Porqué no das de alta un nuevo cliente?'
+              'message' => __('client.blank_slate')
             ])
               @clientsButtonCreate
               @endclientsButtonCreate
             @endblankSlate
           @else
-            @clientsFilter
-            @endclientsFilter
-
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {{ $clients->links() }}
 

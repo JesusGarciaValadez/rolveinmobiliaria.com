@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading( [
-          'route' => route('dashboard'),
+          'route' => route('messages'),
           'routeTitle' => __('message.messages'),
           'title' => __('message.messages'),
         ])
@@ -28,28 +28,37 @@
           @messagesFilter
           @endmessagesFilter
 
-          <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $messages->links() }}
+          @if (count($messages) < 1)
+            @blankSlate([
+              'message' => __('message.no_results')
+            ])
+              @messagesButtonCreate
+              @endmessagesButtonCreate
+            @endblankSlate
+          @else
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {{ $messages->links() }}
 
-            <table class="table table-bordered table-striped table-condensed">
-              @include('messages.partials.table-header')
+              <table class="table table-bordered table-striped table-condensed">
+                @include('messages.partials.table-header')
 
-              <tfoot>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-              </tfoot>
+                <tfoot>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                </tfoot>
 
-              <tbody>
-                @each('messages.partials.items', $messages, 'message')
-              </tbody>
-            </table>
+                <tbody>
+                  @each('messages.partials.items', $messages, 'message')
+                </tbody>
+              </table>
 
-            {{ $messages->links() }}
-          </div>
+              {{ $messages->links() }}
+            </div>
+          @endif
         </div>
 
         <div class="panel-footer">

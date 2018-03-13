@@ -25,6 +25,9 @@
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
+          @messagesFilter
+          @endmessagesFilter
+
           @if (count($messages) < 1)
             @blankSlate([
               'message' => __('message.blank_slate')
@@ -33,9 +36,6 @@
               @endmessagesButtonCreate
             @endblankSlate
           @else
-            @messagesFilter
-            @endmessagesFilter
-
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {{ $messages->links() }}
 

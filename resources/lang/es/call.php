@@ -57,4 +57,7 @@ return [
     'exclusive_contracts' => 'Contratos de exclusividad',
     'appraisals' => 'Avalúos',
     'messages' => 'Recados',
+
+    'blank_slate' => 'No hay llamadas registradas. ¿Porqué no creas una nueva?.',
+    'no_results' => 'No hay llamadas con la palabra que estás buscando. ¿Porqué no intentas con otras palabra o creas una nueva?.',
 ];

@@ -25,17 +25,17 @@
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
+          @messagesFilter
+          @endmessagesFilter
+
           @if (count($calls) < 1)
             @blankSlate([
-              'message' => __('No hay llamadas registradas. ¿Porqué no creas una nueva?')
+              'message' => __('call.blank_slate')
             ])
               @callsButtonCreate
               @endcallsButtonCreate
             @endblankSlate
           @else
-            @messagesFilter
-            @endmessagesFilter
-
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
               {{ $calls->links() }}
 

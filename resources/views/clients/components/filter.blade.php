@@ -11,8 +11,8 @@
       <label for="date" class="form-label">Filtrar por: </label>
 
       <select
-        name="filter_for"
-        id="filter_for"
+        name="filter_by"
+        id="filter_by"
         class="form-control input-sm"
         required
         autofocus
@@ -37,7 +37,7 @@
         class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
         @lang('client.first_name')
       </label>
-      
+
       <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
         <input
           type="text"

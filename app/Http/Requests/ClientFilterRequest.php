@@ -24,6 +24,7 @@ class ClientFilterRequest extends FormRequest
   public function rules()
   {
     return [
+      'filter_by' => 'required|string',
       'first_name' => 'sometimes|required|string',
       'last_name' => 'sometimes|required|string',
       'phone_1' => 'sometimes|required|string',

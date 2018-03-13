@@ -1,5 +1,9 @@
 <div class="panel panel-default">
-  <form class="panel-heading form-inline clearfix" role="search" action="{{ route('search_message') }}" method="get">
+  <form
+    class="panel-heading form-inline clearfix"
+    role="search"
+    action="{{ route('filter_message') }}"
+    method="get">
     @csrf
 
     <div class="form-group col-xs-12 col-sm-5 col-md-4 col-lg-3{{ $errors->has('date') ? ' has-error' : ''}}">

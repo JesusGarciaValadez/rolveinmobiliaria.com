@@ -30,6 +30,7 @@ return [
     'choose_an_option' => 'Escoge una opción',
 
     'blank_slate' => 'No hay recados registrados. ¿Porqué no creas uno nuevo?',
+    'no_results' => 'No hay recados con la palabra que estás buscando. ¿Porqué no intentas nuevamente, o creas uno nuevo?',
 
     'information' => 'Información'
 ];

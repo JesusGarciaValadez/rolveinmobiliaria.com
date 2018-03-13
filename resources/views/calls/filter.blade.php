@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading( [
-          'route' => route('dashboard'),
+          'route' => route('call_trackings'),
           'routeTitle' => __('section.call_tracking'),
           'title' => __('section.call_tracking'),
         ])
@@ -28,34 +28,43 @@
           @callsFilter
           @endcallsFilter
 
-          <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{ $calls->links() }}
+          @if (count($clients) < 1)
+            @blankSlate([
+              'message' => __('call.no_results')
+            ])
+              @callsButtonCreate
+              @endcallsButtonCreate
+            @endblankSlate
+          @else
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              {{ $calls->links() }}
 
-            <table class="table table-bordered table-striped table-condensed">
-              @include('calls.partials.table-header')
+              <table class="table table-bordered table-striped table-condensed">
+                @include('calls.partials.table-header')
 
-              <tfoot>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-              </tfoot>
+                <tfoot>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                  <tr></tr>
+                </tfoot>
 
-              <tbody>
-                @each('calls.partials.items', $calls, 'call')
-              </tbody>
-            </table>
+                <tbody>
+                  @each('calls.partials.items', $calls, 'call')
+                </tbody>
+              </table>
 
-            {{ $calls->links() }}
-          </div>
+              {{ $calls->links() }}
+            </div>
+          @endif
         </div>
 
         <div class="panel-footer">

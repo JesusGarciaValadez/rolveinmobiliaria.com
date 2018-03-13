@@ -215,22 +215,48 @@ class ClientController extends Controller
 
   public function filter(ClientFilterRequest $request)
   {
-    dd($request);
     $currentUser = User::find(Auth::id());
+    $field = '';
+
+    switch ($request->filter_by) {
+      case 'first_name':
+        $value = "%{$request->first_name}%";
+        break;
+      case 'last_name':
+        $value = "%{$request->last_name}%";
+        break;
+      case 'phone_1':
+        $value = "%{$request->phone_1}%";
+        break;
+      case 'phone_2':
+        $value = "%{$request->phone_2}%";
+        break;
+      case 'business':
+        $value = "%{$request->business}%";
+        break;
+      case 'email_1':
+        $value = "%{$request->email_1}%";
+        break;
+      case 'email_2':
+        $value = "%{$request->email_2}%";
+        break;
+      case 'reference':
+        $value = "%{$request->reference}%";
+        break;
+      default:
+        $value = "%{$request->first_name}%";
+        break;
+    }
 
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
     ) {
-      $clients = Client::whereBetween('created_at', [
-                  $request->date, now()->tomorrow()
-                ])
+      $clients = Client::where($request->filter_by, 'like', $value)
                 ->orderBy('id', 'desc')
                 ->paginate(5);
     } else {
-      $clients = Client::whereBetween('created_at', [
-                  $request->date, now()->tomorrow()
-                ])
+      $clients = Client::where($request->filter_by, 'like', $value)
                 ->where('user_id', '=', $currentUser->id)
                 ->orderBy('id', 'desc')
                 ->paginate(5);

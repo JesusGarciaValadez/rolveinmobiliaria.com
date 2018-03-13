@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading([
-          'route' => route('dashboard'),
+          'route' => route('clients'),
           'routeTitle' => __('section.clients'),
           'title' => __('section.clients'),
         ])
@@ -25,9 +25,12 @@
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
+          @clientsFilter
+          @endclientsFilter
+
           @if (count($clients) < 1)
             @blankSlate([
-              'message' => 'No hay clientes registrados. ¿Porqué no das de alta un nuevo cliente?'
+              'message' => __('client.no_results')
             ])
               @clientsButtonCreate
               @endclientsButtonCreate
