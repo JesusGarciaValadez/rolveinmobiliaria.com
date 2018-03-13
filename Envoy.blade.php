@@ -13,6 +13,7 @@
 @endtask
 
 @story('deploy', ['confirm' => true])
+  npm
   git
 @endstory
 
@@ -77,7 +78,7 @@
 
       git commit -m "Packing js and css files for production.";
 
-      git push origin master;
+      git push origin {{ $branch }};
     @endif
 
     npm run dev;
