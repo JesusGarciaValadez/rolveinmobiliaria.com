@@ -123,6 +123,7 @@
           type="text"
           class="form-control input-sm"
           name="business"
+          autocomplete="organization"
           placeholder="@lang('client.business')"
           required>
       </div>
