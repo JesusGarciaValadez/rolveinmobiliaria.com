@@ -96,7 +96,7 @@
               @messagesButtonSave
               @endmessagesButtonSave
 
-              @messagesButtonBack
+              @messagesButtonBack(['back' => route('messages')])
               @endmessagesButtonBack
             </div>
           </form>

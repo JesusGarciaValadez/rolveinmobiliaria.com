@@ -16,13 +16,13 @@
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.1.4",
         "jquery": "^3.2",
-        "laravel-mix": "^2.0",
+        "laravel-mix": "^2.1.2",
         "lodash": "^4.17.5",
-        "popper.js": "^1.14.0",
-        "vue": "^2.5.15"
+        "popper.js": "^1.14.1",
+        "vue": "^2.5.16"
     },
     "dependencies": {
         "bootstrap-sass": "^3.3.7",
-        "vue-template-compiler": "^2.5.15"
+        "vue-template-compiler": "^2.5.16"
     }
 }

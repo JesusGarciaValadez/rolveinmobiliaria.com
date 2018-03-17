@@ -15,7 +15,7 @@
           'routeTitle' => __('message.messages'),
           'title' => __('message.messages'),
         ])
-          <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 pull-right text-right">
+          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
             @messagesButtonCreate
             @endmessagesButtonCreate
           </div>
@@ -63,10 +63,13 @@
 
         <div class="panel-footer">
           <div class="row">
-            <div class="col-xs-5 col-xs-offset-4 hidden-sm col-sm-offset-0 hidden-md hidden-lg">
+            <div class="form-group col-xs-12 hidden-sm col-sm-offset-0 hidden-md hidden-lg text-center">
               @messagesButtonCreate
               @endmessagesButtonCreate
             </div>
+
+            @messagesButtonBack
+            @endmessagesButtonBack
           </div>
         </div>
         </div>

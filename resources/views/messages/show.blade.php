@@ -41,13 +41,13 @@
               <p class="text-left"><strong>@lang('message.actions')</strong></p>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 @can('messages.update')
-                @messagesButtonEditComplete(['message' => $message])
-                @endmessagesButtonEditComplete
+                  @messagesButtonEditComplete(['message' => $message])
+                  @endmessagesButtonEditComplete
                 @endcan
 
                 @can('messages.delete')
-                @messagesButtonDeleteComplete(['message' => $message])
-                @endmessagesButtonDeleteComplete
+                  @messagesButtonDeleteComplete(['message' => $message])
+                  @endmessagesButtonDeleteComplete
                 @endcan
               </div>
             </div>
