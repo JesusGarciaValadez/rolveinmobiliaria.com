@@ -8,9 +8,9 @@
     v-cloak>
     {{ csrf_field() }}
     <div class="form-group{{ $errors->has('filter_for') ? ' has-error' : ''}}">
-      <label for="date" class="form-label col-xs-12 col-sm-12 col-md-12 col-lg-12">Filtrar por: </label>
+      <label for="date" class="form-label col-xs-12 col-sm-2 col-md-2 col-lg-2">Filtrar por: </label>
 
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
         <select
           name="filter_by"
           id="filter_by"
