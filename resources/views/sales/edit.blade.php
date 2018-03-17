@@ -43,7 +43,7 @@
               @include('sales.partials.forms.edit.notary')
               @include('sales.partials.forms.edit.signature')
               <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
-              <h2 v-else="!saleIsComplete">Este expediente aún no tiene toda la documentación necesaria.</h2>
+              <h2 v-else=>Este expediente aún no tiene toda la documentación necesaria.</h2>
             </div>
 
             <div class="panel-footer">
@@ -51,7 +51,7 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sales')])
+                @salesButtonBack
                 @endsalesButtonBack
               </div>
             </div>

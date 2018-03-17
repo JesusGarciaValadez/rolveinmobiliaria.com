@@ -149,7 +149,6 @@ if (callInfoRoot !== null) {
       }
     },
     mounted: function () {
-      console.log('mounted')
       if (this.empty === false) {
         this.getExpedientInfo()
       }

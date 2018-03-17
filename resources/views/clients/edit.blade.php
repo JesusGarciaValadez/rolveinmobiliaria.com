@@ -225,7 +225,7 @@
               @clientsButtonSave
               @endclientsButtonSave
 
-              @clientsButtonBack(['back' => route('clients')])
+              @clientsButtonBack
               @endclientsButtonBack
             </div>
           </form>

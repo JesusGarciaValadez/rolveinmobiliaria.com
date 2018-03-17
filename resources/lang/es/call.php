@@ -21,6 +21,7 @@ return [
 
     'id' => 'ID',
     'attended' => 'Atendió',
+    'internal_expedient' => 'Expediente interno',
     'internal_expedient_key' => 'Clave',
     'internal_expedient_number' => 'Número',
     'internal_expedient_year' => 'Año',
