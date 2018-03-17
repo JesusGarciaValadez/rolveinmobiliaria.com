@@ -6,10 +6,10 @@
     method="get">
     @csrf
 
-    <div class="form-group clearfix{{ $errors->has('date') ? ' has-error' : ''}}">
-      <label for="date" class="form-label col-xs-12 col-sm-6 col-md-6 col-lg-6">Filtrar por: </label>
+    <div class="form-group{{ $errors->has('date') ? ' has-error' : ''}}">
+      <label for="date" class="form-label col-xs-12 col-sm-2 col-md-2 col-lg-2">Filtrar por: </label>
 
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
         <select name="date" id="date" class="form-control input-sm" required autofocus>
           <option
             value="{{ now()->today() }}"
