@@ -29,8 +29,8 @@
             @blankSlate([
               'message' => "No hay compra ventas registradas. ¿Porqué no creas una nueva?"
             ])
-              @callsButtonCreate
-              @endcallsButtonCreate
+              @salesButtonCreate
+              @endsalesButtonCreate
             @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
