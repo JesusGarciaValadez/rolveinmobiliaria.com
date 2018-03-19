@@ -27,24 +27,26 @@ class SaleRequest extends FormRequest
     return [
       "internal_expedient_id" => 'required|string',
       // Documents
-      "SD_predial" => 'nullable|string',
-      "SD_light" => 'nullable|string',
-      "SD_water" => 'nullable|string',
-      "SD_deed" => 'nullable|string',
-      "SD_generals_sheet" => 'nullable|string',
-      "SD_INE" => 'nullable|string',
-      "SD_CURP" => 'nullable|string',
-      "SD_birth_certificate" => 'nullable|string',
-      "SD_account_status" => 'nullable|string',
-      "SD_email" => 'nullable|string',
-      "SD_phone" => 'nullable|string',
-      "SD_civil_status" => [
+      'SD_deed' => 'nullable|string',
+      'SD_water' => 'nullable|string',
+      'SD_predial' => 'nullable|string',
+      'SD_light' => 'nullable|string',
+      'SD_birth_certificate' => 'nullable|string',
+      'SD_ID' => 'nullable|string',
+      'SD_CURP' => 'nullable|string',
+      'SD_RFC' => 'nullable|string',
+      'SD_account_status' => 'nullable|string',
+      'SD_email' => 'nullable|string',
+      'SD_phone' => 'nullable|string',
+      'SD_civil_status' => [
         'string',
         Rule::in([
           'Soltero',
           'Casado'
         ]),
       ],
+      'SD_complete' => 'nullable|string'
+
       // Closing contract
       "SCC_commercial_valuation" => 'sometimes|nullable|string',
       "SCC_exclusivity_contract" => 'sometimes|nullable|string',

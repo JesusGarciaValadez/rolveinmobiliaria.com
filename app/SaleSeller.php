@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SaleDocument extends Model
+class SaleSeller extends Model
 {
   use SoftDeletes;
 
@@ -15,18 +15,18 @@ class SaleDocument extends Model
    * @var array
    */
   protected $fillable = [
+    'SD_deed',
+    'SD_water',
     'SD_predial',
     'SD_light',
-    'SD_water',
-    'SD_deed',
-    'SD_generals_sheet',
-    'SD_INE',
-    'SD_CURP',
-    'SD_civil_status',
     'SD_birth_certificate',
+    'SD_ID',
+    'SD_CURP',
+    'SD_RFC',
     'SD_account_status',
     'SD_email',
     'SD_phone',
+    'SD_civil_status',
     'SD_complete',
   ];
 

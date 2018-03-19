@@ -17,7 +17,7 @@ class Sale extends Model
   protected $with = [
     'user',
     'internal_expedient',
-    'document',
+    'seller',
     'closing_contract',
     'contract',
     'notary',
@@ -31,7 +31,7 @@ class Sale extends Model
    */
   protected $fillable = [
     'internal_expedients_id',
-    'sale_documents_id',
+    'sale_sellers_id',
     'sale_closing_contracts_id',
     'sale_logs_id',
     'sale_contracts_id',
@@ -73,9 +73,9 @@ class Sale extends Model
     return $this->belongsTo('App\InternalExpedient', 'id');
   }
 
-  public function document()
+  public function seller()
   {
-    return $this->belongsTo('App\SaleDocument', 'id');
+    return $this->belongsTo('App\SaleSeller', 'id');
   }
 
   public function closing_contract()
