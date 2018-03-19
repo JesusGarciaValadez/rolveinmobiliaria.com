@@ -70,6 +70,31 @@
           :empty="empty"
           v-if="!loading"></Expedient>
 
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">
+          <label
+            for="SD_deed"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_deed"
+              id="SD_deed"
+              type="checkbox"
+              v-model="documents.deed"
+              @if (
+                !empty(old('SD_deed')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_deed))
+              )
+                checked
+              @endif>@lang('sale.documents_deed')
+          </label>
+
+          @if ($errors->has('SD_deed'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_deed') }}</strong>
+            </span>
+          @endif
+        </div>
+
         <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_predial') ? ' has-error' : ''}}">
           <label
             for="SD_predial"
@@ -79,7 +104,11 @@
               id="SD_predial"
               type="checkbox"
               v-model="documents.predial"
-              @if (old('SD_predial'))
+              @if (
+                !empty(old('SD_predial')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_predial))
+              )
                 checked
               @endif>@lang('sale.documents_predial')
           </label>
@@ -100,7 +129,11 @@
               id="SD_light"
               type="checkbox"
               v-model="documents.light"
-              @if (old('SD_light'))
+              @if (
+                !empty(old('SD_light')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_light))
+              )
                 checked
               @endif>@lang('sale.documents_light')
           </label>
@@ -121,7 +154,11 @@
               id="SD_water"
               type="checkbox"
               v-model="documents.water"
-              @if (old('SD_water'))
+              @if (
+                !empty(old('SD_water')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_water))
+              )
                 checked
               @endif>@lang('sale.documents_water')
           </label>
@@ -129,27 +166,6 @@
           @if ($errors->has('SD_water'))
             <span class="help-block">
               <strong>{{ $errors->first('SD_water') }}</strong>
-            </span>
-          @endif
-        </div>
-
-        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">
-          <label
-            for="SD_deed"
-            class="checkbox-inline control-label">
-            <input
-              name="SD_deed"
-              id="SD_deed"
-              type="checkbox"
-              v-model="documents.deed"
-              @if (old('SD_deed'))
-                checked
-              @endif>@lang('sale.documents_deed')
-          </label>
-
-          @if ($errors->has('SD_deed'))
-            <span class="help-block">
-              <strong>{{ $errors->first('SD_deed') }}</strong>
             </span>
           @endif
         </div>
@@ -163,7 +179,11 @@
               id="SD_generals_sheet"
               type="checkbox"
               v-model="documents.generals_sheet"
-              @if (old('SD_generals_sheet'))
+              @if (
+                !empty(old('SD_generals_sheet')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_generals_sheet))
+              )
                 checked
               @endif>@lang('sale.documents_generals_sheet')
           </label>
@@ -184,7 +204,11 @@
               id="SD_INE"
               type="checkbox"
               v-model="documents.INE"
-              @if (old('SD_INE'))
+              @if (
+                !empty(old('SD_INE')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_INE))
+              )
                 checked
               @endif>@lang('sale.documents_ine')
           </label>
@@ -205,7 +229,11 @@
               id="SD_CURP"
               type="checkbox"
               v-model="documents.CURP"
-              @if (old('SD_CURP'))
+              @if (
+                !empty(old('SD_CURP')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_CURP))
+              )
                 checked
               @endif>@lang('sale.documents_curp')
           </label>
@@ -226,7 +254,11 @@
               id="SD_birth_certificate"
               type="checkbox"
               v-model="documents.birth_certificate"
-              @if (old('SD_birth_certificate'))
+              @if (
+                !empty(old('SD_birth_certificate')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_birth_certificate))
+              )
                 checked
               @endif>@lang('sale.documents_birth_certificate')
           </label>
@@ -247,7 +279,11 @@
               id="SD_account_status"
               type="checkbox"
               v-model="documents.account_status"
-              @if (old('SD_account_status'))
+              @if (
+                !empty(old('SD_account_status')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_account_status))
+              )
                 checked
               @endif>@lang('sale.documents_account_status')
           </label>
@@ -268,7 +304,11 @@
               id="SD_email"
               type="checkbox"
               v-model="documents.email"
-              @if (old('SD_email'))
+              @if (
+                !empty(old('SD_email')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_email))
+              )
                 checked
               @endif>@lang('shared.email')
           </label>
@@ -289,7 +329,11 @@
               id="SD_phone"
               type="checkbox"
               v-model="documents.phone"
-              @if (old('SD_phone'))
+              @if (
+                !empty(old('SD_phone')) ||
+                ($sale->document !== null &&
+                 !empty($sale->document->SD_phone))
+              )
                 checked
               @endif>@lang('shared.phone')
           </label>
@@ -316,19 +360,23 @@
               <option
                 value=""
                 disabled
-                {{ !old('SD_civil_status')
+                {{ (!old('SD_civil_status'))
                   ? 'selected'
                   : '' }}>@lang('shared.choose_an_option')</option>
               <option
                 value="Soltero"
-                {{ old('SD_civil_status') == 'Soltero'
-                  ? 'selected'
-                  : '' }}>@lang('sale.documents_single')</option>
+                {{ (old('SD_civil_status') == 'Soltero' ||
+                   ($sale->document !== null &&
+                    $sale->document->SD_civil_status == 'Soltero'))
+                ? 'selected'
+                : '' }}>@lang('sale.documents_single')</option>
               <option
                 value="Casado"
-                {{ old('SD_civil_status') == 'Casado'
-                    ? 'selected'
-                    : '' }}>@lang('sale.documents_married')</option>
+                {{ (old('SD_civil_status') == 'Casado' ||
+                   ($sale->document !== null &&
+                    $sale->document->SD_civil_status == 'Casado'))
+                ? 'selected'
+                : '' }}>@lang('sale.documents_married')</option>
             </select>
 
             @if ($errors->has('SD_civil_status'))

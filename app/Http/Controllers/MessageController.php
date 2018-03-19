@@ -18,14 +18,12 @@ class MessageController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = '';
-  private $_locale = '';
+  private $_uri = 'messages';
+  private $_locale;
 
   public function __constructor()
   {
     $this->_locale = \App::getLocale();
-
-    $this->_uri = 'messages';
   }
 
   /**
@@ -52,7 +50,9 @@ class MessageController extends Controller
                     ->paginate(5);
     }
 
-    return view('messages.index', compact('messages', 'this->_uri'));
+    return view('messages.index')
+            ->withMessages($messages)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -62,28 +62,8 @@ class MessageController extends Controller
    */
   public function create()
   {
-    $currentUser = User::with('role')->find(Auth::id());
-
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    ) {
-      $messages = Message::all()
-                    ->sortBy('last_name')
-                    ->sortBy('first_name');
-    } else {
-      $messages = Message::where('user_id', Auth::id())
-                    ->get()
-                    ->sortBy('last_name')
-                    ->sortBy('first_name');
-    }
-
-    Carbon::setLocale($this->_locale);
-    $created_at = Carbon::now('America/Mexico_City')->toDateTimeString();
-
-    $states = State::all();
-
-    return view('messages.create', compact('created_at', 'this->_uri', 'states', 'messages'));
+    return view('messages.create')
+            ->withUri($this->_uri);
   }
 
   /**
@@ -122,14 +102,15 @@ class MessageController extends Controller
       if ($messageCreated)
       {
         return redirect('messages')
-                ->with('message', $message)
-                ->with('type', 'success');
+                ->withMessage($message)
+                ->withType($type);
       }
       else
       {
-        return redirect()->back()
-                         ->with('message', $message)
-                         ->with('type', 'success');
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
       }
     }
   }
@@ -156,7 +137,9 @@ class MessageController extends Controller
                   ->first();
     }
 
-    return view('messages.show', compact('message', 'this->_uri'));
+    return view('messages.show')
+            ->withMessage($message)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -187,7 +170,9 @@ class MessageController extends Controller
                   ->first();
     }
 
-    return view('messages.edit', compact('this->_uri', 'message'));
+    return view('messages.edit')
+            ->withMessage($message)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -240,14 +225,15 @@ class MessageController extends Controller
       if ($updated)
       {
         return redirect('messages')
-                ->with('message', $message)
-                ->with('type', 'success');
+                ->withMessage($message)
+                ->withType($success);
       }
       else
       {
-        return redirect()->back()
-                         ->with('message', $message)
-                         ->with('type', 'success');
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($success);
       }
     }
   }
@@ -278,8 +264,8 @@ class MessageController extends Controller
     else
     {
       return redirect(route('messages'))
-              ->with('message', $message)
-              ->with('type', 'success');
+              ->withMessage($message)
+              ->withType($success);
     }
   }
 
@@ -327,10 +313,10 @@ class MessageController extends Controller
     else
     {
       return view('messages.filter')
-              ->with('messages', $messages)
-              ->with('uri', $this->_uri)
-              ->with('message', $message)
-              ->with('type', $type);
+              ->withMessages($messages)
+              ->withMessage($message)
+              ->withType($type)
+              ->withUri($this->_uri);
     }
   }
 }

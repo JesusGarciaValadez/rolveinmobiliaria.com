@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu
+    @lateralMenu(['uri' => $uri])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            @messagesButtonBack
+            @messagesButtonBack(['back' => route('messages')])
             @endmessagesButtonBack
           </div>
         </div>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu
+    @lateralMenu(['uri' => $uri])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -36,7 +36,7 @@
               @csrf
               @method('PUT')
 
-              @include('sales.partials.forms.edit.documents')
+              @include('sales.partials.forms.edit.seller')
               @include('sales.partials.forms.edit.closing-contract')
               @include('sales.partials.forms.edit.log-of-visits-and-calls')
               @include('sales.partials.forms.edit.contract')

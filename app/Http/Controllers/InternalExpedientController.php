@@ -83,9 +83,9 @@ class InternalExpedientController extends Controller
     else
     {
       return redirect()
-        ->back()
-        ->with( 'message', $message )
-        ->with( 'type', 'success' );
+              ->back()
+              ->withMessage($message)
+              ->withType($type);
     }
   }
 
@@ -162,8 +162,8 @@ class InternalExpedientController extends Controller
     else
     {
       return redirect(route('internal_expedients'))
-              ->with( 'message', $message )
-              ->with( 'type', 'success' );
+              ->withMessage($message)
+              ->withType($type;
     }
   }
 }

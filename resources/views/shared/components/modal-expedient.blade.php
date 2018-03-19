@@ -20,13 +20,14 @@
         <div class="form-group{{ $errors->has('expedient_key') ? ' has-error' : ''}}">
           <label
             for="client_id"
-            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient_key'): </label>
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient_key'):
+          </label>
           <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">
             <select
               class="form-control"
               name="expedient_key"
               value="{{ old('expedient_key') }}">
-              <option value="" disabled>@lang('shared.choose_an_option')</option>
+              <option value="" checked isabled>@lang('shared.choose_an_option')</option>
               <option value="VNT">VNT</option>
               <option value="RNT">RNT</option>
               <option value="CEX">CEX</option>
