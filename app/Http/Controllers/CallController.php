@@ -94,7 +94,7 @@ class CallController extends Controller
     return view('calls.create')
             ->withCreatedAt($created_at)
             ->withStates($states)
-            ->withExpedients($experiments)
+            ->withExpedients($expedients)
             ->withClients($clients)
             ->withUri($this->_uri);
   }
@@ -136,14 +136,16 @@ class CallController extends Controller
     {
       if ($updated)
       {
-        return redirect('call_trackings')->with( 'message', $message )
-                                         ->with( 'type', 'success' );
+        return redirect('call_trackings')
+                ->withMessage($message)
+                ->withType($type);
       }
       else
       {
-        return redirect()->back()
-                         ->with( 'message', $message )
-                         ->with( 'type', 'success' );
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
       }
     }
   }
@@ -216,7 +218,7 @@ class CallController extends Controller
 
     return view('calls.edit')
             ->withStates($states)
-            ->withCall($calls)
+            ->withCall($call)
             ->withClients($clients)
             ->withExpedients($expedients)
             ->withUri($this->_uri);
@@ -236,7 +238,7 @@ class CallController extends Controller
     $call = [
       'user_id' => $request->user_id,
       'type_of_operation' => $request->type_of_operation,
-      'internal_expedient_id' => $request->expedient_id,
+      'internal_expedient_id' => $request->internal_expedient_id,
       'address' => $request->address,
       'state_id' => $request->state_id,
       'observations' => $request->observations,
@@ -251,7 +253,6 @@ class CallController extends Controller
     {
       $updated = Call::findOrFail($request->id)
                   ->update($call);
-      \Debugbar::info($updated);
     }
     else
     {
@@ -274,7 +275,7 @@ class CallController extends Controller
     }
     else
     {
-      if ($updated)
+      if ($type === 'success')
       {
         return redirect('call_trackings')
                 ->withMessage($message)
@@ -285,7 +286,7 @@ class CallController extends Controller
         return redirect()
                 ->back()
                 ->withMessage($message)
-                ->withType($success);
+                ->withType($type);
       }
     }
   }
@@ -315,9 +316,19 @@ class CallController extends Controller
     }
     else
     {
-      return redirect(route('call_trackings'))
-              ->withMessage($message)
-              ->withType($success);
+      if ($type === 'success')
+      {
+        return redirect(route('call_trackings'))
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else
+      {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 

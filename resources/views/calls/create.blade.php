@@ -107,8 +107,10 @@
                           : ''}}>{{ $expedient->expedient }}</option>
                   @endforeach
                 </select>
-                <input type="hidden" name="client_id" :value="clientId">
-                <input type="hidden" name="expedient" :value="clientExpedient">
+                <input type="hidden" name="client_id" :value="client.id">
+                <input type="hidden" name="expedient_key" :value="client.expedient.key">
+                <input type="hidden" name="expedient_number" :value="client.expedient.number">
+                <input type="hidden" name="expedient_year" :value="client.expedient.year">
 
                 @if ($errors->has('internal_expedient_id'))
                   <span class="help-block">
@@ -132,14 +134,14 @@
 
             <Spinner v-if="loading"></Spinner>
             <Expedient
-              :expedient="clientExpedient"
+              :expedient="expedient"
               :name="fullName"
-              :phone-one="clientPhoneOne"
-              :phone-two="clientPhoneTwo"
-              :business="clientBusiness"
-              :email-one="clientEmailOne"
-              :email-two="clientEmailTwo"
-              :reference="clientReference"
+              :phone-one="client.phoneOne"
+              :phone-two="client.phoneTwo"
+              :business="client.business"
+              :email-one="client.emailOne"
+              :email-two="client.emailTwo"
+              :reference="client.reference"
               :has-client="hasClient"
               :empty="empty"
               v-if="!loading"></Expedient>

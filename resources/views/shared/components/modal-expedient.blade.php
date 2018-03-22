@@ -122,12 +122,12 @@
           <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="!loading">
             <Client
               :name="fullName"
-              :phone-one="clientPhoneOne"
-              :phone-two="clientPhoneTwo"
-              :business="clientBusiness"
-              :email-one="clientEmailOne"
-              :email-two="clientEmailTwo"
-              :reference="clientReference"
+              :phone-one="client.phoneOne"
+              :phone-two="client.phoneTwo"
+              :business="client.business"
+              :email-one="client.emailOne"
+              :email-two="client.emailTwo"
+              :reference="client.reference"
               :has-client="hasClient"
               :empty="true"></Client>
           </div>

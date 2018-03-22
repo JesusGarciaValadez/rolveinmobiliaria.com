@@ -102,10 +102,18 @@ class ClientController extends Controller
     }
     else
     {
-      return redirect()
-              ->back()
-              ->withMessage($message)
-              ->withType($type);
+      if ($type === 'success')
+      {
+        return redirect(route('clients'))
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 
@@ -180,15 +188,15 @@ class ClientController extends Controller
       if ($updated)
       {
         return redirect('clients')
-                ->withMessage($message )
-                ->withType($type );
+                ->withMessage($message)
+                ->withType($type);
       }
       else
       {
         return redirect()
                 ->back()
-                ->withMessage($message )
-                ->withType($type );
+                ->withMessage($message)
+                ->withType($type);
       }
     }
   }
@@ -213,9 +221,19 @@ class ClientController extends Controller
     }
     else
     {
-      return redirect(route('clients'))
-              ->withMessage($message)
-              ->withType($type);
+      if ($type === 'success')
+      {
+        return redirect(route('clients'))
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else
+      {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 

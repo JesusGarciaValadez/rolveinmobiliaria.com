@@ -1,35 +1,46 @@
+import axios from 'axios'
+
 export default {
   el: '#call-info',
   data: {
-    clientId: '',
-    clientFirstName: '',
-    clientLastName: '',
-    clientExpedient: '',
-    clientPhoneOne: '',
-    clientPhoneTwo: '',
-    clientBusiness: '',
-    clientEmailOne: '',
-    clientEmailTwo: '',
-    clientReference: '',
+    client: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      expedient: {
+        key: '',
+        number: '',
+        year: ''
+      },
+      phoneOne: '',
+      phoneTwo: '',
+      business: '',
+      emailOne: '',
+      emailTwo: '',
+      reference: ''
+    },
     loading: false,
     empty: true
   },
   computed: {
     hasClient: function () {
       return (
-        this.clientPhoneOne.length !== 0 ||
-        this.clientPhoneTwo.length !== 0 ||
-        this.clientEmailOne.length !== 0 ||
-        this.clientEmailTwo.length !== 0
+        this.client.phoneOne.length !== 0 ||
+        this.client.phoneTwo.length !== 0 ||
+        this.client.emailOne.length !== 0 ||
+        this.client.emailTwo.length !== 0
       )
     },
     hasExpedient: function () {
       return (
-        this.clientReference.length !== 0
+        this.client.reference.length !== 0
       )
     },
     fullName: function () {
-      return this.clientFirstName + ' ' + this.clientLastName
+      return this.client.firstName + ' ' + this.client.lastName
+    },
+    expedient: function () {
+      return `${this.client.expedient.key}/${this.client.expedient.number}/${this.client.expedient.year}`
     }
   },
   methods: {
@@ -45,30 +56,30 @@ export default {
         }
 
         axios.get(uri, inicialization)
-            .then(response => response.data[0])
-            .catch(error => console.log(error))
-            .then(response => {
-              this.loading = false
-              this.clientId = response.id || ''
-              this.clientFirstName = response.first_name || ''
-              this.clientLastName = response.last_name || ''
-              this.clientPhoneOne = response.phone_1 || ''
-              this.clientPhoneTwo = response.phone_2 || ''
-              this.clientBusiness = response.business || ''
-              this.clientEmailOne = response.email_1 || ''
-              this.clientEmailTwo = response.email_2 || ''
-              this.clientReference = response.reference || ''
-              this.empty = false
-            })
+          .then(response => response.data[0])
+          .catch(error => console.log(error))
+          .then(response => {
+            this.loading = false
+            this.client.id = response.id || ''
+            this.client.firstName = response.first_name || ''
+            this.client.lastName = response.last_name || ''
+            this.client.phoneOne = response.phone_1 || ''
+            this.client.phoneTwo = response.phone_2 || ''
+            this.client.business = response.business || ''
+            this.client.emailOne = response.email_1 || ''
+            this.client.emailTwo = response.email_2 || ''
+            this.client.reference = response.reference || ''
+            this.empty = false
+          })
       } else {
         this.loading = false
-        this.clientId = ''
-        this.clientFirstName = ''
-        this.clientLastName = ''
-        this.clientPhoneOne = ''
-        this.clientPhoneTwo = ''
-        this.clientEmailOne = ''
-        this.clientEmailTwo = ''
+        this.client.id = ''
+        this.client.firstName = ''
+        this.client.lastName = ''
+        this.client.phoneOne = ''
+        this.client.phoneTwo = ''
+        this.client.emailOne = ''
+        this.client.emailTwo = ''
         this.empty = false
       }
     },
@@ -87,28 +98,31 @@ export default {
           .then(response => response.data[0])
           .catch(error => console.log(error))
           .then(response => {
-            this.clientId = response.id || ''
-            this.clientExpedient = response.expedient || ''
-            this.clientFirstName = response.client.first_name || ''
-            this.clientLastName = response.client.last_name || ''
-            this.clientPhoneOne = response.client.phone_1 || ''
-            this.clientPhoneTwo = response.client.phone_2 || ''
-            this.clientBusiness = response.client.business || ''
-            this.clientEmailOne = response.client.email_1 || ''
-            this.clientEmailTwo = response.client.email_2 || ''
-            this.clientReference = response.client.reference || ''
+            this.client.id = response.id || ''
+            this.client.expedient.key = response.expedient_key || ''
+            this.client.expedient.number = response.expedient_number || ''
+            this.client.expedient.year = response.expedient_year || ''
+            this.client.firstName = response.client.first_name || ''
+            this.client.lastName = response.client.last_name || ''
+            this.client.phoneOne = response.client.phone_1 || ''
+            this.client.phoneTwo = response.client.phone_2 || ''
+            this.client.business = response.client.business || ''
+            this.client.emailOne = response.client.email_1 || ''
+            this.client.emailTwo = response.client.email_2 || ''
+            this.client.reference = response.client.reference || ''
             this.loading = false
             this.empty = false
           })
       } else {
         this.loading = false
-        this.clientId = ''
-        this.clientFirstName = ''
-        this.clientLastName = ''
-        this.clientPhoneOne = ''
-        this.clientPhoneTwo = ''
-        this.clientEmailOne = ''
-        this.clientEmailTwo = ''
+        this.client.id = ''
+        this.client.firstName = ''
+        this.client.lastName = ''
+        this.client.phoneOne = ''
+        this.client.phoneTwo = ''
+        this.client.emailOne = ''
+        this.client.emailTwo = ''
+        this.client.reference = ''
         this.empty = false
       }
     }

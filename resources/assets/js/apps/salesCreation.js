@@ -131,11 +131,11 @@ export default {
     },
     sellersIsComplete: function () {
       return (
-        this.sale.sellers.deed &&
-        this.sale.sellers.water &&
-        this.sale.sellers.predial &&
-        this.sale.sellers.light &&
-        this.sale.sellers.civil_status !== ''
+        this.sale.seller.deed &&
+        this.sale.seller.water &&
+        this.sale.seller.predial &&
+        this.sale.seller.light &&
+        this.sale.seller.civil_status !== ''
       )
     },
     closingContractIsComplete: function () {
@@ -220,23 +220,23 @@ export default {
     },
     notaryIsComplete: function () {
       return (
-        this.notary.federal_entity &&
-        this.notary.notaries_office &&
-        this.notary.freedom_of_lien_certificate &&
-        this.notary.zoning &&
-        this.notary.water_no_due_constants &&
-        this.notary.non_debit_proof_of_property &&
-        this.notary.certificate_of_improvement &&
-        this.notary.key_and_cadastral_value
+        this.sale.notary.federal_entity &&
+        this.sale.notary.notaries_office &&
+        this.sale.notary.freedom_of_lien_certificate &&
+        this.sale.notary.zoning &&
+        this.sale.notary.water_no_due_constants &&
+        this.sale.notary.non_debit_proof_of_property &&
+        this.sale.notary.certificate_of_improvement &&
+        this.sale.notary.key_and_cadastral_value
       )
     },
     signatureIsComplete: function () {
       return (
-        this.signature.writing_review &&
-        this.signature.scheduled_date_of_writing_signature &&
-        this.signature.writing_signature &&
-        this.signature.scheduled_payment_date &&
-        this.signature.payment_made
+        this.sale.signature.writing_review &&
+        this.sale.signature.scheduled_date_of_writing_signature &&
+        this.sale.signature.writing_signature &&
+        this.sale.signature.scheduled_payment_date &&
+        this.sale.signature.payment_made
       )
     },
     saleIsComplete: function () {
@@ -294,20 +294,20 @@ export default {
     showLogOfVisitsAndCalls: function () {
       return (
         this.sellersIsComplete &&
-        this.sale.closingContractIsComplete
+        this.closingContractIsComplete
       )
     },
     showContract: function () {
       return (
         this.sellersIsComplete &&
-        this.sale.closingContractIsComplete &&
+        this.closingContractIsComplete &&
         this.logOfVisitsAndCallsIsComplete
       )
     },
     showNotary: function () {
       return (
         this.sellersIsComplete &&
-        this.sale.closingContractIsComplete &&
+        this.closingContractIsComplete &&
         this.logOfVisitsAndCallsIsComplete &&
         this.contractIsComplete
       )
@@ -315,7 +315,7 @@ export default {
     showSignature: function () {
       return (
         this.sellersIsComplete &&
-        this.sale.closingContractIsComplete &&
+        this.closingContractIsComplete &&
         this.logOfVisitsAndCallsIsComplete &&
         this.contractIsComplete &&
         this.notaryIsComplete
@@ -481,18 +481,18 @@ export default {
       return document.getElementById(element)
     },
     setSellers: function () {
-      this.sellers.deed = this.getID('SD_deed').checked
-      this.sellers.water = this.getID('SD_water').checked
-      this.sellers.predial = this.getID('SD_predial').checked
-      this.sellers.light = this.getID('SD_light').checked
-      this.sellers.ID = this.getID('SD_ID').checked
-      this.sellers.CURP = this.getID('SD_CURP').value
-      this.sellers.RFC = this.getID('SD_RFC').value
-      this.sellers.birth_certificate = this.getID('SD_birth_certificate').checked
-      this.sellers.account_status = this.getID('SD_account_status').checked
-      this.sellers.email = this.getID('SD_email').checked
-      this.sellers.phone = this.getID('SD_phone').checked
-      this.sellers.civil_status = this.getID('SD_civil_status').value
+      this.sale.seller.deed = this.getID('SD_deed').checked
+      this.sale.seller.water = this.getID('SD_water').checked
+      this.sale.seller.predial = this.getID('SD_predial').checked
+      this.sale.seller.light = this.getID('SD_light').checked
+      this.sale.seller.ID = this.getID('SD_ID').checked
+      this.sale.seller.CURP = this.getID('SD_CURP').value
+      this.sale.seller.RFC = this.getID('SD_RFC').value
+      this.sale.seller.birth_certificate = this.getID('SD_birth_certificate').checked
+      this.sale.seller.account_status = this.getID('SD_account_status').checked
+      this.sale.seller.email = this.getID('SD_email').checked
+      this.sale.seller.phone = this.getID('SD_phone').checked
+      this.sale.seller.civil_status = this.getID('SD_civil_status').value
     },
     setClosingContract: function () {
       this.sale.closingContract.commercial_valuation = this.getID('SCC_commercial_valuation').checked
@@ -582,14 +582,14 @@ export default {
 
   },
   mounted: function () {
-    if (this.empty === true) {
-      this.getExpedientInfo()
-    }
-
     const withExpedient = document.getElementById('internal_expedient_id').value
 
     if (withExpedient !== '') {
       this.empty = false
+    }
+
+    if (this.empty === true) {
+      this.getExpedientInfo()
     }
 
     this.setSellers()

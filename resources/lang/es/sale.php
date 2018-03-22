@@ -30,10 +30,11 @@ return [
       'sellers_deed' => 'Escrituras',
       'sellers_id' => 'ID',
       'sellers_curp' => 'CURP',
+      'sellers_rfc' => 'RFC',
       'sellers_civil_status' => 'Estado civil',
       'sellers_single' => 'Soltero',
       'sellers_married' => 'Casado',
-      'sellers_birth_certificate' => 'Certificado de nacimiento',
+      'sellers_birth_certificate' => 'Acta de nacimiento',
       'sellers_account_status' => 'Estados de cuenta',
 
     'closing_contract' => 'Cierre de contrato',

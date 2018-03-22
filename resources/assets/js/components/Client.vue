@@ -57,11 +57,6 @@
       reference: {
         type: String,
         default: ''
-      },
-      hasClient: {
-        type: Boolean,
-        required: true,
-        default: false
       }
     },
     computed: {

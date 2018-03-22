@@ -12,7 +12,8 @@ let mix = require('laravel-mix')
  */
 
 mix.options({
-  processCssUrls: false
+  processCssUrls: true, // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
+  purifyCss: true // Remove unused CSS selectors.
 })
   .autoload({
     jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'],

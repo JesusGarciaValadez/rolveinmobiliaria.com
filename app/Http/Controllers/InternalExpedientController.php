@@ -78,7 +78,7 @@ class InternalExpedientController extends Controller
     if ( $request->ajax() )
     {
       return response()
-              ->json( [ 'message' => $message ] );
+              ->json(['message' => $message]);
     }
     else
     {
@@ -157,13 +157,13 @@ class InternalExpedientController extends Controller
 
     if ( $request->ajax() )
     {
-      return response()->json( [ 'message' => $message ] );
+      return response()->json(['message' => $message]);
     }
     else
     {
       return redirect(route('internal_expedients'))
               ->withMessage($message)
-              ->withType($type;
+              ->withType($type);
     }
   }
 }

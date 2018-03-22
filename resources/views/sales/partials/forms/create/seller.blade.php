@@ -68,7 +68,7 @@
           :reference="client.reference"
           :has-client="hasClient"
           :empty="empty"
-          v-if="!loading"></Expedient>
+          v-else="!loading"></Expedient>
 
         <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">{{-- SD_deed --}}
           <label
@@ -78,7 +78,7 @@
               name="SD_deed"
               id="SD_deed"
               type="checkbox"
-              v-model="seller.deed"
+              v-model="sale.seller.deed"
               @if (old('SD_deed'))
                 checked
               @endif>@lang('sale.sellers_deed')
@@ -99,7 +99,7 @@
               name="SD_water"
               id="SD_water"
               type="checkbox"
-              v-model="seller.water"
+              v-model="sale.seller.water"
               @if (old('SD_water'))
                 checked
               @endif>@lang('sale.sellers_water')
@@ -120,7 +120,7 @@
               name="SD_predial"
               id="SD_predial"
               type="checkbox"
-              v-model="seller.predial"
+              v-model="sale.seller.predial"
               @if (old('SD_predial'))
                 checked
               @endif>@lang('sale.sellers_predial')
@@ -133,6 +133,27 @@
           @endif
         </div>
 
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_light') ? ' has-error' : ''}}">{{-- SD_light --}}
+          <label
+            for="SD_light"
+            class="checkbox-inline control-label">
+            <input
+              name="SD_light"
+              id="SD_light"
+              type="checkbox"
+              v-model="sale.seller.light"
+              @if (old('SD_light'))
+                checked
+              @endif>@lang('sale.sellers_light')
+          </label>
+
+          @if ($errors->has('SD_light'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_light') }}</strong>
+            </span>
+          @endif
+        </div>
+
         <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_birth_certificate') ? ' has-error' : ''}}">{{-- SD_birth_certificate --}}
           <label
             for="SD_birth_certificate"
@@ -141,7 +162,7 @@
               name="SD_birth_certificate"
               id="SD_birth_certificate"
               type="checkbox"
-              v-model="seller.birth_certificate"
+              v-model="sale.seller.birth_certificate"
               @if (old('SD_birth_certificate'))
                 checked
               @endif>@lang('sale.sellers_birth_certificate')
@@ -162,7 +183,7 @@
               name="SD_ID"
               id="SD_ID"
               type="checkbox"
-              v-model="seller.ID"
+              v-model="sale.seller.ID"
               @if (old('SD_ID'))
                 checked
               @endif>@lang('sale.sellers_id')
@@ -187,7 +208,7 @@
               id="SD_CURP"
               class="form-control"
               type="text"
-              v-model="seller.CURP"
+              v-model="sale.seller.CURP"
               value="{{ old('SD_CURP') }}">
           </div>
 
@@ -210,13 +231,36 @@
               id="SD_RFC"
               class="form-control"
               type="text"
-              v-model="seller.RFC"
+              v-model="sale.seller.RFC"
               value="{{ old('SD_RFC') }}">
           </div>
 
           @if ($errors->has('SD_RFC'))
             <span class="help-block">
               <strong>{{ $errors->first('SD_RFC') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-12 form-group{{ $errors->has('SD_account_status') ? ' has-error' : ''}}">{{-- SD_account_status --}}
+          <label
+            for="SD_account_status"
+            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
+            @lang('sale.sellers_account_status')
+          </label>
+          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
+            <input
+              name="SD_account_status"
+              id="SD_account_status"
+              class="form-control"
+              type="text"
+              v-model="sale.seller.account_status"
+              value="{{ old('SD_account_status') }}">
+          </div>
+
+          @if ($errors->has('SD_account_status'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_account_status') }}</strong>
             </span>
           @endif
         </div>
@@ -229,7 +273,7 @@
               name="SD_email"
               id="SD_email"
               type="checkbox"
-              v-model="seller.email"
+              v-model="sale.seller.email"
               @if (old('SD_email'))
                 checked
               @endif>
@@ -251,7 +295,7 @@
               name="SD_phone"
               id="SD_phone"
               type="checkbox"
-              v-model="seller.phone"
+              v-model="sale.seller.phone"
               @if (old('SD_phone'))
                 checked
               @endif>@lang('shared.phone')
@@ -275,7 +319,7 @@
               id="SD_civil_status"
               autofocus
               required
-              v-model="seller.civil_status">
+              v-model="sale.seller.civil_status">
               <option
                 value=""
                 disabled

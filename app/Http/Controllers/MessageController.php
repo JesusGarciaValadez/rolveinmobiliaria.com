@@ -99,7 +99,7 @@ class MessageController extends Controller
     }
     else
     {
-      if ($messageCreated)
+      if ($type === 'success')
       {
         return redirect('messages')
                 ->withMessage($message)
@@ -226,14 +226,23 @@ class MessageController extends Controller
       {
         return redirect('messages')
                 ->withMessage($message)
-                ->withType($success);
+                ->withType($type);
       }
       else
       {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($success);
+        if ($type === 'success')
+        {
+          return redirect('messages')
+                  ->withMessage($message)
+                  ->withType($type);
+        }
+        else
+        {
+          return redirect()
+                  ->back()
+                  ->withMessage($message)
+                  ->withType($type);
+        }
       }
     }
   }
@@ -263,9 +272,19 @@ class MessageController extends Controller
     }
     else
     {
-      return redirect(route('messages'))
-              ->withMessage($message)
-              ->withType($success);
+      if ($type === 'success')
+      {
+        return redirect('messages')
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else
+      {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 
