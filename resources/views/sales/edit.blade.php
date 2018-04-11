@@ -42,8 +42,13 @@
               @include('sales.partials.forms.edit.contract')
               @include('sales.partials.forms.edit.notary')
               @include('sales.partials.forms.edit.signature')
-              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
-              <h2 v-else=>Este expediente aún no tiene toda la documentación necesaria.</h2>
+
+              <div class="alert alert-success" role="alert" v-if="saleIsComplete">
+                <p><strong>¡Excelente!</strong> Este expediente tiene toda la documentación necesaria.</p>
+              </div>
+              <div class="alert alert-danger" role="alert" v-else="!saleIsComplete">
+                <p><strong>¡Cuidado!</strong> Este expediente aún no tiene toda la documentación necesaria.</p>
+              </div>
             </div>
 
             <div class="panel-footer">

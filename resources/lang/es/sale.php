@@ -28,7 +28,7 @@ return [
       'sellers_light' => 'Recibo de CFE',
       'sellers_water' => 'Recibo de agua',
       'sellers_deed' => 'Escrituras',
-      'sellers_id' => 'ID',
+      'sellers_id' => 'Identificación Oficial',
       'sellers_curp' => 'CURP',
       'sellers_rfc' => 'RFC',
       'sellers_civil_status' => 'Estado civil',

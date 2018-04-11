@@ -15,7 +15,7 @@
           'routeTitle' => __('message.message'),
           'title' => __('message.new_message'),
         ])
-          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
+          <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @messagesButtonCreate
             @endmessagesButtonCreate
           </div>

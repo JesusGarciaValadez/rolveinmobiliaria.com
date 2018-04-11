@@ -17,7 +17,7 @@
         <h4 class="modal-title">@lang('call.new_expedient')</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group{{ $errors->has('expedient_key') ? ' has-error' : ''}}">
+        <div class="form-group{{ $errors->has('expedient_key') ? ' has-error' : '' }}">
           <label
             for="client_id"
             class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient_key'):
@@ -27,7 +27,7 @@
               class="form-control"
               name="expedient_key"
               value="{{ old('expedient_key') }}">
-              <option value="" checked isabled>@lang('shared.choose_an_option')</option>
+              <option value="" checked disabled>@lang('shared.choose_an_option')</option>
               <option value="VNT">VNT</option>
               <option value="RNT">RNT</option>
               <option value="CEX">CEX</option>
@@ -42,7 +42,7 @@
             @endif
           </div>
         </div>
-        <div class="form-group{{ $errors->has('expedient_number') ? ' has-error' : ''}}">
+        <div class="form-group{{ $errors->has('expedient_number') ? ' has-error' : '' }}">
           <label
             for="client_id"
             class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient_number'): </label>
@@ -63,7 +63,7 @@
               @endif
           </div>
         </div>
-        <div class="form-group{{ $errors->has('expedient_year') ? ' has-error' : ''}}">
+        <div class="form-group{{ $errors->has('expedient_year') ? ' has-error' : '' }}">
           <label
             for="client_id"
             class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient_year'): </label>
@@ -85,7 +85,7 @@
               @endif
           </div>
         </div>
-        <div class="form-group{{ $errors->has('expedient_id') ? ' has-error' : ''}}">
+        <div class="form-group{{ $errors->has('client_id') ? ' has-error' : '' }}">
           <label
             for="client_id"
             class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.client'): </label>
@@ -95,6 +95,7 @@
               id="client_id"
               name="client_id"
               autofocus
+              v-model="client.id"
               @change="getClientInfo">
               <option
                 value=""
@@ -118,9 +119,8 @@
           </div>
         </div>
         <div class="form-group">
-          <Spinner v-if="loading"></Spinner>
-          <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="!loading">
-            <Client
+          <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="!loading && !empty">
+            <client
               :name="fullName"
               :phone-one="client.phoneOne"
               :phone-two="client.phoneTwo"
@@ -128,9 +128,9 @@
               :email-one="client.emailOne"
               :email-two="client.emailTwo"
               :reference="client.reference"
-              :has-client="hasClient"
-              :empty="true"></Client>
+              :has-client="hasClient"></client>
           </div>
+          <spinner v-if="loading"></spinner>
         </div>
       </div>
       <div class="modal-footer">

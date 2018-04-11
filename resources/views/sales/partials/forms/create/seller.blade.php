@@ -9,7 +9,7 @@
   <div id="collapseOne" class="panel-collapse collapse in collapse-in" role="tabpanel" aria-labelledby="sellers">
     <div class="panel-body">
       <fieldset>
-        <div class="block clearfix form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">
+        <div class="col-xs-12 form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">{{-- internal_expedient_id --}}
           <label
             for="expedient_id"
             class="col-xs-12 col-sm-12 col-md-2 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
@@ -34,7 +34,9 @@
               @endforeach
             </select>
             <input type="hidden" name="client_id" :value="client.id">
-            <input type="hidden" name="expedient" :value="client.expedient">
+            <input type="hidden" name="expedient_key" :value="client.expedient.key">
+            <input type="hidden" name="expedient_number" :value="client.expedient.number">
+            <input type="hidden" name="expedient_year" :value="client.expedient.year">
 
             @if ($errors->has('internal_expedient_id'))
               <span class="help-block">
@@ -56,9 +58,9 @@
           </p>
         </div>
 
-        <Spinner v-if="loading"></Spinner>
-        <Expedient
-          :expedient="client.expedient"
+        <spinner v-if="loading"></spinner>
+        <expedient
+          :expedient="expedient"
           :name="fullName"
           :phone-one="client.phoneOne"
           :phone-two="client.phoneTwo"
@@ -68,7 +70,7 @@
           :reference="client.reference"
           :has-client="hasClient"
           :empty="empty"
-          v-else="!loading"></Expedient>
+          v-else="!loading && !empty"></expedient>
 
         <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">{{-- SD_deed --}}
           <label
@@ -196,67 +198,19 @@
           @endif
         </div>
 
-        <div class="col-xs-12 form-group{{ $errors->has('SD_CURP') ? ' has-error' : ''}}">{{-- SD_CURP --}}
-          <label
-            for="SD_CURP"
-            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
-            @lang('sale.sellers_curp')
-          </label>
-          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
-            <input
-              name="SD_CURP"
-              id="SD_CURP"
-              class="form-control"
-              type="text"
-              v-model="sale.seller.CURP"
-              value="{{ old('SD_CURP') }}">
-          </div>
-
-          @if ($errors->has('SD_CURP'))
-            <span class="help-block">
-              <strong>{{ $errors->first('SD_CURP') }}</strong>
-            </span>
-          @endif
-        </div>
-
-        <div class="col-xs-12 form-group{{ $errors->has('SD_RFC') ? ' has-error' : ''}}">{{-- SD_RFC --}}
-          <label
-            for="SD_RFC"
-            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
-            @lang('sale.sellers_rfc')
-          </label>
-          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
-            <input
-              name="SD_RFC"
-              id="SD_RFC"
-              class="form-control"
-              type="text"
-              v-model="sale.seller.RFC"
-              value="{{ old('SD_RFC') }}">
-          </div>
-
-          @if ($errors->has('SD_RFC'))
-            <span class="help-block">
-              <strong>{{ $errors->first('SD_RFC') }}</strong>
-            </span>
-          @endif
-        </div>
-
-        <div class="col-xs-12 form-group{{ $errors->has('SD_account_status') ? ' has-error' : ''}}">{{-- SD_account_status --}}
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_account_status') ? ' has-error' : ''}}">{{-- SD_account_status --}}
           <label
             for="SD_account_status"
-            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
-            @lang('sale.sellers_account_status')
-          </label>
-          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
+            class="checkbox-inline control-label">
             <input
               name="SD_account_status"
               id="SD_account_status"
-              class="form-control"
-              type="text"
+              type="checkbox"
               v-model="sale.seller.account_status"
-              value="{{ old('SD_account_status') }}">
-          </div>
+              @if (old('SD_account_status'))
+                checked
+              @endif>@lang('sale.sellers_account_status')
+          </label>
 
           @if ($errors->has('SD_account_status'))
             <span class="help-block">
@@ -308,17 +262,64 @@
           @endif
         </div>
 
-        <div class="form-group{{ $errors->has('SD_civil_status') ? ' has-error' : ''}} col-xs-12 col-sm-12 col-md-12 col-lg-12 clearfix">{{-- SD_civil_status --}}
+        <div class="col-xs-12 form-group{{ $errors->has('SD_CURP') ? ' has-error' : ''}}">{{-- SD_CURP --}}
+          <label
+            for="SD_CURP"
+            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
+            @lang('sale.sellers_curp')
+          </label>
+          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
+            <input
+              name="SD_CURP"
+              id="SD_CURP"
+              class="form-control"
+              type="text"
+              placeholder="CURP"
+              value="{{ old('SD_CURP') }}"
+              v-model="sale.seller.CURP">
+          </div>
+
+          @if ($errors->has('SD_CURP'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_CURP') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-12 form-group{{ $errors->has('SD_RFC') ? ' has-error' : ''}}">{{-- SD_RFC --}}
+          <label
+            for="SD_RFC"
+            class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-1">
+            @lang('sale.sellers_rfc')
+          </label>
+          <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11">
+            <input
+              name="SD_RFC"
+              id="SD_RFC"
+              class="form-control"
+              type="text"
+              placeholder="RFC"
+              value="{{ old('SD_RFC') }}"
+              v-model="sale.seller.RFC">
+          </div>
+
+          @if ($errors->has('SD_RFC'))
+            <span class="help-block">
+              <strong>{{ $errors->first('SD_RFC') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="col-xs-12 form-group{{ $errors->has('SD_civil_status') ? ' has-error' : ''}}">{{-- SD_civil_status --}}
           <label
             for="SD_civil_status"
-            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">@lang('sale.sellers_civil_status'):</label>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            class="col-xs-12 col-sm-12 col-md-2 col-lg-2 control-label">@lang('sale.sellers_civil_status'):</label>
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             <select
               class="form-control"
               name="SD_civil_status"
               id="SD_civil_status"
               autofocus
-              required
               v-model="sale.seller.civil_status">
               <option
                 value=""

@@ -17,7 +17,7 @@
         ])
         @endpanelHeading
 
-        <div class="panel-body table-responsive" id="call-info">
+        <div class="panel-body table-responsive" id="call-info" v-cloak>
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
@@ -132,8 +132,8 @@
               </p>
             </div>
 
-            <Spinner v-if="loading"></Spinner>
-            <Expedient
+            <spinner v-if="loading"></spinner>
+            <expedient
               :expedient="expedient"
               :name="fullName"
               :phone-one="client.phoneOne"
@@ -144,7 +144,7 @@
               :reference="client.reference"
               :has-client="hasClient"
               :empty="empty"
-              v-if="!loading"></Expedient>
+              v-else="!loading && !empty"></expedient>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
               <label

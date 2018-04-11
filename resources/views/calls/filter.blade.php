@@ -15,7 +15,7 @@
           'routeTitle' => __('section.call_tracking'),
           'title' => __('section.call_tracking'),
         ])
-          <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 pull-right text-right">
+          <div class="hidden-xs col-sm-2 col-md-3 col-lg-2 pull-right text-right">
             @callsButtonCreate
             @endcallsButtonCreate
           </div>

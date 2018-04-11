@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\SaleRequest;
+use App\Http\Requests\SaleCreationRequest;
 use App\Events\FileWillUpload;
 
 class SaleController extends Controller
@@ -156,7 +156,7 @@ class SaleController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store (SaleRequest $request)
+  public function store (SaleCreationRequest $request)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 
@@ -176,56 +176,26 @@ class SaleController extends Controller
       $this->_closing_contracts_id = $this->_closingContractCreated->id ? $this->_closingContractCreated->id : null;
     }
 
-    if (empty($contractID) && $this->_contractIsComplete)
-    {
-      $this->_contractCreated = Contract::create($this->_contract);
-      $this->_contracts_id = $this->_contractCreated->id ? $this->_contractCreated->id : null;
-    }
-
-    if (empty($notaryID) && $this->_notaryIsComplete)
-    {
-      $this->_notaryCreated = Notary::create($this->_notary);
-      $this->_notaries_id = $this->_notaryCreated->id ? $this->_notaryCreated->id : null;
-    }
-
-    if (empty($signatureID) && $this->_signatureIsComplete)
-    {
-      $this->_signatureCreated = Signature::create($this->_signature);
-      $this->_signatures_id = $this->_signatureCreated->id ? $this->_signatureCreated->id : null;
-    }
-
     $sale = new Sale([
       'sale_sellers_id' => $this->_sellers_id,
       'sale_closing_contracts_id' => $this->closing_contracts_id,
-      'sale_contracts_id' => $this->contracts_id,
-      'sale_notaries_id' => $this->_notaries_id,
-      'sale_signatures_id' => $this->_signatures_id
+      'sale_contracts_id' => null,
+      'sale_notaries_id' => null,
+      'sale_signatures_id' => null
     ]);
 
     $sale->save();
 
     if (empty($this->_message))
     {
-      $this->_message = (
-        $this->_sellerCreated ||
-        $this->_closingContractCreated ||
-        $this->_contractCreated ||
-        $this->_notaryCreated ||
-        $this->_signatureCreated
-      )
+      $this->_message = ($this->_sellerCreated || $this->_closingContractCreated)
         ? 'La compraventa fue creada.'
         : 'No se pudo crear la compraventa.';
     }
 
     if (empty($this->_type))
     {
-      $this->_type = (
-        $this->_sellerCreated ||
-        $this->_closingContractCreated ||
-        $this->_contractCreated ||
-        $this->_notaryCreated ||
-        $this->_signatureCreated
-      )
+      $this->_type = ($this->_sellerCreated || $this->_closingContractCreated)
         ? 'success'
         : 'danger';
     }
@@ -236,9 +206,19 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect('for_sales')
-              ->withMessage( $this->_message)
-              ->withType($this->_type);
+      if ($type === 'success')
+      {
+        return redirect('for_sales')
+          ->withMessage($this->_message)
+          ->withType($this->_type);
+      }
+      else
+      {
+        return redirect()
+          ->back()
+          ->withMessage($this->_message)
+          ->withType($this->_type);
+      }
     }
   }
 
@@ -561,12 +541,13 @@ class SaleController extends Controller
       'SD_predial' => $SD_predial,
       'SD_light' => $SD_light,
       'SD_birth_certificate' => $SD_birth_certificate,
-      'SD_INE' => $SD_INE,
+      'SD_ID' => $SD_ID,
       'SD_CURP' => $SD_CURP,
+      'SD_RFC' => $SD_RFC,
       'SD_account_status' => $SD_account_status,
       'SD_email' => $SD_email,
       'SD_phone' => $SD_phone,
-      'SD_civil_status' => $SD_civil_status,
+      'SD_civil_status' => $SD_civil_status
       'SD_complete' => $SD_complete
     ];
   }

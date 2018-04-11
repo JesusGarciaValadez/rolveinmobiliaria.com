@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    name: 'client',
     props: {
       name: {
         type: String,

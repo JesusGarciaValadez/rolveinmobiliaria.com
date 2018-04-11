@@ -1,6 +1,8 @@
 import callInfo from './apps/callInfo'
-import salesCreation from './apps/salesCreation'
 import callFilter from './apps/callFilter'
+import salesCreation from './apps/salesCreation'
+import salesEdit from './apps/salesEdit'
+import newExpedient from './components/newExpedient'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -20,22 +22,28 @@ const Vue = window.Vue
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('Spinner', require('./components/Spinner.vue'))
-Vue.component('Expedient', require('./components/Expedient.vue'))
-Vue.component('Client', require('./components/Client.vue'))
-
 const callFilterRoot = document.getElementById('call-filter') || null
 const callInfoRoot = document.getElementById('call-info') || null
-const salesRoot = document.getElementById('purchase-sale') || null
+const salesCreationRoot = document.getElementById('sale-create') || null
+const salesEditRoot = document.getElementById('sale-edit') || null
+const newExpedientRoot = document.getElementById('newExpedient') || null
 
 if (callInfoRoot !== null) {
   const $vmCall = new Vue(callInfo)
 }
 
-if (salesRoot !== null) {
-  const $vmSales = new Vue(salesCreation)
-}
-
 if (callFilterRoot) {
   const $vmCallFilter = new Vue(callFilter)
+}
+
+if (salesCreationRoot !== null) {
+  const $vmSalesCreation = new Vue(salesCreation)
+}
+
+if (salesEditRoot !== null) {
+  const $vmSalesEdit = new Vue(salesEdit)
+}
+
+if (newExpedientRoot !== null) {
+  const $vmNewExpedient = new Vue(newExpedient)
 }

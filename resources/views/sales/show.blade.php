@@ -15,7 +15,7 @@
           'routeTitle' => __(route('dashboard')),
           'title' => __('section.for_sale'),
         ])
-          <div class="hidden-xs col-sm-3 col-md-2 col-lg-2 pull-right text-right">
+          <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @salesButtonCreate
             @endsalesButtonCreate
           </div>

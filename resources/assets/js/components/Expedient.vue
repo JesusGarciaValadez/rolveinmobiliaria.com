@@ -4,7 +4,7 @@
       <p v-show="hasExpedient"><strong>Expediente interno:</strong> {{ expedient }}</p>
     </div>
 
-    <Client
+    <client
       :name="name"
       :phone-one="phoneOne"
       :phone-two="phoneTwo"
@@ -12,13 +12,19 @@
       :email-one="emailOne"
       :email-two="emailTwo"
       :reference="reference"
-      :v-if="hasClient"></Client>
+      v-if="hasClient"></client>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
+  import client from './Client'
+
+  Vue.component('client', client)
+
   export default {
-    template: '#expedient',
+    name: 'expedient',
+    children: ['client'],
     props: {
       expedient: {
         type: String,

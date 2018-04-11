@@ -22,20 +22,17 @@
           @endalert
 
           <form
-            id="purchase-sale"
+            id="sale-create"
             class="form-vertical"
             action="{{ route('store_sale') }}"
             method="post"
             enctype="multipart/form-data"
-            autocapitalize="sentences">
+            autocapitalize="sentences" v-cloak>
             @csrf
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               @include('sales.partials.forms.create.seller')
               @include('sales.partials.forms.create.closing-contract')
-
-              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
-              <h2 v-else="!saleIsComplete">Este expediente aún no tiene toda la documentación necesaria.</h2>
             </div>
 
             <div class="panel-footer">
