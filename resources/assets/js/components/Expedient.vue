@@ -1,10 +1,10 @@
 <template>
-  <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info" v-if="!isEmpty">
+  <div class="clearfix block col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-2 col-md-9 col-lg-offset-2 col-lg-10 alert alert-info" v-if="!isEmpty">
     <div>
       <p v-show="hasExpedient"><strong>Expediente interno:</strong> {{ expedient }}</p>
     </div>
 
-    <Client
+    <client
       :name="name"
       :phone-one="phoneOne"
       :phone-two="phoneTwo"
@@ -12,13 +12,19 @@
       :email-one="emailOne"
       :email-two="emailTwo"
       :reference="reference"
-      :has-client="hasClient"></Client>
+      v-if="hasClient"></client>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
+  import client from './Client'
+
+  Vue.component('client', client)
+
   export default {
-    template: '#expedient',
+    name: 'expedient',
+    children: ['client'],
     props: {
       expedient: {
         type: String,

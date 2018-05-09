@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.for_sale'))
+@section('title', "Nueva | ".__('section.for_sale'))
 
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu
+    @lateralMenu(['uri' => $uri])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -22,23 +22,17 @@
           @endalert
 
           <form
-            id="purchase-sale"
+            id="sale-create"
             class="form-vertical"
             action="{{ route('store_sale') }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            {{ csrf_field() }}
+            @csrf
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              @include('sales.partials.forms.create.documents')
+              @include('sales.partials.forms.create.seller')
               @include('sales.partials.forms.create.closing-contract')
-              @include('sales.partials.forms.create.log-of-visits-and-calls')
-              @include('sales.partials.forms.create.contract')
-              @include('sales.partials.forms.create.notary')
-              @include('sales.partials.forms.create.signature')
-              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
-              <h2 v-else="!saleIsComplete">Este expediente aún no tiene toda la documentación necesaria.</h2>
             </div>
 
             <div class="panel-footer">

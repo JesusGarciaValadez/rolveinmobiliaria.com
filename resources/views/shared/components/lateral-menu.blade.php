@@ -2,7 +2,7 @@
   <div class="list-group text-center">
     <a
       href="{{ route('dashboard') }}"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'dashboard')
+      class="list-group-item{{ (!empty($uri) && $uri == 'dashboard')
         ? ' active'
         : '' }}"
       title="@lang('section.dashboard')"
@@ -13,7 +13,7 @@
   @can('messages.view')
     <a
       href="{{ route('messages') }}"
-      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'messages')
+      class="list-group-item {{ (!empty($uri) && $uri == 'messages')
         ? ' active'
         : '' }}"
       title="@lang('section.messages')"
@@ -27,7 +27,7 @@
   @can('clients.view')
     <a
       href="{{ route('clients') }}"
-      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'clients')
+      class="list-group-item {{ (!empty($uri) && $uri == 'clients')
         ? ' active'
         : '' }}"
       title="@lang('section.clients')"
@@ -41,7 +41,7 @@
   @can('calls.view')
     <a
       href="{{ route('call_trackings') }}"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'call_trackings')
+      class="list-group-item{{ (!empty($uri) && $uri == 'call_trackings')
         ? ' active'
         : '' }}"
       title="@lang('section.call_tracking')"
@@ -55,7 +55,7 @@
   @can('sales.view')
     <a
       href="{{ route('for_sales') }}"
-      class="list-group-item {{ ((isset($uri) && !empty($uri)) && $uri == 'for_sales')
+      class="list-group-item {{ (!empty($uri) && $uri == 'for_sales')
         ? ' active'
         : '' }}"
       title="@lang('section.for_sale')"
@@ -69,7 +69,7 @@
   <!--
     <a
       href="#"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'for_rent')
+      class="list-group-item{{ (!empty($uri) && $uri == 'for_rent')
       ? ' active'
       : '' }}"
       title="@lang('section.rent')"
@@ -81,7 +81,7 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'mortgage_cancellation')
+      class="list-group-item{{ (!empty($uri) && $uri == 'mortgage_cancellation')
       ? 'active'
       : '' }}"
       title="@lang('section.mortgage_cancellation')"
@@ -93,7 +93,7 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'legal')
+      class="list-group-item{{ (!empty($uri) && $uri == 'legal')
       ? 'active'
       : '' }}"
       title="@lang('section.legal')"
@@ -105,7 +105,7 @@
     </a>
     <a
       href="#"
-      class="list-group-item{{ ((isset($uri) && !empty($uri)) && $uri == 'succession')
+      class="list-group-item{{ (!empty($uri) && $uri == 'succession')
       ? 'active'
       : '' }}"
       title="@lang('section.succession')"

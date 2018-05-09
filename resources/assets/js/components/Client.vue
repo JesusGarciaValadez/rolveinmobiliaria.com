@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    name: 'client',
     props: {
       name: {
         type: String,
@@ -57,11 +58,6 @@
       reference: {
         type: String,
         default: ''
-      },
-      hasClient: {
-        type: Boolean,
-        required: true,
-        default: false
       }
     },
     computed: {

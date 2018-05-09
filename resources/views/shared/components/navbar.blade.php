@@ -3,7 +3,7 @@
     @navbarHeader
     @endnavbarHeader
 
-    @navbarCollapse
+    @navbarCollapse['uri' => $uri]
     @endnavbarCollapse
   </div>
 </nav>

@@ -7,7 +7,7 @@ use App\State as State;
 use App\Client;
 use App\InternalExpedient;
 use App\User as User;
-use App\SaleDocument as Document;
+use App\SaleSeller as Seller;
 use App\SaleClosingContract as ClosingContract;
 use App\SaleContract as Contract;
 use App\SaleNotary as Notary;
@@ -20,20 +20,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\SaleRequest;
+use App\Http\Requests\SaleCreationRequest;
 use App\Events\FileWillUpload;
 
 class SaleController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = '';
-  private $_locale = '';
+  private $_uri = 'for_sales';
+  private $_locale;
+
   private $_expedients;
   private $_clients;
   private $_internal_expedient_id;
-  // Documents
-  private $_documents;
+  // Sellers
+  private $_sellers;
   // Closing contract
   private $_closing_contract;
   // Contract
@@ -53,13 +54,13 @@ class SaleController extends Controller
   // File uploaded
   private $_file;
 
-  private $_documents_id;
+  private $_sellers_id;
   private $_closing_contracts_id;
   private $_contracts_id;
   private $_notaries_id;
   private $_signatures_id;
 
-  private $_documentIsEmpty;
+  private $_sellerIsEmpty;
   private $_closingContractIsComplete;
   private $_infonavitContractIsComplete;
   private $_fovisssteContractIsComplete;
@@ -68,8 +69,8 @@ class SaleController extends Controller
   private $_notaryIsComplete;
   private $_signatureIsComplete;
 
-  private $_documentCreated;
-  private $_documentUpdated;
+  private $_sellerCreated;
+  private $_sellerUpdated;
   private $_closingContractCreated;
   private $_closingContractUpdated;
   private $_infonavitContractCreated;
@@ -91,8 +92,6 @@ class SaleController extends Controller
   public function __constructor ()
   {
     $this->_locale = \App::getLocale();
-
-    $this->_uri = 'for_sales';
   }
 
   /**
@@ -104,7 +103,9 @@ class SaleController extends Controller
   {
     $sales = Sale::orderBy('id', 'desc')->paginate(5);
 
-    return view('sales.index', compact('sales', 'uri'));
+    return view('sales.index')
+            ->withSales($sales)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -119,14 +120,17 @@ class SaleController extends Controller
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
-    ) {
+    )
+    {
       $expedients = InternalExpedient::with('client')
                       ->get()
                       ->sortBy('expedient');
       $clients = Client::all()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
-    } else {
+    }
+    else
+    {
       $expedients = InternalExpedient::with('client')
                       ->where('user_id', Auth::id())
                       ->get()
@@ -140,10 +144,10 @@ class SaleController extends Controller
     $states = State::all();
 
     return view('sales.create')
-            ->withUri($this->_uri)
             ->withStates($states)
             ->withExpedients($expedients)
-            ->withClients($clients);
+            ->withClients($clients)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -152,7 +156,7 @@ class SaleController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store (SaleRequest $request)
+  public function store (SaleCreationRequest $request)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 
@@ -160,62 +164,38 @@ class SaleController extends Controller
 
     $this->_determineWhichSectionIsEmpty();
 
-    if (empty($documentID) && $this->_documentIsComplete) {
-      $this->_documentCreated = Document::create($this->_document);
-      $this->_documents_id = $this->_documentCreated->id ? $this->_documentCreated->id : null;
+    if (empty($sellerID) && $this->_sellerIsComplete)
+    {
+      $this->_sellerCreated = Seller::create($this->_seller);
+      $this->_sellers_id = $this->_sellerCreated->id ? $this->_sellerCreated->id : null;
     }
 
-    if (empty($closingContractID) && $this->_closingContractIsComplete) {
+    if (empty($closingContractID) && $this->_closingContractIsComplete)
+    {
       $this->_closingContractCreated = ClosingContract::create($this->_closing_contract);
       $this->_closing_contracts_id = $this->_closingContractCreated->id ? $this->_closingContractCreated->id : null;
     }
 
-    if (empty($contractID) && $this->_contractIsComplete) {
-      $this->_contractCreated = Contract::create($this->_contract);
-      $this->_contracts_id = $this->_contractCreated->id ? $this->_contractCreated->id : null;
-    }
-
-    if (empty($notaryID) && $this->_notaryIsComplete) {
-      $this->_notaryCreated = Notary::create($this->_notary);
-      $this->_notaries_id = $this->_notaryCreated->id ? $this->_notaryCreated->id : null;
-    }
-
-    if (empty($signatureID) && $this->_signatureIsComplete) {
-      $this->_signatureCreated = Signature::create($this->_signature);
-      $this->_signatures_id = $this->_signatureCreated->id ? $this->_signatureCreated->id : null;
-    }
-
     $sale = new Sale([
-      'sale_documents_id' => $this->_documents_id,
+      'sale_sellers_id' => $this->_sellers_id,
       'sale_closing_contracts_id' => $this->closing_contracts_id,
-      'sale_contracts_id' => $this->contracts_id,
-      'sale_notaries_id' => $this->_notaries_id,
-      'sale_signatures_id' => $this->_signatures_id
+      'sale_contracts_id' => null,
+      'sale_notaries_id' => null,
+      'sale_signatures_id' => null
     ]);
 
     $sale->save();
 
     if (empty($this->_message))
     {
-      $this->_message = (
-        $this->_documentCreated ||
-        $this->_closingContractCreated ||
-        $this->_contractCreated ||
-        $this->_notaryCreated ||
-        $this->_signatureCreated
-      )
+      $this->_message = ($this->_sellerCreated || $this->_closingContractCreated)
         ? 'La compraventa fue creada.'
         : 'No se pudo crear la compraventa.';
     }
 
-    if (empty($this->_type)) {
-      $this->_type = (
-        $this->_documentCreated ||
-        $this->_closingContractCreated ||
-        $this->_contractCreated ||
-        $this->_notaryCreated ||
-        $this->_signatureCreated
-      )
+    if (empty($this->_type))
+    {
+      $this->_type = ($this->_sellerCreated || $this->_closingContractCreated)
         ? 'success'
         : 'danger';
     }
@@ -226,9 +206,19 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect('for_sales')
-              ->with('message', $this->_message)
-              ->with('type', $this->_type);
+      if ($type === 'success')
+      {
+        return redirect('for_sales')
+          ->withMessage($this->_message)
+          ->withType($this->_type);
+      }
+      else
+      {
+        return redirect()
+          ->back()
+          ->withMessage($this->_message)
+          ->withType($this->_type);
+      }
     }
   }
 
@@ -242,7 +232,9 @@ class SaleController extends Controller
   {
     $sale = Sale::findOrFail($request->id);
 
-    return view('sales.show', compact('uri', 'sale'));
+    return view('sales.show')
+            ->withSale($sale)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -261,7 +253,11 @@ class SaleController extends Controller
                 ->sortBy('last_name')
                 ->sortBy('first_name');
 
-    return view('sales.edit', compact('this->_uri', 'states', 'sale', 'clients'));
+    return view('sales.edit')
+            ->withStates($states)
+            ->withSale($sale)
+            ->withClients($clients)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -277,7 +273,7 @@ class SaleController extends Controller
 
     $this->_setInitialVariables($request);
 
-    \Debugbar::info($this->_document);
+    \Debugbar::info($this->_seller);
     \Debugbar::info($this->_closing_contract);
     \Debugbar::info($this->_infonavit_contract);
     \Debugbar::info($this->_fovissste_contract);
@@ -288,7 +284,7 @@ class SaleController extends Controller
 
     $this->_determineWhichSectionIsEmpty();
 
-    \Debugbar::info(!$this->_documentIsComplete);
+    \Debugbar::info(!$this->_sellerIsComplete);
     \Debugbar::info(!$this->_closingContractIsComplete);
     \Debugbar::info(!$this->_infonavitContractIsComplete);
     \Debugbar::info(!$this->_fovisssteContractIsComplete);
@@ -298,7 +294,7 @@ class SaleController extends Controller
     \Debugbar::info(!$this->_signatureIsComplete);
 
     $sale = Sale::findOrFail($request->id);
-    $documentID = $sale->document->id ? $sale->document->id : null;
+    $sellerID = $sale->seller->id ? $sale->seller->id : null;
     $closingContractID = $sale->closing_contract->id ? $sale->closing_contract->id : null;
     $infonavitContractID = (!empty($sale->contract) && !empty($sale->contract->infonavit_contract))
                             ? $sale->contract->infonavit_contract->id
@@ -313,17 +309,19 @@ class SaleController extends Controller
     $notaryID = $sale->notary->id ? $sale->notary->id : null;
     $signatureID = $sale->signature->id ? $sale->signature->id : null;
 
-    if (empty($documentID) && $this->_documentIsComplete) {
-      $this->_documentCreated = Document::create($this->_document);
-      $sale->sale_documents_id = $this->_documentCreated->id;
+    if (empty($sellerID) && $this->_sellerIsComplete)
+    {
+      $this->_sellerCreated = Seller::create($this->_seller);
+      $sale->sale_sellers_id = $this->_sellerCreated->id;
       $sale->save();
     }
-    elseif (!$this->_documentIsComplete)
+    elseif (!$this->_sellerIsComplete)
     {
-      $this->_documentUpdated = Document::where('id', $documentID)->update($this->_document);
+      $this->_sellerUpdated = Seller::where('id', $sellerID)->update($this->_seller);
     }
 
-    if (empty($closingContractID) && $this->_closingContractIsComplete) {
+    if (empty($closingContractID) && $this->_closingContractIsComplete)
+    {
       $this->_closingContractCreated = ClosingContract::create($this->_closing_contract);
       $sale->closing_contracts_id = $this->_closingContractCreated->id;
       $sale->save();
@@ -334,7 +332,8 @@ class SaleController extends Controller
                                         ->update($this->_closing_contract);
     }
 
-    if (empty($contractID) && $this->_contractIsComplete) {
+    if (empty($contractID) && $this->_contractIsComplete)
+    {
       $this->_contractCreated = Contract::create($this->_contract);
       $sale->contracts_id = $this->_contractCreated->id;
       $sale->save();
@@ -344,7 +343,8 @@ class SaleController extends Controller
       $this->_contractUpdated = Contract::where('id', $contractID)->update($this->_contract);
     }
 
-    if (empty($notaryID) && $this->_notaryIsComplete) {
+    if (empty($notaryID) && $this->_notaryIsComplete)
+    {
       $this->_notaryCreated = Notary::create($this->_notary);
       $sale->sale_notaries_id = $this->_notaryCreated->id;
       $sale->save();
@@ -354,7 +354,8 @@ class SaleController extends Controller
       $this->_notaryUpdated = Notary::where('id', $notaryID)->update($this->_notary);
     }
 
-    if (empty($signatureID) && $this->_signatureIsComplete) {
+    if (empty($signatureID) && $this->_signatureIsComplete)
+    {
       $this->_signatureCreated = Signature::create($this->_signature);
       $sale->sale_signatures_id = $this->_signatureCreated->id;
       $sale->save();
@@ -367,8 +368,8 @@ class SaleController extends Controller
     if (empty($this->_message))
     {
       $this->_message = (
-        $this->_documentCreated ||
-        $this->_documentUpdated ||
+        $this->_sellerCreated ||
+        $this->_sellerUpdated ||
         $this->_closingContractCreated ||
         $this->_closingContractUpdated ||
         $this->_contractCreated ||
@@ -384,8 +385,8 @@ class SaleController extends Controller
 
     if (empty($this->_type)) {
       $this->_type = (
-        $this->_documentCreated ||
-        $this->_documentUpdated ||
+        $this->_sellerCreated ||
+        $this->_sellerUpdated ||
         $this->_closingContractCreated ||
         $this->_closingContractUpdated ||
         $this->_contractCreated ||
@@ -407,8 +408,8 @@ class SaleController extends Controller
     {
       return redirect()
               ->back()
-              ->with('message', $this->_message)
-              ->with('type', $this->_type);
+              ->withMessage($this->_message)
+              ->withType($this->_type);
     }
   }
 
@@ -434,8 +435,8 @@ class SaleController extends Controller
     else
     {
       return redirect(route('for_sales'))
-              ->with( 'message', $message )
-              ->with( 'type', 'success' );
+              ->withMessage($message)
+              ->withType($type);
     }
   }
 
@@ -446,14 +447,17 @@ class SaleController extends Controller
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
-    ) {
+    )
+    {
       $this->_expedients = InternalExpedient::with('client')
                       ->get()
                       ->sortBy('expedient');
       $$this->_clients = Client::all()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
-    } else {
+    }
+    else
+    {
       $this->_expedients = InternalExpedient::with('client')
                       ->where('user_id', Auth::id())
                       ->get()
@@ -466,7 +470,7 @@ class SaleController extends Controller
 
     $this->_user_id = User::with('role')->find(Auth::id());
     $this->_internal_expedient_id = $request->internal_expedient_id;
-    $this->_document = $this->_setDocumentVariables($request);
+    $this->_seller = $this->_setSellerVariables($request);
     $this->_closing_contract = $this->_setClosingContractVariables($request);
     $this->_infonavit_contract = $this->_setInfonavitContractVariables($request);
     $this->_fovissste_contract = $this->_setFovisssteContractVariables($request);
@@ -476,53 +480,53 @@ class SaleController extends Controller
     $this->_signature = $this->_setSignatureVariables($request);
   }
 
-  private function _setDocumentVariables (Request $request)
+  private function _setSellerVariables (Request $request)
   {
-    $SD_predial = !empty($request->SD_predial)
-                    ? $this->_date
-                    : null;
-    $SD_light = !empty($request->SD_light)
-                  ? $this->_date
-                  : null;
-    $SD_water = !empty($request->SD_water)
-                  ? $this->_date
-                  : null;
     $SD_deed = !empty($request->SD_deed)
-                  ? $this->_date
-                  : null;
-    $SD_generals_sheet = !empty($request->SD_generals_sheet)
-                            ? $this->_date
-                            : null;
-    $SD_INE = !empty($request->SD_INE)
-                ? $this->_date
-                : null;
-    $SD_CURP = !empty($request->SD_CURP)
-                  ? $this->_date
-                  : null;
+      ? $this->_date
+      : null;
+    $SD_water = !empty($request->SD_water)
+      ? $this->_date
+      : null;
+    $SD_predial = !empty($request->SD_predial)
+      ? $this->_date
+      : null;
+    $SD_light = !empty($request->SD_light)
+      ? $this->_date
+      : null;
     $SD_birth_certificate = !empty($request->SD_birth_certificate)
-                              ? $this->_date
-                              : null;
+      ? $this->_date
+      : null;
+    $SD_ID = !empty($request->SD_ID)
+      ? $this->_date
+      : null;
+    $SD_CURP = !empty($request->SD_CURP)
+      ? $request->SD_CURP
+      : null;
+    $SD_RFC = !empty($request->SD_RFC)
+      ? $request->SD_RFC
+      : null;
     $SD_account_status = !empty($request->SD_account_status)
-                            ? $this->_date
-                            : null;
+      ? $this->_date
+      : null;
     $SD_email = !empty($request->SD_email)
-                    ? $this->_date
-                    : null;
+      ? $this->_date
+      : null;
     $SD_phone = !empty($request->SD_phone)
-                    ? $this->_date
-                    : null;
+      ? $this->_date
+      : null;
     $SD_civil_status = !empty($request->SD_civil_status)
-                          ? $request->SD_civil_status
-                          : null;
+      ? $request->SD_civil_status
+      : null;
     $SD_complete = (
+      $SD_deed &&
+      $SD_water &&
       $SD_predial &&
       $SD_light &&
-      $SD_water &&
-      $SD_deed &&
-      $SD_generals_sheet &&
-      $SD_INE &&
-      $SD_CURP &&
       $SD_birth_certificate &&
+      $SD_ID &&
+      $SD_CURP &&
+      $SD_RFC &&
       $SD_account_status &&
       $SD_email &&
       $SD_phone &&
@@ -532,18 +536,18 @@ class SaleController extends Controller
       : '0';
 
     return [
+      'SD_deed' => $SD_deed,
+      'SD_water' => $SD_water,
       'SD_predial' => $SD_predial,
       'SD_light' => $SD_light,
-      'SD_water' => $SD_water,
-      'SD_deed' => $SD_deed,
-      'SD_generals_sheet' => $SD_generals_sheet,
-      'SD_INE' => $SD_INE,
-      'SD_CURP' => $SD_CURP,
       'SD_birth_certificate' => $SD_birth_certificate,
+      'SD_ID' => $SD_ID,
+      'SD_CURP' => $SD_CURP,
+      'SD_RFC' => $SD_RFC,
       'SD_account_status' => $SD_account_status,
       'SD_email' => $SD_email,
       'SD_phone' => $SD_phone,
-      'SD_civil_status' => $SD_civil_status,
+      'SD_civil_status' => $SD_civil_status
       'SD_complete' => $SD_complete
     ];
   }
@@ -941,7 +945,7 @@ class SaleController extends Controller
 
   private function _determineWhichSectionIsEmpty()
   {
-    $this->_documentIsComplete = !$this->_documentIsEmpty();
+    $this->_sellerIsComplete = !$this->_sellerIsEmpty();
     $this->_closingContractIsComplete = !$this->_closingContractIsEmpty();
     $this->_infonavitContractIsComplete = !$this->_infonavitContractIsEmpty();
     $this->_fovisssteContractIsComplete = !$this->_fovisssteContractIsEmpty();
@@ -951,21 +955,21 @@ class SaleController extends Controller
     $this->_signatureIsComplete = !$this->_signatureIsEmpty();
   }
 
-  private function _documentIsEmpty ()
+  private function _sellerIsEmpty ()
   {
     return (
-      empty($this->_document['SD_predial']) &&
-      empty($this->_document['SD_light']) &&
-      empty($this->_document['SD_water']) &&
-      empty($this->_document['SD_deed']) &&
-      empty($this->_document['SD_generals_sheet']) &&
-      empty($this->_document['SD_INE']) &&
-      empty($this->_document['SD_CURP']) &&
-      empty($this->_document['SD_birth_certificate']) &&
-      empty($this->_document['SD_account_status']) &&
-      empty($this->_document['SD_email']) &&
-      empty($this->_document['SD_phone']) &&
-      empty($this->_document['SD_civil_status'])
+      empty($this->_seller['SD_deed']) &&
+      empty($this->_seller['SD_water']) &&
+      empty($this->_seller['SD_predial']) &&
+      empty($this->_seller['SD_light']) &&
+      empty($this->_seller['SD_birth_certificate']) &&
+      empty($this->_seller['SD_ID']) &&
+      empty($this->_seller['SD_CURP']) &&
+      empty($this->_seller['SD_RFC']) &&
+      empty($this->_seller['SD_account_status']) &&
+      empty($this->_seller['SD_email']) &&
+      empty($this->_seller['SD_phone']) &&
+      empty($this->_seller['SD_civil_status'])
     );
   }
 

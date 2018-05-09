@@ -18,13 +18,12 @@ class ClientController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_locale = '';
-  private $_uri = '';
+  private $_uri = 'clients';
+  private $_locale;
 
   public function __constructor()
   {
     $this->_locale = \App::getLocale();
-    $this->_uri = 'clients';
   }
 
   /**
@@ -38,7 +37,9 @@ class ClientController extends Controller
       ->orderBy('last_name', 'asc')
       ->paginate(5);
 
-    return view('clients.index', compact('clients', 'this->_uri'));
+    return view('clients.index')
+            ->withClients($clients)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -51,7 +52,9 @@ class ClientController extends Controller
     $clients = Client::all()
       ->sortBy('last_name');
 
-    return view('clients.create', compact('this->_uri', 'clients'));
+    return view('clients.create')
+            ->withClients($clients)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -75,7 +78,8 @@ class ClientController extends Controller
                     ->get()
                     ->count();
 
-    if ($isRepeated !== 0) {
+    if ($isRepeated !== 0)
+    {
       return redirect()
               ->back()
               ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
@@ -98,10 +102,18 @@ class ClientController extends Controller
     }
     else
     {
-      return redirect()
-              ->back()
-              ->with('message', $message)
-              ->with('type', 'success');
+      if ($type === 'success')
+      {
+        return redirect(route('clients'))
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 
@@ -121,7 +133,9 @@ class ClientController extends Controller
     }
     else
     {
-      return view('clients.show', compact('client'));
+      return view('clients.show')
+              ->withClient($client)
+              ->withUri($this->_uri);
     }
   }
 
@@ -135,7 +149,9 @@ class ClientController extends Controller
   {
     $client = Client::findOrFail($request->id);
 
-    return view('clients.edit', compact('client'));
+    return view('clients.edit')
+            ->withClient($client)
+            ->withUri($this->_uri);
   }
 
   /**
@@ -163,8 +179,6 @@ class ClientController extends Controller
               ? 'success'
               : 'danger';
 
-    logger($request->ajax());
-
     if ( $request->ajax() )
     {
       return response()->json( [ 'message' => $message ] );
@@ -174,15 +188,15 @@ class ClientController extends Controller
       if ($updated)
       {
         return redirect('clients')
-                ->with( 'message', $message )
-                ->with( 'type', $type );
+                ->withMessage($message)
+                ->withType($type);
       }
       else
       {
         return redirect()
                 ->back()
-                ->with( 'message', $message )
-                ->with( 'type', $type );
+                ->withMessage($message)
+                ->withType($type);
       }
     }
   }
@@ -203,13 +217,23 @@ class ClientController extends Controller
 
     if ( $request->ajax() )
     {
-      return response()->json( [ 'message' => $message ] );
+      return response()->json(['message' => $message]);
     }
     else
     {
-      return redirect(route('clients'))
-              ->with( 'message', $message )
-              ->with( 'type', 'success' );
+      if ($type === 'success')
+      {
+        return redirect(route('clients'))
+                ->withMessage($message)
+                ->withType($type);
+      }
+      else
+      {
+        return redirect()
+                ->back()
+                ->withMessage($message)
+                ->withType($type);
+      }
     }
   }
 
@@ -251,11 +275,14 @@ class ClientController extends Controller
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
-    ) {
+    )
+    {
       $clients = Client::where($request->filter_by, 'like', $value)
                 ->orderBy('id', 'desc')
                 ->paginate(5);
-    } else {
+    }
+    else
+    {
       $clients = Client::where($request->filter_by, 'like', $value)
                 ->where('user_id', '=', $currentUser->id)
                 ->orderBy('id', 'desc')
@@ -280,10 +307,11 @@ class ClientController extends Controller
     }
     else
     {
-      return view('clients.filter')->with('clients', $clients)
-                                 ->with('uri', $this->_uri)
-                                 ->with('message', $message)
-                                 ->with('type', $type);
+      return view('clients.filter')
+              ->withClients($clients)
+              ->withMessage($message)
+              ->withType($type)
+              ->withUri($this->_uri);
     }
   }
 }

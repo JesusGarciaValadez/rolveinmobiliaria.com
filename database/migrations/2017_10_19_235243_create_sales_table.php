@@ -23,12 +23,12 @@ class CreateSalesTable extends Migration
             ->on('internal_expedients')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_documents_id')
+      $table->integer('sale_sellers_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_documents_id')
+      $table->foreign('sale_sellers_id')
             ->references('id')
-            ->on('sale_documents')
+            ->on('sale_sellers')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('sale_closing_contracts_id')
@@ -86,8 +86,8 @@ class CreateSalesTable extends Migration
     Schema::table('sales', function (Blueprint $table) {
       $table->dropForeign('sales_internal_expedients_id_foreign')
             ->dropColumn('internal_expedients_id');
-      $table->dropForeign('sales_sale_documents_id_foreign')
-            ->dropColumn('sale_documents_id');
+      $table->dropForeign('sales_sale_sellers_id_foreign')
+            ->dropColumn('sale_sellers_id');
       $table->dropForeign('sales_sale_closing_contracts_id_foreign')
             ->dropColumn('sale_closing_contracts_id');
       $table->dropForeign('sales_sale_logs_id_foreign')

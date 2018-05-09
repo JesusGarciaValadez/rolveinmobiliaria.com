@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Sale::class, function (Faker $faker) {
   $internal_expedients_id = factory(App\InternalExpedient::class)->create()->id;
 
-  $sale_documents_id = factory(App\SaleDocument::class)->create()->id;
+  $sale_sellers_id = factory(App\SaleSeller::class)->create()->id;
 
   $sale_closing_contracts_id = (empty($sale_documents_id))
     ? null
@@ -39,7 +39,7 @@ $factory->define(App\Sale::class, function (Faker $faker) {
 
   return [
     'internal_expedients_id' => $internal_expedients_id,
-    'sale_documents_id' => $sale_documents_id,
+    'sale_sellers_id' => $sale_sellers_id,
     'sale_closing_contracts_id' => $sale_closing_contracts_id,
     'sale_contracts_id' => $sale_contracts_id,
     'sale_notaries_id' => $sale_notaries_id,

@@ -78,14 +78,14 @@ class InternalExpedientController extends Controller
     if ( $request->ajax() )
     {
       return response()
-              ->json( [ 'message' => $message ] );
+              ->json(['message' => $message]);
     }
     else
     {
       return redirect()
-        ->back()
-        ->with( 'message', $message )
-        ->with( 'type', 'success' );
+              ->back()
+              ->withMessage($message)
+              ->withType($type);
     }
   }
 
@@ -157,13 +157,13 @@ class InternalExpedientController extends Controller
 
     if ( $request->ajax() )
     {
-      return response()->json( [ 'message' => $message ] );
+      return response()->json(['message' => $message]);
     }
     else
     {
       return redirect(route('internal_expedients'))
-              ->with( 'message', $message )
-              ->with( 'type', 'success' );
+              ->withMessage($message)
+              ->withType($type);
     }
   }
 }

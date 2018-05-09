@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu
+    @lateralMenu(['uri' => $uri])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -36,14 +36,19 @@
               @csrf
               @method('PUT')
 
-              @include('sales.partials.forms.edit.documents')
+              @include('sales.partials.forms.edit.seller')
               @include('sales.partials.forms.edit.closing-contract')
               @include('sales.partials.forms.edit.log-of-visits-and-calls')
               @include('sales.partials.forms.edit.contract')
               @include('sales.partials.forms.edit.notary')
               @include('sales.partials.forms.edit.signature')
-              <h2 v-if="saleIsComplete">Este expediente tiene toda la documentación necesaria.</h2>
-              <h2 v-else=>Este expediente aún no tiene toda la documentación necesaria.</h2>
+
+              <div class="alert alert-success" role="alert" v-if="saleIsComplete">
+                <p><strong>¡Excelente!</strong> Este expediente tiene toda la documentación necesaria.</p>
+              </div>
+              <div class="alert alert-danger" role="alert" v-else="!saleIsComplete">
+                <p><strong>¡Cuidado!</strong> Este expediente aún no tiene toda la documentación necesaria.</p>
+              </div>
             </div>
 
             <div class="panel-footer">

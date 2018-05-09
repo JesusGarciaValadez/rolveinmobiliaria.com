@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu
+    @lateralMenu(['uri' => $uri])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -15,11 +15,11 @@
           'routeTitle' => __('section.call_tracking')
         ])
           @slot('title')
-            @lang('shared.edit') @lang('message.message')
+            @lang('shared.edit') @lang('call.call')
           @endslot
         @endpanelHeading
 
-        <div class="panel-body table-responsive" id="call-info">
+        <div class="panel-body table-responsive" id="call-info" v-cloak>
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
@@ -117,8 +117,10 @@
                           : ''}}>{{ $expedient->expedient }}</option>
                   @endforeach
                 </select>
-                <input type="hidden" name="client_id" :value="clientId">
-                <input type="hidden" name="expedient" :value="clientExpedient">
+                <input type="hidden" name="client_id" :value="client.id">
+                <input type="hidden" name="expedient_key" :value="client.expedient.key">
+                <input type="hidden" name="expedient_number" :value="client.expedient.number">
+                <input type="hidden" name="expedient_year" :value="client.expedient.year">
 
                 @if ($errors->has('internal_expedient_id'))
                   <span class="help-block">
@@ -140,20 +142,19 @@
               </p>
             </div>
 
-            <Spinner v-if="loading" v-cloak></Spinner>
-            <Expedient
-              :expedient="clientExpedient"
+            <spinner v-if="loading"></spinner>
+            <expedient
+              :expedient="expedient"
               :name="fullName"
-              :phone-one="clientPhoneOne"
-              :phone-two="clientPhoneTwo"
-              :business="clientBusiness"
-              :email-one="clientEmailOne"
-              :email-two="clientEmailTwo"
-              :reference="clientReference"
+              :phone-one="client.phoneOne"
+              :phone-two="client.phoneTwo"
+              :business="client.business"
+              :email-one="client.emailOne"
+              :email-two="client.emailTwo"
+              :reference="client.reference"
               :has-client="hasClient"
               :empty="empty"
-              v-if="!loading"
-              v-cloak></Expedient>
+              v-if="!loading && !empty"></expedient>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
               <label
@@ -166,7 +167,8 @@
                   name="address"
                   value="{{ old('address') ? old('address') : $call->address }}"
                   placeholder="@lang('call.property_address')"
-                  autocorrect="on">
+                  autocorrect="on"
+                  autocomplete="street-address">
 
                   @if ($errors->has('address'))
                     <span class="help-block">
@@ -184,7 +186,8 @@
                 <select
                   class="form-control"
                   name="state_id"
-                  id="state_id">
+                  id="state_id"
+                  autocomplete="address-level1">
                   <option
                     value=""
                     disabled
