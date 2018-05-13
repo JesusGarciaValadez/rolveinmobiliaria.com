@@ -18,12 +18,13 @@ mix.options({
   .autoload({
     jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'],
     vue: ['vue', 'window.Vue', 'Vue'],
+    vuex: ['vuex'],
     axios: ['axios', 'window.axios'],
     lodash: ['lodash', 'window._']
   })
   .js('resources/assets/js/app.js', 'public/js')
   // .sass('resources/assets/sass/app.scss', 'public/css')
-  .extract(['lodash', 'jquery', 'axios', 'vue'])
+  .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
   .browserSync('http://local.rolveinmobiliaria.com/')
 
