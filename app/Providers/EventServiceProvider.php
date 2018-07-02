@@ -17,7 +17,10 @@ class EventServiceProvider extends ServiceProvider
       'App\Listeners\MessageCreatedListener',
     ],
     'App\Events\MessageDeletedEvent' => [
-      'App\Listeners\MessageDeletedEvent',
+      'App\Listeners\MessageDeletedListener',
+    ],
+    'App\Events\SaleCreatedEvent' => [
+      'App\Listeners\SaleCreatedListener',
     ],
   ];
 
