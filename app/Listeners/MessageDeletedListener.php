@@ -5,9 +5,23 @@ namespace App\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MessageDeletedListener
+class MessageDeletedListener implements ShouldQueue
 {
   use InteractsWithQueue;
+
+  /**
+   * The name of the connection the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $connection = 'redis';
+
+  /**
+   * The name of the queue the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $queue = 'listeners';
 
   /**
    * Create the event listener.

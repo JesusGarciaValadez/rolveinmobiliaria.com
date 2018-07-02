@@ -8,9 +8,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Illuminate\Support\Facades\Storage;
 
-class FileUploader
+class FileUploader implements ShouldQueue
 {
+  use InteractsWithQueue;
+  
   private $_storagePath = "public/data_sheets/";
+
+  /**
+   * The name of the connection the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $connection = 'redis';
+
+  /**
+   * The name of the queue the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $queue = 'listeners';
 
   /**
    * Create the event listener.

@@ -9,9 +9,23 @@ use Illuminate\Support\Facades\Mail;
 use App\Events\MessageCreatedEvent;
 use App\Mail\MessageCreated;
 
-class MessageCreatedListener
+class MessageCreatedListener implements ShouldQueue
 {
   use InteractsWithQueue;
+
+  /**
+   * The name of the connection the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $connection = 'redis';
+
+  /**
+   * The name of the queue the job should be sent to.
+   *
+   * @var string|null
+   */
+  public $queue = 'listeners';
 
   /**
    * Create the event listener.
