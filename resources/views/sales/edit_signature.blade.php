@@ -24,7 +24,7 @@
           @endalert
 
           <form
-            id="purchase-sale"
+            id="edit__signature"
             class="form-vertical"
             action="{{ route('update_sale', [
               'id' => request('id')
@@ -32,31 +32,17 @@
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              @csrf
-              @method('PUT')
+            @csrf
+            @method('PUT')
 
-              @include('sales.partials.forms.edit.seller')
-              @include('sales.partials.forms.edit.closing-contract')
-              @include('sales.partials.forms.edit.log-of-visits-and-calls')
-              @include('sales.partials.forms.edit.contract')
-              @include('sales.partials.forms.edit.notary')
-              @include('sales.partials.forms.edit.signature')
-
-              <div class="alert alert-success" role="alert" v-if="saleIsComplete">
-                <p><strong>¡Excelente!</strong> Este expediente tiene toda la documentación necesaria.</p>
-              </div>
-              <div class="alert alert-danger" role="alert" v-else="!saleIsComplete">
-                <p><strong>¡Cuidado!</strong> Este expediente aún no tiene toda la documentación necesaria.</p>
-              </div>
-            </div>
+            @include('sales.partials.forms.edit.signature')
 
             <div class="panel-footer">
               <div class="form-inline">
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack
+                @salesButtonBack(['back' => route('for_sales')])
                 @endsalesButtonBack
               </div>
             </div>

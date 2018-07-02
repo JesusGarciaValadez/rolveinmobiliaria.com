@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nueva | ".__('section.for_sale'))
+@section('title', "Editar | ".__('section.for_sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -13,8 +13,10 @@
         @panelHeading( [
           'route' => route('dashboard'),
           'routeTitle' => __('section.sales'),
-          'title' => __('sale.new_sale'),
         ])
+          @slot('title')
+            @lang('shared.edit') @lang('sale.sale')
+          @endslot
         @endpanelHeading
 
         <div class="panel-body table-responsive">
@@ -22,18 +24,18 @@
           @endalert
 
           <form
-            id="sale-create"
+            id="edit__contract"
             class="form-vertical"
-            action="{{ route('store_sale') }}"
+            action="{{ route('update_sale', [
+              'id' => request('id')
+            ]) }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
             @csrf
+            @method('PUT')
 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              @include('sales.partials.forms.create.seller')
-              @include('sales.partials.forms.create.closing-contract')
-            </div>
+            @include('sales.partials.forms.edit.log-of-visits-and-calls')
 
             <div class="panel-footer">
               <div class="form-inline">
