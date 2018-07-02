@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaleCreationRequest extends FormRequest
+class SaleSellerRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class SaleCreationRequest extends FormRequest
   public function rules()
   {
     return [
-      "internal_expedient_id" => 'required|string',
+      'internal_expedient_id' => 'required|string',
       // Documents
       'SD_deed' => 'nullable|string',
       'SD_water' => 'nullable|string',
@@ -46,14 +46,6 @@ class SaleCreationRequest extends FormRequest
         ]),
       ],
       'SD_complete' => 'nullable|string'
-
-      // Closing contract
-      "SCC_commercial_valuation" => 'sometimes|nullable|string',
-      "SCC_exclusivity_contract" => 'sometimes|nullable|string',
-      "SCC_publication" => 'sometimes|nullable|string',
-      "SCC_data_sheet" => "sometimes|nullable|file",
-      "SCC_data_sheet_exists" => "sometimes|nullable|string",
-      "SCC_closing_contract_observations" => 'sometimes|nullable|string',
     ];
   }
 }
