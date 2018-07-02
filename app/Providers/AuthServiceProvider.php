@@ -8,6 +8,7 @@ use App\Policies\CallPolicy;
 use App\Policies\SalePolicy;
 use App\Policies\ClientPolicy;
 use App\Policies\MessagePolicy;
+use App\Policies\SaleSellerPolicy;
 
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
@@ -26,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
       App\Client::class => App\Policies\ClientPolicy::class,
       App\Call::class => App\Policies\CallPolicy::class,
       App\Sale::class => App\Policies\SalePolicy::class,
+      App\SaleSeller::class => App\Policies\SaleSellerPolicy::class,
     ];
 
     /**
@@ -48,5 +50,7 @@ class AuthServiceProvider extends ServiceProvider
       Gate::resource('calls', 'App\Policies\CallPolicy');
 
       Gate::resource('sales', 'App\Policies\SalePolicy');
+
+      Gate::resource('sale_sellers', 'App\Policies\SaleSellerPolicy');
     }
 }
