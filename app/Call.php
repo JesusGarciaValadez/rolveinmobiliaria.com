@@ -78,17 +78,17 @@ class Call extends Model
 
   public function user()
   {
-    return $this->belongsTo('App\User');
+    return $this->belongsTo('App\User', 'user_id');
   }
 
   public function state()
   {
-    return $this->belongsTo('App\State');
+    return $this->belongsTo('App\State', 'state_id');
   }
 
   public function internal_expedient()
   {
-    return $this->belongsTo('App\InternalExpedient');
+    return $this->belongsTo('App\InternalExpedient', 'internal_expedient_id');
   }
 
   public function getCreatedAttribute()

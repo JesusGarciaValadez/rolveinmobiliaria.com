@@ -53,12 +53,12 @@ class User extends Authenticatable
 
   public function role()
   {
-    return $this->belongsTo('App\Role');
+    return $this->belongsTo('App\Role', 'role_id');
   }
 
   public function call()
   {
-    return $this->belongsToMany('App\Call');
+    return $this->belongsToMany('App\Call', 'user_id');
   }
 
   public function isSuperAdmin()

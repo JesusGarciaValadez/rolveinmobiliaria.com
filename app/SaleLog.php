@@ -60,6 +60,6 @@ class SaleLog extends Model
 
   public function sale()
   {
-    return $this->hasMany('App\Sale', 'id');
+    return $this->hasMany('App\Sale', 'sales_id');
   }
 }

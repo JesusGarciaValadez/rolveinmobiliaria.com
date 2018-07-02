@@ -70,16 +70,16 @@ class SaleContract extends Model
 
   public function infonavit_contract()
   {
-    return $this->belongsTo('App\InfonavitContract', 'id');
+    return $this->belongsTo('App\InfonavitContract', 'SC_infonavit_contracts_id');
   }
 
   public function fovissste_contract()
   {
-    return $this->belongsTo('App\FovisssteContract', 'id');
+    return $this->belongsTo('App\FovisssteContract', 'SC_fovissste_contracts_id');
   }
 
   public function cofinavit_contract()
   {
-    return $this->belongsTo('App\CofinavitContract', 'id');
+    return $this->belongsTo('App\CofinavitContract', 'SC_cofinavit_contracts_id');
   }
 }
