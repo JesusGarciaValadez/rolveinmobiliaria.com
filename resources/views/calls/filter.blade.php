@@ -28,7 +28,7 @@
           @callsFilter
           @endcallsFilter
 
-          @if (count($clients) < 1)
+          @if (count($calls) < 1)
             @blankSlate([
               'message' => __('call.no_results')
             ])

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <form class="panel-heading form-horizontal clearfix" role="search" action="{{ route('filter_call') }}" method="get">
-    {{ csrf_field() }}
+    @csrf
     <div class="form-group{{ $errors->has('date') ? ' has-error' : ''}}">
       <label for="date" class="form-label col-xs-12 col-sm-2 col-md-2 col-lg-1">Filtrar por: </label>
 

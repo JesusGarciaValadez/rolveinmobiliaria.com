@@ -17,7 +17,7 @@
         ])
         @endpanelHeading
 
-        <div class="panel-body table-responsive" id="call-info" v-cloak>
+        <div class="panel-body table-responsive" id="call__info" v-cloak>
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
