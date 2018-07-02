@@ -8,6 +8,7 @@ use App\Client;
 use App\InternalExpedient;
 use App\User as User;
 use App\SaleSeller as Seller;
+use App\SaleLog as Log;
 use App\SaleClosingContract as ClosingContract;
 use App\SaleContract as Contract;
 use App\SaleNotary as Notary;
@@ -20,7 +21,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\SaleCreationRequest;
+use App\Http\Requests\SaleSellerRequest;
+
+/**
+ * Events
+ */
+use App\Events\SaleCreatedEvent;
 use App\Events\FileWillUpload;
 
 class SaleController extends Controller
@@ -35,57 +41,11 @@ class SaleController extends Controller
   private $_internal_expedient_id;
   // Sellers
   private $_sellers;
-  // Closing contract
-  private $_closing_contract;
-  // Contract
-  private $_contract;
-  // Infonavit contract
-  private $_infonavit_contract;
-  // Fovisste contract
-  private $_fovissste_contract;
-  // Cofinavit contract
-  private $_cofinavit_contract;
-  // Notary
-  private $_notary;
-  // Signature
-  private $_signature;
   //Date
   private $_date;
   // File uploaded
   private $_file;
-
   private $_sellers_id;
-  private $_closing_contracts_id;
-  private $_contracts_id;
-  private $_notaries_id;
-  private $_signatures_id;
-
-  private $_sellerIsEmpty;
-  private $_closingContractIsComplete;
-  private $_infonavitContractIsComplete;
-  private $_fovisssteContractIsComplete;
-  private $_cofinavitContractIsComplete;
-  private $_contractIsComplete;
-  private $_notaryIsComplete;
-  private $_signatureIsComplete;
-
-  private $_sellerCreated;
-  private $_sellerUpdated;
-  private $_closingContractCreated;
-  private $_closingContractUpdated;
-  private $_infonavitContractCreated;
-  private $_infonavitContractUpdated;
-  private $_fovisssteContractCreated;
-  private $_fovisssteContractUpdated;
-  private $_cofinavitContractCreated;
-  private $_cofinavitContractUpdated;
-  private $_contractCreated;
-  private $_contractUpdated;
-  private $_notaryCreated;
-  private $_notaryUpdated;
-  private $_signatureCreated;
-  private $_signatureUpdated;
-
   private $_message;
   private $_type;
 
@@ -143,7 +103,7 @@ class SaleController extends Controller
 
     $states = State::all();
 
-    return view('sales.create')
+    return view('sales.create_seller')
             ->withStates($states)
             ->withExpedients($expedients)
             ->withClients($clients)
@@ -156,35 +116,91 @@ class SaleController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store (SaleCreationRequest $request)
+  public function store (SaleSellerRequest $request)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 
-    $this->_setInitialVariables($request);
+    $this->_user_id = User::with('role')->find(Auth::id())->id;
+    $this->_internal_expedient_id = $request->internal_expedient_id;
+    $this->_seller = $this->_setSellerVariables($request);
 
-    $this->_determineWhichSectionIsEmpty();
+    // Creation of seller information
+    $this->_sellerCreated = Seller::create($this->_seller);
+    $this->_sellers_id = $this->_sellerCreated
+                          ? $this->_sellerCreated->id
+                          : null;
 
-    if (empty($sellerID) && $this->_sellerIsComplete)
-    {
-      $this->_sellerCreated = Seller::create($this->_seller);
-      $this->_sellers_id = $this->_sellerCreated->id ? $this->_sellerCreated->id : null;
-    }
+    // Creation of closing contract in null
+    $closingContractCreatedID = ClosingContract::create([
+      'SCC_commercial_valuation' => null,
+      'SCC_exclusivity_contract' => null,
+      'SCC_publication' => null,
+      'SCC_data_sheet' => null,
+      'SCC_closing_contract_observations' => null,
+      'SCC_complete' => false,
+    ]);
+    $closingContractId = $closingContractCreatedID
+                          ? $closingContractCreatedID->id
+                          : null;
 
-    if (empty($closingContractID) && $this->_closingContractIsComplete)
-    {
-      $this->_closingContractCreated = ClosingContract::create($this->_closing_contract);
-      $this->_closing_contracts_id = $this->_closingContractCreated->id ? $this->_closingContractCreated->id : null;
-    }
+    // Creation of contract in null
+    $contractCreatedID = Contract::create([
+      'SC_general_buyer' => null,
+      'SC_purchase_agreements' => null,
+      'SC_tax_assessment' => null,
+      'SC_notary_checklist' => null,
+      'SC_notary_file' => null,
+      'SC_mortgage_credit' => null,
+      'SC_mortgage_broker' => null,
+      'SC_contract_with_the_broker' => null,
+      'SC_complete' => false,
+    ]);
+    $contractId = $contractCreatedID
+                    ? $contractCreatedID->id
+                    : null;
+
+    // Creation of notary in null
+    $notaryCreatedID = Notary::create([
+      'SN_federal_entity' => null,
+      'SN_notaries_office' => null,
+      'SN_freedom_of_lien_certificate' => null,
+      'SN_zoning' => null,
+      'SN_water_no_due_constants' => null,
+      'SN_non_debit_proof_of_property' => null,
+      'SN_certificate_of_improvement' => null,
+      'SN_key_and_cadastral_value' => null,
+      'SN_complete' => false,
+    ]);
+    $notaryId = $notaryCreatedID
+                  ? $notaryCreatedID->id
+                  : null;
+
+    // Creation of notary in null
+    $signatureCreatedID = Signature::create([
+      'SS_writing_review' => null,
+      'SS_scheduled_date_of_writing_signature' => null,
+      'SS_scheduled_payment_date' => null,
+      'SS_payment_made' => null,
+      'SS_complete' => false,
+    ]);
+    $signatureId = $signatureCreatedID
+                  ? $signatureCreatedID->id
+                  : null;
 
     $sale = new Sale([
+      'internal_expedients_id' => $this->_internal_expedient_id,
       'sale_sellers_id' => $this->_sellers_id,
-      'sale_closing_contracts_id' => $this->closing_contracts_id,
-      'sale_contracts_id' => null,
-      'sale_notaries_id' => null,
-      'sale_signatures_id' => null
+      'sale_closing_contracts_id' => $closingContractId,
+      'sale_contracts_id' => $contractId,
+      'sale_notaries_id' => $notaryId,
+      'sale_signatures_id' => $signatureId,
+      'user_id' => $this->_user_id
     ]);
 
-    $sale->save();
+    $saleSaved = $sale->save();
+
+    $message = $saleSaved ? 'Compraventa añadida' : 'No se pudo añadir la compraventa.';
+    $type = $saleSaved ? 'success' : 'danger';
 
     if (empty($this->_message))
     {
@@ -208,6 +224,8 @@ class SaleController extends Controller
     {
       if ($type === 'success')
       {
+        event(new SaleCreatedEvent($sale));
+
         return redirect('for_sales')
           ->withMessage($this->_message)
           ->withType($this->_type);
@@ -252,6 +270,7 @@ class SaleController extends Controller
     $clients = Client::all()
                 ->sortBy('last_name')
                 ->sortBy('first_name');
+
 
     return view('sales.edit')
             ->withStates($states)
@@ -440,46 +459,6 @@ class SaleController extends Controller
     }
   }
 
-  private function _setInitialVariables(Request $request)
-  {
-    $currentUser = User::with('role')->find(Auth::id());
-
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    )
-    {
-      $this->_expedients = InternalExpedient::with('client')
-                      ->get()
-                      ->sortBy('expedient');
-      $$this->_clients = Client::all()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
-    }
-    else
-    {
-      $this->_expedients = InternalExpedient::with('client')
-                      ->where('user_id', Auth::id())
-                      ->get()
-                      ->sortBy('expedient');
-      $this->_clients = Client::where('user_id', Auth::id())
-                  ->get()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
-    }
-
-    $this->_user_id = User::with('role')->find(Auth::id());
-    $this->_internal_expedient_id = $request->internal_expedient_id;
-    $this->_seller = $this->_setSellerVariables($request);
-    $this->_closing_contract = $this->_setClosingContractVariables($request);
-    $this->_infonavit_contract = $this->_setInfonavitContractVariables($request);
-    $this->_fovissste_contract = $this->_setFovisssteContractVariables($request);
-    $this->_cofinavit_contract = $this->_setCofinavitContractVariables($request);
-    $this->_contract = $this->_setContractVariables($request);
-    $this->_notary = $this->_setNotaryVariables($request);
-    $this->_signature = $this->_setSignatureVariables($request);
-  }
-
   private function _setSellerVariables (Request $request)
   {
     $SD_deed = !empty($request->SD_deed)
@@ -532,8 +511,8 @@ class SaleController extends Controller
       $SD_phone &&
       $SD_civil_status
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'SD_deed' => $SD_deed,
@@ -547,7 +526,7 @@ class SaleController extends Controller
       'SD_account_status' => $SD_account_status,
       'SD_email' => $SD_email,
       'SD_phone' => $SD_phone,
-      'SD_civil_status' => $SD_civil_status
+      'SD_civil_status' => $SD_civil_status,
       'SD_complete' => $SD_complete
     ];
   }
@@ -597,8 +576,8 @@ class SaleController extends Controller
       $SCC_data_sheet &&
       $SCC_closing_contract_observations
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'SCC_commercial_valuation' => $SCC_commercial_valuation,
@@ -644,8 +623,8 @@ class SaleController extends Controller
       $SC_notary_file &&
       $SC_mortgage_credit
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'SC_general_buyer' => $SC_general_buyer,
@@ -725,8 +704,8 @@ class SaleController extends Controller
       $IC_credit_maturity &&
       $IC_type
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'IC_certified_birth_certificate' => $IC_certified_birth_certificate,
@@ -785,8 +764,8 @@ class SaleController extends Controller
       $FC_education_course &&
       $FC_last_pay_stub
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'FC_credit_simulator' => $FC_credit_simulator,
@@ -850,8 +829,8 @@ class SaleController extends Controller
       $CC_scripture_copy &&
       $CC_type
     )
-      ? '1'
-      : '0';
+      ? true
+      : false;
 
     return [
       'CC_request_for_credit_inspection' => $CC_request_for_credit_inspection,
@@ -897,8 +876,8 @@ class SaleController extends Controller
                                       ? $this->_date
                                       : null;
     $SN_complete = ($SN_federal_entity && $SN_notaries_office && $SN_freedom_of_lien_certificate && $SN_zoning && $SN_water_no_due_constants && $SN_non_debit_proof_of_property && $SN_certificate_of_improvement && $SN_key_and_cadastral_value)
-                    ? '1'
-                    : '0';
+                    ? true
+                    : false;
 
     return [
       'SN_federal_entity' => $SN_federal_entity,
@@ -931,8 +910,8 @@ class SaleController extends Controller
                           ? $this->_date
                           : null;
     $SS_complete = ($SS_writing_review && $SS_scheduled_date_of_writing_signature && $SS_writing_signature && $SS_scheduled_payment_date && $SS_payment_made)
-                    ? '1'
-                    : '0';
+                    ? true
+                    : false;
     return [
       'SS_writing_review' => $SS_writing_review,
       'SS_scheduled_date_of_writing_signature' => $SS_scheduled_date_of_writing_signature,
@@ -941,139 +920,5 @@ class SaleController extends Controller
       'SS_payment_made' => $SS_payment_made,
       'SS_complete' => $SS_complete
     ];
-  }
-
-  private function _determineWhichSectionIsEmpty()
-  {
-    $this->_sellerIsComplete = !$this->_sellerIsEmpty();
-    $this->_closingContractIsComplete = !$this->_closingContractIsEmpty();
-    $this->_infonavitContractIsComplete = !$this->_infonavitContractIsEmpty();
-    $this->_fovisssteContractIsComplete = !$this->_fovisssteContractIsEmpty();
-    $this->_cofinavitContractIsComplete = !$this->_cofinavitContractIsEmpty();
-    $this->_contractIsComplete = !$this->_contractIsEmpty();
-    $this->_notaryIsComplete = !$this->_notaryIsEmpty();
-    $this->_signatureIsComplete = !$this->_signatureIsEmpty();
-  }
-
-  private function _sellerIsEmpty ()
-  {
-    return (
-      empty($this->_seller['SD_deed']) &&
-      empty($this->_seller['SD_water']) &&
-      empty($this->_seller['SD_predial']) &&
-      empty($this->_seller['SD_light']) &&
-      empty($this->_seller['SD_birth_certificate']) &&
-      empty($this->_seller['SD_ID']) &&
-      empty($this->_seller['SD_CURP']) &&
-      empty($this->_seller['SD_RFC']) &&
-      empty($this->_seller['SD_account_status']) &&
-      empty($this->_seller['SD_email']) &&
-      empty($this->_seller['SD_phone']) &&
-      empty($this->_seller['SD_civil_status'])
-    );
-  }
-
-  private function _closingContractIsEmpty ()
-  {
-    return (
-      empty($this->_closing_contract['SCC_commercial_valuation']) &&
-      empty($this->_closing_contract['SCC_exclusivity_contract']) &&
-      empty($this->_closing_contract['SCC_publication']) &&
-      empty($this->_closing_contract['SCC_data_sheet']) &&
-      empty($this->_closing_contract['SCC_closing_contract_observations'])
-    );
-  }
-
-  private function _contractIsEmpty ()
-  {
-    return (
-      empty($this->_contract['SC_general_buyer']) &&
-      empty($this->_contract['SC_purchase_agreements']) &&
-      empty($this->_contract['SC_tax_assessment']) &&
-      empty($this->_contract['SC_notary_checklist']) &&
-      empty($this->_contract['SC_notary_file']) &&
-      empty($this->_contract['SC_mortgage_credit']) &&
-      empty($this->_contract['SC_mortgage_broker']) &&
-      empty($this->_contract['SC_contract_with_the_broker'])
-    );
-  }
-
-  private function _infonavitContractIsEmpty ()
-  {
-    return (
-      empty($this->_infonavit_contract['IC_certified_birth_certificate']) &&
-      empty($this->_infonavit_contract['IC_official_ID']) &&
-      empty($this->_infonavit_contract['IC_curp']) &&
-      empty($this->_infonavit_contract['IC_rfc']) &&
-      empty($this->_infonavit_contract['IC_credit_simulator']) &&
-      empty($this->_infonavit_contract['IC_credit_application']) &&
-      empty($this->_infonavit_contract['IC_tax_valuation']) &&
-      empty($this->_infonavit_contract['IC_bank_statement']) &&
-      empty($this->_infonavit_contract['IC_workshop_knowing_how_to_decide']) &&
-      empty($this->_infonavit_contract['IC_retention_sheet']) &&
-      empty($this->_infonavit_contract['IC_credit_activation']) &&
-      empty($this->_infonavit_contract['IC_credit_maturity']) &&
-      empty($this->_infonavit_contract['IC_type']) &&
-      empty($this->_infonavit_contract['IC_spouses_birth_certificate']) &&
-      empty($this->_infonavit_contract['IC_official_identification_of_the_spouse']) &&
-      empty($this->_infonavit_contract['IC_marriage_certificate'])
-    );
-  }
-
-  private function _fovisssteContractIsEmpty ()
-  {
-    return (
-      empty($this->_fovissste_contract['FC_credit_simulator']) &&
-      empty($this->_fovissste_contract['FC_curp']) &&
-      empty($this->_fovissste_contract['FC_birth_certificate']) &&
-      empty($this->_fovissste_contract['FC_bank_statement']) &&
-      empty($this->_fovissste_contract['FC_single_key_housing_payment']) &&
-      empty($this->_fovissste_contract['FC_general_buyers_and_sellers']) &&
-      empty($this->_fovissste_contract['FC_education_course']) &&
-      empty($this->_fovissste_contract['FC_last_pay_stub'])
-    );
-  }
-
-  private function _cofinavitContractIsEmpty ()
-  {
-    return (
-      empty($this->_cofinavit_contract['CC_request_for_credit_inspection']) &&
-      empty($this->_cofinavit_contract['CC_birth_certificate']) &&
-      empty($this->_cofinavit_contract['CC_official_id']) &&
-      empty($this->_cofinavit_contract['CC_curp']) &&
-      empty($this->_cofinavit_contract['CC_rfc']) &&
-      empty($this->_cofinavit_contract['CC_bank_statement_seller']) &&
-      empty($this->_cofinavit_contract['CC_tax_valuation']) &&
-      empty($this->_cofinavit_contract['CC_scripture_copy']) &&
-      empty($this->_cofinavit_contract['CC_type']) &&
-      empty($this->_cofinavit_contract['CC_birth_certificate_of_the_spouse']) &&
-      empty($this->_cofinavit_contract['CC_official_identification_of_the_spouse']) &&
-      empty($this->_cofinavit_contract['CC_marriage_certificate'])
-    );
-  }
-
-  private function _notaryIsEmpty ()
-  {
-    return (
-      empty($this->_notary['SN_federal_entity']) &&
-      empty($this->_notary['SN_notaries_office']) &&
-      empty($this->_notary['SN_freedom_of_lien_certificate']) &&
-      empty($this->_notary['SN_zoning']) &&
-      empty($this->_notary['SN_water_no_due_constants']) &&
-      empty($this->_notary['SN_non_debit_proof_of_property']) &&
-      empty($this->_notary['SN_certificate_of_improvement']) &&
-      empty($this->_notary['SN_key_and_cadastral_value'])
-    );
-  }
-
-  private function _signatureIsEmpty ()
-  {
-     return (
-      empty($this->_signature['SS_writing_review']) &&
-      empty($this->_signature['SS_scheduled_date_of_writing_signature']) &&
-      empty($this->_signature['SS_writing_signature']) &&
-      empty($this->_signature['SS_scheduled_payment_date']) &&
-      empty($this->_signature['SS_payment_made'])
-    );
   }
 }
