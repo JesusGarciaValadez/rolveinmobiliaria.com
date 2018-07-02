@@ -64,6 +64,6 @@ class InfonavitContract extends Model
 
   public function contract ()
   {
-    return $this->hasOne('App\SaleContract', 'id');
+    return $this->hasOne('App\SaleContract', 'sale_contracts_id');
   }
 }
