@@ -7,7 +7,7 @@ Vue.component('spinner', spinner)
 Vue.component('client', client)
 
 export default {
-  el: '#newExpedient',
+  el: '#new__expedient',
   data: {
     client: {
       id: '',

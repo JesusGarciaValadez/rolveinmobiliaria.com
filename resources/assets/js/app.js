@@ -1,7 +1,7 @@
 import callInfo from './apps/callInfo'
-import callFilter from './apps/callFilter'
-import salesCreation from './apps/salesCreation'
-import salesEdit from './apps/salesEdit'
+import clientFilter from './apps/clientFilter'
+import createSeller from './apps/createSeller'
+import editSeller from './apps/editSeller'
 import newExpedient from './components/newExpedient'
 
 /**
@@ -22,26 +22,26 @@ const Vue = window.Vue
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const callFilterRoot = document.getElementById('call-filter') || null
-const callInfoRoot = document.getElementById('call-info') || null
-const salesCreationRoot = document.getElementById('sale-create') || null
-const salesEditRoot = document.getElementById('sale-edit') || null
-const newExpedientRoot = document.getElementById('newExpedient') || null
+const clientFilterRoot = document.getElementById('client__filter') || null
+const callInfoRoot = document.getElementById('call__info') || null
+const createSellerRoot = document.getElementById('create__seller') || null
+const editSellerRoot = document.getElementById('edit__seller') || null
+const newExpedientRoot = document.getElementById('new__expedient') || null
 
 if (callInfoRoot !== null) {
   const $vmCall = new Vue(callInfo)
 }
 
-if (callFilterRoot) {
-  const $vmCallFilter = new Vue(callFilter)
+if (clientFilterRoot) {
+  const $vmClientFilter = new Vue(clientFilter)
 }
 
-if (salesCreationRoot !== null) {
-  const $vmSalesCreation = new Vue(salesCreation)
+if (createSellerRoot !== null) {
+  const $vmCreateSeller = new Vue(createSeller)
 }
 
-if (salesEditRoot !== null) {
-  const $vmSalesEdit = new Vue(salesEdit)
+if (editSellerRoot !== null) {
+  const $vmCreateEdit = new Vue(editSeller)
 }
 
 if (newExpedientRoot !== null) {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  el: '#call-info',
+  el: '#call__info',
   data: {
     client: {
       id: '',
