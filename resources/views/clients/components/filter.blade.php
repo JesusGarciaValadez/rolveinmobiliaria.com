@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <form
-    id="call-filter"
+    id="client__filter"
     class="panel-heading form-horizontal clearfix"
     role="search"
     action="{{ route('filter_client') }}"
