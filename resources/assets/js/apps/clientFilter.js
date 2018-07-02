@@ -1,5 +1,5 @@
 export default {
-  el: '#call-filter',
+  el: '#client__filter',
   data: {
     filter: '',
     first_name: '',
