@@ -3,7 +3,7 @@
   tabindex="-1"
   role="dialog"
   aria-labelledby="makeANewExpedient"
-  id="newExpedient">
+  id="new__expedient">
   <div class="modal-dialog modal-lg" role="document">
     <form
       class="form-horizontal modal-content"
