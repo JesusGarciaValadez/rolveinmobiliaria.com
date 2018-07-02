@@ -11,7 +11,17 @@ class ClientPolicy
 {
   use HandlesAuthorization;
 
-  public function before(User $user)
+  /**
+   * Create a new policy instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    //
+  }
+
+  public function before($user, $ability)
   {
     return (
       $user->hasRole('Super Administrador') ||

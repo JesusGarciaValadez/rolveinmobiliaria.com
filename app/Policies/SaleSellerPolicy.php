@@ -3,11 +3,9 @@
 namespace App\Policies;
 
 use App\User;
-use App\Sale;
-
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SalePolicy
+class SaleSellerPolicy
 {
   use HandlesAuthorization;
 
@@ -18,7 +16,7 @@ class SalePolicy
    */
   public function __construct()
   {
-    //
+      //
   }
 
   public function before($user, $ability)
@@ -71,10 +69,10 @@ class SalePolicy
    * Determine whether the user can update the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\Sale  $sale
+   * @param  \App\SaleSeller  $saleSeller
    * @return mixed
    */
-  public function update(User $user, $sale)
+  public function update(User $user, SaleSeller $saleSeller)
   {
     return (
       $user->hasRole('Super Administrador') ||
@@ -89,10 +87,10 @@ class SalePolicy
    * Determine whether the user can delete the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\Sale  $sale
+   * @param  \App\SaleSeller  $saleSeller
    * @return mixed
    */
-  public function delete(User $user, $sale)
+  public function delete(User $user, SaleSeller $saleSeller)
   {
     return (
       $user->hasRole('Super Administrador') ||
