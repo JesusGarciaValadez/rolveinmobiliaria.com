@@ -165,6 +165,71 @@ Route::prefix('/for_sales')->middleware('auth')->group(function ()
   Route::delete('/destroy/{id}', 'SaleController@destroy')
        ->name('destroy_sale')
        ->middleware('can:sales.delete, sale');
+
+  Route::prefix('/{id}/edit_seller')->group(function ()
+  {
+    Route::get('/{seller_id}', 'SaleSellerController@edit')
+         ->name('edit_seller')
+         ->middleware('can:sale_sellers.view, sale_sellers');
+    Route::put('/{seller_id}', 'SaleSellerController@update')
+         ->name('edit_seller')
+         ->middleware('can:sale_sellers.update, sale_sellers');
+  });
+
+  Route::prefix('/{id}/edit_closing_contract')->group(function ()
+  {
+    Route::get('/{closing_contract_id}', 'SaleClosingContractController@edit')
+         ->name('edit_closing_contract')
+         ->middleware('can:closing_contract.view, sale_closing_contracts');
+
+    Route::put('/{closing_contract_id}', 'SaleClosingContractController@update')
+         ->name('edit_closing_contract')
+         ->middleware('can:closing_contract.edit, sale_closing_contracts');
+  });
+
+  Route::prefix('/{id}/edit_log')->group(function ()
+  {
+    Route::get('/{log_id}', 'SaleLogController@edit')
+         ->name('edit_log')
+         ->middleware('can:edit_log.view, sale_logs');
+
+    Route::put('/{log_id}', 'SaleLogController@update')
+         ->name('edit_log')
+         ->middleware('can:edit_log.edit, sale_logs');
+  });
+
+  Route::prefix('/{id}/edit_contract')->group(function ()
+  {
+    Route::get('/{contract_id}', 'SaleContractController@edit')
+         ->name('edit_contract')
+         ->middleware('can:contract.view, sale_contracts');
+
+    Route::put('/{contract_id}', 'SaleContractController@update')
+         ->name('edit_contract')
+         ->middleware('can:contract.edit, sale_contracts');
+  });
+
+  Route::prefix('/{id}/edit_notary')->group(function ()
+  {
+    Route::get('/{notary_id}', 'SaleNotaryController@edit')
+         ->name('edit_notary')
+         ->middleware('can:edit_notary.view, sale_notaries');
+
+    Route::put('/{notary_id}', 'SaleNotaryController@update')
+         ->name('edit_notary')
+         ->middleware('can:edit_notary.edit, sale_notaries');
+  });
+
+  Route::prefix('/{id}/edit_signature')->group(function ()
+  {
+    Route::get('/{signature_id}', 'SaleSignatureController@edit')
+         ->name('edit_signature')
+         ->middleware('can:edit_signature.view, sale_signatures');
+
+    Route::put('/{signature_id}', 'SaleSignatureController@update')
+         ->name('edit_signature')
+         ->middleware('can:edit_signature.edit, sale_signatures');
+  });
 });
 
 Route::prefix('/internal_expedients')->middleware('auth')->group(function ()
@@ -182,5 +247,11 @@ Route::prefix('/mailable')->middleware('auth')->group(function ()
     $messageCreated = App\Message::find(1);
 
     return new App\Mail\MessageCreated($messageCreated);
+  });
+
+  Route::get('/sale_created', function () {
+    $saleCreated = App\Sale::find(1);
+
+    return new App\Mail\SaleCreated($saleCreated);
   });
 });
