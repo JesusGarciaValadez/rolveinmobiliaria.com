@@ -2,7 +2,7 @@
   <form
     class="panel-heading form-horizontal clearfix"
     role="search"
-    action="{{ route('filter_message') }}"
+    action="{{ route('message.filter') }}"
     method="get">
     @csrf
 

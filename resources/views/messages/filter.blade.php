@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading( [
-          'route' => route('messages'),
+          'route' => route('messages.index'),
           'routeTitle' => __('message.messages'),
           'title' => __('message.messages'),
         ])

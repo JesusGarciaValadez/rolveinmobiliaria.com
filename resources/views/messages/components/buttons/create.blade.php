@@ -1,5 +1,5 @@
 <a
-  href="{{ route('create_message') }}"
+  href="{{ route('message.create') }}"
   title="@lang('message.new_message')"
   class="btn btn-primary"
   role="button">

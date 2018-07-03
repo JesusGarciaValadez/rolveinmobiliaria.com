@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading( [
-          'route' => route('messages'),
+          'route' => route('messages.index'),
           'routeTitle' => __('section.messages'),
         ])
           @slot('title')
@@ -25,7 +25,7 @@
 
           <form
             class="form-horizontal"
-            action="{{ route('update_message', ['id' => request('id')]) }}"
+            action="{{ route('message.update', ['id' => request('id')]) }}"
             method="post">
             @csrf
             @method('PUT')

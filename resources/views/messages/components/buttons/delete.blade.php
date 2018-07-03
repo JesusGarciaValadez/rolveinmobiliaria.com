@@ -1,5 +1,5 @@
 @can('messages.delete', $message)
-  <form class="form-inline" action="{{ route('destroy_message', ['id' => $message->id]) }}" method="post" class="text-center">
+  <form class="form-inline" action="{{ route('message.destroy', ['id' => $message->id]) }}" method="post" class="text-center">
     @csrf
     @method('DELETE')
 
