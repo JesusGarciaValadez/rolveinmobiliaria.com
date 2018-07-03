@@ -114,7 +114,7 @@
                       value="{{ $expedient->id }}"
                       {{ (old('internal_expedient_id') === $expedient->id || $call->internal_expedient->id === $expedient->id)
                           ? 'selected'
-                          : ''}}>{{ $expedient->expedient }}</option>
+                          : ''}}>{{ $expedient->expedient }} - {{ $expedient->client->full_name }}</option>
                   @endforeach
                 </select>
                 <input type="hidden" name="client_id" :value="client.id">
