@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            @messagesButtonBack(['back' => route('messages')])
+            @messagesButtonBack(['back' => route('message.index')])
             @endmessagesButtonBack
           </div>
         </div>
