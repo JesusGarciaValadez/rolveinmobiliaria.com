@@ -62,12 +62,12 @@ class SaleSellerController extends Controller
   }
 
   /**
-   * Show the form for editing the specified resource.
+   * Display the specified resource.
    *
-   * @param  \App\Sale  $sale
+   * @param  \App\SaleSeller  $saleSeller
    * @return \Illuminate\Http\Response
    */
-  public function edit (Request $request)
+  public function show (Request $request)
   {
     $currentUser = User::with('role')->find(Auth::id());
 
@@ -215,7 +215,7 @@ class SaleSellerController extends Controller
       {
         // event(new SaleCreatedEvent($sale));
 
-        return redirect('for_sales')
+        return redirect(route('for_sale.index'))
           ->withMessage($this->_message)
           ->withType($this->_type);
       }

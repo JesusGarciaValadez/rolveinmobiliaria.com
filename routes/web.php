@@ -176,7 +176,7 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
          ->middleware('can:sale_sellers.update, sale_sellers');
   });
 
-  Route::prefix('/{id}/edit_closing_contract')->name('cloclosing_contract.')->group(function ()
+  Route::prefix('/{id}/edit_closing_contract')->name('closing_contract.')->group(function ()
   {
     Route::get('/{closing_contract_id}', 'SaleClosingContractController@show')
          ->name('show')

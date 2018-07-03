@@ -136,7 +136,7 @@ class CallController extends Controller
     {
       if ($updated)
       {
-        return redirect('call_trackings')
+        return redirect(route('call_tracking.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -277,7 +277,7 @@ class CallController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect('call_trackings')
+        return redirect(route('call_tracking.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -318,7 +318,7 @@ class CallController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect(route('call_trackings'))
+        return redirect(route('call_tracking.index'))
                 ->withMessage($message)
                 ->withType($type);
       }

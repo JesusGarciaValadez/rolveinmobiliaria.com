@@ -226,7 +226,7 @@ class SaleController extends Controller
       {
         event(new SaleCreatedEvent($sale));
 
-        return redirect('for_sales')
+        return redirect(route('for_sale.index'))
           ->withMessage($this->_message)
           ->withType($this->_type);
       }
@@ -453,7 +453,7 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect(route('for_sales'))
+      return redirect(route('for_sale.index'))
               ->withMessage($message)
               ->withType($type);
     }

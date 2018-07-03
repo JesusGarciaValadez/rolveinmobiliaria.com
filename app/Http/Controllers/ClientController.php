@@ -104,7 +104,7 @@ class ClientController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect(route('clients'))
+        return redirect(route('client.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -187,7 +187,7 @@ class ClientController extends Controller
     {
       if ($updated)
       {
-        return redirect('clients')
+        return redirect(route('client.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -223,7 +223,7 @@ class ClientController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect(route('clients'))
+        return redirect(route('client.index'))
                 ->withMessage($message)
                 ->withType($type);
       }

@@ -101,7 +101,7 @@ class MessageController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect('messages')
+        return redirect(route('message.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -224,7 +224,7 @@ class MessageController extends Controller
     {
       if ($updated)
       {
-        return redirect('messages')
+        return redirect(route('message.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -232,7 +232,7 @@ class MessageController extends Controller
       {
         if ($type === 'success')
         {
-          return redirect('messages')
+          return redirect(route('message.index'))
                   ->withMessage($message)
                   ->withType($type);
         }
@@ -274,7 +274,7 @@ class MessageController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect('messages')
+        return redirect(route('message.index'))
                 ->withMessage($message)
                 ->withType($type);
       }

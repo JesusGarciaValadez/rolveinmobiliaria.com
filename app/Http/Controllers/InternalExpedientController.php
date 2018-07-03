@@ -161,7 +161,7 @@ class InternalExpedientController extends Controller
     }
     else
     {
-      return redirect(route('internal_expedients'))
+      return redirect(route('internal_expedient.index'))
               ->withMessage($message)
               ->withType($type);
     }
