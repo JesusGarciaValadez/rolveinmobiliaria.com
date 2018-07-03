@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading( [
-          'route' => route('call_trackings'),
+          'route' => route('call_tracking.index'),
           'routeTitle' => __('section.call_tracking'),
           'title' => __('section.call_tracking'),
         ])

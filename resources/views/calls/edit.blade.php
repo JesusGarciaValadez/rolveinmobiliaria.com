@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading([
-          'route' => route('call_trackings.index'),
+          'route' => route('call_tracking.index'),
           'routeTitle' => __('section.call_tracking')
         ])
           @slot('title')
@@ -25,7 +25,7 @@
 
           <form
             class="form-horizontal"
-            action="{{ route('call.update', ['id' => request('id')]) }}"
+            action="{{ route('call_tracking.update', ['id' => request('id')]) }}"
             method="post">
             @csrf
             @method('PUT')
