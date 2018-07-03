@@ -21,7 +21,7 @@
           </div>
         @endpanelHeading
 
-        <div class="panel-body table-responsive">
+        <div class="panel-body">
           @alert(['type' => session('type'), 'message' => session('message')])
           @endalert
 
@@ -33,10 +33,10 @@
               @endsalesButtonCreate
             @endblankSlate
           @else
-            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
               {{ $sales->links() }}
 
-              <table class="table table-bordered table-striped table-condensed">
+              <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                   <tr>
                     @include('sales.partials.table-header')

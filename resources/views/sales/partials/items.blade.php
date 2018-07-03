@@ -1,5 +1,5 @@
                 <tr>
-                  <td class="text-center">{{-- Internal Expedient --}}
+                  <td class="text-center active">{{-- Internal Expedient --}}
                     <a
                       href="{{ route('show_sale', $sale->internal_expedient->id) }}"
                       target="_self"
@@ -8,7 +8,7 @@
                       {{ $sale->internal_expedient->expedient }}
                     </a>
                   </td>
-                  <td class="text-center">{{-- Client --}}
+                  <td class="text-center active">{{-- Client --}}
                     {{ $sale->internal_expedient->client->full_name }}
                   </td>
                   <td class="text-center">{{-- Documents --}}
@@ -17,7 +17,7 @@
                         'id' => $sale->id,
                         'seller_id' => $sale->seller->id
                       ]) }}" title="Editar documentos" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_seller', [
@@ -37,7 +37,7 @@
                         'id' => $sale->id,
                         'closing_contract_id' => $sale->closing_contract->id,
                       ]) }}" title="Editar contrato de cierre" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_closing_contract', [
@@ -57,7 +57,7 @@
                         'id' => $sale->id,
                         'log_id' => $sale->id,
                       ]) }}" title="Editar contrato de cierre" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_log', [
@@ -77,7 +77,7 @@
                         'id' => $sale->id,
                         'contract_id' => $sale->contract->id,
                       ]) }}" title="Editar contrato" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_contract', [
@@ -97,7 +97,7 @@
                         'id' => $sale->id,
                         'notary_id' => $sale->notary->id,
                       ]) }}" title="Editar notaría" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_notary', [
@@ -117,7 +117,7 @@
                         'id' => $sale->id,
                         'signature_id' => $sale->signature->id,
                       ]) }}" title="Editar notaría" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Incompleto
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
                     <a href="{{ route('edit_signature', [
@@ -128,7 +128,7 @@
                     </a>
                     @endif
                   </td>
-                  <td class="text-center">{{-- Actions --}}
+                  <td class="text-center danger">{{-- Actions --}}
                     @can('sales.delete')
                       @salesButtonDelete(['sale' => $sale])
                       @endsalesButtonDelete
