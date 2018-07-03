@@ -1,7 +1,7 @@
 @can('clients.delete', $client)
   <form
     class="form-inline"
-    action="{{ route('destroy_client', ['id' => $client->id]) }}"
+    action="{{ route('client.destroy', ['id' => $client->id]) }}"
     method="post"
     class="text-center">
     {{ csrf_field() }}

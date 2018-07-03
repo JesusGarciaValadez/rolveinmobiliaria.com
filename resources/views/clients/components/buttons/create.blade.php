@@ -1,5 +1,5 @@
 <a
-  href="{{ route('create_client') }}"
+  href="{{ route('client.create') }}"
   title="@lang('client.new_client')"
   class="btn btn-primary"
   role="button">

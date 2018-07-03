@@ -3,7 +3,7 @@
     id="client__filter"
     class="panel-heading form-horizontal clearfix"
     role="search"
-    action="{{ route('filter_client') }}"
+    action="{{ route('client.filter') }}"
     method="get"
     v-cloak>
     @csrf

@@ -12,7 +12,7 @@
                   </td>
                   <td class="text-center">
                     <a
-                      href="{{ route('show_client', $client->id) }}"
+                      href="{{ route('client.show', $client->id) }}"
                       target="_self"
                       title="{{ $client->full_name }}"
                     >

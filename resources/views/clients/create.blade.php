@@ -23,7 +23,7 @@
 
           <form
             class="form-horizontal"
-            action="{{ route('store_client') }}"
+            action="{{ route('client.store') }}"
             method="post">
             @csrf
 
