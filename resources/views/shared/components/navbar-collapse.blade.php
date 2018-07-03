@@ -15,7 +15,7 @@
         <ul class="dropdown-menu" role="menu">
           @can('messages.view')
             <li class="hidden-md hidden-lg">
-              <a href="{{ route('messages') }}" title="@lang('section.messages')">
+              <a href="{{ route('message.index') }}" title="@lang('section.messages')">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                 @lang('section.messages')
               </a>
@@ -23,7 +23,7 @@
           @endcan
           @can('clients.view')
             <li class="hidden-md hidden-lg">
-              <a href="{{ route('clients') }}" title="@lang('section.clients')">
+              <a href="{{ route('client.index') }}" title="@lang('section.clients')">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 @lang('section.clients')
               </a>
@@ -31,7 +31,7 @@
           @endcan
           @can('calls.view')
             <li class="hidden-md hidden-lg">
-              <a href="{{ route('call_trackings') }}" title="@lang('section.call_tracking')">
+              <a href="{{ route('call_tracking.index') }}" title="@lang('section.call_tracking')">
                 <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                 @lang('section.call_tracking')
               </a>
@@ -39,7 +39,7 @@
           @endcan
           @can('sales.view')
             <li class="hidden-md hidden-lg">
-              <a href="{{ route('for_sales') }}" title="@lang('section.for_sale')">
+              <a href="{{ route('for_sale.index') }}" title="@lang('section.for_sale')">
                 <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
                 @lang('section.for_sale')
               </a>

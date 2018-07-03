@@ -12,7 +12,7 @@
     </a>
   @can('messages.view')
     <a
-      href="{{ route('messages') }}"
+      href="{{ route('message.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'messages')
         ? ' active'
         : '' }}"
@@ -26,7 +26,7 @@
   @endcan
   @can('clients.view')
     <a
-      href="{{ route('clients') }}"
+      href="{{ route('client.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'clients')
         ? ' active'
         : '' }}"
@@ -40,7 +40,7 @@
   @endcan
   @can('calls.view')
     <a
-      href="{{ route('call_trackings') }}"
+      href="{{ route('call_tracking.index') }}"
       class="list-group-item{{ (!empty($uri) && $uri == 'call_trackings')
         ? ' active'
         : '' }}"
@@ -54,7 +54,7 @@
   @endcan
   @can('sales.view')
     <a
-      href="{{ route('for_sales') }}"
+      href="{{ route('for_sale.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'for_sales')
         ? ' active'
         : '' }}"

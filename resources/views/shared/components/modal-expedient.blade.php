@@ -8,7 +8,7 @@
     <form
       class="form-horizontal modal-content"
       id="expedient-info"
-      action="{{ route('store_internal_expedient') }}"
+      action="{{ route('internal_expedient.store') }}"
       method="post">
       @csrf
 

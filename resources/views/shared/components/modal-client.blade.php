@@ -7,7 +7,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <form
       class="form-horizontal modal-content"
-      action="{{ route('store_client') }}"
+      action="{{ route('client.store') }}"
       method="post">
       @csrf
 
