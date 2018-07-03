@@ -1,5 +1,5 @@
 <a
-  href="{{ route('create_call') }}"
+  href="{{ route('call.create') }}"
   title="@lang('call.new_call')"
   class="btn btn-primary"
   role="button">

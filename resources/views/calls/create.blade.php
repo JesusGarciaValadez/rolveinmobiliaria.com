@@ -11,7 +11,7 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading([
-          'route' => route('call_trackings'),
+          'route' => route('call_trackings.index'),
           'routeTitle' => __('section.call_tracking'),
           'title' => __('call.new_call'),
         ])
@@ -23,7 +23,7 @@
 
           <form
             class="form-horizontal"
-            action="{{ route('store_call') }}"
+            action="{{ route('calls.store') }}"
             method="post">
             @csrf
 

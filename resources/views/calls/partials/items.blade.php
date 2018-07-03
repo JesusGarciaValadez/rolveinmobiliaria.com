@@ -11,7 +11,7 @@
                     @endcan
                   </td>
                   <td class="text-center">
-                    <a href="{{ route('show_call', ['id' => $call->id]) }}">
+                    <a href="{{ route('call.show', ['id' => $call->id]) }}">
                       {{ $call->internal_expedient->expedient }}
                     </a>
                   </td>
