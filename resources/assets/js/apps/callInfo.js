@@ -1,4 +1,7 @@
 import axios from 'axios'
+import Spinner from '../components/Spinner'
+import Expedient from '../components/Expedient'
+import Client from '../components/Client'
 
 export default {
   el: '#call__info',
@@ -22,7 +25,11 @@ export default {
     loading: false,
     empty: true
   },
-  children: ['spinner', 'expedient', 'client'],
+  components: {
+    Spinner,
+    Expedient,
+    Client
+  },
   computed: {
     hasClient: function () {
       return (

@@ -53,7 +53,11 @@ export default {
       }
     }
   },
-  children: ['spinner', 'expedient', 'client'],
+  components: {
+    Spinner,
+    Expedient,
+    Client
+  },
   computed: {
     hasClient: function () {
       return (
