@@ -1,7 +1,7 @@
 @can('sales.delete', $sale)
   <form
     class="form-inline"
-    action="{{ route('destroy_sale', ['id' => $sale->id]) }}"
+    action="{{ route('for_sale.destroy', ['id' => $sale->id]) }}"
     method="post"
     class="text-center">
     {{ csrf_field() }}

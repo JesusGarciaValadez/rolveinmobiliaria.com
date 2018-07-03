@@ -1,5 +1,5 @@
 <a
-  href="{{ route('create_sale') }}"
+  href="{{ route('for_sale.create') }}"
   title="@lang('sale.new_sale')"
   class="btn btn-primary"
   role="button">

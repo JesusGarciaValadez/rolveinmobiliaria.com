@@ -29,7 +29,7 @@
           <form
             id="edit__seller"
             class="form-vertical"
-            action="{{ route('edit_seller', [
+            action="{{ route('for_sale.seller.update', [
               'id' => request('id'),
               'seller_id' => request('seller_id')
             ]) }}"
@@ -46,7 +46,7 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sales')])
+                @salesButtonBack(['back' => route('for_sale.index')])
                 @endsalesButtonBack
               </div>
             </div>

@@ -24,7 +24,7 @@
           <form
             id="create__seller"
             class="form-vertical"
-            action="{{ route('store_sale') }}"
+            action="{{ route('for_sale.store') }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
@@ -37,7 +37,7 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sales')])
+                @salesButtonBack(['back' => route('for_sale.index')])
                 @endsalesButtonBack
               </div>
             </div>

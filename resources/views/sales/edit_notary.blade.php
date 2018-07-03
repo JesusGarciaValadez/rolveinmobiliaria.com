@@ -26,7 +26,7 @@
           <form
             id="edit__notary"
             class="form-vertical"
-            action="{{ route('update_sale', [
+            action="{{ route('for_sale.notary.update', [
               'id' => request('id')
             ]) }}"
             method="post"
@@ -42,7 +42,7 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sales')])
+                @salesButtonBack(['back' => route('for_sale.index')])
                 @endsalesButtonBack
               </div>
             </div>
