@@ -180,11 +180,11 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
   {
     Route::get('/{closing_contract_id}', 'SaleClosingContractController@show')
          ->name('show')
-         ->middleware('can:closing_contract.view, sale_closing_contracts');
+         ->middleware('can:sale_closing_contracts.view, sale_closing_contracts');
 
     Route::put('/{closing_contract_id}', 'SaleClosingContractController@update')
          ->name('update')
-         ->middleware('can:closing_contract.edit, sale_closing_contracts');
+         ->middleware('can:sale_closing_contracts.update, sale_closing_contracts');
   });
 
   Route::prefix('/{id}/edit_log')->name('log.')->group(function ()
@@ -195,7 +195,7 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
     Route::put('/{log_id}', 'SaleLogController@update')
          ->name('update')
-         ->middleware('can:edit_log.edit, sale_logs');
+         ->middleware('can:edit_log.update, sale_logs');
   });
 
   Route::prefix('/{id}/edit_contract')->name('contract.')->group(function ()
@@ -206,7 +206,7 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
     Route::put('/{contract_id}', 'SaleContractController@update')
          ->name('update')
-         ->middleware('can:contract.edit, sale_contracts');
+         ->middleware('can:contract.update, sale_contracts');
   });
 
   Route::prefix('/{id}/edit_notary')->name('notary.')->group(function ()
@@ -217,7 +217,7 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
     Route::put('/{notary_id}', 'SaleNotaryController@update')
          ->name('update')
-         ->middleware('can:edit_notary.edit, sale_notaries');
+         ->middleware('can:edit_notary.update, sale_notaries');
   });
 
   Route::prefix('/{id}/edit_signature')->name('signature.')->group(function ()
@@ -228,7 +228,7 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
     Route::put('/{signature_id}', 'SaleSignatureController@update')
          ->name('update')
-         ->middleware('can:edit_signature.edit, sale_signatures');
+         ->middleware('can:edit_signature.update, sale_signatures');
   });
 });
 
