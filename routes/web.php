@@ -168,8 +168,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_seller')->name('seller.')->group(function ()
   {
-    Route::get('/{seller_id}', 'SaleSellerController@show')
-         ->name('show')
+    Route::get('/{seller_id}', 'SaleSellerController@edit')
+         ->name('edit')
          ->middleware('can:sale_sellers.view, sale_sellers');
     Route::put('/{seller_id}', 'SaleSellerController@update')
          ->name('update')
@@ -178,8 +178,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_closing_contract')->name('closing_contract.')->group(function ()
   {
-    Route::get('/{closing_contract_id}', 'SaleClosingContractController@show')
-         ->name('show')
+    Route::get('/{closing_contract_id}', 'SaleClosingContractController@edit')
+         ->name('edit')
          ->middleware('can:sale_closing_contracts.view, sale_closing_contracts');
 
     Route::put('/{closing_contract_id}', 'SaleClosingContractController@update')
@@ -189,8 +189,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_log')->name('log.')->group(function ()
   {
-    Route::get('/{log_id}', 'SaleLogController@show')
-         ->name('show')
+    Route::get('/{log_id}', 'SaleLogController@edit')
+         ->name('edit')
          ->middleware('can:edit_log.view, sale_logs');
 
     Route::put('/{log_id}', 'SaleLogController@update')
@@ -200,8 +200,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_contract')->name('contract.')->group(function ()
   {
-    Route::get('/{contract_id}', 'SaleContractController@show')
-         ->name('show')
+    Route::get('/{contract_id}', 'SaleContractController@edit')
+         ->name('edit')
          ->middleware('can:contract.view, sale_contracts');
 
     Route::put('/{contract_id}', 'SaleContractController@update')
@@ -211,8 +211,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_notary')->name('notary.')->group(function ()
   {
-    Route::get('/{notary_id}', 'SaleNotaryController@show')
-         ->name('show')
+    Route::get('/{notary_id}', 'SaleNotaryController@edit')
+         ->name('edit')
          ->middleware('can:edit_notary.view, sale_notaries');
 
     Route::put('/{notary_id}', 'SaleNotaryController@update')
@@ -222,8 +222,8 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
 
   Route::prefix('/{id}/edit_signature')->name('signature.')->group(function ()
   {
-    Route::get('/{signature_id}', 'SaleSignatureController@show')
-         ->name('show')
+    Route::get('/{signature_id}', 'SaleSignatureController@edit')
+         ->name('edit')
          ->middleware('can:edit_signature.view, sale_signatures');
 
     Route::put('/{signature_id}', 'SaleSignatureController@update')
