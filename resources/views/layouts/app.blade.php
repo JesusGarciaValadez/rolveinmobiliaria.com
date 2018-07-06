@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Cache-control" content="private">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Cache-control" content="private">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="canonical" href="{{ url()->current() }}" />
+  <link rel="canonical" href="{{ url()->current() }}" />
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+  <title>@yield('title')</title>
 
-    <link rel="canonical" href="{{ url()->current() }}">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="canonical" href="{{ url()->current() }}">
+  <!-- Styles -->
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <style media="screen">
-      [v-cloak] {
-        display: none;
-      }
-    </style>
+  <style media="screen">
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div>
-    @navbar['uri' => $uri]
+    @navbar(['uri' => $uri])
     @endnavbar
 
     @yield('content')
