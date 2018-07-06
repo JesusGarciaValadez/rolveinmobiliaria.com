@@ -14,7 +14,9 @@
 
         <ul class="dropdown-menu" role="menu">
           @can('messages.view')
-            <li class="hidden-md hidden-lg">
+            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'messages')
+              ? ' active'
+              : '' }}">
               <a href="{{ route('message.index') }}" title="@lang('section.messages')">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                 @lang('section.messages')
@@ -22,7 +24,9 @@
             </li>
           @endcan
           @can('clients.view')
-            <li class="hidden-md hidden-lg">
+            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'clients')
+              ? ' active'
+              : '' }}">
               <a href="{{ route('client.index') }}" title="@lang('section.clients')">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 @lang('section.clients')
@@ -30,7 +34,9 @@
             </li>
           @endcan
           @can('calls.view')
-            <li class="hidden-md hidden-lg">
+            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'call_trackings')
+              ? ' active'
+              : '' }}">
               <a href="{{ route('call_tracking.index') }}" title="@lang('section.call_tracking')">
                 <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                 @lang('section.call_tracking')
@@ -38,13 +44,16 @@
             </li>
           @endcan
           @can('sales.view')
-            <li class="hidden-md hidden-lg">
+            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'dashboard')
+              ? ' for_sales'
+              : '' }}">
               <a href="{{ route('for_sale.index') }}" title="@lang('section.for_sale')">
                 <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
                 @lang('section.for_sale')
               </a>
             </li>
           @endcan
+          <li role="separator" class="divider"></li>
           @can('user.view')
           <li>
             <a href="{{ route('register') }}">
