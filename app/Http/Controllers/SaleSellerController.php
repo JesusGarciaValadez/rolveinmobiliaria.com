@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon as Carbon;
 use Illuminate\Support\Facades\DB as DB;
-use Illuminate\Support\Facades\Gate as Gate;
 use Illuminate\Support\Facades\Auth as Auth;
 use App\Http\Requests\SaleSellerRequest as SaleSellerRequest;
 
@@ -26,7 +25,7 @@ class SaleSellerController extends Controller
    *
    * @var string
    */
-  private $_uri = 'sale_seller';
+  private $_uri = 'for_sales';
 
   /**
    * Set the localization for the language in the app.
@@ -62,12 +61,12 @@ class SaleSellerController extends Controller
   }
 
   /**
-   * Display the specified resource.
+   * Show the form for editing the specified resource.
    *
-   * @param  \App\SaleSeller  $saleSeller
+   * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function show (Request $request)
+  public function edit (Request $request)
   {
     $currentUser = User::with('role')->find(Auth::id());
 

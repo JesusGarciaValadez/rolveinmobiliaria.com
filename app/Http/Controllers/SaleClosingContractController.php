@@ -15,7 +15,7 @@ class SaleClosingContractController extends Controller
      */
     public function show(SaleClosingContract $saleClosingContract)
     {
-        //
+      return view('sales.edit_closing_contract');
     }
 
     /**
