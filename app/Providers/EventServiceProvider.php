@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
     'App\Events\SaleCreatedEvent' => [
       'App\Listeners\SaleCreatedListener',
     ],
+    'App\Events\FileWillUploadEvent' => [
+      'App\Listeners\FileUploadedListener',
+    ]
   ];
 
   /**

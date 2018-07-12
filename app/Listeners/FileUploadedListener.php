@@ -2,16 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\FileWillUpload;
+use App\Events\FileWillUploadEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Illuminate\Support\Facades\Storage;
 
-class FileUploader implements ShouldQueue
+class FileUploadedListener
 {
-  use InteractsWithQueue;
-  
   private $_storagePath = "public/data_sheets/";
 
   /**
@@ -44,17 +42,17 @@ class FileUploader implements ShouldQueue
   /**
    * Handle the event.
    *
-   * @param  FileWillUpload  $event
+   * @param  FileWillUploadEvent  $event
    * @return void
    */
-  public function handle(FileWillUpload $event)
+  public function handle(FileWillUploadEvent $event)
   {
     try
     {
       $file = $event->file;
       $filename = strtolower($file->getClientOriginalName());
       $uploadSuccess = $file->storeAs('data_sheets', $filename, 'public');
-      \Debugbar::info(Storage::exists($this->_storagePath.$filename));
+      // \Debugbar::info(Storage::exists($this->_storagePath.$filename));
       return $uploadSuccess;
     }
     catch (Exception $e)

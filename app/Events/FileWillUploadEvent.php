@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use Illuminate\Http\UploadedFile;
 
-class FileWillUpload
+class FileWillUploadEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
