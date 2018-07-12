@@ -196,8 +196,6 @@ class SaleSellerController extends Controller
 
     $saleSeller = Seller::findOrFail($sellerId);
     $saleSeller->update($seller);
-    \Debugbar::info($seller);
-    \Debugbar::info($saleSeller);
 
     $this->_message = $saleSeller && $sale
                         ? 'Compraventa actualizada'
