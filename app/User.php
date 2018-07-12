@@ -17,6 +17,12 @@ class User extends Authenticatable
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'users';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
@@ -53,12 +59,27 @@ class User extends Authenticatable
 
   public function role()
   {
-    return $this->belongsTo('App\Role', 'role_id');
+    return $this->hasOne(Role::class, 'id', 'role_id');
   }
 
-  public function call()
+  public function clients()
   {
-    return $this->belongsToMany('App\Call', 'user_id');
+    return $this->hasMany(Client::class, 'user_id', 'id');
+  }
+
+  public function messages()
+  {
+    return $this->hasMany(Message::class, 'user_id', 'id');
+  }
+
+  public function calls()
+  {
+    return $this->hasMany(Call::class, 'user_id', 'id');
+  }
+
+  public function sales()
+  {
+    return $this->hasMany(Sale::class, 'user_id', 'id');
   }
 
   public function isSuperAdmin()

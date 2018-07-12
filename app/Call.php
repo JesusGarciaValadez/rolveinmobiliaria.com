@@ -39,13 +39,6 @@ class Call extends Model
   ];
 
   /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
-
-  /**
    * The attributes that should be hidden for arrays.
    *
    * @var array
@@ -78,17 +71,17 @@ class Call extends Model
 
   public function user()
   {
-    return $this->belongsTo('App\User', 'user_id');
+    return $this->belongsTo(User::class, 'user_id', 'id');
   }
 
   public function state()
   {
-    return $this->belongsTo('App\State', 'state_id');
+    return $this->hasOne(State::class, 'id', 'state_id');
   }
 
   public function internal_expedient()
   {
-    return $this->belongsTo('App\InternalExpedient', 'internal_expedient_id');
+    return $this->hasOne(InternalExpedient::class, 'id', 'internal_expedient_id');
   }
 
   public function getCreatedAttribute()

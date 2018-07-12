@@ -10,6 +10,12 @@ class SaleNotary extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sale_notaries';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -53,4 +59,9 @@ class SaleNotary extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->belongsTo(Sale::class, 'sale_notaries_id');
+  }
 }

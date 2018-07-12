@@ -10,6 +10,12 @@ class State extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'states';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -32,6 +38,6 @@ class State extends Model
 
   public function call()
   {
-    return $this->hasMany('App\Call', 'id');
+    return $this->belongsToMany(Call::class, 'state_id', 'id');
   }
 }

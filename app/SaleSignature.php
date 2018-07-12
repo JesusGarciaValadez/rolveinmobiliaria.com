@@ -10,6 +10,12 @@ class SaleSignature extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sale_signatures';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -50,4 +56,9 @@ class SaleSignature extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->belongsTo(Sale::class, 'sale_signatures_id');
+  }
 }

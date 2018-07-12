@@ -10,6 +10,12 @@ class Client extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'clients';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
@@ -34,13 +40,6 @@ class Client extends Model
   ];
 
   /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
-
-  /**
    * The attributes that should be hidden for arrays.
    *
    * @var array
@@ -63,7 +62,7 @@ class Client extends Model
 
   public function user()
   {
-    return $this->belongsTo('App\User', 'user_id');
+    return $this->belongsTo('App\User', 'user_id', 'id');
   }
 
   public function getCreatedAttribute()

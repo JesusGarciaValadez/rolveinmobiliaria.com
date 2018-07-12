@@ -10,6 +10,12 @@ class Role extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'roles';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -30,8 +36,8 @@ class Role extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  public function User()
+  public function users()
   {
-    return $this->hasMany('App\User', 'user_id');
+    return $this->hasMany(User::class, 'id', 'role_id');
   }
 }

@@ -10,6 +10,12 @@ class SaleContract extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sale_contracts';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
@@ -67,6 +73,11 @@ class SaleContract extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->belongsTo(Sale::class, 'sale_contracts_id');
+  }
 
   public function infonavit_contract()
   {

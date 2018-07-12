@@ -10,6 +10,12 @@ class SaleSeller extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sale_sellers';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
@@ -31,13 +37,6 @@ class SaleSeller extends Model
   ];
 
   /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
-
-  /**
    * The attributes that should be hidden for arrays.
    *
    * @var array
@@ -57,4 +56,9 @@ class SaleSeller extends Model
    * @var string
    */
   protected $dateFormat = 'Y-m-d h:i:s';
+
+  public function sale()
+  {
+    return $this->belongsTo(Sale::class, 'sale_sellers_id');
+  }
 }

@@ -36,13 +36,6 @@ class InternalExpedient extends Model
   ];
 
   /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
-
-  /**
    * The attributes that should be hidden for arrays.
    *
    * @var array
@@ -65,12 +58,22 @@ class InternalExpedient extends Model
 
   public function client()
   {
-    return $this->belongsTo('App\Client', 'client_id');
+    return $this->belongsTo(Client::class, 'client_id', 'id');
   }
 
   public function user()
   {
-    return $this->belongsTo('App\User', 'user_id');
+    return $this->belongsTo(User::class, 'user_id', 'id');
+  }
+
+  public function calls()
+  {
+    return $this->belongsToMany(Call::class, 'internal_expedients_id', 'id');
+  }
+
+  public function sale()
+  {
+    return $this->belongsTo(Sale::class, 'internal_expedients_id', 'id');
   }
 
   public function getCreatedAttribute()

@@ -10,6 +10,12 @@ class Sale extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sales';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
@@ -41,13 +47,6 @@ class Sale extends Model
   ];
 
   /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
-
-  /**
    * The attributes that should be hidden for arrays.
    *
    * @var array
@@ -70,37 +69,37 @@ class Sale extends Model
 
   public function internal_expedient()
   {
-    return $this->belongsTo('App\InternalExpedient', 'internal_expedients_id');
+    return $this->hasOne(InternalExpedient::class, 'id', 'internal_expedients_id');
   }
 
   public function seller()
   {
-    return $this->belongsTo('App\SaleSeller', 'sale_sellers_id');
+    return $this->hasOne(SaleSeller::class, 'id', 'sale_sellers_id');
   }
 
   public function closing_contract()
   {
-    return $this->belongsTo('App\SaleClosingContract', 'sale_closing_contracts_id');
+    return $this->hasOne(SaleClosingContract::class, 'id', 'sale_closing_contracts_id');
   }
 
   public function contract()
   {
-    return $this->belongsTo('App\SaleContract', 'sale_contracts_id');
+    return $this->hasOne(SaleContract::class, 'id', 'sale_contracts_id');
   }
 
   public function notary()
   {
-    return $this->belongsTo('App\SaleNotary', 'sale_notaries_id');
+    return $this->hasOne(SaleNotary::class, 'id', 'sale_notaries_id');
   }
 
   public function signature()
   {
-    return $this->belongsTo('App\SaleSignature', 'sale_signatures_id');
+    return $this->hasOne(SaleSignature::class, 'id', 'sale_signatures_id');
   }
 
   public function user()
   {
-    return $this->belongsTo('App\User', 'user_id');
+    return $this->belongsTo(User::class, 'user_id');
   }
 
   public function getCreatedAttribute()

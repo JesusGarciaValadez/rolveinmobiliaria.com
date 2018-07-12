@@ -10,6 +10,12 @@ class SaleLog extends Model
   use SoftDeletes;
 
   /**
+   * The table associated with the model.
+   * @var string
+   */
+  protected $table = 'sale_logs';
+
+  /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
