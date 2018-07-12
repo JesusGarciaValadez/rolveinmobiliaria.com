@@ -10,7 +10,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        @panelHeading( [
+        @panelHeading([
           'route' => route('dashboard'),
           'routeTitle' => __('section.sales'),
         ])
@@ -20,14 +20,18 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             id="edit__closing-contract"
             class="form-vertical"
             action="{{ route('for_sale.closing_contract.update', [
-              'id' => request('id')
+              'id' => $sale->id,
+              'closing_contract_id' => $sale->closing_contract->id
             ]) }}"
             method="post"
             enctype="multipart/form-data"
