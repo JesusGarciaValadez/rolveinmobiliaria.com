@@ -7,16 +7,16 @@ use App\Client as Client;
 use App\State as State;
 use App\InternalExpedient as InternalExpedient;
 use App\User as User;
-use App\SaleSeller as Seller;
+use App\Seller as Seller;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon as Carbon;
 use Illuminate\Support\Facades\DB as DB;
 use Illuminate\Support\Facades\Auth as Auth;
-use App\Http\Requests\SaleSellerRequest as SaleSellerRequest;
+use App\Http\Requests\SellerRequest as SellerRequest;
 
-class SaleSellerController extends Controller
+class SellerController extends Controller
 {
   use ThrottlesLogins;
 
@@ -112,11 +112,11 @@ class SaleSellerController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\SaleSellerRequest  $request
+   * @param  \Illuminate\Http\SellerRequest  $request
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function update ($id, $sellerId, SaleSellerRequest $request)
+  public function update ($id, $sellerId, SellerRequest $request)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
     $internal_expedient_id = !empty($request->internal_expedient_id)

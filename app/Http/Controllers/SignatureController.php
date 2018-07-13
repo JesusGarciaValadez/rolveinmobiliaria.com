@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\SaleLog;
+use App\Signature;
 use App\Sale;
 use Illuminate\Http\Request;
 
-class SaleLogController extends Controller
+class SignatureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,10 +46,10 @@ class SaleLogController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleLog  $saleLog
+     * @param  \App\Signature  $signature
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale, SaleLog $saleLog)
+    public function show(Sale $sale, Signature $signature)
     {
         //
     }
@@ -58,10 +58,10 @@ class SaleLogController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleLog  $saleLog
+     * @param  \App\Signature  $signature
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $sale, SaleLog $saleLog)
+    public function edit(Sale $sale, Signature $signature)
     {
         //
     }
@@ -71,10 +71,10 @@ class SaleLogController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Sale  $sale
-     * @param  \App\SaleLog  $saleLog
+     * @param  \App\Signature  $signature
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale, SaleLog $saleLog)
+    public function update(Request $request, Sale $sale, Signature $signature)
     {
         //
     }
@@ -83,10 +83,10 @@ class SaleLogController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleLog  $saleLog
+     * @param  \App\Signature  $signature
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $sale, SaleLog $saleLog)
+    public function destroy(Sale $sale, Signature $signature)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SaleClosingContract;
+use App\ClosingContract;
 use App\Sale;
 use App\Client;
 use App\User;
@@ -11,14 +11,14 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Carbon\Carbon as Carbon;
 use Illuminate\Support\Facades\DB as DB;
 use Illuminate\Support\Facades\Auth as Auth;
-use App\Http\Requests\SaleClosingContractRequest;
+use App\Http\Requests\ClosingContractRequest;
 use App\Events\FileWillUploadEvent;
 
-class SaleClosingContractController extends Controller
+class ClosingContractController extends Controller
 {
   use ThrottlesLogins;
 
-  /**
+  /*
    * Set the uri returned to views.
    *
    * @var string
@@ -103,10 +103,10 @@ class SaleClosingContractController extends Controller
    * Display the specified resource.
    *
    * @param  \App\Sale  $sale
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function show(Sale $sale, SaleClosingContract $saleClosingContract)
+  public function show(Sale $sale, ClosingContract $closingContract)
   {
       //
   }
@@ -115,10 +115,10 @@ class SaleClosingContractController extends Controller
    * Show the form for editing the specified resource.
    *
    * @param  \App\Sale  $sale
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function edit($id, $closingContractId, Sale $sale, SaleClosingContract $saleClosingContract)
+  public function edit($id, $closingContractId, Sale $sale, ClosingContract $closingContract)
   {
     $sale = Sale::findOrFail($id);
     $clients = Client::all();
@@ -134,10 +134,10 @@ class SaleClosingContractController extends Controller
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  \App\Sale  $sale
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function update($sellerId, $closingContractId, SaleClosingContractRequest $request, Sale $sale, SaleClosingContract $saleClosingContract)
+  public function update($sellerId, $closingContractId, ClosingContractRequest $request, Sale $sale, ClosingContract $closingContract)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 
@@ -245,10 +245,10 @@ class SaleClosingContractController extends Controller
    * Remove the specified resource from storage.
    *
    * @param  \App\Sale  $sale
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Sale $sale, SaleClosingContract $saleClosingContract)
+  public function destroy(Sale $sale, ClosingContract $closingContract)
   {
       //
   }

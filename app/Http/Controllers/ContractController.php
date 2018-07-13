@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\SaleContract;
+use App\Contract;
 use App\Sale;
 use Illuminate\Http\Request;
 
-class SaleContractController extends Controller
+class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,10 +46,10 @@ class SaleContractController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleContract  $saleContract
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale, SaleContract $saleContract)
+    public function show(Sale $sale, Contract $contract)
     {
         //
     }
@@ -58,10 +58,10 @@ class SaleContractController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleContract  $saleContract
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $sale, SaleContract $saleContract)
+    public function edit(Sale $sale, Contract $contract)
     {
         //
     }
@@ -71,10 +71,10 @@ class SaleContractController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Sale  $sale
-     * @param  \App\SaleContract  $saleContract
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale, SaleContract $saleContract)
+    public function update(Request $request, Sale $sale, Contract $contract)
     {
         //
     }
@@ -83,10 +83,10 @@ class SaleContractController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleContract  $saleContract
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $sale, SaleContract $saleContract)
+    public function destroy(Sale $sale, Contract $contract)
     {
         //
     }

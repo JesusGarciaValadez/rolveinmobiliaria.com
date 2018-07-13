@@ -7,12 +7,12 @@ use App\State as State;
 use App\Client;
 use App\InternalExpedient;
 use App\User as User;
-use App\SaleSeller as Seller;
-use App\SaleLog as Log;
-use App\SaleClosingContract as ClosingContract;
-use App\SaleContract as Contract;
-use App\SaleNotary as Notary;
-use App\SaleSignature as Signature;
+use App\Seller as Seller;
+use App\Log as Log;
+use App\ClosingContract as ClosingContract;
+use App\Contract as Contract;
+use App\Notary as Notary;
+use App\Signature as Signature;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\SaleSellerRequest;
+use App\Http\Requests\SellerRequest;
 
 /**
  * Events
@@ -116,7 +116,7 @@ class SaleController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store (SaleSellerRequest $request)
+  public function store (SellerRequest $request)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 

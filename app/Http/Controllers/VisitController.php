@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\SaleSignature;
+use App\Visit;
 use App\Sale;
 use Illuminate\Http\Request;
 
-class SaleSignatureController extends Controller
+class VisitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,10 +46,10 @@ class SaleSignatureController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleSignature  $saleSignature
+     * @param  \App\Visit  $visit
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale, SaleSignature $saleSignature)
+    public function show(Sale $sale, Visit $visit)
     {
         //
     }
@@ -58,10 +58,10 @@ class SaleSignatureController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleSignature  $saleSignature
+     * @param  \App\Visit  $visit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $sale, SaleSignature $saleSignature)
+    public function edit(Sale $sale, Visit $visit)
     {
         //
     }
@@ -71,10 +71,10 @@ class SaleSignatureController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Sale  $sale
-     * @param  \App\SaleSignature  $saleSignature
+     * @param  \App\Visit  $visit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale, SaleSignature $saleSignature)
+    public function update(Request $request, Sale $sale, Visit $visit)
     {
         //
     }
@@ -83,10 +83,10 @@ class SaleSignatureController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Sale  $sale
-     * @param  \App\SaleSignature  $saleSignature
+     * @param  \App\Visit  $visit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $sale, SaleSignature $saleSignature)
+    public function destroy(Sale $sale, Visit $visit)
     {
         //
     }
