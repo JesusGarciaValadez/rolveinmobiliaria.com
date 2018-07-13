@@ -25,7 +25,7 @@
 </head>
 <body>
   <div>
-    @navbar(['uri' => $uri])
+    @navbar()
     @endnavbar
 
     @yield('content')
