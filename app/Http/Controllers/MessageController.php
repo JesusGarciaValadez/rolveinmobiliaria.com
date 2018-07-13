@@ -18,7 +18,7 @@ class MessageController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = 'messages';
+  private $_uri = 'message';
   private $_locale;
 
   public function __constructor()
@@ -123,20 +123,6 @@ class MessageController extends Controller
    */
   public function show(Message $message, Request $request)
   {
-    $currentUser = User::with('role')->find(Auth::id());
-
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    ) {
-      $message = $message::findOrFail($request->id);
-    } else {
-      $message = $message::where('id', $request->id)
-                  ->where('user_id', Auth::id())
-                  ->get()
-                  ->first();
-    }
-
     return view('messages.show')
             ->withMessage($message)
             ->withUri($this->_uri);
@@ -150,26 +136,6 @@ class MessageController extends Controller
    */
   public function edit(Message $message, Request $request)
   {
-    $states = State::all();
-
-    $currentUser = User::with('role')
-                       ->find(Auth::id());
-
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    )
-    {
-      $message = $message::findOrFail($request->id);
-    }
-    else
-    {
-      $message = $message::where('id', $request->id)
-                  ->where('user_id', Auth::id())
-                  ->get()
-                  ->first();
-    }
-
     return view('messages.edit')
             ->withMessage($message)
             ->withUri($this->_uri);
@@ -255,8 +221,7 @@ class MessageController extends Controller
    */
   public function destroy(Message $message, Request $request)
   {
-    $messageDeleted = $message::findOrFail($request->id);
-    $isDestroyed = $messageDeleted->delete();
+    $isDestroyed = $message->delete();
 
     $message = ($isDestroyed)
                   ? 'Llamada eliminada'
