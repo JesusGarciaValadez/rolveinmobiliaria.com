@@ -1,11 +1,11 @@
                 <tr>
                   <td class="text-center">
-                    @can('messages.update')
+                    @can('message.update')
                       @messagesButtonEdit(['message' => $message])
                       @endmessagesButtonEdit
                     @endcan
 
-                    @can('messages.delete')
+                    @can('message.delete')
                       @messagesButtonDelete(['message' => $message])
                       @endmessagesButtonDelete
                     @endcan
