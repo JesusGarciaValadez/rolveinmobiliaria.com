@@ -13,10 +13,10 @@
   @can('message.view')
     <a
       href="{{ route('message.index') }}"
-      class="list-group-item {{ (!empty($uri) && $uri == 'messages')
+      class="list-group-item {{ (!empty($uri) && $uri == 'message')
         ? ' active'
         : '' }}"
-      title="@lang('section.messages')"
+      title="@lang('section.message')"
       data-toggle="tooltip"
       data-placement="right">
       <span
@@ -27,7 +27,7 @@
   @can('client.view')
     <a
       href="{{ route('client.index') }}"
-      class="list-group-item {{ (!empty($uri) && $uri == 'clients')
+      class="list-group-item {{ (!empty($uri) && $uri == 'client')
         ? ' active'
         : '' }}"
       title="@lang('section.clients')"
@@ -41,7 +41,7 @@
   @can('call.view')
     <a
       href="{{ route('call.index') }}"
-      class="list-group-item{{ (!empty($uri) && $uri == 'call_trackings')
+      class="list-group-item{{ (!empty($uri) && $uri == 'call')
         ? ' active'
         : '' }}"
       title="@lang('section.call')"
@@ -58,7 +58,7 @@
       class="list-group-item {{ (!empty($uri) && $uri == 'sale')
         ? ' active'
         : '' }}"
-      title="@lang('section.for_sale')"
+      title="@lang('section.sale')"
       data-toggle="tooltip"
       data-placement="right">
       <span
