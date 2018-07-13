@@ -2,14 +2,26 @@
 
 namespace App\Providers;
 
-use App\Call;
-use App\Sale;
-use App\Policies\CallPolicy;
-use App\Policies\SalePolicy;
-use App\Policies\ClientPolicy;
-use App\Policies\MessagePolicy;
-use App\Policies\SaleSellerPolicy;
-use App\Policies\SaleClosingContractPolicy;
+use App\Message as Message;
+use App\Client as Client;
+use App\Call as Call;
+use App\Sale as Sale;
+use App\Seller as Seller;
+use App\ClosingContract as ClosingContract;
+use App\Visit as Visit;
+use App\Contract as Contract;
+use App\Notary as Notary;
+use App\Signature as Signature;
+use App\Policies\MessagePolicy as MessagePolicy;
+use App\Policies\ClientPolicy as ClientPolicy;
+use App\Policies\CallPolicy as CallPolicy;
+use App\Policies\SalePolicy as SalePolicy;
+use App\Policies\SellerPolicy as SellerPolicy;
+use App\Policies\ClosingContractPolicy as ClosingContractPolicy;
+use App\Policies\ContractPolicy as ContractPolicy;
+use App\Policies\VisitPolicy as VisitPolicy;
+use App\Policies\NotaryPolicy as NotaryPolicy;
+use App\Policies\SignaturePolicy as SignaturePolicy;
 
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
@@ -23,13 +35,17 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-      App\User::class => App\Policies\AdminPolicy::class,
-      App\Message::class => App\Policies\MessagePolicy::class,
-      App\Client::class => App\Policies\ClientPolicy::class,
-      App\Call::class => App\Policies\CallPolicy::class,
-      App\Sale::class => App\Policies\SalePolicy::class,
-      App\SaleSeller::class => App\Policies\SaleSellerPolicy::class,
-      App\SaleClosingContract::class => App\Policies\SaleClosingContractPolicy::class,
+      User::class => AdminPolicy::class,
+      Message::class => MessagePolicy::class,
+      Client::class => ClientPolicy::class,
+      Call::class => CallPolicy::class,
+      Sale::class => SalePolicy::class,
+      Seller::class => SellerPolicy::class,
+      ClosingContract::class => ClosingContractPolicy::class,
+      Visit::class => VisitPolicy::class,
+      Contract::class => ContractPolicy::class,
+      Notary::class => NotaryPolicy::class,
+      Signature::class => SignaturePolicy::class,
     ];
 
     /**
@@ -53,8 +69,16 @@ class AuthServiceProvider extends ServiceProvider
 
       Gate::resource('sales', 'App\Policies\SalePolicy');
 
-      Gate::resource('sale_sellers', 'App\Policies\SaleSellerPolicy');
+      Gate::resource('sellers', 'App\Policies\SellerPolicy');
 
-      Gate::resource('sale_closing_contracts', 'App\Policies\SaleClosingContractPolicy');
+      Gate::resource('closing_contracts', 'App\Policies\ClosingContractPolicy');
+
+      Gate::resource('visits', 'App\Policies\VisitPolicy');
+
+      Gate::resource('contracts', 'App\Policies\ContractPolicy');
+
+      Gate::resource('notaries', 'App\Policies\NotaryPolicy');
+
+      Gate::resource('signatures', 'App\Policies\SignaturePolicy');
     }
 }
