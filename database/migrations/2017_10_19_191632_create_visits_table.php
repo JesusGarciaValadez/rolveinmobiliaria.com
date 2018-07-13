@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSaleSignaturesTable extends Migration
+class CreateVisitsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,19 +13,17 @@ class CreateSaleSignaturesTable extends Migration
    */
   public function up()
   {
-    Schema::create('sale_signatures', function (Blueprint $table) {
+    Schema::create('visits', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('SS_writing_review')
+      $table->string('SL_subject')
             ->nullable();
-      $table->date('SS_scheduled_date_of_writing_signature')
+      $table->string('SL_email')
             ->nullable();
-      $table->date('SS_writing_signature')
+      $table->string('SL_phone')
             ->nullable();
-      $table->date('SS_scheduled_payment_date')
+      $table->text('SL_observations')
             ->nullable();
-      $table->date('SS_payment_made')
-            ->nullable();
-      $table->boolean('SS_complete')
+      $table->boolean('SL_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();
@@ -39,6 +37,6 @@ class CreateSaleSignaturesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('sale_signatures');
+    Schema::dropIfExists('visits');
   }
 }

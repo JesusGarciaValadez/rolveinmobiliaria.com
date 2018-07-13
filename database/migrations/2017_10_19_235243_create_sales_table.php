@@ -23,44 +23,52 @@ class CreateSalesTable extends Migration
             ->on('internal_expedients')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_sellers_id')
+      $table->integer('sellers_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_sellers_id')
+      $table->foreign('sellers_id')
             ->references('id')
-            ->on('sale_sellers')
+            ->on('sellers')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_closing_contracts_id')
+      $table->integer('closing_contracts_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_closing_contracts_id')
+      $table->foreign('closing_contracts_id')
             ->references('id')
-            ->on('sale_closing_contracts')
+            ->on('closing_contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_contracts_id')
+      $table->integer('visits_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_contracts_id')
+      $table->foreign('visits_id')
             ->references('id')
-            ->on('sale_contracts')
+            ->on('visits')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_notaries_id')
+      $table->integer('contracts_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_notaries_id')
+      $table->foreign('contracts_id')
             ->references('id')
-            ->on('sale_notaries')
+            ->on('contracts')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-      $table->integer('sale_signatures_id')
+      $table->integer('notaries_id')
             ->unsigned()
             ->nullable();
-      $table->foreign('sale_signatures_id')
+      $table->foreign('notaries_id')
             ->references('id')
-            ->on('sale_signatures')
+            ->on('notaries')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+      $table->integer('signatures_id')
+            ->unsigned()
+            ->nullable();
+      $table->foreign('signatures_id')
+            ->references('id')
+            ->on('signatures')
             ->onUpdate('cascade')
             ->onDelete('cascade');
       $table->integer('user_id')
@@ -86,18 +94,18 @@ class CreateSalesTable extends Migration
     Schema::table('sales', function (Blueprint $table) {
       $table->dropForeign('sales_internal_expedients_id_foreign')
             ->dropColumn('internal_expedients_id');
-      $table->dropForeign('sales_sale_sellers_id_foreign')
-            ->dropColumn('sale_sellers_id');
-      $table->dropForeign('sales_sale_closing_contracts_id_foreign')
-            ->dropColumn('sale_closing_contracts_id');
-      $table->dropForeign('sales_sale_logs_id_foreign')
-            ->dropColumn('sale_logs_id');
-      $table->dropForeign('sales_sale_contracts_id_foreign')
-            ->dropColumn('sale_contracts_id');
-      $table->dropForeign('sales_sale_notaries_id_foreign')
-            ->dropColumn('sale_notaries_id');
-      $table->dropForeign('sales_sale_signatures_id_foreign')
-            ->dropColumn('sale_signatures_id');
+      $table->dropForeign('sales_sellers_id_foreign')
+            ->dropColumn('sellers_id');
+      $table->dropForeign('sales_closing_contracts_id_foreign')
+            ->dropColumn('closing_contracts_id');
+      $table->dropForeign('sales_visits_id_foreign')
+            ->dropColumn('visits_id');
+      $table->dropForeign('sales_contracts_id_foreign')
+            ->dropColumn('contracts_id');
+      $table->dropForeign('sales_notaries_id_foreign')
+            ->dropColumn('notaries_id');
+      $table->dropForeign('sales_signatures_id_foreign')
+            ->dropColumn('signatures_id');
       $table->dropForeign('sales_user_id_foreign')
             ->dropColumn('user_id');
     });

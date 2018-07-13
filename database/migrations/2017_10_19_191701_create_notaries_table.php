@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSaleNotariesTable extends Migration
+class CreateNotariesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSaleNotariesTable extends Migration
    */
   public function up()
   {
-    Schema::create('sale_notaries', function (Blueprint $table) {
+    Schema::create('notaries', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('SN_federal_entity', [
           'CDMX',
@@ -48,6 +48,6 @@ class CreateSaleNotariesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('sale_notaries');
+    Schema::dropIfExists('notaries');
   }
 }

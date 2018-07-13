@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterSaleLogsTable extends Migration
+class AlterVisitsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class AlterSaleLogsTable extends Migration
    */
   public function up()
   {
-    Schema::table('sale_logs', function (Blueprint $table) {
+    Schema::table('visits', function (Blueprint $table) {
       $table->integer('SL_sales_id')
             ->unsigned()
             ->nullable()
@@ -33,8 +33,8 @@ class AlterSaleLogsTable extends Migration
    */
   public function down()
   {
-    Schema::table('sale_logs', function (Blueprint $table) {
-      $table->dropForeign('sale_logs_sl_sales_id_foreign')
+    Schema::table('visits', function (Blueprint $table) {
+      $table->dropForeign('visits_sl_sales_id_foreign')
             ->dropColumn('SL_sales_id');
     });
   }

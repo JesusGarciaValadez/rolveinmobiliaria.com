@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSaleSellerTable extends Migration
+class CreateSellerTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSaleSellerTable extends Migration
    */
   public function up()
   {
-    Schema::create('sale_sellers', function (Blueprint $table) {
+    Schema::create('sellers', function (Blueprint $table) {
       $table->increments('id');
       $table->date('SD_deed')
             ->nullable();
@@ -56,6 +56,6 @@ class CreateSaleSellerTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('sale_sellers');
+    Schema::dropIfExists('sellers');
   }
 }

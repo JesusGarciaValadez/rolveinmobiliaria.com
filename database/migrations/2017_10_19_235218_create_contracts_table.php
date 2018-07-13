@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSaleContractsTable extends Migration
+class CreateContractsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSaleContractsTable extends Migration
    */
   public function up()
   {
-    Schema::create('sale_contracts', function (Blueprint $table) {
+    Schema::create('contracts', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('SC_infonavit_contracts_id')
             ->unsigned()
@@ -75,15 +75,15 @@ class CreateSaleContractsTable extends Migration
    */
   public function down()
   {
-    Schema::table('sale_contracts', function (Blueprint $table) {
-      $table->dropForeign('sale_contracts_sc_infonavit_contracts_id_foreign')
+    Schema::table('contracts', function (Blueprint $table) {
+      $table->dropForeign('contracts_sc_infonavit_contracts_id_foreign')
             ->dropColumn('SC_infonavit_contracts_id');
-      $table->dropForeign('sale_contracts_sc_fovissste_contracts_id_foreign')
+      $table->dropForeign('contracts_sc_fovissste_contracts_id_foreign')
             ->dropColumn('SC_fovissste_contracts_id');
-      $table->dropForeign('sale_contracts_sc_cofinavit_contracts_id_foreign')
+      $table->dropForeign('contracts_sc_cofinavit_contracts_id_foreign')
             ->dropColumn('SC_cofinavit_contracts_id');
     });
 
-    Schema::dropIfExists('sale_contracts');
+    Schema::dropIfExists('contracts');
   }
 }

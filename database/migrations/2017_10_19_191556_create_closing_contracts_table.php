@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSaleClosingContractsTable extends Migration
+class CreateClosingContractsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSaleClosingContractsTable extends Migration
    */
   public function up()
   {
-    Schema::create('sale_closing_contracts', function (Blueprint $table) {
+    Schema::create('closing_contracts', function (Blueprint $table) {
       $table->increments('id');
       $table->date('SCC_commercial_valuation')
             ->nullable();
@@ -39,6 +39,6 @@ class CreateSaleClosingContractsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('sale_closing_contracts');
+    Schema::dropIfExists('closing_contracts');
   }
 }
