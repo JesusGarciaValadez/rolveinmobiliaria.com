@@ -15,8 +15,8 @@ return [
 
     'dashboard' => 'Dashboard',
     'notifications' => 'notifications',
-    'call_tracking' => 'Call tracking',
-    'for_sale' => 'For sale',
+    'call' => 'Call tracking',
+    'sale' => 'For sale',
     'rent' => 'Rent',
     'mortgage_cancellation' => 'Mortgage cancellation',
     'legal' => 'Lefal',
