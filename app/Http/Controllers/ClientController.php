@@ -18,7 +18,7 @@ class ClientController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = 'clients';
+  private $_uri = 'client';
   private $_locale;
 
   public function __constructor()
@@ -33,9 +33,26 @@ class ClientController extends Controller
    */
   public function index()
   {
-    $clients = Client::orderBy('first_name', 'asc')
-      ->orderBy('last_name', 'asc')
-      ->paginate(5);
+    $currentUser = User::find(Auth::id());
+
+    if (
+      $currentUser->hasRole('Super Administrador') ||
+      $currentUser->hasRole('Administrador')
+    )
+    {
+      $clients = Client::orderBy('first_name', 'asc')
+        ->orderBy('last_name', 'asc')
+        ->paginate(5);
+    }
+    else
+    {
+      $clients = Client::where([
+          'user_id', '=', $currentUser->id
+        ])
+        ->orderBy('first_name', 'asc')
+        ->orderBy('last_name', 'asc')
+        ->paginate(5);
+    }
 
     return view('clients.index')
             ->withClients($clients)
@@ -49,8 +66,7 @@ class ClientController extends Controller
    */
   public function create()
   {
-    $clients = Client::all()
-      ->sortBy('last_name');
+    $clients = Client::all()->sortBy('last_name');
 
     return view('clients.create')
             ->withClients($clients)
@@ -123,10 +139,8 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function show(Request $request)
+  public function show(Client $client, Request $request)
   {
-    $client = Client::findOrFail($request->id);
-
     if ($request->ajax())
     {
       return response()->json([$client]);
@@ -145,10 +159,8 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function edit(Request $request)
+  public function edit(Client $client, Request $request)
   {
-    $client = Client::findOrFail($request->id);
-
     return view('clients.edit')
             ->withClient($client)
             ->withUri($this->_uri);
@@ -161,15 +173,14 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function update(ClientRequest $request)
+  public function update(Client $client, ClientRequest $request)
   {
     $data = $request->all();
     unset($data['_token']);
     $data['first_name'] = ucwords(strtolower($data['first_name']));
     $data['last_name'] = ucwords(strtolower($data['last_name']));
 
-    $updated = Client::findOrFail($request->id)
-                     ->update($data);
+    $updated = $client->update($data);
 
     $message = ($updated)
                   ? 'Cliente actualizado'
@@ -207,9 +218,8 @@ class ClientController extends Controller
    * @param  \App\Client  $client
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request)
+  public function destroy(Client $client, Request $request)
   {
-    $client = Client::findOrFail($request->id);
     $isDestroyed = $client->delete();
 
     $message = ($isDestroyed) ? 'Cliente eliminado' : 'No se pudo eliminar al cliente.';
@@ -237,7 +247,7 @@ class ClientController extends Controller
     }
   }
 
-  public function filter(ClientFilterRequest $request)
+  public function filter(Client $client, ClientFilterRequest $request)
   {
     $currentUser = User::find(Auth::id());
     $field = '';
