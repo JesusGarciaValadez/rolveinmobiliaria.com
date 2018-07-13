@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Expediente ".$message->expedient."| ".__('section.call_tracking'))
+@section('title', "Expediente ".$message->expedient."| ".__('section.message'))
 
 @section('content')
 <div class="container-fluid">

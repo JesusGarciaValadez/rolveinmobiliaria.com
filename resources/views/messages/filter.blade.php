@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Búsqueda | ".__('section.call_tracking'))
+@section('title', "Búsqueda | ".__('section.message'))
 
 @section('content')
 <div class="container-fluid">
