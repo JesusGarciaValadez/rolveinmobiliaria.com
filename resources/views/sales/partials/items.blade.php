@@ -12,121 +12,134 @@
                     {{ $sale->internal_expedient->client->full_name }}
                   </td>
                   <td class="text-center">{{-- Documents --}}
-                    @if(empty($sale->seller) || $sale->seller->SD_complete === 0)
-                    <a href="{{ route('for_sale.seller.edit', [
+                    <a
+                      @if(
+                        $sale->seller->SD_complete === 0 ||
+                        $sale->seller->SD_complete === 1
+                      )
+                      href="{{ route('for_sale.seller.edit', [
                         'id' => $sale->id,
                         'seller_id' => $sale->seller->id
-                      ]) }}" title="Editar documentos" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      ]) }}"
+                      @endif
+                      @if ($sale->seller->SD_complete === 1)
+                      title="Documentos completos"
+                      class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
+                      @else
+                      title="Editar documentos"
+                      class="btn btn-warning">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      @endif
                     </a>
-                    @else
-                    <a href="{{ route('for_sale.seller.edit', [
-                        'id' => $sale->id,
-                        'seller_id' => $sale->seller->id,
-                      ]) }}" title="Documentos completos" class="btn btn-success">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
-                    </a>
-                    @endif
                   </td>
                   <td class="text-center">{{-- Closing Contract --}}
-                    @if(
-                      empty($sale->closing_contract) ||
-                      $sale->closing_contract->SCC_complete === 0
-                    )
-                    <a href="{{ route('for_sale.closing_contract.edit', [
+                    <a
+                      @if(
+                        $sale->closing_contract->SCC_complete === 0 ||
+                        $sale->closing_contract->SCC_complete === 1
+                      )
+                      href="{{ route('for_sale.closing_contract.edit', [
                         'id' => $sale->id,
                         'closing_contract_id' => $sale->closing_contract->id,
-                      ]) }}" title="Editar contrato de cierre" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      ]) }}"
+                      @endif
+                      @if($sale->closing_contract->SCC_complete === 1)
+                      title="Contrato de cierre completo"
+                      class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
+                      @else
+                      title="Editar contrato de cierre"
+                      class="btn btn-warning">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      @endif
                     </a>
-                    @else
-                    <a href="{{ route('for_sale.closing_contract.edit', [
-                        'id' => $sale->id,
-                        'closing_contract_id' => $sale->closing_contract->id,
-                      ]) }}" title="Contrato de cierre completo" class="btn btn-success">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
-                    </a>
-                    @endif
                   </td>
-                  <td class="text-center">{{-- Logs --}}
+                  <td class="text-center">{{-- Visits --}}
                     @if(
-                      empty($sale->notary) ||
+                      optional($sale->notary) ||
                       $sale->notary->SN_complete === 0
                     )
-                    <a href="{{ route('for_sale.log.edit', [
+                    <a href="{{ route('for_sale.visit.edit', [
                         'id' => $sale->id,
-                        'log_id' => $sale->id,
+                        'visit_id' => $sale->id,
                       ]) }}" title="Editar contrato de cierre" class="btn btn-warning">
                       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
                     </a>
                     @else
-                    <a href="{{ route('for_sale.log.edit', [
+                    <a href="{{ route('for_sale.visit.edit', [
                         'id' => $sale->id,
-                        'log_id' => $sale->id,
+                        'visit_id' => $sale->id,
                       ]) }}" title="Contrato de cierre completo" class="btn btn-success">
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
                     </a>
                     @endif
                   </td>
                   <td class="text-center">{{-- Contract --}}
-                    @if(
-                      empty($sale->contract) ||
-                      $sale->contract->SC_complete === 0
-                    )
-                    <a href="{{ route('for_sale.contract.edit', [
+                    <a
+                      @if(
+                        $sale->contract->SC_complete === 0 ||
+                        $sale->contract->SC_complete === 1
+                      )
+                      href="{{ route('for_sale.contract.edit', [
                         'id' => $sale->id,
                         'contract_id' => $sale->contract->id,
-                      ]) }}" title="Editar contrato" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      ]) }}"
+                      @endif
+                      @if($sale->contract->SC_complete === 1)
+                      title="Contrato completo"
+                      class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
+                      @else
+                      title="Editar contrato"
+                      class="btn btn-warning">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      @endif
                     </a>
-                    @else
-                    <a href="{{ route('for_sale.contract.edit', [
-                        'id' => $sale->id,
-                        'contract_id' => $sale->contract->id,
-                      ]) }}" title="Contrato completo" class="btn btn-success">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
-                    </a>
-                    @endif
                   </td>
                   <td class="text-center">{{-- Notary --}}
-                    @if(
-                      empty($sale->notary) ||
-                      $sale->notary->SN_complete === 0
-                    )
-                    <a href="{{ route('for_sale.notary.edit', [
+                    <a
+                      @if(
+                        $sale->notary->SN_complete === 0 ||
+                        $sale->notary->SN_complete === 1
+                      )
+                      href="{{ route('for_sale.notary.edit', [
                         'id' => $sale->id,
                         'notary_id' => $sale->notary->id,
-                      ]) }}" title="Editar notaría" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      ]) }}"
+                      @endif
+                      @if($sale->notary->SN_complete === 1)
+                      title="Notaría completa"
+                      class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
+                      @else
+                      title="Editar notaría"
+                      class="btn btn-warning">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      @endif
                     </a>
-                    @else
-                    <a href="{{ route('for_sale.notary.edit', [
-                        'id' => $sale->id,
-                        'notary_id' => $sale->notary->id,
-                      ]) }}" title="Editar notaría" class="btn btn-success">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
-                    </a>
-                    @endif
                   </td>
                   <td class="text-center">{{-- Signature --}}
-                    @if(
-                      empty($sale->signature) ||
-                      $sale->signature->SS_complete === 0
-                    )
-                    <a href="{{ route('for_sale.signature.edit', [
+                    <a
+                      @if(
+                        $sale->signature->SS_complete === 0 ||
+                        $sale->signature->SS_complete === 1
+                      )
+                      href="{{ route('for_sale.signature.edit', [
                         'id' => $sale->id,
                         'signature_id' => $sale->signature->id,
-                      ]) }}" title="Editar notaría" class="btn btn-warning">
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      ]) }}"
+                      @endif
+                      @if(optional($sale->signature)->SS_complete === 1)
+                      title=""
+                      class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
+                      @else
+                      title="Editar firma"
+                      class="btn btn-warning">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Completar
+                      @endif
                     </a>
-                    @else
-                    <a href="{{ route('for_sale.signature.edit', [
-                        'id' => $sale->contract->id,
-                        'signature_id' => $sale->signature->id,
-                      ]) }}" title="Firma completa" class="btn btn-success">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
-                    </a>
-                    @endif
                   </td>
                   <td class="text-center danger">{{-- Actions --}}
                     @can('sales.delete')
