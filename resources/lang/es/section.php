@@ -25,7 +25,7 @@ return [
 
     'sale' => 'Venta',
     'regularization' => 'Regularization',
-    'exclusive_contracts' => 'Contratos de exclusividad',
-    'appraisals' => 'Avalúos',
-    'clients' => 'Clientes',
+    'exclusive_contract' => 'Contratos de exclusividad',
+    'appraisal' => 'Avalúos',
+    'client' => 'Clientes',
 ];

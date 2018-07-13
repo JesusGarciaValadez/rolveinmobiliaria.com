@@ -1,12 +1,16 @@
                 <tr>
                   <td class="text-center">
-                    @can('clients.update')
-                      @clientsButtonEdit(['client' => $client])
+                    @can('client.update')
+                      @clientsButtonEdit([
+                        'client' => $client
+                      ])
                       @endclientsButtonEdit
                     @endcan
 
-                    @can('clients.delete')
-                      @clientsButtonDelete(['client' => $client])
+                    @can('client.delete')
+                      @clientsButtonDelete([
+                        'client' => $client
+                      ])
                       @endclientsButtonDelete
                     @endcan
                   </td>

@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.clients'))
+@section('title', "Editar | ".__('section.client'))
 
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu(['uri' => $uri])
+    @lateralMenu([
+      'uri' => $uri
+    ])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -18,12 +20,17 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             class="form-horizontal"
-            action="{{ route('client.update', ['id' => request('id')]) }}"
+            action="{{ route('client.update', [
+              'client' => $client->id
+            ]) }}"
             method="post">
             @csrf
             @method('PUT')

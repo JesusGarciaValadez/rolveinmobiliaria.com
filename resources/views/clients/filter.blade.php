@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Lista | ".__('section.clients'))
+@section('title', "Lista | ".__('section.client'))
 
 @section('content')
 <div class="container-fluid">
@@ -12,8 +12,8 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => route('client.index'),
-          'routeTitle' => __('section.clients'),
-          'title' => __('section.clients'),
+          'routeTitle' => __('section.client'),
+          'title' => __('section.client'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @clientsButtonCreate
@@ -22,7 +22,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           @clientsFilter

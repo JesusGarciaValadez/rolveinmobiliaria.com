@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.clients'))
+@section('title', "Editar | ".__('section.client'))
 
 @section('content')
 <div class="container-fluid">
@@ -12,8 +12,8 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => route('dashboard'),
-          'routeTitle' => __('section.clients'),
-          'title' => __('section.clients'),
+          'routeTitle' => __('section.client'),
+          'title' => __('section.client'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @clientsButtonCreate

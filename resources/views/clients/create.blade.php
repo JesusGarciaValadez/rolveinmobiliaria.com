@@ -5,7 +5,9 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    @lateralMenu(['uri' => $uri])
+    @lateralMenu([
+      'uri' => $uri
+    ])
     @endlateralMenu
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
@@ -18,7 +20,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
@@ -208,7 +213,9 @@
               @clientsButtonSave
               @endclientsButtonSave
 
-              @clientsButtonBack(['back' => route('client.index')])
+              @clientsButtonBack([
+                'back' => route('client.index')
+              ])
               @endclientsButtonBack
             </div>
           </form>

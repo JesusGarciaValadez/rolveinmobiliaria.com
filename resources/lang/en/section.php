@@ -25,7 +25,7 @@ return [
 
     'sale' => 'Sale',
     'regularization' => 'regularization',
-    'exclusive_contracts' => 'Exclusive contracts',
-    'appraisals' => 'Appraisals',
-    'clients' => 'Clients',
+    'exclusive_contract' => 'Exclusive contracts',
+    'appraisal' => 'Appraisals',
+    'client' => 'Clients',
 ];
