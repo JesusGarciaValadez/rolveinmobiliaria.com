@@ -33,7 +33,7 @@ class SaleController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = 'for_sales';
+  private $_uri = 'sale';
   private $_locale;
 
   private $_expedients;
@@ -226,7 +226,7 @@ class SaleController extends Controller
       {
         event(new SaleCreatedEvent($sale));
 
-        return redirect(route('for_sale.index'))
+        return redirect(route('sale.index'))
           ->withMessage($this->_message)
           ->withType($this->_type);
       }
@@ -453,7 +453,7 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect(route('for_sale.index'))
+      return redirect(route('sale.index'))
               ->withMessage($message)
               ->withType($type);
     }

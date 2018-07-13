@@ -20,7 +20,7 @@ class CallController extends Controller
 {
   use ThrottlesLogins;
 
-  private $_uri = 'call_trackings';
+  private $_uri = 'call';
   private $_locale;
 
   public function __constructor()
@@ -136,7 +136,7 @@ class CallController extends Controller
     {
       if ($updated)
       {
-        return redirect(route('call_tracking.index'))
+        return redirect(route('call.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -277,7 +277,7 @@ class CallController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect(route('call_tracking.index'))
+        return redirect(route('call.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
@@ -318,7 +318,7 @@ class CallController extends Controller
     {
       if ($type === 'success')
       {
-        return redirect(route('call_tracking.index'))
+        return redirect(route('call.index'))
                 ->withMessage($message)
                 ->withType($type);
       }
