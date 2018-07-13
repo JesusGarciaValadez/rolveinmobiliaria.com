@@ -15,7 +15,7 @@ return [
 
     'dashboard' => 'Dashboard',
     'notifications' => 'Notificaciones',
-    'messages' => 'Recados',
+    'message' => 'Recados',
     'call' => 'Seguimiento de llamadas',
     'sale' => 'Compra venta',
     'rent' => 'Renta',

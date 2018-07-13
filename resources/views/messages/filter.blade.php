@@ -68,7 +68,9 @@
               @endmessagesButtonCreate
             </div>
 
-            @messagesButtonBack(['back' => route('message.index')])
+            @messagesButtonBack([
+              'back' => route('message.index')
+            ])
             @endmessagesButtonBack
           </div>
         </div>

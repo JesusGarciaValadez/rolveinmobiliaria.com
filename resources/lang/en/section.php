@@ -14,12 +14,13 @@ return [
     */
 
     'dashboard' => 'Dashboard',
-    'notifications' => 'notifications',
-    'call' => 'Call tracking',
-    'sale' => 'For sale',
+    'notifications' => 'notification',
+    'message' => 'Message',
+    'call' => 'Call',
+    'sale' => 'Sale',
     'rent' => 'Rent',
     'mortgage_cancellation' => 'Mortgage cancellation',
-    'legal' => 'Lefal',
+    'legal' => 'Legal',
     'succession' => 'Succession',
 
     'sale' => 'Sale',

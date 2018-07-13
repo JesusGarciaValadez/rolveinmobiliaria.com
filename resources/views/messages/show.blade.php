@@ -22,7 +22,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <div class="row">
@@ -40,12 +43,12 @@
 
               <p class="text-left"><strong>@lang('message.actions')</strong></p>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @can('messages.update')
+                @can('message.update')
                   @messagesButtonEditComplete(['message' => $message])
                   @endmessagesButtonEditComplete
                 @endcan
 
-                @can('messages.delete')
+                @can('message.delete')
                   @messagesButtonDeleteComplete(['message' => $message])
                   @endmessagesButtonDeleteComplete
                 @endcan
@@ -64,7 +67,9 @@
               </div>
             </div>
 
-            @messagesButtonBack(['back' => route('message.index')])
+            @messagesButtonBack([
+              'back' => route('message.index')
+            ])
             @endmessagesButtonBack
           </div>
         </div>

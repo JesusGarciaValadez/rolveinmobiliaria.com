@@ -20,12 +20,17 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive" id="message-info">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             class="form-horizontal"
-            action="{{ route('message.update', ['id' => request('id')]) }}"
+            action="{{ route('message.update', [
+              'message' => request('id')
+            ]) }}"
             method="post">
             @csrf
             @method('PUT')
@@ -101,7 +106,7 @@
               @messagesButtonSave
               @endmessagesButtonSave
 
-              @messagesButtonBack
+              @messagesButtonBack()
               @endmessagesButtonBack
             </div>
           </form>

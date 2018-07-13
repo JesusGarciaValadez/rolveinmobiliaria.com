@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Lista | " . __('section.messages'))
+@section('title', "Lista | " . __('section.message'))
 
 @section('content')
 <div class="container-fluid">
@@ -12,8 +12,8 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => route('dashboard'),
-          'routeTitle' => __('section.messages'),
-          'title' => __('section.messages'),
+          'routeTitle' => __('section.message'),
+          'title' => __('section.message'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @messagesButtonCreate

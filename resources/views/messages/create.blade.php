@@ -18,7 +18,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive" id="message-info">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
@@ -96,7 +99,9 @@
               @messagesButtonSave
               @endmessagesButtonSave
 
-              @messagesButtonBack(['back' => route('message.index')])
+              @messagesButtonBack([
+                'back' => route('message.index')
+              ])
               @endmessagesButtonBack
             </div>
           </form>

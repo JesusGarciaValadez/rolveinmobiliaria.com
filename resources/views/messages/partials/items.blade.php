@@ -11,7 +11,9 @@
                     @endcan
                   </td>
                   <td class="text-center">
-                    <a href="{{ route('message.show', ['id' => $message->id]) }}">{{ $message->name }}</a>
+                    <a href="{{ route('message.show', [
+                      'id' => $message->id
+                    ]) }}">{{ $message->name }}</a>
                   </td>
                   <td class="text-center">
                     <a href="mailto:{{ $message->email }}" title="{{ $message->name }}" target="_blank">{{ $message->email }}</a>
