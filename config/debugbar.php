@@ -119,7 +119,7 @@ return [
         'events'          => false, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'logs'            => true, // Add the latest log messages
-        'files'           => true, // Show the included files
+        'files'           => false, // Show the included files
         'config'          => true, // Display config settings
         'cache'           => true, // Display cache events
     ],
