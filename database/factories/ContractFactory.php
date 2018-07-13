@@ -6,7 +6,7 @@ use App\InfonavitContract;
 use App\FovisssteContract;
 use App\CofinavitContract;
 
-$factory->define(App\SaleContract::class, function (Faker $faker) {
+$factory->define(App\Contract::class, function (Faker $faker) {
   $mortgage_credit = $faker->randomElement([
     'INFONAVIT',
     'FOVISSSTE',

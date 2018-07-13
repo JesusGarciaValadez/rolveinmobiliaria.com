@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\SaleNotary::class, function (Faker $faker) {
+$factory->define(App\Notary::class, function (Faker $faker) {
   $federal_entity = $faker->randomElement([
     'CDMX',
     'Edo. Mex.',

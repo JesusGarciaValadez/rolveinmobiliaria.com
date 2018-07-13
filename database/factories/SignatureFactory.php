@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\SaleSignature::class, function (Faker $faker) {
+$factory->define(App\Signature::class, function (Faker $faker) {
   $writing_review = $faker->randomElement([
     $faker->date(),
     null,

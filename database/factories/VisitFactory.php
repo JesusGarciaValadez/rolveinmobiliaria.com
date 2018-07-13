@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 use App\Sale;
 
-$factory->define(App\SaleLog::class, function (Faker $faker) {
+$factory->define(App\Visit::class, function (Faker $faker) {
   $sale_id = $faker->randomElement([
     factory(Sale::class)->create()->id,
     null,

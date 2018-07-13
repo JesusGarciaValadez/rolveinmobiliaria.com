@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\SaleClosingContract::class, function (Faker $faker) {
+$factory->define(App\ClosingContract::class, function (Faker $faker) {
   $commercial_valuation = $faker->randomElement([
     $faker->date(),
     null,

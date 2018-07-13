@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\SaleSeller::class, function (Faker $faker) {
+$factory->define(App\Seller::class, function (Faker $faker) {
   $deed = $faker->randomElement([
     $faker->date(),
     null,
