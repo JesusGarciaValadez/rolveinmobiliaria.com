@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.error')
 
 @section('title', "Acción denegada")
 
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         @lateralMenu()
         @endlateralMenu
