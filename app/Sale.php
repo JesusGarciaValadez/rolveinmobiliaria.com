@@ -37,12 +37,12 @@ class Sale extends Model
    */
   protected $fillable = [
     'internal_expedients_id',
-    'sale_sellers_id',
-    'sale_closing_contracts_id',
-    'sale_logs_id',
-    'sale_contracts_id',
-    'sale_notaries_id',
-    'sale_signatures_id',
+    'sellers_id',
+    'closing_contracts_id',
+    'visits_id',
+    'contracts_id',
+    'notaries_id',
+    'signatures_id',
     'user_id',
   ];
 
@@ -74,27 +74,27 @@ class Sale extends Model
 
   public function seller()
   {
-    return $this->hasOne(SaleSeller::class, 'id', 'sale_sellers_id');
+    return $this->hasOne(Seller::class, 'id', 'sellers_id');
   }
 
   public function closing_contract()
   {
-    return $this->hasOne(SaleClosingContract::class, 'id', 'sale_closing_contracts_id');
+    return $this->hasOne(ClosingContract::class, 'id', 'closing_contracts_id');
   }
 
   public function contract()
   {
-    return $this->hasOne(SaleContract::class, 'id', 'sale_contracts_id');
+    return $this->hasOne(Contract::class, 'id', 'contracts_id');
   }
 
   public function notary()
   {
-    return $this->hasOne(SaleNotary::class, 'id', 'sale_notaries_id');
+    return $this->hasOne(Notary::class, 'id', 'notaries_id');
   }
 
   public function signature()
   {
-    return $this->hasOne(SaleSignature::class, 'id', 'sale_signatures_id');
+    return $this->hasOne(Signature::class, 'id', 'signatures_id');
   }
 
   public function user()

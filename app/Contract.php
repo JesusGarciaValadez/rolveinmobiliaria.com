@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SaleLog extends Model
+class Contract extends Model
 {
   use SoftDeletes;
 
@@ -13,14 +13,18 @@ class SaleLog extends Model
    * The table associated with the model.
    * @var string
    */
-  protected $table = 'sale_logs';
+  protected $table = 'contracts';
 
   /**
    * The attributes that represents the models who has relationship with
    *
    * @var array
    */
-  protected $with = ['sale'];
+  protected $with = [
+    'infonavit_contract',
+    'fovissste_contract',
+    'cofinavit_contract'
+  ];
 
   /**
    * The attributes that are mass assignable.
@@ -28,12 +32,18 @@ class SaleLog extends Model
    * @var array
    */
   protected $fillable = [
-    'SL_sales_id',
-    'SL_subject',
-    'SL_email',
-    'SL_phone',
-    'SL_observations',
-    'SL_complete',
+    'infonavit_contracts_id',
+    'fovissste_contracts_id',
+    'cofinavit_contracts_id',
+    'mortgage_credit',
+    'mortgage_broker',
+    'contract_with_the_broker',
+    'general_buyer',
+    'purchase_agreements',
+    'tax_assessment',
+    'notary_checklist',
+    'notary_file',
+    'complete',
   ];
 
   /**
@@ -66,6 +76,21 @@ class SaleLog extends Model
 
   public function sale()
   {
-    return $this->hasMany('App\Sale', 'sales_id');
+    return $this->belongsTo(Sale::class, 'contracts_id');
+  }
+
+  public function infonavit_contract()
+  {
+    return $this->belongsTo('App\InfonavitContract', 'SC_infonavit_contracts_id');
+  }
+
+  public function fovissste_contract()
+  {
+    return $this->belongsTo('App\FovisssteContract', 'SC_fovissste_contracts_id');
+  }
+
+  public function cofinavit_contract()
+  {
+    return $this->belongsTo('App\CofinavitContract', 'SC_cofinavit_contracts_id');
   }
 }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SaleSeller extends Model
+class Visit extends Model
 {
   use SoftDeletes;
 
@@ -13,7 +13,14 @@ class SaleSeller extends Model
    * The table associated with the model.
    * @var string
    */
-  protected $table = 'sale_sellers';
+  protected $table = 'visits';
+
+  /**
+   * The attributes that represents the models who has relationship with
+   *
+   * @var array
+   */
+  protected $with = ['sale'];
 
   /**
    * The attributes that are mass assignable.
@@ -21,20 +28,20 @@ class SaleSeller extends Model
    * @var array
    */
   protected $fillable = [
-    'SD_deed',
-    'SD_water',
-    'SD_predial',
-    'SD_light',
-    'SD_birth_certificate',
-    'SD_ID',
-    'SD_CURP',
-    'SD_RFC',
-    'SD_account_status',
-    'SD_email',
-    'SD_phone',
-    'SD_civil_status',
-    'SD_complete',
+    'SV_sales_id',
+    'SV_subject',
+    'SV_email',
+    'SV_phone',
+    'SV_observations',
+    'SV_complete',
   ];
+
+  /**
+   * The attributes that aren't mass assignable.
+   *
+   * @var array
+   */
+  protected $guarded = [];
 
   /**
    * The attributes that should be hidden for arrays.
@@ -59,6 +66,6 @@ class SaleSeller extends Model
 
   public function sale()
   {
-    return $this->belongsTo(Sale::class, 'sale_sellers_id');
+    return $this->hasMany('App\Sale', 'sales_id');
   }
 }

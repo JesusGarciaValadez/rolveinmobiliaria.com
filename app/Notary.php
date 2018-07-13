@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SaleNotary extends Model
+class Notary extends Model
 {
   use SoftDeletes;
 
@@ -13,7 +13,7 @@ class SaleNotary extends Model
    * The table associated with the model.
    * @var string
    */
-  protected $table = 'sale_notaries';
+  protected $table = 'notaries';
 
   /**
    * The attributes that are mass assignable.
@@ -62,6 +62,6 @@ class SaleNotary extends Model
 
   public function sale()
   {
-    return $this->belongsTo(Sale::class, 'sale_notaries_id');
+    return $this->belongsTo(Sale::class, 'notaries_id');
   }
 }
