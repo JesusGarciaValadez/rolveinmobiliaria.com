@@ -166,69 +166,69 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
        ->name('destroy')
        ->middleware('can:sales.delete, sale');
 
-  Route::prefix('/{id}/edit_seller')->name('seller.')->group(function ()
+  Route::prefix('/{id}/seller')->name('seller.')->group(function ()
   {
-    Route::get('/{seller_id}', 'SaleSellerController@edit')
+    Route::get('/{seller_id}', 'SellerController@edit')
          ->name('edit')
-         ->middleware('can:sale_sellers.view, sale_sellers');
-    Route::put('/{seller_id}', 'SaleSellerController@update')
+         ->middleware('can:sellers.view, sellers');
+    Route::put('/{seller_id}', 'SellerController@update')
          ->name('update')
-         ->middleware('can:sale_sellers.update, sale_sellers');
+         ->middleware('can:sellers.update, sellers');
   });
 
-  Route::prefix('/{id}/edit_closing_contract')->name('closing_contract.')->group(function ()
+  Route::prefix('/{id}/closing_contract')->name('closing_contract.')->group(function ()
   {
-    Route::get('/{closing_contract_id}', 'SaleClosingContractController@edit')
+    Route::get('/{closing_contract_id}', 'ClosingContractController@edit')
          ->name('edit')
-         ->middleware('can:sale_closing_contracts.view, sale_closing_contracts');
+         ->middleware('can:closing_contracts.view, closing_contracts');
 
-    Route::put('/{closing_contract_id}', 'SaleClosingContractController@update')
+    Route::put('/{closing_contract_id}', 'ClosingContractController@update')
          ->name('update')
-         ->middleware('can:sale_closing_contracts.update, sale_closing_contracts');
+         ->middleware('can:closing_contracts.update, closing_contracts');
   });
 
-  Route::prefix('/{id}/edit_log')->name('log.')->group(function ()
+  Route::prefix('/{id}/visit')->name('visit.')->group(function ()
   {
-    Route::get('/{log_id}', 'SaleLogController@edit')
+    Route::get('/{visit_id}', 'VisitController@edit')
          ->name('edit')
-         ->middleware('can:edit_log.view, sale_logs');
+         ->middleware('can:sale_visits.view, sale_visits');
 
-    Route::put('/{log_id}', 'SaleLogController@update')
+    Route::put('/{visit_id}', 'VisitController@update')
          ->name('update')
-         ->middleware('can:edit_log.update, sale_logs');
+         ->middleware('can:sale_visits.update, sale_visits');
   });
 
-  Route::prefix('/{id}/edit_contract')->name('contract.')->group(function ()
+  Route::prefix('/{id}/contract')->name('contract.')->group(function ()
   {
-    Route::get('/{contract_id}', 'SaleContractController@edit')
+    Route::get('/{contract_id}', 'ContractController@edit')
          ->name('edit')
-         ->middleware('can:contract.view, sale_contracts');
+         ->middleware('can:contracts.view, contracts');
 
-    Route::put('/{contract_id}', 'SaleContractController@update')
+    Route::put('/{contract_id}', 'ContractController@update')
          ->name('update')
-         ->middleware('can:contract.update, sale_contracts');
+         ->middleware('can:contracts.update, contracts');
   });
 
-  Route::prefix('/{id}/edit_notary')->name('notary.')->group(function ()
+  Route::prefix('/{id}/notary')->name('notary.')->group(function ()
   {
-    Route::get('/{notary_id}', 'SaleNotaryController@edit')
+    Route::get('/{notary}', 'NotaryController@edit')
          ->name('edit')
-         ->middleware('can:edit_notary.view, sale_notaries');
+         ->middleware('can:notaries.view, notary');
 
-    Route::put('/{notary_id}', 'SaleNotaryController@update')
+    Route::put('/{notary}', 'NotaryController@update')
          ->name('update')
-         ->middleware('can:edit_notary.update, sale_notaries');
+         ->middleware('can:notaries.update, notary');
   });
 
-  Route::prefix('/{id}/edit_signature')->name('signature.')->group(function ()
+  Route::prefix('/{id}/signature')->name('signature.')->group(function ()
   {
-    Route::get('/{signature_id}', 'SaleSignatureController@edit')
+    Route::get('/{signature_id}', 'SignatureController@edit')
          ->name('edit')
-         ->middleware('can:edit_signature.view, sale_signatures');
+         ->middleware('can:signatures.view, signatures');
 
-    Route::put('/{signature_id}', 'SaleSignatureController@update')
+    Route::put('/{signature_id}', 'SignatureController@update')
          ->name('update')
-         ->middleware('can:edit_signature.update, sale_signatures');
+         ->middleware('can:signatures.update, signatures');
   });
 });
 
