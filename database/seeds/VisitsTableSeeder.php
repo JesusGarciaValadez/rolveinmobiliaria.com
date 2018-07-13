@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SaleLogsTableSeeder extends Seeder
+class VisitsTableSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -11,6 +11,6 @@ class SaleLogsTableSeeder extends Seeder
    */
   public function run()
   {
-    return factory(App\SaleLog::class, 20)->create();
+    return factory(App\Visit::class, 20)->create();
   }
 }
