@@ -46,7 +46,9 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sale.index')])
+                @salesButtonBack([
+                  'back' => route('for_sale.index')
+                ])
                 @endsalesButtonBack
               </div>
             </div>
