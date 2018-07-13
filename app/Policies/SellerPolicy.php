@@ -3,12 +3,21 @@
 namespace App\Policies;
 
 use App\User;
-use App\SaleClosingContract;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SaleClosingContractPolicy
+class SellerPolicy
 {
   use HandlesAuthorization;
+
+  /**
+   * Create a new policy instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+      //
+  }
 
   public function before($user, $ability)
   {
@@ -22,13 +31,13 @@ class SaleClosingContractPolicy
   }
 
   /**
-   * Determine whether the user can view the sale closing contract.
+   * Determine whether the user can view the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function view(User $user, SaleClosingContract $saleClosingContract)
+  public function view(User $user)
   {
     return (
       $user->hasRole('Super Administrador') ||
@@ -40,7 +49,7 @@ class SaleClosingContractPolicy
   }
 
   /**
-   * Determine whether the user can create sale closing contracts.
+   * Determine whether the user can create sales.
    *
    * @param  \App\User  $user
    * @return mixed
@@ -57,13 +66,13 @@ class SaleClosingContractPolicy
   }
 
   /**
-   * Determine whether the user can update the sale closing contract.
+   * Determine whether the user can update the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\Seller  $seller
    * @return mixed
    */
-  public function update(User $user, SaleClosingContract $saleClosingContract)
+  public function update(User $user, Seller $seller)
   {
     return (
       $user->hasRole('Super Administrador') ||
@@ -75,13 +84,13 @@ class SaleClosingContractPolicy
   }
 
   /**
-   * Determine whether the user can delete the sale closing contract.
+   * Determine whether the user can delete the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\SaleClosingContract  $saleClosingContract
+   * @param  \App\Seller  $seller
    * @return mixed
    */
-  public function delete(User $user, SaleClosingContract $saleClosingContract)
+  public function delete(User $user, Seller $seller)
   {
     return (
       $user->hasRole('Super Administrador') ||

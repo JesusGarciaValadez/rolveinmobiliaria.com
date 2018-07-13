@@ -3,41 +3,21 @@
 namespace App\Policies;
 
 use App\User;
+use App\Notary;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SaleSellerPolicy
+class NotaryPolicy
 {
   use HandlesAuthorization;
 
   /**
-   * Create a new policy instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-      //
-  }
-
-  public function before($user, $ability)
-  {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
-  }
-
-  /**
-   * Determine whether the user can view the sale.
+   * Determine whether the user can view the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\Sale  $sale
+   * @param  \App\Notary  $notary
    * @return mixed
    */
-  public function view(User $user)
+  public function view(User $user, Notary $notary)
   {
     return (
       $user->hasRole('Super Administrador') ||
@@ -49,7 +29,7 @@ class SaleSellerPolicy
   }
 
   /**
-   * Determine whether the user can create sales.
+   * Determine whether the user can create sale notaries.
    *
    * @param  \App\User  $user
    * @return mixed
@@ -66,13 +46,13 @@ class SaleSellerPolicy
   }
 
   /**
-   * Determine whether the user can update the sale.
+   * Determine whether the user can update the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\SaleSeller  $saleSeller
+   * @param  \App\Notary  $notary
    * @return mixed
    */
-  public function update(User $user, SaleSeller $saleSeller)
+  public function update(User $user, Notary $notary)
   {
     return (
       $user->hasRole('Super Administrador') ||
@@ -84,13 +64,13 @@ class SaleSellerPolicy
   }
 
   /**
-   * Determine whether the user can delete the sale.
+   * Determine whether the user can delete the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\SaleSeller  $saleSeller
+   * @param  \App\Notary  $notary
    * @return mixed
    */
-  public function delete(User $user, SaleSeller $saleSeller)
+  public function delete(User $user, Notary $notary)
   {
     return (
       $user->hasRole('Super Administrador') ||
