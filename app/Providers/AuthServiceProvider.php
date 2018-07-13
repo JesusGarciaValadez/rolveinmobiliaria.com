@@ -2,26 +2,26 @@
 
 namespace App\Providers;
 
-use App\Message as Message;
-use App\Client as Client;
-use App\Call as Call;
-use App\Sale as Sale;
-use App\Seller as Seller;
-use App\ClosingContract as ClosingContract;
-use App\Visit as Visit;
-use App\Contract as Contract;
-use App\Notary as Notary;
-use App\Signature as Signature;
-use App\Policies\MessagePolicy as MessagePolicy;
-use App\Policies\ClientPolicy as ClientPolicy;
-use App\Policies\CallPolicy as CallPolicy;
-use App\Policies\SalePolicy as SalePolicy;
-use App\Policies\SellerPolicy as SellerPolicy;
-use App\Policies\ClosingContractPolicy as ClosingContractPolicy;
-use App\Policies\ContractPolicy as ContractPolicy;
-use App\Policies\VisitPolicy as VisitPolicy;
-use App\Policies\NotaryPolicy as NotaryPolicy;
-use App\Policies\SignaturePolicy as SignaturePolicy;
+use App\Message;
+use App\Client;
+use App\Call;
+use App\Sale;
+use App\Seller;
+use App\ClosingContract;
+use App\Visit;
+use App\Contract;
+use App\Notary;
+use App\Signature;
+use App\Policies\MessagePolicy;
+use App\Policies\ClientPolicy;
+use App\Policies\CallPolicy;
+use App\Policies\SalePolicy;
+use App\Policies\SellerPolicy;
+use App\Policies\ClosingContractPolicy;
+use App\Policies\ContractPolicy;
+use App\Policies\VisitPolicy;
+use App\Policies\NotaryPolicy;
+use App\Policies\SignaturePolicy;
 
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
@@ -61,24 +61,24 @@ class AuthServiceProvider extends ServiceProvider
 
       Gate::resource('user', 'App\Policies\AdminPolicy');
 
-      Gate::resource('messages', 'App\Policies\MessagePolicy');
+      Gate::resource('message', 'App\Policies\MessagePolicy');
 
-      Gate::resource('clients', 'App\Policies\ClientPolicy');
+      Gate::resource('client', 'App\Policies\ClientPolicy');
 
-      Gate::resource('calls', 'App\Policies\CallPolicy');
+      Gate::resource('call', 'App\Policies\CallPolicy');
 
-      Gate::resource('sales', 'App\Policies\SalePolicy');
+      Gate::resource('sale', 'App\Policies\SalePolicy');
 
-      Gate::resource('sellers', 'App\Policies\SellerPolicy');
+      Gate::resource('seller', 'App\Policies\SellerPolicy');
 
-      Gate::resource('closing_contracts', 'App\Policies\ClosingContractPolicy');
+      Gate::resource('closing_contract', 'App\Policies\ClosingContractPolicy');
 
-      Gate::resource('visits', 'App\Policies\VisitPolicy');
+      Gate::resource('visit', 'App\Policies\VisitPolicy');
 
-      Gate::resource('contracts', 'App\Policies\ContractPolicy');
+      Gate::resource('contract', 'App\Policies\ContractPolicy');
 
-      Gate::resource('notaries', 'App\Policies\NotaryPolicy');
+      Gate::resource('notary', 'App\Policies\NotaryPolicy');
 
-      Gate::resource('signatures', 'App\Policies\SignaturePolicy');
+      Gate::resource('signature', 'App\Policies\SignaturePolicy');
     }
 }

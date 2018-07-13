@@ -13,7 +13,7 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-          @can('messages.view')
+          @can('message.view')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'messages')
               ? ' active'
               : '' }}">
@@ -23,7 +23,7 @@
               </a>
             </li>
           @endcan
-          @can('clients.view')
+          @can('client.view')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'clients')
               ? ' active'
               : '' }}">
@@ -33,21 +33,21 @@
               </a>
             </li>
           @endcan
-          @can('calls.view')
-            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'call_trackings')
+          @can('call.view')
+            <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'call')
               ? ' active'
               : '' }}">
-              <a href="{{ route('call_tracking.index') }}" title="@lang('section.call_tracking')">
+              <a href="{{ route('call.index') }}" title="@lang('section.call_tracking')">
                 <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                 @lang('section.call_tracking')
               </a>
             </li>
           @endcan
-          @can('sales.view')
+          @can('sale.view')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'dashboard')
               ? ' for_sales'
               : '' }}">
-              <a href="{{ route('for_sale.index') }}" title="@lang('section.for_sale')">
+              <a href="{{ route('sale.index') }}" title="@lang('section.sale')">
                 <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
                 @lang('section.for_sale')
               </a>

@@ -10,7 +10,7 @@
       data-placement="right">
       <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
     </a>
-  @can('messages.view')
+  @can('message.view')
     <a
       href="{{ route('message.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'messages')
@@ -24,7 +24,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('clients.view')
+  @can('client.view')
     <a
       href="{{ route('client.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'clients')
@@ -38,13 +38,13 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('calls.view')
+  @can('call.view')
     <a
-      href="{{ route('call_tracking.index') }}"
+      href="{{ route('call.index') }}"
       class="list-group-item{{ (!empty($uri) && $uri == 'call_trackings')
         ? ' active'
         : '' }}"
-      title="@lang('section.call_tracking')"
+      title="@lang('section.call')"
       data-toggle="tooltip"
       data-placement="right">
       <span
@@ -52,10 +52,10 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('sales.view')
+  @can('sale.view')
     <a
-      href="{{ route('for_sale.index') }}"
-      class="list-group-item {{ (!empty($uri) && $uri == 'for_sales')
+      href="{{ route('sale.index') }}"
+      class="list-group-item {{ (!empty($uri) && $uri == 'sale')
         ? ' active'
         : '' }}"
       title="@lang('section.for_sale')"

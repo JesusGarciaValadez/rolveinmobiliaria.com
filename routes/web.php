@@ -31,7 +31,7 @@ Route::get('/', function ()
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::prefix('/clients')->name('client.')->middleware('auth')->group(function ()
+Route::prefix('/client')->name('client.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'ClientController@index')
        ->name('index')
@@ -45,98 +45,98 @@ Route::prefix('/clients')->name('client.')->middleware('auth')->group(function (
        ->name('store')
        ->middleware('can:clients.create, client');
 
-  Route::get('/show/{id}', 'ClientController@show')
+  Route::get('/show/{client}', 'ClientController@show')
        ->name('show')
-       ->middleware('can:clients.view, client');
+       ->middleware('can:clients.view,client');
 
-  Route::get('/edit/{id}', 'ClientController@edit')
+  Route::get('/edit/{client}', 'ClientController@edit')
        ->name('edit')
-       ->middleware('can:clients.update, client');
+       ->middleware('can:clients.update,client');
 
-  Route::put('/update/{id}', 'ClientController@update')
+  Route::put('/update/{client}', 'ClientController@update')
        ->name('update')
-       ->middleware('can:clients.update, client');
+       ->middleware('can:clients.update,client');
 
-  Route::delete('/destroy/{id}', 'ClientController@destroy')
+  Route::delete('/destroy/{client}', 'ClientController@destroy')
        ->name('destroy')
-       ->middleware('can:clients.delete, client');
+       ->middleware('can:clients.delete,client');
 
-  Route::get('/filter/{parameter?}', 'ClientController@filter')
+  Route::get('/filter/{client?}', 'ClientController@filter')
         ->name('filter')
-        ->middleware('can:clients.view, client');
+        ->middleware('can:clients.view,client');
 });
 
-Route::prefix('/messages')->name('message.')->middleware('auth')->group(function ()
+Route::prefix('/message')->name('message.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'MessageController@index')
        ->name('index')
-       ->middleware('can:messages.view, App\Messages');
+       ->middleware('can:message.view, App\Messages');
 
   Route::get('/new', 'MessageController@create')
        ->name('create')
-       ->middleware('can:messages.create, App\Message');
+       ->middleware('can:message.create,App\Message');
 
   Route::post('/store', 'MessageController@store')
        ->name('store')
-       ->middleware('can:messages.create, message');
+       ->middleware('can:message.create,App\Message');
 
-  Route::get('/show/{id}', 'MessageController@show')
+  Route::get('/show/{message}', 'MessageController@show')
        ->name('show')
-       ->middleware('can:messages.view, message');
+       ->middleware('can:message.view,message');
 
-  Route::get('/edit/{id}', 'MessageController@edit')
+  Route::get('/edit/{message}', 'MessageController@edit')
        ->name('edit')
-       ->middleware('can:messages.update, message');
+       ->middleware('can:message.update,message');
 
-  Route::put('/update/{id}', 'MessageController@update')
+  Route::put('/update/{message}', 'MessageController@update')
        ->name('update')
-       ->middleware('can:messages.update, message');
+       ->middleware('can:message.update,message');
 
-  Route::delete('/destroy/{id}', 'MessageController@destroy')
+  Route::delete('/destroy/{message}', 'MessageController@destroy')
        ->name('destroy')
-       ->middleware('can:messages.delete, message');
+       ->middleware('can:message.delete,message');
 
   Route::get('/filter/{date?}', 'MessageController@filter')
        ->name('filter')
-       ->middleware('can:messages.view, message');
+       ->middleware('can:message.view,App\Message');
 });
 
-Route::prefix('/call_trackings')->name('call_tracking.')->middleware('auth')->group(function ()
+Route::prefix('/call')->name('call.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'CallController@index')
        ->name('index')
-       ->middleware('can:calls.view, App\Call');
+       ->middleware('can:call.view,App\Call');
 
   Route::get('/new', 'CallController@create')
        ->name('create')
-       ->middleware('can:calls.create, App\Call');
+       ->middleware('can:call.create,App\Call');
 
   Route::post('/store', 'CallController@store')
        ->name('store')
-       ->middleware('can:calls.create, call');
+       ->middleware('can:call.create,App\Call');
 
-  Route::get('/show/{id}', 'CallController@show')
+  Route::get('/show/{call}', 'CallController@show')
        ->name('show')
-       ->middleware('can:calls.view, call');
+       ->middleware('can:call.view,App\Call');
 
-  Route::get('/edit/{id}', 'CallController@edit')
+  Route::get('/edit/{call}', 'CallController@edit')
        ->name('edit')
-       ->middleware('can:calls.update, call');
+       ->middleware('can:call.update,call');
 
-  Route::put('/update/{id}', 'CallController@update')
+  Route::put('/update/{call}', 'CallController@update')
        ->name('update')
-       ->middleware('can:calls.update, call');
+       ->middleware('can:call.update,call');
 
-  Route::delete('/destroy/{id}', 'CallController@destroy')
+  Route::delete('/destroy/{call}', 'CallController@destroy')
        ->name('destroy')
-       ->middleware('can:calls.delete, call');
+       ->middleware('can:call.delete,call');
 
   Route::get('/filter/{date?}', 'CallController@filter')
        ->name('filter')
-       ->middleware('can:calls.view, call');
+       ->middleware('can:call.view,App\Call');
 });
 
-Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(function ()
+Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'SaleController@index')
        ->name('index')
@@ -162,77 +162,77 @@ Route::prefix('/for_sales')->name('for_sale.')->middleware('auth')->group(functi
        ->name('update')
        ->middleware('can:sales.update, sale');
 
-  Route::delete('/destroy/{id}', 'SaleController@destroy')
+  Route::delete('/destroy/{sale}', 'SaleController@destroy')
        ->name('destroy')
        ->middleware('can:sales.delete, sale');
 
-  Route::prefix('/{id}/seller')->name('seller.')->group(function ()
+  Route::prefix('/{sale}/seller')->name('seller.')->group(function ()
   {
-    Route::get('/{seller_id}', 'SellerController@edit')
+    Route::get('/{seller}', 'SellerController@edit')
          ->name('edit')
-         ->middleware('can:sellers.view, sellers');
-    Route::put('/{seller_id}', 'SellerController@update')
+         ->middleware('can:seller.view,seller');
+    Route::put('/{seller}', 'SellerController@update')
          ->name('update')
-         ->middleware('can:sellers.update, sellers');
+         ->middleware('can:seller.update,seller');
   });
 
-  Route::prefix('/{id}/closing_contract')->name('closing_contract.')->group(function ()
+  Route::prefix('/{sale}/closing_contract')->name('closing_contract.')->group(function ()
   {
-    Route::get('/{closing_contract_id}', 'ClosingContractController@edit')
+    Route::get('/{closing_contract}', 'ClosingContractController@edit')
          ->name('edit')
-         ->middleware('can:closing_contracts.view, closing_contracts');
+         ->middleware('can:closing_contract.view,closing_contract');
 
-    Route::put('/{closing_contract_id}', 'ClosingContractController@update')
+    Route::put('/{closing_contract}', 'ClosingContractController@update')
          ->name('update')
-         ->middleware('can:closing_contracts.update, closing_contracts');
+         ->middleware('can:closing_contract.update,closing_contract');
   });
 
-  Route::prefix('/{id}/visit')->name('visit.')->group(function ()
+  Route::prefix('/{sale}/visit')->name('visit.')->group(function ()
   {
     Route::get('/{visit_id}', 'VisitController@edit')
          ->name('edit')
-         ->middleware('can:sale_visits.view, sale_visits');
+         ->middleware('can:visit.view,visit');
 
     Route::put('/{visit_id}', 'VisitController@update')
          ->name('update')
-         ->middleware('can:sale_visits.update, sale_visits');
+         ->middleware('can:visit.update,visit');
   });
 
-  Route::prefix('/{id}/contract')->name('contract.')->group(function ()
+  Route::prefix('/{sale}/contract')->name('contract.')->group(function ()
   {
-    Route::get('/{contract_id}', 'ContractController@edit')
+    Route::get('/{contract}', 'ContractController@edit')
          ->name('edit')
-         ->middleware('can:contracts.view, contracts');
+         ->middleware('can:contract.view,contract');
 
-    Route::put('/{contract_id}', 'ContractController@update')
+    Route::put('/{contract}', 'ContractController@update')
          ->name('update')
-         ->middleware('can:contracts.update, contracts');
+         ->middleware('can:contract.update,contract');
   });
 
-  Route::prefix('/{id}/notary')->name('notary.')->group(function ()
+  Route::prefix('/{sale}/notary')->name('notary.')->group(function ()
   {
     Route::get('/{notary}', 'NotaryController@edit')
          ->name('edit')
-         ->middleware('can:notaries.view, notary');
+         ->middleware('can:notary.view,notary');
 
     Route::put('/{notary}', 'NotaryController@update')
          ->name('update')
-         ->middleware('can:notaries.update, notary');
+         ->middleware('can:notary.update,notary');
   });
 
-  Route::prefix('/{id}/signature')->name('signature.')->group(function ()
+  Route::prefix('/{sale}/signature')->name('signature.')->group(function ()
   {
-    Route::get('/{signature_id}', 'SignatureController@edit')
+    Route::get('/{signature}', 'SignatureController@edit')
          ->name('edit')
-         ->middleware('can:signatures.view, signatures');
+         ->middleware('can:signature.view,signature');
 
-    Route::put('/{signature_id}', 'SignatureController@update')
+    Route::put('/{signature}', 'SignatureController@update')
          ->name('update')
-         ->middleware('can:signatures.update, signatures');
+         ->middleware('can:signature.update,signature');
   });
 });
 
-Route::prefix('/internal_expedients')->name('internal_expedient.')->middleware('auth')->group(function ()
+Route::prefix('/internal_expedient')->name('internal_expedient.')->middleware('auth')->group(function ()
 {
   Route::post('/store', 'InternalExpedientController@store')
        ->name('store');
