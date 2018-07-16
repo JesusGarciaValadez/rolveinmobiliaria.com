@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Contract;
+use App\Sale;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ContractPolicy
@@ -11,15 +11,40 @@ class ContractPolicy
     use HandlesAuthorization;
 
     /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+      //
+    }
+
+    public function before($user, $ability)
+    {
+      return (
+        $user->hasRole('Super Administrador') ||
+        $user->hasRole('Administrador')
+      )
+        ? true
+        : false;
+    }
+
+    /**
      * Determine whether the user can view the sale contract.
      *
      * @param  \App\User  $user
-     * @param  \App\Contract  $contract
+     * @param  \App\Sale  $sale
      * @return mixed
      */
-    public function view(User $user, Contract $contract)
+    public function view(User $user, Sale $sale)
     {
-        //
+      return (
+        $user->hasRole('Ventas') &&
+        $user->id === $sale->user->id
+      )
+        ? true
+        : false;
     }
 
     /**
@@ -30,30 +55,42 @@ class ContractPolicy
      */
     public function create(User $user)
     {
-        //
+      return ($user->hasRole('Ventas'))
+        ? true
+        : false;
     }
 
     /**
      * Determine whether the user can update the sale contract.
      *
      * @param  \App\User  $user
-     * @param  \App\Contract  $contract
+     * @param  \App\Sale  $sale
      * @return mixed
      */
-    public function update(User $user, Contract $contract)
+    public function update(User $user, Sale $sale)
     {
-        //
+      return (
+        $user->hasRole('Ventas') &&
+        $user->id === $sale->user->id
+      )
+        ? true
+        : false;
     }
 
     /**
      * Determine whether the user can delete the sale contract.
      *
      * @param  \App\User  $user
-     * @param  \App\Contract  $contract
+     * @param  \App\Sale  $sale
      * @return mixed
      */
-    public function delete(User $user, Contract $contract)
+    public function delete(User $user, Sale $sale)
     {
-        //
+      return (
+        $user->hasRole('Ventas') &&
+        $user->id === $sale->user->id
+      )
+        ? true
+        : false;
     }
 }

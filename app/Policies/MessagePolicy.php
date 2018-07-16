@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class MessagePolicy
 {
   use HandlesAuthorization;
-  
+
   /**
    * Create a new policy instance.
    *
@@ -40,8 +40,9 @@ class MessagePolicy
   public function view(User $user, Message $message)
   {
     return (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      ($user->hasRole('Asistente') ||
+       $user->hasRole('Ventas')) &&
+      $user->id === $message->user->id
     )
       ? true
       : false;
@@ -72,16 +73,13 @@ class MessagePolicy
    */
   public function update(User $user, Message $message)
   {
-    if (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+    return (
+      ($user->hasRole('Asistente') ||
+       $user->hasRole('Ventas')) &&
+      $user->id === $message->user->id
     )
-    {
-      if (Auth::id() == $call->user_id) {
-        return true;
-      }
-    }
-    return false;
+      ? true
+      : false;
   }
 
   /**
@@ -93,15 +91,12 @@ class MessagePolicy
    */
   public function delete(User $user, Message $message)
   {
-    if (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+    return (
+      ($user->hasRole('Asistente') ||
+       $user->hasRole('Ventas')) &&
+      $user->id === $message->user->id
     )
-    {
-      if (Auth::id() == $call->user_id) {
-        return true;
-      }
-    }
-    return false;
+      ? true
+      : false;
   }
 }

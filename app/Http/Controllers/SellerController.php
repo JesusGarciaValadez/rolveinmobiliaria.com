@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Sale as Sale;
-use App\Client as Client;
-use App\State as State;
-use App\InternalExpedient as InternalExpedient;
-use App\User as User;
-use App\Seller as Seller;
+use App\Sale;
+use App\Client;
+use App\State;
+use App\InternalExpedient;
+use App\User;
+use App\Seller;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+
 use Carbon\Carbon as Carbon;
-use Illuminate\Support\Facades\DB as DB;
-use Illuminate\Support\Facades\Auth as Auth;
-use App\Http\Requests\SellerRequest as SellerRequest;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests\SellerRequest;
 
 class SellerController extends Controller
 {
@@ -63,10 +64,12 @@ class SellerController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
+   * @param  \Illuminate\Http\Sale     $sale
+   * @param  \Illuminate\Http\Seller   $seller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function edit (Request $request)
+  public function edit (Sale $sale, Seller $seller, Request $request)
   {
     $currentUser = User::with('role')->find(Auth::id());
 
@@ -96,8 +99,6 @@ class SellerController extends Controller
 
     $states = State::all();
 
-    $sale = Sale::findOrFail($request->id);
-
     $internal_expedient = InternalExpedient::findOrFail($sale->internal_expedient->id);
 
     return view('sales.edit_seller')
@@ -116,7 +117,7 @@ class SellerController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function update ($id, $sellerId, SellerRequest $request)
+  public function update (SellerRequest $request, Sale $sale)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
     $internal_expedient_id = !empty($request->internal_expedient_id)
@@ -175,10 +176,9 @@ class SellerController extends Controller
     ) ? false
       : true;
 
-    $sale = Sale::findOrFail($id);
     $sale->update($internal_expedient_id);
 
-    $seller = [
+    $sellerInfo = [
       'SD_deed' => $SD_deed,
       'SD_water' => $SD_water,
       'SD_predial' => $SD_predial,
@@ -194,13 +194,13 @@ class SellerController extends Controller
       'SD_complete' => $SD_complete,
     ];
 
-    $saleSeller = Seller::findOrFail($sellerId);
-    $saleSeller->update($seller);
+    $seller = $sale->seller()
+                   ->update($sellerInfo);
 
-    $this->_message = $saleSeller && $sale
+    $this->_message = $seller && $sale
                         ? 'Compraventa actualizada'
                         : 'No se pudo actualizar la compraventa.';
-    $this->_type = $saleSeller && $sale ? 'success' : 'danger';
+    $this->_type = $seller && $sale ? 'success' : 'danger';
 
     if ($request->ajax())
     {
@@ -212,7 +212,7 @@ class SellerController extends Controller
       {
         // event(new SaleCreatedEvent($sale));
 
-        return redirect(route('for_sale.index'))
+        return redirect(route('sale.index'))
           ->withMessage($this->_message)
           ->withType($this->_type);
       }

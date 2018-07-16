@@ -70,7 +70,7 @@ Route::prefix('/message')->name('message.')->middleware('auth')->group(function 
 {
   Route::get('/', 'MessageController@index')
        ->name('index')
-       ->middleware('can:message.view, App\Messages');
+       ->middleware('can:message.view,App\Messages');
 
   Route::get('/new', 'MessageController@create')
        ->name('create')
@@ -105,7 +105,7 @@ Route::prefix('/call')->name('call.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'CallController@index')
        ->name('index')
-       ->middleware('can:call.view,App\Call');
+       ->middleware('can:call.view,call');
 
   Route::get('/new', 'CallController@create')
        ->name('create')
@@ -117,7 +117,7 @@ Route::prefix('/call')->name('call.')->middleware('auth')->group(function ()
 
   Route::get('/show/{call}', 'CallController@show')
        ->name('show')
-       ->middleware('can:call.view,App\Call');
+       ->middleware('can:call.view,call');
 
   Route::get('/edit/{call}', 'CallController@edit')
        ->name('edit')
@@ -133,14 +133,14 @@ Route::prefix('/call')->name('call.')->middleware('auth')->group(function ()
 
   Route::get('/filter/{date?}', 'CallController@filter')
        ->name('filter')
-       ->middleware('can:call.view,App\Call');
+       ->middleware('can:call.view,call');
 });
 
 Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'SaleController@index')
        ->name('index')
-       ->middleware('can:sale.view,sale');
+       ->middleware('can:sale.view,App\Sale');
 
   Route::get('/new', 'SaleController@create')
        ->name('create')
@@ -156,7 +156,7 @@ Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
 
   Route::get('/edit/{sale}', 'SaleController@edit')
        ->name('edit')
-       ->middleware('can:sale.update,update');
+       ->middleware('can:sale.update,sale');
 
   Route::put('/update/{id}', 'SaleController@update')
        ->name('update')
@@ -170,65 +170,65 @@ Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
   {
     Route::get('/{seller}', 'SellerController@edit')
          ->name('edit')
-         ->middleware('can:seller.view,seller');
+         ->middleware('can:seller.view,sale');
     Route::put('/{seller}', 'SellerController@update')
          ->name('update')
-         ->middleware('can:seller.update,seller');
+         ->middleware('can:seller.update,sale');
   });
 
   Route::prefix('/{sale}/closing_contract')->name('closing_contract.')->group(function ()
   {
     Route::get('/{closing_contract}', 'ClosingContractController@edit')
          ->name('edit')
-         ->middleware('can:closing_contract.view,closing_contract');
+         ->middleware('can:closing_contract.view,sale');
 
     Route::put('/{closing_contract}', 'ClosingContractController@update')
          ->name('update')
-         ->middleware('can:closing_contract.update,closing_contract');
+         ->middleware('can:closing_contract.update,sale');
   });
 
   Route::prefix('/{sale}/visit')->name('visit.')->group(function ()
   {
     Route::get('/{visit_id}', 'VisitController@edit')
          ->name('edit')
-         ->middleware('can:visit.view,visit');
+         ->middleware('can:visit.view,sale');
 
     Route::put('/{visit_id}', 'VisitController@update')
          ->name('update')
-         ->middleware('can:visit.update,visit');
+         ->middleware('can:visit.update,sale');
   });
 
   Route::prefix('/{sale}/contract')->name('contract.')->group(function ()
   {
     Route::get('/{contract}', 'ContractController@edit')
          ->name('edit')
-         ->middleware('can:contract.view,contract');
+         ->middleware('can:contract.view,sale');
 
     Route::put('/{contract}', 'ContractController@update')
          ->name('update')
-         ->middleware('can:contract.update,contract');
+         ->middleware('can:contract.update,sale');
   });
 
   Route::prefix('/{sale}/notary')->name('notary.')->group(function ()
   {
     Route::get('/{notary}', 'NotaryController@edit')
          ->name('edit')
-         ->middleware('can:notary.view,notary');
+         ->middleware('can:notary.view,sale');
 
     Route::put('/{notary}', 'NotaryController@update')
          ->name('update')
-         ->middleware('can:notary.update,notary');
+         ->middleware('can:notary.update,sale');
   });
 
   Route::prefix('/{sale}/signature')->name('signature.')->group(function ()
   {
     Route::get('/{signature}', 'SignatureController@edit')
          ->name('edit')
-         ->middleware('can:signature.view,signature');
+         ->middleware('can:signature.view,sale');
 
     Route::put('/{signature}', 'SignatureController@update')
          ->name('update')
-         ->middleware('can:signature.update,signature');
+         ->middleware('can:signature.update,sale');
   });
 });
 

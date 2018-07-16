@@ -6,11 +6,11 @@ use App\ClosingContract;
 use App\Sale;
 use App\Client;
 use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+
 use Carbon\Carbon as Carbon;
-use Illuminate\Support\Facades\DB as DB;
-use Illuminate\Support\Facades\Auth as Auth;
 use App\Http\Requests\ClosingContractRequest;
 use App\Events\FileWillUploadEvent;
 
@@ -23,7 +23,7 @@ class ClosingContractController extends Controller
    *
    * @var string
    */
-  private $_uri = 'for_sales';
+  private $_uri = 'sale';
 
   /**
    * Set the localization for the language in the app.
@@ -118,9 +118,8 @@ class ClosingContractController extends Controller
    * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function edit($id, $closingContractId, Sale $sale, ClosingContract $closingContract)
+  public function edit(Sale $sale, ClosingContract $closingContract)
   {
-    $sale = Sale::findOrFail($id);
     $clients = Client::all();
 
     return view('sales.edit_closing_contract')
@@ -132,16 +131,14 @@ class ClosingContractController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\ClosingContractRequest  $request
    * @param  \App\Sale  $sale
    * @param  \App\ClosingContract  $closingContract
    * @return \Illuminate\Http\Response
    */
-  public function update($sellerId, $closingContractId, ClosingContractRequest $request, Sale $sale, ClosingContract $closingContract)
+  public function update(ClosingContractRequest $request, Sale $sale, ClosingContract $closingContract)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
-
-    $sale = Sale::findOrFail($sellerId);
 
     if (
       $request->hasFile('SCC_data_sheet') &&
@@ -227,7 +224,7 @@ class ClosingContractController extends Controller
       {
         // event(new SaleCreatedEvent($sale));
 
-        return redirect(route('for_sale.index'))
+        return redirect(route('sale.index'))
           ->withMessage($this->_message)
           ->withType($this->_type);
       }

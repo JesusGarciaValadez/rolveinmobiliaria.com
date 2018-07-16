@@ -3,57 +3,94 @@
 namespace App\Policies;
 
 use App\User;
-use App\Signature;
+use App\Sale;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SignaturePolicy
 {
-    use HandlesAuthorization;
+  use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the sale signature.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Signature  $signature
-     * @return mixed
-     */
-    public function view(User $user, Signature $signature)
-    {
-        //
-    }
+  /**
+   * Create a new policy instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+      //
+  }
 
-    /**
-     * Determine whether the user can create sale signatures.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
-    }
+  public function before($user, $ability)
+  {
+    return (
+      $user->hasRole('Super Administrador') ||
+      $user->hasRole('Administrador')
+    )
+      ? true
+      : false;
+  }
 
-    /**
-     * Determine whether the user can update the sale signature.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Signature  $signature
-     * @return mixed
-     */
-    public function update(User $user, Signature $signature)
-    {
-        //
-    }
+  /**
+   * Determine whether the user can view the sale signature.
+   *
+   * @param  \App\User  $user
+   * @param  \App\Sale  $sale
+   * @return mixed
+   */
+  public function view(User $user, Sale $sale)
+  {
+    return (
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
+    )
+      ? true
+      : false;
+  }
 
-    /**
-     * Determine whether the user can delete the sale signature.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Signature  $signature
-     * @return mixed
-     */
-    public function delete(User $user, Signature $signature)
-    {
-        //
-    }
+  /**
+   * Determine whether the user can create sale signatures.
+   *
+   * @param  \App\User  $user
+   * @return mixed
+   */
+  public function create(User $user)
+  {
+    return ($user->hasRole('Ventas'))
+      ? true
+      : false;
+  }
+
+  /**
+   * Determine whether the user can update the sale signature.
+   *
+   * @param  \App\User  $user
+   * @param  \App\Sale  $sale
+   * @return mixed
+   */
+  public function update(User $user, Sale $sale)
+  {
+    return (
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
+    )
+      ? true
+      : false;
+  }
+
+  /**
+   * Determine whether the user can delete the sale signature.
+   *
+   * @param  \App\User  $user
+   * @param  \App\Sale  $sale
+   * @return mixed
+   */
+  public function delete(User $user, Sale $sale)
+  {
+    return (
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
+    )
+      ? true
+      : false;
+  }
 }

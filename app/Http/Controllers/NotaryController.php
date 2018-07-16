@@ -41,13 +41,6 @@ class NotaryController extends Controller
   private $_message = null;
 
   /**
-   * File uploaded
-   *
-   * @var string
-   */
-  private $_file = null;
-
-  /**
    * Set the type of the alarm return to views.
    *
    * @var string

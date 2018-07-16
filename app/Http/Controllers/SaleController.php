@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Sale as Sale;
-use App\State as State;
+use App\Sale;
+use App\State;
 use App\Client;
 use App\InternalExpedient;
-use App\User as User;
-use App\Seller as Seller;
-use App\Log as Log;
-use App\ClosingContract as ClosingContract;
-use App\Contract as Contract;
-use App\Notary as Notary;
-use App\Signature as Signature;
+use App\User;
+use App\Seller;
+use App\ClosingContract;
+use App\Visit;
+use App\Contract;
+use App\Notary;
+use App\Signature;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\SellerRequest;
@@ -113,7 +112,7 @@ class SaleController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\SellerRequest  $request
    * @return \Illuminate\Http\Response
    */
   public function store (SellerRequest $request)
@@ -246,7 +245,7 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function show (Request $request)
+  public function show (Sale $sale, Request $request)
   {
     $sale = Sale::findOrFail($request->id);
 
@@ -261,7 +260,7 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function edit (Request $request)
+  public function edit (Sale $sale, Request $request)
   {
     $states = State::all();
 
@@ -282,11 +281,11 @@ class SaleController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  \Illuminate\Http\SaleRequest  $request
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function update (SaleRequest $request)
+  public function update (SaleRequest $request, Sale $sale)
   {
     $this->_date = Carbon::now('America/Mexico_City')->toDateString();
 
@@ -438,7 +437,7 @@ class SaleController extends Controller
    * @param  \App\Sale  $sale
    * @return \Illuminate\Http\Response
    */
-  public function destroy (Request $request)
+  public function destroy (Sale $sale, Request $request)
   {
     $sale = Sale::findOrFail($request->id);
     $destroyed = $sale->delete();

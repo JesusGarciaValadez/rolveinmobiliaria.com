@@ -25,8 +25,7 @@ class SalePolicy
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -41,11 +40,7 @@ class SalePolicy
    */
   public function view(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
+    return ($user->hasRole('Ventas'))
       ? true
       : false;
   }
@@ -58,11 +53,7 @@ class SalePolicy
    */
   public function create(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
+    return ($user->hasRole('Ventas'))
       ? true
       : false;
   }
@@ -74,12 +65,11 @@ class SalePolicy
    * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function update(User $user, $sale)
+  public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;
@@ -92,12 +82,11 @@ class SalePolicy
    * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function delete(User $user, $sale)
+  public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;

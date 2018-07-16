@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Notary;
+use App\Sale;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NotaryPolicy
@@ -14,15 +14,14 @@ class NotaryPolicy
    * Determine whether the user can view the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\Notary  $notary
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function view(User $user, Notary $notary)
+  public function view(User $user, Sale $sale)
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -36,11 +35,7 @@ class NotaryPolicy
    */
   public function create(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
+    return ($user->hasRole('Ventas'))
       ? true
       : false;
   }
@@ -49,15 +44,14 @@ class NotaryPolicy
    * Determine whether the user can update the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\Notary  $notary
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function update(User $user, Notary $notary)
+  public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;
@@ -67,15 +61,14 @@ class NotaryPolicy
    * Determine whether the user can delete the sale notary.
    *
    * @param  \App\User  $user
-   * @param  \App\Notary  $notary
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function delete(User $user, Notary $notary)
+  public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;

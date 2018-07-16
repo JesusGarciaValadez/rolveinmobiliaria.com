@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\ClosingContract;
+use App\Sale;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ClosingContractPolicy
@@ -12,17 +12,9 @@ class ClosingContractPolicy
 
   public function before($user, $ability)
   {
-    \Debugbar::info((
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false);
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -32,15 +24,14 @@ class ClosingContractPolicy
    * Determine whether the user can view the sale closing contract.
    *
    * @param  \App\User  $user
-   * @param  \App\ClosingContract  $closingContract
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function view(User $user, ClosingContract $closingContract)
+  public function view(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;
@@ -54,11 +45,7 @@ class ClosingContractPolicy
    */
   public function create(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
+    return ($user->hasRole('Ventas'))
       ? true
       : false;
   }
@@ -67,15 +54,14 @@ class ClosingContractPolicy
    * Determine whether the user can update the sale closing contract.
    *
    * @param  \App\User  $user
-   * @param  \App\ClosingContract  $closingContract
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function update(User $user, ClosingContract $closingContract)
+  public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;
@@ -85,15 +71,14 @@ class ClosingContractPolicy
    * Determine whether the user can delete the sale closing contract.
    *
    * @param  \App\User  $user
-   * @param  \App\ClosingContract  $closingContract
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function delete(User $user, ClosingContract $closingContract)
+  public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $user->id === $sale->user->id
     )
       ? true
       : false;

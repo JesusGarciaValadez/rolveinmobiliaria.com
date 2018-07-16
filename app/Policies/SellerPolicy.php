@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\Sale;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SellerPolicy
@@ -23,8 +24,7 @@ class SellerPolicy
   {
     return (
       $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Administrador')
     )
       ? true
       : false;
@@ -37,12 +37,11 @@ class SellerPolicy
    * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function view(User $user)
+  public function view(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $sale->user->id === $user->id
     )
       ? true
       : false;
@@ -56,11 +55,7 @@ class SellerPolicy
    */
   public function create(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
-    )
+    return ($user->hasRole('Ventas'))
       ? true
       : false;
   }
@@ -69,15 +64,14 @@ class SellerPolicy
    * Determine whether the user can update the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\Seller  $seller
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function update(User $user, Seller $seller)
+  public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $sale->user->id === $user->id
     )
       ? true
       : false;
@@ -87,15 +81,14 @@ class SellerPolicy
    * Determine whether the user can delete the sale.
    *
    * @param  \App\User  $user
-   * @param  \App\Seller  $seller
+   * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function delete(User $user, Seller $seller)
+  public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Ventas')
+      $user->hasRole('Ventas') &&
+      $sale->user->id === $user->id
     )
       ? true
       : false;
