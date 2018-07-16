@@ -6,8 +6,8 @@
     ]) }}"
     method="post"
     class="text-center">
-    {{ csrf_field() }}
-    {{ method_field('DELETE') }}
+    @method('DELETE')
+    @csrf
     <div class="form-group">
       <button
       type="submit"

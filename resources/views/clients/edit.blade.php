@@ -32,8 +32,8 @@
               'client' => $client->id
             ]) }}"
             method="post">
-            @csrf
             @method('PUT')
+            @csrf
 
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : ''}}">
               <label
