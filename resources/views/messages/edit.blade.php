@@ -32,8 +32,8 @@
               'message' => request('id')
             ]) }}"
             method="post">
-            @csrf
             @method('PUT')
+            @csrf
 
             <input type="hidden" name="user_id" value="{{ $message->user->id }}">
 

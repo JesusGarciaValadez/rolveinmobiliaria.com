@@ -2,8 +2,8 @@
   <form class="form-inline" action="{{ route('message.destroy', [
     'message' => $message->id
   ]) }}" method="post" class="text-center">
-    @csrf
     @method('DELETE')
+    @csrf
 
     <div class="form-group">
       <button
