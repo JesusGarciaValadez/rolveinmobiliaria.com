@@ -30,7 +30,7 @@
       class="list-group-item {{ (!empty($uri) && $uri == 'client')
         ? ' active'
         : '' }}"
-      title="@lang('section.clients')"
+      title="@lang('section.client')"
       data-toggle="tooltip"
       data-placement="right">
       <span
