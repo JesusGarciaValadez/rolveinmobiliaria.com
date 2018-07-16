@@ -15,15 +15,15 @@ class CreateVisitsTable extends Migration
   {
     Schema::create('visits', function (Blueprint $table) {
       $table->increments('id');
-      $table->string('SL_subject')
+      $table->string('SV_subject')
             ->nullable();
-      $table->string('SL_email')
+      $table->string('SV_email')
             ->nullable();
-      $table->string('SL_phone')
+      $table->string('SV_phone')
             ->nullable();
-      $table->text('SL_observations')
+      $table->text('SV_observations')
             ->nullable();
-      $table->boolean('SL_complete')
+      $table->boolean('SV_complete')
             ->default(false);
       $table->softDeletes();
       $table->timestamps();

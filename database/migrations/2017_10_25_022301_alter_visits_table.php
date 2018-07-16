@@ -14,11 +14,11 @@ class AlterVisitsTable extends Migration
   public function up()
   {
     Schema::table('visits', function (Blueprint $table) {
-      $table->integer('SL_sales_id')
+      $table->integer('SV_sales_id')
             ->unsigned()
             ->nullable()
             ->after('id');
-      $table->foreign('SL_sales_id')
+      $table->foreign('SV_sales_id')
             ->references('id')
             ->on('sales')
             ->onUpdate('cascade')
@@ -34,8 +34,8 @@ class AlterVisitsTable extends Migration
   public function down()
   {
     Schema::table('visits', function (Blueprint $table) {
-      $table->dropForeign('visits_sl_sales_id_foreign')
-            ->dropColumn('SL_sales_id');
+      $table->dropForeign('visits_sv_sales_id_foreign')
+            ->dropColumn('SV_sales_id');
     });
   }
 }

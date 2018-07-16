@@ -39,11 +39,11 @@ $factory->define(App\Visit::class, function (Faker $faker) {
     : true;
 
   return [
-    'SL_sales_id' => $sale_id,
-    'SL_subject' => $subject,
-    'SL_email' => $email,
-    'SL_phone' => $phone,
-    'SL_observations' => $observations,
-    'SL_complete' => $complete,
+    'SV_sales_id' => $sale_id,
+    'SV_subject' => $subject,
+    'SV_email' => $email,
+    'SV_phone' => $phone,
+    'SV_observations' => $observations,
+    'SV_complete' => $complete,
   ];
 });
