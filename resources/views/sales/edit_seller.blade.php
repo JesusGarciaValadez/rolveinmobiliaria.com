@@ -23,21 +23,24 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             id="edit__seller"
             class="form-vertical"
-            action="{{ route('for_sale.seller.update', [
-              'id' => request('id'),
-              'seller_id' => request('seller_id')
+            action="{{ route('sale.seller.update', [
+              'sale' => $sale->id,
+              'seller' => $sale->seller->id
             ]) }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            @csrf
             @method('PUT')
+            @csrf
 
             @include('sales.partials.forms.edit.seller')
 
@@ -46,13 +49,17 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sale.index')])
+                @salesButtonBack([
+                  'back' => route('sale.index')
+                ])
                 @endsalesButtonBack
               </div>
             </div>
           </form>
 
-          @modalExpedient(['clients' => $clients])
+          @modalExpedient([
+            'clients' => $clients
+          ])
           @endmodalExpedient
 
           @modalClient

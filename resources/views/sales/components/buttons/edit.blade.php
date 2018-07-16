@@ -1,7 +1,9 @@
 <div class="form-group">
   <a
     class="btn btn-warning"
-    href="{{ route('for_sale.edit', ['id' => $sale->id]) }}"
+    href="{{ route('sale.edit', [
+      'sale' => $sale->id
+    ]) }}"
     role="button"
     title="@lang('shared.edit') @lang('call.call')"
     data-toggle="tooltip"

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.for_sale'))
+@section('title', "Editar | ".__('section.sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -15,7 +15,7 @@
           'routeTitle' => __('section.sales'),
         ])
           @slot('title')
-            @lang('shared.edit') @lang('sale.sale')
+            @lang('shared.edit') @lang('sale.closing_contract')
           @endslot
         @endpanelHeading
 
@@ -29,15 +29,15 @@
           <form
             id="edit__closing-contract"
             class="form-vertical"
-            action="{{ route('for_sale.closing_contract.update', [
-              'id' => $sale->id,
-              'closing_contract_id' => $sale->closing_contract->id
+            action="{{ route('sale.closing_contract.update', [
+              'sale' => $sale->id,
+              'closing_contract' => $sale->closing_contract->id
             ]) }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            @csrf
             @method('PUT')
+            @csrf
 
             @include('sales.partials.forms.edit.closing-contract')
 
@@ -47,7 +47,7 @@
                 @endsalesButtonSave
 
                 @salesButtonBack([
-                  'back' => route('for_sale.index')
+                  'back' => route('sale.index')
                 ])
                 @endsalesButtonBack
               </div>

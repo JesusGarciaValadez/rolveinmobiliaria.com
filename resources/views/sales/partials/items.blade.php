@@ -1,7 +1,7 @@
                 <tr>
                   <td class="text-center active">{{-- Internal Expedient --}}
                     <a
-                      href="{{ route('for_sale.edit', $sale->internal_expedient->id) }}"
+                      href="{{ route('sale.edit', $sale->internal_expedient->id) }}"
                       target="_self"
                       title="{{ $sale->internal_expedient->client->full_name }}"
                     >
@@ -17,7 +17,7 @@
                         $sale->seller->SD_complete === 0 ||
                         $sale->seller->SD_complete === 1
                       )
-                      href="{{ route('for_sale.seller.edit', [
+                      href="{{ route('sale.seller.edit', [
                         'sale' => $sale->id,
                         'seller' => $sale->seller->id
                       ]) }}"
@@ -39,7 +39,7 @@
                         $sale->closing_contract->SCC_complete === 0 ||
                         $sale->closing_contract->SCC_complete === 1
                       )
-                      href="{{ route('for_sale.closing_contract.edit', [
+                      href="{{ route('sale.closing_contract.edit', [
                         'sale' => $sale->id,
                         'closing_contract' => $sale->closing_contract->id,
                       ]) }}"
@@ -55,13 +55,13 @@
                       @endif
                     </a>
                   </td>
-                  <td class="text-center">{{-- Visits --}}
-                    <a
+                  {{-- <td class="text-center">{{-- Visits --}}
+                    {{-- <a
                       @if(
                         $sale->visit->SV_complete === 0 ||
                         $sale->visit->SV_complete === 1
                       )
-                      href="{{ route('for_sale.visit.edit', [
+                      href="{{ route('sale.visit.edit', [
                         'sale' => $sale->id,
                         'visit' => $sale->id,
                       ]) }}"
@@ -76,14 +76,14 @@
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completo
                       @endif
                     </a>
-                  </td>
+                  </td> --}}
                   <td class="text-center">{{-- Contract --}}
                     <a
                       @if(
                         $sale->contract->SC_complete === 0 ||
                         $sale->contract->SC_complete === 1
                       )
-                      href="{{ route('for_sale.contract.edit', [
+                      href="{{ route('sale.contract.edit', [
                         'sale' => $sale->id,
                         'contract' => $sale->contract->id,
                       ]) }}"
@@ -105,7 +105,7 @@
                         $sale->notary->SN_complete === 0 ||
                         $sale->notary->SN_complete === 1
                       )
-                      href="{{ route('for_sale.notary.edit', [
+                      href="{{ route('sale.notary.edit', [
                         'sale' => $sale->id,
                         'notary' => $sale->notary->id,
                       ]) }}"
@@ -127,7 +127,7 @@
                         $sale->signature->SS_complete === 0 ||
                         $sale->signature->SS_complete === 1
                       )
-                      href="{{ route('for_sale.signature.edit', [
+                      href="{{ route('sale.signature.edit', [
                         'sale' => $sale->id,
                         'signature' => $sale->signature->id,
                       ]) }}"
@@ -144,9 +144,7 @@
                     </a>
                   </td>
                   <td class="text-center danger">{{-- Actions --}}
-                    @can('sales.delete')
-                      @salesButtonDelete(['sale' => $sale])
-                      @endsalesButtonDelete
-                    @endcan
+                    @salesButtonDelete(['sale' => $sale])
+                    @endsalesButtonDelete
                   </td>
                 </tr>

@@ -1,11 +1,13 @@
-@can('sales.delete', $sale)
+@can('sale.delete', $sale)
   <form
     class="form-inline"
-    action="{{ route('for_sale.destroy', ['id' => $sale->id]) }}"
+    action="{{ route('sale.destroy', [
+      'sale' => $sale->id
+    ]) }}"
     method="post"
     class="text-center">
-    {{ csrf_field() }}
-    {{ method_field('DELETE') }}
+    @method('DELETE')
+    @csrf
     <div class="form-group">
       <button
       type="submit"

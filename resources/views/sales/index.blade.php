@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Lista | ".__('section.for_sale'))
+@section('title', "Lista | ".__('section.sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -13,7 +13,7 @@
         @panelHeading([
           'route' => route('dashboard'),
           'routeTitle' => __('section.sales'),
-          'title' => __('section.for_sale'),
+          'title' => __('section.sale'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @salesButtonCreate

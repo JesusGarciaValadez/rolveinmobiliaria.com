@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.for_sale'))
+@section('title', "Editar | ".__('section.sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -15,25 +15,29 @@
           'routeTitle' => __('section.sales'),
         ])
           @slot('title')
-            @lang('shared.edit') @lang('sale.sale')
+            @lang('shared.edit') @lang('sale.signature')
           @endslot
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             id="edit__signature"
             class="form-vertical"
-            action="{{ route('for_sale.signature.update', [
-              'id' => request('id')
+            action="{{ route('sale.signature.update', [
+              'sale' => $sale->id,
+              'signature' => $sale->signature->id
             ]) }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            @csrf
             @method('PUT')
+            @csrf
 
             @include('sales.partials.forms.edit.signature')
 
@@ -42,13 +46,17 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sale.index')])
+                @salesButtonBack([
+                  'back' => route('sale.index')
+                ])
                 @endsalesButtonBack
               </div>
             </div>
           </form>
 
-          @modalExpedient(['clients' => $clients])
+          @modalExpedient([
+            'clients' => $clients
+          ])
           @endmodalExpedient
 
           @modalClient

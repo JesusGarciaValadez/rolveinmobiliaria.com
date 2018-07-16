@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nueva | ".__('section.for_sale'))
+@section('title', "Nueva | ".__('section.sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -18,13 +18,16 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             id="create__seller"
             class="form-vertical"
-            action="{{ route('for_sale.store') }}"
+            action="{{ route('sale.store') }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
@@ -37,13 +40,17 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sale.index')])
+                @salesButtonBack([
+                  'back' => route('sale.index')
+                ])
                 @endsalesButtonBack
               </div>
             </div>
           </form>
 
-          @modalExpedient(['clients' => $clients])
+          @modalExpedient([
+            'clients' => $clients
+          ])
           @endmodalExpedient
 
           @modalClient

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Editar | ".__('section.for_sale'))
+@section('title', "Editar | ".__('section.sale'))
 
 @section('content')
 <div class="container-fluid">
@@ -26,14 +26,14 @@
           <form
             id="edit__log"
             class="form-vertical"
-            action="{{ route('for_sale.log.update', [
+            action="{{ route('sale.log.update', [
               'id' => request('id')
             ]) }}"
             method="post"
             enctype="multipart/form-data"
             autocapitalize="sentences" v-cloak>
-            @csrf
             @method('PUT')
+            @csrf
 
             @include('sales.partials.forms.edit.log-of-visits-and-calls')
 
@@ -42,7 +42,7 @@
                 @salesButtonSave
                 @endsalesButtonSave
 
-                @salesButtonBack(['back' => route('for_sale.index')])
+                @salesButtonBack(['back' => route('sale.index')])
                 @endsalesButtonBack
               </div>
             </div>
