@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Búsqueda | ".__('section.call_tracking'))
+@section('title', "Búsqueda | ".__('section.call'))
 
 @section('content')
 <div class="container-fluid">
@@ -10,10 +10,10 @@
 
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
-        @panelHeading( [
-          'route' => route('call_tracking.index'),
-          'routeTitle' => __('section.call_tracking'),
-          'title' => __('section.call_tracking'),
+        @panelHeading([
+          'route' => route('call.index'),
+          'routeTitle' => __('section.call'),
+          'title' => __('section.call'),
         ])
           <div class="hidden-xs col-sm-2 col-md-3 col-lg-2 pull-right text-right">
             @callsButtonCreate
@@ -22,7 +22,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           @callsFilter

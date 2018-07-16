@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Lista | " . __('section.call_tracking'))
+@section('title', "Lista | ".__('section.call'))
 
 @section('content')
 <div class="container-fluid">
@@ -12,8 +12,8 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => route('dashboard'),
-          'routeTitle' => __('section.call_tracking'),
-          'title' => __('section.call_tracking'),
+          'routeTitle' => __('section.call'),
+          'title' => __('section.call'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @callsButtonCreate
@@ -22,11 +22,14 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
-          @messagesFilter
-          @endmessagesFilter
+          @callsFilter
+          @endcallsFilter
 
           @if (count($calls) < 1)
             @blankSlate([

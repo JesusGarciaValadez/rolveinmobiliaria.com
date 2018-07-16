@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nuevo | " . __('section.call_tracking'))
+@section('title', "Nuevo | " . __('section.call'))
 
 @section('content')
 <div class="container-fluid">
@@ -11,19 +11,22 @@
     <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
       <div class="panel panel-default">
         @panelHeading([
-          'route' => route('call_tracking.index'),
-          'routeTitle' => __('section.call_tracking'),
+          'route' => route('call.index'),
+          'routeTitle' => __('section.call'),
           'title' => __('call.new_call'),
         ])
         @endpanelHeading
 
         <div class="panel-body table-responsive" id="call__info" v-cloak>
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <form
             class="form-horizontal"
-            action="{{ route('call_tracking.store') }}"
+            action="{{ route('call.store') }}"
             method="post">
             @csrf
 

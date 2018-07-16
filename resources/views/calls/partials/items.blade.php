@@ -1,17 +1,17 @@
                 <tr>
                   <td class="text-center">
-                    @can('calls.update')
+                    @can('call.update')
                       @callsButtonEdit(['call' => $call])
                       @endcallsButtonEdit
                     @endcan
 
-                    @can('calls.delete')
+                    @can('call.delete')
                       @callsButtonDelete(['call' => $call])
                       @endcallsButtonDelete
                     @endcan
                   </td>
                   <td class="text-center">
-                    <a href="{{ route('call_tracking.show', ['id' => $call->id]) }}">
+                    <a href="{{ route('call.show', ['call' => $call->id]) }}">
                       {{ $call->internal_expedient->expedient }}
                     </a>
                   </td>

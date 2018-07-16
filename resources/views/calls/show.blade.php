@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Expediente ".$call->expedient."| ".__('section.call_tracking'))
+@section('title', "Expediente ".$call->expedient."| ".__('section.call'))
 
 @section('content')
 <div class="container-fluid">
@@ -12,8 +12,8 @@
       <div class="panel panel-default">
         @panelHeading([
           'route' => url()->previous(),
-          'routeTitle' => __('section.call_tracking'),
-          'title' => __('section.call_tracking'),
+          'routeTitle' => __('section.call'),
+          'title' => __('section.call'),
         ])
           <div class="hidden-xs col-sm-3 col-md-3 col-lg-2 pull-right text-right">
             @callsButtonCreate
@@ -22,7 +22,10 @@
         @endpanelHeading
 
         <div class="panel-body table-responsive">
-          @alert(['type' => session('type'), 'message' => session('message')])
+          @alert([
+            'type' => session('type'),
+            'message' => session('message')
+          ])
           @endalert
 
           <div class="row">
@@ -73,12 +76,12 @@
 
               <p class="text-left"><strong>@lang('call.actions')</strong></p>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @can('calls.update')
+                @can('call.update')
                 @callsButtonEditComplete(['call' => $call])
                 @endcallsButtonEditComplete
                 @endcan
 
-                @can('calls.delete')
+                @can('call.delete')
                 @callsButtonDeleteComplete(['call' => $call])
                 @endcallsButtonDeleteComplete
                 @endcan
