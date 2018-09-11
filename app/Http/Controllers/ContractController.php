@@ -113,10 +113,11 @@ class ContractController extends Controller
   {
     $clients = Client::all();
 
-    return view('sales.edit_contract')
-            ->withUri($this->_uri)
-            ->withSale($sale)
-            ->withClients($clients);
+    return view('sales.edit_contract', [
+      'uri'      => $this->_uri,
+      'sale'     => $sale,
+      'clients'  => $clients,
+    ]);
   }
 
   /**
@@ -129,7 +130,7 @@ class ContractController extends Controller
    */
   public function update(ContractRequest $request, Sale $sale, Contract $contract)
   {
-    dd($request);
+    dd($sale->contract);
   }
 
   /**

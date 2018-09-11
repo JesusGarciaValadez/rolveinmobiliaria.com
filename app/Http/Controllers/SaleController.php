@@ -62,9 +62,10 @@ class SaleController extends Controller
   {
     $sales = Sale::orderBy('id', 'desc')->paginate(5);
 
-    return view('sales.index')
-            ->withSales($sales)
-            ->withUri($this->_uri);
+    return view('sales.index', [
+      'sales'  => $sales,
+      'uri'    => $this->_uri,
+    ]);
   }
 
   /**
@@ -102,11 +103,12 @@ class SaleController extends Controller
 
     $states = State::all();
 
-    return view('sales.create_seller')
-            ->withStates($states)
-            ->withExpedients($expedients)
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('sales.create_seller', [
+      'states'       => $states,
+      'expedients'   => $expedients,
+      'clients'      => $clients,
+      'uri'          => $this->_uri,
+    ]);
   }
 
   /**
@@ -144,16 +146,17 @@ class SaleController extends Controller
 
     // Creation of contract in null
     $contractCreatedID = Contract::create([
+      'SC_mortgage_broker' => null,
+      'SC_contract_with_the_broker' => null,
+      'SC_mortgage_credit'  => null,
       'SC_general_buyer' => null,
       'SC_purchase_agreements' => null,
       'SC_tax_assessment' => null,
       'SC_notary_checklist' => null,
       'SC_notary_file' => null,
-      'SC_mortgage_credit' => null,
-      'SC_mortgage_broker' => null,
-      'SC_contract_with_the_broker' => null,
-      'SC_complete' => false,
+      'SC_complete' => null,
     ]);
+    $contractCreatedID->
     $contractId = $contractCreatedID
                     ? $contractCreatedID->id
                     : null;
@@ -198,8 +201,8 @@ class SaleController extends Controller
 
     $saleSaved = $sale->save();
 
-    $message = $saleSaved ? 'Compraventa añadida' : 'No se pudo añadir la compraventa.';
-    $type = $saleSaved ? 'success' : 'danger';
+    $this->_message = $saleSaved ? 'Compraventa añadida' : 'No se pudo añadir la compraventa.';
+    $this->_type = $saleSaved ? 'success' : 'danger';
 
     if (empty($this->_message))
     {
@@ -225,16 +228,17 @@ class SaleController extends Controller
       {
         event(new SaleCreatedEvent($sale));
 
-        return redirect(route('sale.index'))
-          ->withMessage($this->_message)
-          ->withType($this->_type);
+        return redirect(route('sale.index'),[
+          'message'  => $this->_message,
+          'type'     => $this->_type,
+        ]);
       }
       else
       {
-        return redirect()
-          ->back()
-          ->withMessage($this->_message)
-          ->withType($this->_type);
+        return redirect(back(), [
+          'message'  => $this->_message,
+          'type'     => $this->_type,
+        ]);
       }
     }
   }
@@ -249,9 +253,10 @@ class SaleController extends Controller
   {
     $sale = Sale::findOrFail($request->id);
 
-    return view('sales.show')
-            ->withSale($sale)
-            ->withUri($this->_uri);
+    return view('sales.show', [
+      'sale' => $sale,
+      'uri'  => $this->_uri,
+    ]);
   }
 
   /**
@@ -271,11 +276,12 @@ class SaleController extends Controller
                 ->sortBy('first_name');
 
 
-    return view('sales.edit')
-            ->withStates($states)
-            ->withSale($sale)
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('sales.edit', [
+      'states'    => $states,
+      'sale'      => $sale,
+      'clients'   => $clients,
+      'uri'       => $this->_uri,
+    ]);
   }
 
   /**
@@ -424,10 +430,10 @@ class SaleController extends Controller
     }
     else
     {
-      return redirect()
-              ->back()
-              ->withMessage($this->_message)
-              ->withType($this->_type);
+      return redirect(back(), [
+        'message'  => $this->_message,
+        'type'     => $this->_type,
+      ]);
     }
   }
 
@@ -442,19 +448,19 @@ class SaleController extends Controller
     $sale = Sale::findOrFail($request->id);
     $destroyed = $sale->delete();
 
-    $message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
-    $type = ($destroyed) ? 'success' : 'danger';
+    $this->_message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
+    $this->_type = ($destroyed) ? 'success' : 'danger';
 
     if ( $request->ajax() )
     {
-      return response()
-              ->json( [ 'message' => $message ] );
+      return response()->json(['message' => $this->_message]);
     }
     else
     {
-      return redirect(route('sale.index'))
-              ->withMessage($message)
-              ->withType($type);
+      return redirect(route('sale.index'), [
+        'message'   => $this->_message,
+        'type'      => $this->_type,
+      ]);
     }
   }
 

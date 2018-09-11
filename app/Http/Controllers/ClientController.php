@@ -46,12 +46,10 @@ class ClientController extends Controller
     }
     else
     {
-      $clients = Client::where([
-          'user_id', '=', $currentUser->id
-        ])
-        ->orderBy('first_name', 'asc')
-        ->orderBy('last_name', 'asc')
-        ->paginate(5);
+      $clients = Client::where('user_id', $currentUser->id)
+                  ->orderBy('first_name', 'asc')
+                  ->orderBy('last_name', 'asc')
+                  ->paginate(5);
     }
 
     return view('clients.index')
