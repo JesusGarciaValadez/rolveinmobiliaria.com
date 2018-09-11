@@ -26,8 +26,6 @@ class AlterUsersTable extends Migration
        $table->softDeletes()
              ->after('updated_at');
      });
-
-     DB::update('ALTER TABLE users AUTO_INCREMENT=1;');
    }
 
    /**

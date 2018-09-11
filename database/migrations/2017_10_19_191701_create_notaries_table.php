@@ -22,7 +22,11 @@ class CreateNotariesTable extends Migration
         ->default('CDMX');
       $table->string('SN_notaries_office')
             ->nullable();
-      $table->date('SN_freedom_of_lien_certificate')
+      $table->dateTime('SN_date_freedom_of_lien_certificate')
+            ->nullable();
+      $table->text('SN_observations_freedom_of_lien_certificate')
+            ->nullable();
+      $table->date('SN_beginning_of_the_certificate_of_freedom_of_assessment')
             ->nullable();
       $table->date('SN_zoning')
             ->nullable();
@@ -33,6 +37,12 @@ class CreateNotariesTable extends Migration
       $table->date('SN_certificate_of_improvement')
             ->nullable();
       $table->date('SN_key_and_cadastral_value')
+            ->nullable();
+      $table->date('SN_seller_documents')
+            ->nullable();
+      $table->date('SN_buyer_documents')
+            ->nullable();
+      $table->date('SN_activation_documents_for_the_mortgage_loan')
             ->nullable();
       $table->boolean('SN_complete')
             ->default(false);

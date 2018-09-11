@@ -8,7 +8,15 @@ $factory->define(App\Notary::class, function (Faker $faker) {
     'Edo. Mex.',
   ]);
   $notaries_office = $faker->randomDigitNotNull();
-  $freedom_of_lien_certificate = $faker->randomElement([
+  $date_freedom_of_lien_certificate = $faker->randomElement([
+    $faker->dateTime('now', 'America/Mexico_city'),
+    null,
+  ]);
+  $observations_freedom_of_lien_certificate = $faker->randomElement([
+    $faker->text(),
+    null,
+  ]);
+  $beginning_of_the_certificate_of_freedom_of_assessment = $faker->randomElement([
     $faker->date(),
     null,
   ]);
@@ -32,15 +40,32 @@ $factory->define(App\Notary::class, function (Faker $faker) {
     $faker->date(),
     null,
   ]);
+  $seller_documents = $faker->randomElement([
+    $faker->date(),
+    null,
+  ]);
+  $buyer_documents = $faker->randomElement([
+    $faker->date(),
+    null,
+  ]);
+  $activation_documents_for_the_mortgage_loan = $faker->randomElement([
+    $faker->date(),
+    null,
+  ]);
   $complete = (
     empty($federal_entity) ||
     empty($notaries_office) ||
-    empty($freedom_of_lien_certificate) ||
+    empty($date_freedom_of_lien_certificate) ||
+    empty($observations_freedom_of_lien_certificate) ||
+    empty($beginning_of_the_certificate_of_freedom_of_assessment) ||
     empty($zoning) ||
     empty($water_no_due_constants) ||
     empty($non_debit_proof_of_property) ||
     empty($certificate_of_improvement) ||
-    empty($key_and_cadastral_value)
+    empty($key_and_cadastral_value) ||
+    empty($seller_documents) ||
+    empty($buyer_documents) ||
+    empty($activation_documents_for_the_mortgage_loan)
   )
     ? false
     : true;
@@ -48,12 +73,17 @@ $factory->define(App\Notary::class, function (Faker $faker) {
   return [
     'SN_federal_entity' => $federal_entity,
     'SN_notaries_office' => $notaries_office,
-    'SN_freedom_of_lien_certificate' => $freedom_of_lien_certificate,
+    'SN_date_freedom_of_lien_certificate' => $date_freedom_of_lien_certificate,
+    'SN_observations_freedom_of_lien_certificate' => $observations_freedom_of_lien_certificate,
+    'SN_beginning_of_the_certificate_of_freedom_of_assessment' => $beginning_of_the_certificate_of_freedom_of_assessment,
     'SN_zoning' => $zoning,
     'SN_water_no_due_constants' => $water_no_due_constants,
     'SN_non_debit_proof_of_property' => $non_debit_proof_of_property,
     'SN_certificate_of_improvement' => $certificate_of_improvement,
     'SN_key_and_cadastral_value' => $key_and_cadastral_value,
+    'SN_seller_documents' => $seller_documents,
+    'SN_buyer_documents' => $buyer_documents,
+    'SN_activation_documents_for_the_mortgage_loan' => $activation_documents_for_the_mortgage_loan,
     'SN_complete' => $complete,
   ];
 });

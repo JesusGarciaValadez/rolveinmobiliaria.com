@@ -30,6 +30,7 @@ $factory->define(App\Visit::class, function (Faker $faker) {
   ]);
 
   $complete = (
+    empty($sale_id) ||
     empty($subject) ||
     empty($email) ||
     empty($phone) ||

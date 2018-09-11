@@ -68,11 +68,11 @@ $factory->define(App\Contract::class, function (Faker $faker) {
       empty($mortgage_broker) ||
       empty($contract_with_the_broker)
     ) &&
-    empty($mortgage_credit) &&
-    empty($general_buyer) &&
-    empty($purchase_agreements) &&
-    empty($tax_assessment) &&
-    empty($notary_checklist) &&
+    empty($mortgage_credit) ||
+    empty($general_buyer) ||
+    empty($purchase_agreements) ||
+    empty($tax_assessment) ||
+    empty($notary_checklist) ||
     empty($notary_file)
   )
    ? false
