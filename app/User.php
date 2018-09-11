@@ -86,42 +86,42 @@ class User extends Authenticatable
   {
     $role = Role::where('name', 'Super Administrador')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function isAdmin()
   {
     $role = Role::where('name', 'Administrador')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function isAssistant()
   {
     $role = Role::where('name', 'Asistente')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function isSales()
   {
     $role = Role::where('name', 'Ventas')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function isIntern()
   {
     $role = Role::where('name', 'Pasante')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function isClient()
   {
     $role = Role::where('name', 'Cliente')->get()->first();
 
-    return ($this->role_id === $role->id) ? true : false;
+    return $this->role_id === $role->id;
   }
 
   public function hasRole(String $role)
@@ -136,8 +136,6 @@ class User extends Authenticatable
     // {
     //   \Debugbar::info($role);
     // }
-    return ($this->role->name === $role)
-      ? true
-      : false;
+    return $this->role->name === $role;
   }
 }
