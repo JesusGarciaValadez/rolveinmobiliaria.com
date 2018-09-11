@@ -35,11 +35,11 @@ Route::prefix('/client')->name('client.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'ClientController@index')
        ->name('index')
-       ->middleware('can:client.view, App\Client');
+       ->middleware('can:client.create,App\Client');
 
   Route::get('/new', 'ClientController@create')
        ->name('create')
-       ->middleware('can:client.create, App\Client');
+       ->middleware('can:client.create,App\Client');
 
   Route::post('/store', 'ClientController@store')
        ->name('store')
@@ -70,7 +70,7 @@ Route::prefix('/message')->name('message.')->middleware('auth')->group(function 
 {
   Route::get('/', 'MessageController@index')
        ->name('index')
-       ->middleware('can:message.view,App\Messages');
+       ->middleware('can:message.create,App\Message');
 
   Route::get('/new', 'MessageController@create')
        ->name('create')
@@ -98,14 +98,14 @@ Route::prefix('/message')->name('message.')->middleware('auth')->group(function 
 
   Route::get('/filter/{date?}', 'MessageController@filter')
        ->name('filter')
-       ->middleware('can:message.view,App\Message');
+       ->middleware('can:message.create,App\Message');
 });
 
 Route::prefix('/call')->name('call.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'CallController@index')
        ->name('index')
-       ->middleware('can:call.view,call');
+       ->middleware('can:call.create,App\Call');
 
   Route::get('/new', 'CallController@create')
        ->name('create')
@@ -140,7 +140,7 @@ Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
 {
   Route::get('/', 'SaleController@index')
        ->name('index')
-       ->middleware('can:sale.view,App\Sale');
+       ->middleware('can:sale.create,App\Sale');
 
   Route::get('/new', 'SaleController@create')
        ->name('create')
@@ -158,7 +158,7 @@ Route::prefix('/sale')->name('sale.')->middleware('auth')->group(function ()
        ->name('edit')
        ->middleware('can:sale.update,sale');
 
-  Route::put('/update/{id}', 'SaleController@update')
+  Route::put('/update/{sale}', 'SaleController@update')
        ->name('update')
        ->middleware('can:sale.update,sale');
 
