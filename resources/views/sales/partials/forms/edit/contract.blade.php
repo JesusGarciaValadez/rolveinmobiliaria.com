@@ -1,4 +1,4 @@
-<div class="panel panel-default" v-if="showContract" v-cloak>
+<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.contract')</h4>
   </div>
@@ -12,7 +12,6 @@
             name="SC_general_buyer"
             id="SC_general_buyer"
             type="checkbox"
-            v-model="contract.general_buyer"
             @if (
               !empty(old('SC_general_buyer')) ||
               ($sale->contract !== null &&
@@ -37,7 +36,6 @@
             name="SC_purchase_agreements"
             id="SC_purchase_agreements"
             type="checkbox"
-            v-model="contract.purchase_agreements"
             @if (
               !empty(old('SC_purchase_agreements')) ||
               ($sale->contract !== null &&
@@ -62,7 +60,6 @@
             name="SC_tax_assessment"
             id="SC_tax_assessment"
             type="checkbox"
-            v-model="contract.tax_assessment"
             @if (
               !empty(old('SC_tax_assessment')) ||
               ($sale->contract !== null &&
@@ -87,7 +84,6 @@
             name="SC_notary_checklist"
             id="SC_notary_checklist"
             type="checkbox"
-            v-model="contract.notary_checklist"
             @if (
               !empty(old('SC_notary_checklist')) ||
               ($sale->contract !== null &&
@@ -112,7 +108,6 @@
             name="SC_notary_file"
             id="SC_notary_file"
             type="checkbox"
-            v-model="contract.notary_file"
             @if (
               !empty(old('SC_notary_file')) ||
               ($sale->contract !== null &&
@@ -210,7 +205,6 @@
               name="IC_certified_birth_certificate"
               id="IC_certified_birth_certificate"
               type="checkbox"
-              v-model="contract.infonavit.certified_birth_certificate"
               @if (
                 !empty(old('IC_certified_birth_certificate')) ||
                 (($sale->contract !== null &&
@@ -236,7 +230,6 @@
               name="IC_official_ID"
               id="IC_official_ID"
               type="checkbox"
-              v-model="contract.infonavit.official_ID"
               @if (
                 !empty(old('IC_official_ID')) ||
                 (($sale->contract !== null &&
@@ -262,7 +255,6 @@
               name="IC_curp"
               id="IC_curp"
               type="checkbox"
-              v-model="contract.infonavit.curp"
               @if (
                 !empty(old('IC_curp')) ||
                 (($sale->contract !== null &&
@@ -288,7 +280,6 @@
               name="IC_rfc"
               id="IC_rfc"
               type="checkbox"
-              v-model="contract.infonavit.rfc"
               @if (
                 !empty(old('IC_rfc')) ||
                 (($sale->contract !== null &&
@@ -314,7 +305,6 @@
               name="IC_credit_simulator"
               id="IC_credit_simulator"
               type="checkbox"
-              v-model="contract.infonavit.credit_simulator"
               @if (
                 !empty(old('IC_credit_simulator')) ||
                 (($sale->contract !== null &&
@@ -340,7 +330,6 @@
               name="IC_credit_application"
               id="IC_credit_application"
               type="checkbox"
-              v-model="contract.infonavit.credit_application"
               @if (
                 !empty(old('IC_credit_application')) ||
                 (($sale->contract !== null &&
@@ -366,7 +355,6 @@
               name="IC_tax_valuation"
               id="IC_tax_valuation"
               type="checkbox"
-              v-model="contract.infonavit.tax_valuation"
               @if (
                 !empty(old('IC_tax_valuation')) ||
                 (($sale->contract !== null &&
@@ -392,7 +380,6 @@
               name="IC_bank_statement"
               id="IC_bank_statement"
               type="checkbox"
-              v-model="contract.infonavit.bank_statement"
               @if (
                 !empty(old('IC_bank_statement')) ||
                 (($sale->contract !== null &&
@@ -418,7 +405,6 @@
               name="IC_workshop_knowing_how_to_decide"
               id="IC_workshop_knowing_how_to_decide"
               type="checkbox"
-              v-model="contract.infonavit.workshop_knowing_how_to_decide"
               @if (
                 !empty(old('IC_workshop_knowing_how_to_decide')) ||
                 (($sale->contract !== null &&
@@ -444,7 +430,6 @@
               name="IC_retention_sheet"
               id="IC_retention_sheet"
               type="checkbox"
-              v-model="contract.infonavit.retention_sheet"
               @if (
                 !empty(old('IC_retention_sheet')) ||
                 (($sale->contract !== null &&
@@ -470,7 +455,6 @@
               name="IC_credit_activation"
               id="IC_credit_activation"
               type="checkbox"
-              v-model="contract.infonavit.credit_activation"
               @if (
                 !empty(old('IC_credit_activation')) ||
                 (($sale->contract !== null &&
@@ -496,7 +480,6 @@
               name="IC_credit_maturity"
               id="IC_credit_maturity"
               type="checkbox"
-              v-model="contract.infonavit.credit_maturity"
               @if (
                 !empty(old('IC_credit_maturity')) ||
                 (($sale->contract !== null &&

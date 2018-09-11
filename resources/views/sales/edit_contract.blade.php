@@ -34,12 +34,11 @@
               'contract' => $sale->contract->id
             ]) }}"
             method="post"
-            enctype="multipart/form-data"
-            autocapitalize="sentences" v-cloak>
+            autocapitalize="sentences">
             @method('PUT')
             @csrf
 
-            @include('sales.partials.forms.edit.log-of-visits-and-calls')
+            @include('sales.partials.forms.edit.contract')
 
             <div class="panel-footer">
               <div class="form-inline">

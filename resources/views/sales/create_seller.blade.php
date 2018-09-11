@@ -30,7 +30,7 @@
             action="{{ route('sale.store') }}"
             method="post"
             enctype="multipart/form-data"
-            autocapitalize="sentences" v-cloak>
+            autocapitalize="sentences">
             @csrf
 
             @include('sales.partials.forms.create.seller')

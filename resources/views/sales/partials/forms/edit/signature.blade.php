@@ -1,4 +1,4 @@
-<div class="panel panel-default" v-if="showSignature" v-cloak>
+<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.signature')</h4>
   </div>
@@ -12,7 +12,6 @@
             name="SS_writing_review"
             id="SS_writing_review"
             type="checkbox"
-            v-model="signature.writing_review"
             @if (
               !empty(old('SS_writing_review')) ||
               ($sale->signature !== null &&
@@ -37,7 +36,6 @@
             name="SS_scheduled_date_of_writing_signature"
             id="SS_scheduled_date_of_writing_signature"
             type="checkbox"
-            v-model="signature.scheduled_date_of_writing_signature"
             @if (
               !empty(old('SS_scheduled_date_of_writing_signature')) ||
               ($sale->signature !== null &&
@@ -62,7 +60,6 @@
             name="SS_writing_signature"
             id="SS_writing_signature"
             type="checkbox"
-            v-model="signature.writing_signature"
             @if (
               !empty(old('SS_writing_signature')) ||
               ($sale->signature !== null &&
@@ -87,7 +84,6 @@
             name="SS_scheduled_payment_date"
             id="SS_scheduled_payment_date"
             type="checkbox"
-            v-model="signature.scheduled_payment_date"
             @if (
               !empty(old('SS_scheduled_payment_date')) ||
               ($sale->signature !== null &&
@@ -112,7 +108,6 @@
             name="SS_payment_made"
             id="SS_payment_made"
             type="checkbox"
-            v-model="signature.payment_made"
             @if (
               !empty(old('SS_payment_made')) ||
               ($sale->signature !== null && !empty($sale->signature->SS_payment_made))

@@ -1,4 +1,4 @@
-<div class="panel panel-default" v-show="showLogOfVisitsAndCalls" v-cloak>
+<div class="panel panel-default" v-cloak>
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.log_of_visits_and_calls')</h4>
   </div>

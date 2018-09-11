@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-info" v-cloak>
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.sellers')</h4>
   </div>

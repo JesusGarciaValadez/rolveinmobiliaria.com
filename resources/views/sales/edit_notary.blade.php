@@ -21,8 +21,8 @@
 
         <div class="panel-body table-responsive">
           @alert([
-            'type' => $type,
-            'message' => $message
+            'type' => session('type'),
+            'message' => session('message')
           ])
           @endalert
 
@@ -34,7 +34,7 @@
               'notary' => $sale->notary->id
             ]) }}"
             method="post"
-            autocapitalize="sentences" v-cloak>
+            autocapitalize="sentences">
             @method('PUT')
             @csrf
 

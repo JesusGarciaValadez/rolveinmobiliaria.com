@@ -35,7 +35,7 @@
             ]) }}"
             method="post"
             enctype="multipart/form-data"
-            autocapitalize="sentences" v-cloak>
+            autocapitalize="sentences">
             @method('PUT')
             @csrf
 

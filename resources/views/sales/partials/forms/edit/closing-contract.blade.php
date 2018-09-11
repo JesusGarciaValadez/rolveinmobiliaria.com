@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" v-cloak>
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.closing_contract')</h4>
   </div>
