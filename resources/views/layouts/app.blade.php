@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  @env('local')
+
+  @else
   <meta http-equiv="Cache-control" content="private">
+  @endenv
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="canonical" href="{{ url()->current() }}" />
