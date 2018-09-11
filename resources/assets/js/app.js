@@ -12,11 +12,9 @@ import newExpedient from './components/newExpedient'
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap')
+require('./bootstrap');
 
-window.Vue = require('vue')
-
-const Vue = window.Vue
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
