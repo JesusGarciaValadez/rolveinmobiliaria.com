@@ -21,23 +21,21 @@ class Notary extends Model
    * @var array
    */
   protected $fillable = [
-    'federal_entity',
-    'notarys_office',
-    'freedom_of_lien_certificate',
-    'zoning',
-    'water_no_due_constants',
-    'non_debit_proof_of_property',
-    'certificate_of_improvement',
-    'key_and_cadastral_value',
-    'complete',
+    'SN_federal_entity',
+    'SN_notaries_office',
+    'SN_date_freedom_of_lien_certificate',
+    'SN_observations_freedom_of_lien_certificate',
+    'SN_beginning_of_the_certificate_of_freedom_of_assessment',
+    'SN_zoning',
+    'SN_water_no_due_constants',
+    'SN_non_debit_proof_of_property',
+    'SN_certificate_of_improvement',
+    'SN_key_and_cadastral_value',
+    'SN_seller_documents',
+    'SN_buyer_documents',
+    'SN_activation_documents_for_the_mortgage_loan',
+    'SN_complete',
   ];
-
-  /**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
-  protected $guarded = [];
 
   /**
    * The attributes that should be hidden for arrays.
