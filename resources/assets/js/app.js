@@ -3,6 +3,7 @@ import clientFilter from './apps/clientFilter'
 import createSeller from './apps/createSeller'
 import editSeller from './apps/editSeller'
 import editClosingContract from './apps/editClosingContract'
+// import editContract from './apps/editContract'
 import newExpedient from './components/newExpedient'
 
 /**
@@ -26,8 +27,9 @@ const Vue = window.Vue
 const clientFilterRoot = document.getElementById('client__filter') || null
 const callInfoRoot = document.getElementById('call__info') || null
 const createSellerRoot = document.getElementById('create__seller') || null
-const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
 const editSellerRoot = document.getElementById('edit__seller') || null
+const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
+// const editContractRoot = document.getElementById('edit__contract') || null
 const newExpedientRoot = document.getElementById('new__expedient') || null
 
 if (callInfoRoot !== null) {
@@ -49,6 +51,10 @@ if (editSellerRoot !== null) {
 if (editClosingContractRoot !== null) {
   const $vmEditClosingContract = new Vue(editClosingContract)
 }
+//
+// if (editContractRoot !== null) {
+//   const $vmEditContract = new Vue(editContract)
+// }
 
 if (newExpedientRoot !== null) {
   const $vmNewExpedient = new Vue(newExpedient)

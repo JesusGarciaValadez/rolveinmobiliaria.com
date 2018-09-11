@@ -27,8 +27,9 @@ mix.options({
   .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
   .browserSync('http://local.rolveinmobiliaria.com/')
+mix.version()
 
 // version does not work in hmr mode
 if (mix.inProduction()) {
-  mix.version()
+
 }

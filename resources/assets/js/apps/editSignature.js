@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
 import Vuex, { mapState, mapGetters, mapActions } from 'vuex'
-import store from '../store/sale/ClosingContractStore'
+import store from '../store/sale/SignatureStore'
 import Spinner from '../components/Spinner'
 import Expedient from '../components/Expedient'
 import Client from '../components/Client'
 
-Vue.use(Vuex)
-
 export default {
-  el: '#edit__closing-contract',
+  el: '#edit__signature',
   store,
   components: {
     Spinner,
@@ -41,7 +39,7 @@ export default {
       this.$store.dispatch('getExpedientInfo', payload)
     },
     onSubmit(event) {
-      if (this.$store.state.closingContractIsComplete) {
+      if (this.$store.state.sellerIsComplete) {
         let form = document.getElementById('edit__closing-contract')
         form.submit()
       }

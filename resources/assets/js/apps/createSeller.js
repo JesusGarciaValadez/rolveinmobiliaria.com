@@ -6,6 +6,8 @@ import Spinner from '../components/Spinner'
 import Expedient from '../components/Expedient'
 import Client from '../components/Client'
 
+Vue.use(Vuex)
+
 export default {
   el: '#create__seller',
   store,
