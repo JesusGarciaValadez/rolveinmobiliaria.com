@@ -22,12 +22,13 @@ class MessagePolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
@@ -37,15 +38,12 @@ class MessagePolicy
    * @param  \App\Message  $message
    * @return mixed
    */
-  public function view(User $user, Message $message)
+  public function view(User $user, Sale $sale)
   {
     return (
-      ($user->hasRole('Asistente') ||
-       $user->hasRole('Ventas')) &&
-      $user->id === $message->user->id
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -57,11 +55,9 @@ class MessagePolicy
   public function create(User $user)
   {
     return (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -73,13 +69,14 @@ class MessagePolicy
    */
   public function update(User $user, Message $message)
   {
-    return (
-      ($user->hasRole('Asistente') ||
-       $user->hasRole('Ventas')) &&
-      $user->id === $message->user->id
+    if (
+      $user->isAssistant() ||
+      $user->isSales()
     )
-      ? true
-      : false;
+    {
+      return $user->id === $message->user->id;
+    }
+    return false;
   }
 
   /**
@@ -91,12 +88,13 @@ class MessagePolicy
    */
   public function delete(User $user, Message $message)
   {
-    return (
-      ($user->hasRole('Asistente') ||
-       $user->hasRole('Ventas')) &&
-      $user->id === $message->user->id
+    if (
+      $user->isAssistant() ||
+      $user->isSales()
     )
-      ? true
-      : false;
+    {
+      return $user->id === $message->user->id;
+    }
+    return false;
   }
 }

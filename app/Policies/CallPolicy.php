@@ -22,12 +22,13 @@ class CallPolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
@@ -37,14 +38,20 @@ class CallPolicy
    * @param  \App\Call  $call
    * @return mixed
    */
-  public function view(User $user)
+  public function view(User $user, Call $call)
   {
-    return (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+    if (
+      $user->isAssistant() ||
+      $user->isSales()
     )
-      ? true
-      : false;
+    {
+      if ($call->id)
+      {
+        return $user->id === $call->user->id;
+      }
+      return false;
+    }
+    return false;
   }
 
   /**
@@ -56,11 +63,9 @@ class CallPolicy
   public function create(User $user)
   {
     return (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -70,16 +75,14 @@ class CallPolicy
    * @param  \App\Call  $call
    * @return mixed
    */
-  public function update(User $user, $call)
+  public function update(User $user, Call $call)
   {
     if (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->isAssistant() ||
+      $user->isSales()
     )
     {
-      if (Auth::id() == $call->user_id) {
-        return true;
-      }
+      return $user->id === $call->user->id;
     }
     return false;
   }
@@ -91,16 +94,14 @@ class CallPolicy
    * @param  \App\Call  $call
    * @return mixed
    */
-  public function delete(User $user, $call)
+  public function delete(User $user, Call $call)
   {
     if (
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+      $user->isAssistant() ||
+      $user->isSales()
     )
     {
-      if (Auth::id() == $call->user_id) {
-        return true;
-      }
+      return $user->id === $call->user->id;
     }
     return false;
   }

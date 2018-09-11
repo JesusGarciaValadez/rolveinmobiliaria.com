@@ -11,6 +11,27 @@ class NotaryPolicy
   use HandlesAuthorization;
 
   /**
+   * Create a new policy instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    //
+  }
+
+  public function before($user, $ability)
+  {
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
+    )
+    {
+      return true;
+    }
+  }
+
+  /**
    * Determine whether the user can view the sale notary.
    *
    * @param  \App\User  $user
@@ -20,11 +41,9 @@ class NotaryPolicy
   public function view(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
-    )
-      ? true
-      : false;
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
+    );
   }
 
   /**
@@ -35,9 +54,7 @@ class NotaryPolicy
    */
   public function create(User $user)
   {
-    return ($user->hasRole('Ventas'))
-      ? true
-      : false;
+    return $user->isSales();
   }
 
   /**
@@ -50,11 +67,9 @@ class NotaryPolicy
   public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $user->id === $sale->user->id
-    )
-      ? true
-      : false;
+    );
   }
 
   /**
@@ -67,10 +82,8 @@ class NotaryPolicy
   public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $user->id === $sale->user->id
-    )
-      ? true
-      : false;
+    );
   }
 }

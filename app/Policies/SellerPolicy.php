@@ -22,12 +22,13 @@ class SellerPolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
@@ -40,11 +41,9 @@ class SellerPolicy
   public function view(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $sale->user->id === $user->id
-    )
-      ? true
-      : false;
+    );
   }
 
   /**
@@ -55,9 +54,7 @@ class SellerPolicy
    */
   public function create(User $user)
   {
-    return ($user->hasRole('Ventas'))
-      ? true
-      : false;
+    return $user->isSales();
   }
 
   /**
@@ -70,11 +67,9 @@ class SellerPolicy
   public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $sale->user->id === $user->id
-    )
-      ? true
-      : false;
+    );
   }
 
   /**
@@ -87,10 +82,8 @@ class SellerPolicy
   public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $sale->user->id === $user->id
-    )
-      ? true
-      : false;
+    );
   }
 }

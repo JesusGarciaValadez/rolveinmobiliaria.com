@@ -13,48 +13,48 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-          @can('message.view')
+          @can('message.create')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'messages')
               ? ' active'
               : '' }}">
-              <a href="{{ route('message.index') }}" title="@lang('section.messages')">
+              <a href="{{ route('message.index') }}" title="@lang('section.message')">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                @lang('section.messages')
+                @lang('section.message')
               </a>
             </li>
           @endcan
-          @can('client.view')
+          @can('client.create')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'clients')
               ? ' active'
               : '' }}">
-              <a href="{{ route('client.index') }}" title="@lang('section.clients')">
+              <a href="{{ route('client.index') }}" title="@lang('section.client')">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                @lang('section.clients')
+                @lang('section.client')
               </a>
             </li>
           @endcan
-          @can('call.view')
+          @can('call.create')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'call')
               ? ' active'
               : '' }}">
-              <a href="{{ route('call.index') }}" title="@lang('section.call_tracking')">
+              <a href="{{ route('call.index') }}" title="@lang('section.call')">
                 <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-                @lang('section.call_tracking')
+                @lang('section.call')
               </a>
             </li>
           @endcan
-          @can('sale.view')
+          @can('sale.create')
             <li class="hidden-md hidden-lg{{ (!empty($uri) && $uri == 'dashboard')
               ? ' for_sales'
               : '' }}">
               <a href="{{ route('sale.index') }}" title="@lang('section.sale')">
                 <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-                @lang('section.for_sale')
+                @lang('section.sale')
               </a>
             </li>
           @endcan
           <li role="separator" class="divider"></li>
-          @can('user.view')
+          @can('user.create')
           <li>
             <a href="{{ route('register') }}">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span>

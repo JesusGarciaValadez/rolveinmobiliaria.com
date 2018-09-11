@@ -10,7 +10,7 @@
       data-placement="right">
       <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
     </a>
-  @can('message.view')
+  @can('message.create')
     <a
       href="{{ route('message.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'message')
@@ -24,7 +24,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('client.view')
+  @can('client.create')
     <a
       href="{{ route('client.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'client')
@@ -38,7 +38,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('call.view')
+  @can('call.create')
     <a
       href="{{ route('call.index') }}"
       class="list-group-item{{ (!empty($uri) && $uri == 'call')
@@ -52,7 +52,7 @@
         aria-hidden="true"></span>
     </a>
   @endcan
-  @can('sale.view')
+  @can('sale.create')
     <a
       href="{{ route('sale.index') }}"
       class="list-group-item {{ (!empty($uri) && $uri == 'sale')

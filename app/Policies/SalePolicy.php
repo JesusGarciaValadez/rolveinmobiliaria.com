@@ -23,12 +23,13 @@ class SalePolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
@@ -38,11 +39,9 @@ class SalePolicy
    * @param  \App\Sale  $sale
    * @return mixed
    */
-  public function view(User $user)
+  public function view(User $user, Sale $sale)
   {
-    return ($user->hasRole('Ventas'))
-      ? true
-      : false;
+    return $user->isSales();
   }
 
   /**
@@ -53,9 +52,7 @@ class SalePolicy
    */
   public function create(User $user)
   {
-    return ($user->hasRole('Ventas'))
-      ? true
-      : false;
+    return $user->isSales();
   }
 
   /**
@@ -68,11 +65,9 @@ class SalePolicy
   public function update(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $user->id === $sale->user->id
-    )
-      ? true
-      : false;
+    );
   }
 
   /**
@@ -85,10 +80,8 @@ class SalePolicy
   public function delete(User $user, Sale $sale)
   {
     return (
-      $user->hasRole('Ventas') &&
+      $user->isSales() &&
       $user->id === $sale->user->id
-    )
-      ? true
-      : false;
+    );
   }
 }

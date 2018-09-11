@@ -21,28 +21,25 @@ class AdminPolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
    * Determine whether the user can view the call.
    *
    * @param  \App\User  $user
+   * @param  \App\
    * @return mixed
    */
   public function view(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
-    )
-      ? true
-      : false;
+    return $user->isAdmin();
   }
 
   /**
@@ -53,12 +50,8 @@ class AdminPolicy
    */
   public function create(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
-    )
-      ? true
-      : false;
+    return $user->isAdmin();
+
   }
 
   /**
@@ -69,12 +62,8 @@ class AdminPolicy
    */
   public function update(User $user)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
-    )
-      ? true
-      : false;
+    return $user->isAdmin();
+
   }
 
   /**
@@ -86,10 +75,8 @@ class AdminPolicy
   public function delete(User $user)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador')
-    )
-      ? true
-      : false;
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
+    );
   }
 }

@@ -23,14 +23,13 @@ class ClientPolicy
 
   public function before($user, $ability)
   {
-    return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
+    if (
+      $user->isSuperAdmin() ||
+      $user->isAdmin()
     )
-      ? true
-      : false;
+    {
+      return true;
+    }
   }
 
   /**
@@ -40,17 +39,12 @@ class ClientPolicy
    * @param  \App\Client  $client
    * @return mixed
    */
-  public function view(User $user)
+  public function view(User $user, Client $client)
   {
-    \Debugbar::warning($user);
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -62,13 +56,9 @@ class ClientPolicy
   public function create(User $user)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -81,13 +71,9 @@ class ClientPolicy
   public function update(User $user, $client)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 
   /**
@@ -100,12 +86,8 @@ class ClientPolicy
   public function delete(User $user, $client)
   {
     return (
-      $user->hasRole('Super Administrador') ||
-      $user->hasRole('Administrador') ||
-      $user->hasRole('Asistente') ||
-      $user->hasRole('Ventas')
-    )
-      ? true
-      : false;
+      $user->isAssistant() ||
+      $user->isSales()
+    );
   }
 }

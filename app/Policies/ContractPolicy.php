@@ -22,12 +22,13 @@ class ContractPolicy
 
     public function before($user, $ability)
     {
-      return (
-        $user->hasRole('Super Administrador') ||
-        $user->hasRole('Administrador')
+      if (
+        $user->isSuperAdmin() ||
+        $user->isAdmin()
       )
-        ? true
-        : false;
+      {
+        return true;
+      }
     }
 
     /**
@@ -39,12 +40,10 @@ class ContractPolicy
      */
     public function view(User $user, Sale $sale)
     {
-      return (
-        $user->hasRole('Ventas') &&
-        $user->id === $sale->user->id
-      )
-        ? true
-        : false;
+      if ($user->isSales())
+      {
+        return $user->id === $sale->user->id;
+      }
     }
 
     /**
@@ -55,9 +54,7 @@ class ContractPolicy
      */
     public function create(User $user)
     {
-      return ($user->hasRole('Ventas'))
-        ? true
-        : false;
+      return $user->isSales();
     }
 
     /**
@@ -69,12 +66,10 @@ class ContractPolicy
      */
     public function update(User $user, Sale $sale)
     {
-      return (
-        $user->hasRole('Ventas') &&
-        $user->id === $sale->user->id
-      )
-        ? true
-        : false;
+      if ($user->isSales())
+      {
+        return $user->id === $sale->user->id;
+      }
     }
 
     /**
@@ -86,11 +81,9 @@ class ContractPolicy
      */
     public function delete(User $user, Sale $sale)
     {
-      return (
-        $user->hasRole('Ventas') &&
-        $user->id === $sale->user->id
-      )
-        ? true
-        : false;
+      if ($user->isSales())
+      {
+        return $user->id === $sale->user->id;
+      }
     }
 }
