@@ -15,15 +15,15 @@ class FovisssteContract extends Model
    * @var array
    */
   protected $fillable = [
-    'credit_simulator',
-    'curp',
-    'birth_certificate',
-    'bank_statement',
-    'single_key_housing_payment',
-    'general_buyers_and_sellers',
-    'education_course',
-    'last_pay_stub',
-    'complete',
+    'FC_credit_simulator',
+    'FC_curp',
+    'FC_birth_certificate',
+    'FC_bank_statement',
+    'FC_single_key_housing_payment',
+    'FC_general_buyers_and_sellers',
+    'FC_education_course',
+    'FC_last_pay_stub',
+    'FC_complete',
   ];
 
   /**

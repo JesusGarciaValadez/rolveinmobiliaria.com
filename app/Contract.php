@@ -23,7 +23,7 @@ class Contract extends Model
   protected $with = [
     'infonavit_contract',
     'fovissste_contract',
-    'cofinavit_contract'
+    'cofinavit_contract',
   ];
 
   /**
@@ -32,18 +32,18 @@ class Contract extends Model
    * @var array
    */
   protected $fillable = [
-    'infonavit_contracts_id',
-    'fovissste_contracts_id',
-    'cofinavit_contracts_id',
-    'mortgage_credit',
-    'mortgage_broker',
-    'contract_with_the_broker',
-    'general_buyer',
-    'purchase_agreements',
-    'tax_assessment',
-    'notary_checklist',
-    'notary_file',
-    'complete',
+    'SC_infonavit_contracts_id',
+    'SC_fovissste_contracts_id',
+    'SC_cofinavit_contracts_id',
+    'SC_mortgage_broker',
+    'SC_contract_with_the_broker',
+    'SC_mortgage_credit',
+    'SC_general_buyer',
+    'SC_purchase_agreements',
+    'SC_tax_assessment',
+    'SC_notary_checklist',
+    'SC_notary_file',
+    'SC_complete',
   ];
 
   /**
@@ -65,7 +65,11 @@ class Contract extends Model
    *
    * @var array
    */
-  protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+  protected $dates = [
+    'created_at',
+    'updated_at',
+    'deleted_at',
+  ];
 
   /**
    * The storage format of the model's date columns.
@@ -74,6 +78,21 @@ class Contract extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'SC_contract_with_the_broker' => 'datetime:Y-m-d',
+    'SC_mortgage_broker'          => 'datetime:Y-m-d',
+    'SC_general_buyer'            => 'datetime:Y-m-d',
+    'SC_purchase_agreements'      => 'datetime:Y-m-d',
+    'SC_tax_assessment'           => 'datetime:Y-m-d',
+    'SC_notary_checklist'         => 'datetime:Y-m-d',
+    'SC_notary_file'              => 'datetime:Y-m-d',
+  ];
+
   public function sale()
   {
     return $this->belongsTo(Sale::class, 'contracts_id');
@@ -81,16 +100,16 @@ class Contract extends Model
 
   public function infonavit_contract()
   {
-    return $this->belongsTo('App\InfonavitContract', 'SC_infonavit_contracts_id');
+    return $this->belongsTo(InfonavitContract::class, 'SC_infonavit_contracts_id');
   }
 
   public function fovissste_contract()
   {
-    return $this->belongsTo('App\FovisssteContract', 'SC_fovissste_contracts_id');
+    return $this->belongsTo(FovisssteContract::class, 'SC_fovissste_contracts_id');
   }
 
   public function cofinavit_contract()
   {
-    return $this->belongsTo('App\CofinavitContract', 'SC_cofinavit_contracts_id');
+    return $this->belongsTo(CofinavitContract::class, 'SC_cofinavit_contracts_id');
   }
 }

@@ -15,19 +15,19 @@ class CofinavitContract extends Model
    * @var array
    */
   protected $fillable = [
-    'type',
-    'request_for_credit_inspection',
-    'birth_certificate',
-    'official_id',
-    'curp',
-    'rfc',
-    'bank_statement_seller',
-    'tax_valuation',
-    'scripture_copy',
-    'birth_certificate_of_the_spouse',
-    'official_identification_of_the_spouse',
-    'marriage_certificate',
-    'complete',
+    'CC_type',
+    'CC_request_for_credit_inspection',
+    'CC_birth_certificate',
+    'CC_official_id',
+    'CC_curp',
+    'CC_rfc',
+    'CC_bank_statement_seller',
+    'CC_tax_valuation',
+    'CC_scripture_copy',
+    'CC_birth_certificate_of_the_spouse',
+    'CC_official_identification_of_the_spouse',
+    'CC_marriage_certificate',
+    'CC_complete',
   ];
 
   /**
