@@ -1,4 +1,13 @@
-                <tr>
+                <tr
+                  @if (
+                    $sale->seller->SD_complete &&
+                    $sale->closing_contract->SCC_complete &&
+                    $sale->contract->SC_complete &&
+                    $sale->notary->SN_complete &&
+                    $sale->signature->SS_complete
+                  )
+                    class="success"
+                  @endif>
                   <td class="text-center active">{{-- Internal Expedient --}}
                     <a
                       href="{{ route('sale.edit', $sale->internal_expedient->id) }}"
@@ -8,8 +17,8 @@
                       {{ $sale->internal_expedient->expedient }}
                     </a>
                   </td>
-                  <td class="text-center active">{{-- Client --}}
-                    {{ $sale->internal_expedient->client->full_name }}
+                  <td class="text-left active">{{-- Client --}}
+                    <strong>{{ $sale->internal_expedient->client->full_name }}</strong>
                   </td>
                   <td class="text-center">{{-- Documents --}}
                     <a

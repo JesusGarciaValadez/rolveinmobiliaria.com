@@ -14,14 +14,14 @@
             id="SCC_exclusivity_contract"
             class="form-control"
             type="date"
-            placeholder="mm-dd-aaaa"
+            placeholder="aaaa-mm-dd"
             @if(old('SCC_exclusivity_contract') !== null)
             value="{{ old('SCC_exclusivity_contract') }}"
             @elseif (optional($sale)->closing_contract->SCC_exclusivity_contract)
             value="{{ $sale->closing_contract->SCC_exclusivity_contract }}"
             @endif
             min="01-01-2017" max="12-31-2099"
-            pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}"
+            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
             v-model="sale.closingContract.exclusivity_contract"
             @change="setClosingContractExclusitivyContract">
         </div>
@@ -43,7 +43,7 @@
             id="SCC_commercial_valuation"
             class="form-control"
             type="date"
-            placeholder="mm-dd-aaaa"
+            placeholder="aaaa-mm-dd"
             @if(old('SCC_commercial_valuation') !== null)
             value="{{ old('SCC_commercial_valuation') }}"
             @elseif (optional($sale->closing_contract)->SCC_commercial_valuation)
@@ -72,7 +72,7 @@
             id="SCC_publication"
             class="form-control"
             type="date"
-            placeholder="mm-dd-aaaa"
+            placeholder="aaaa-mm-dd"
             @if(old('SCC_publication') !== null)
             value="{{ old('SCC_publication') }}"
             @elseif (optional($sale)->closing_contract->SCC_publication)
@@ -100,7 +100,7 @@
             id="SCC_data_sheet"
             type="file"
             class="form-control"
-            placeholder="mm-dd-aaaa"
+            placeholder="aaaa-mm-dd"
             @if(old('SCC_data_sheet') !== null)
             value="{{ old('SCC_data_sheet') }}"
             @elseif (optional($sale)->closing_contract->SCC_data_sheet)

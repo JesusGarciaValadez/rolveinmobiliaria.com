@@ -202,8 +202,9 @@
             class="form-control"
             name="SN_date_freedom_of_lien_certificate"
             id="SN_date_freedom_of_lien_certificate"
-            type="datetime"
-            placeholder="mm-dd-aaaa hh:mm"
+            type="date"
+            placeholder="aaaa-mm-dd"
+            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
             @if (old('SN_date_freedom_of_lien_certificate'))
               value="{{ old('SN_date_freedom_of_lien_certificate') }}"
             @elseif ($sale->notary->SN_date_freedom_of_lien_certificate)

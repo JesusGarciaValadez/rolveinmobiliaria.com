@@ -1,4 +1,6 @@
-<div class="panel panel-default">
+<div
+  class="panel panel-default"
+  sale_contract="{{ $sale->contract }}">
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.contract')</h4>
   </div>
@@ -194,7 +196,7 @@
         </div>
       </div>
 
-      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix infonavit_contract" v-if="isINFONAVIT">
+      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix infonavit_contract" v-if="isInfonavit">
         <legend class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix">INFONAVIT</legend>
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('IC_certified_birth_certificate') ? ' has-error' : ''}}">
@@ -618,7 +620,7 @@
         </div>
       </div>
 
-      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix fovissste_contract" v-if="isFOVISSSTE">
+      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix fovissste_contract" v-if="isFovissste">
         <legend class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix">FOVISSSTE</legend>
         <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('FC_credit_simulator') ? ' has-error' : ''}}">
           <label
@@ -829,7 +831,7 @@
         </div>
       </div>
 
-      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix cofinavit_contract" v-if="isCOFINAVIT">
+      <div id="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix cofinavit_contract" v-if="isCofinavit">
         <legend class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block clearfix">COFINAVIT</legend>
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('CC_request_for_credit_inspection') ? ' has-error' : ''}}">
