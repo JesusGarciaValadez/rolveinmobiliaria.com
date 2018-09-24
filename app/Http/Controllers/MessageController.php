@@ -18,10 +18,42 @@ class MessageController extends Controller
 {
   use ThrottlesLogins;
 
+  /**
+   * Set the uri returned to views.
+   *
+   * @var string
+   */
   private $_uri = 'message';
+
+  /**
+   * Set the localization for the language in the app.
+   *
+   * @var string
+   */
   private $_locale;
 
-  public function __constructor()
+  /**
+   * Set the message to the used returned to views.
+   *
+   * @var string
+   */
+  private $_message = null;
+
+  /**
+   * Set the type of the alarm return to views.
+   *
+   * @var string
+   */
+  private $_type = null;
+
+  /**
+   * Date of the attribute updated or created.
+   *
+   * @var string
+   */
+  private $_date = null;
+
+  public function __construct ()
   {
     $this->_locale = \App::getLocale();
   }
@@ -50,9 +82,10 @@ class MessageController extends Controller
                     ->paginate(5);
     }
 
-    return view('messages.index')
-            ->withMessages($messages)
-            ->withUri($this->_uri);
+    return view('messages.index', [
+      'messages'  => $messages,
+      'uri'       => $this->_uri,
+    ]);
   }
 
   /**
@@ -62,8 +95,7 @@ class MessageController extends Controller
    */
   public function create()
   {
-    return view('messages.create')
-            ->withUri($this->_uri);
+    return view('messages.create')->withUri($this->_uri);
   }
 
   /**
@@ -75,43 +107,30 @@ class MessageController extends Controller
   public function store(MessageRequest $request)
   {
     $message = [
-      'user_id' => \Auth::id(),
-      'name' => $request->name,
-      'email' => $request->email ?? 'Sin correo',
-      'observations' => $request->observations ?? 'Sin observaciones',
+      'user_id'       => \Auth::id(),
+      'name'          => $request->name,
+      'email'         => $request->email ?? 'Sin correo',
+      'observations'  => $request->observations ?? 'Sin observaciones',
     ];
 
     $messageCreated = Message::create($message);
 
     event(new MessageCreatedEvent($messageCreated));
 
-    $message = ($messageCreated)
-                 ? 'Nuevo recado creado'
-                 : 'No se pudo crear el recado.';
+    $this->_message = ($messageCreated)
+      ? 'Nuevo recado creado'
+      : 'No se pudo crear el recado.';
+    $this->_type = ($messageCreated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($messageCreated)
-              ? 'success'
-              : 'danger';
-
-    if ($request->ajax())
+    if ($messageCreated)
     {
-      return response()->json(['message' => $message]);
+      return redirect()->route('message.index');
     }
     else
     {
-      if ($type === 'success')
-      {
-        return redirect(route('message.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -123,9 +142,10 @@ class MessageController extends Controller
    */
   public function show(Message $message, Request $request)
   {
-    return view('messages.show')
-            ->withMessage($message)
-            ->withUri($this->_uri);
+    return view('messages.show', [
+      'message' => $message,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -136,9 +156,10 @@ class MessageController extends Controller
    */
   public function edit(Message $message, Request $request)
   {
-    return view('messages.edit')
-            ->withMessage($message)
-            ->withUri($this->_uri);
+    return view('messages.edit', [
+      'message' => $message,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -153,10 +174,10 @@ class MessageController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     $newMessage = [
-      'user_id' => $request->user_id,
-      'name' => $request->name,
-      'email' => $request->email ?? 'Sin correo',
-      'observations' => $request->observations ?? 'Sin observaciones',
+      'user_id'       => $request->user_id,
+      'name'          => $request->name,
+      'email'         => $request->email ?? 'Sin correo',
+      'observations'  => $request->observations ?? 'Sin observaciones',
     ];
 
     if (
@@ -174,42 +195,20 @@ class MessageController extends Controller
                   ->update($newMessage);
     }
 
-    $message = ($updated)
-                  ? 'Llamada actualizada'
-                  : 'No se pudo actualizar la llamada.';
+    $this->_message = ($updated)
+      ? 'Llamada actualizada'
+      : 'No se pudo actualizar la llamada.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($updated)
-              ? 'success'
-              : 'danger';
-
-    if ($request->ajax())
+    if ($updated)
     {
-      return response()->json(['message' => $message]);
+      return redirect()->route('message.index');
     }
     else
     {
-      if ($updated)
-      {
-        return redirect(route('message.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else
-      {
-        if ($type === 'success')
-        {
-          return redirect(route('message.index'))
-                  ->withMessage($message)
-                  ->withType($type);
-        }
-        else
-        {
-          return redirect()
-                  ->back()
-                  ->withMessage($message)
-                  ->withType($type);
-        }
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -223,33 +222,20 @@ class MessageController extends Controller
   {
     $isDestroyed = $message->delete();
 
-    $message = ($isDestroyed)
-                  ? 'Llamada eliminada'
-                  : 'No se pudo eliminar la llamada.';
+    $this->_message = ($isDestroyed)
+      ? 'Llamada eliminada'
+      : 'No se pudo eliminar la llamada.';
+    $this->_type = ($isDestroyed) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($isDestroyed)
-              ? 'success'
-              : 'danger';
-
-    if ($request->ajax())
+    if ($isDestroyed)
     {
-      return response()->json(['message' => $message]);
+      return redirect()->route('message.index');
     }
     else
     {
-      if ($type === 'success')
-      {
-        return redirect(route('message.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -278,29 +264,19 @@ class MessageController extends Controller
                 ->paginate(5);
     }
 
-    $message = (count($messages) > 0)
-                  ? count($messages).' Recados encontrados'
-                  : 'No se pudo encontrar ningún recado.';
-
-    $type = (count($messages) > 0) ? 'success' : 'danger';
-
+    $this->_message = (count($messages) > 0)
+      ? count($messages).' Recados encontrados'
+      : 'No se pudo encontrar ningún recado.';
+    $this->_type = (count($messages) > 0) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
     $request->session()->flash('date', $request->date);
 
-    if ($request->ajax())
-    {
-      return response()->json([
-        'messages' => $messages,
-        'message' => $message,
-        'type' => $type,
-      ]);
-    }
-    else
-    {
-      return view('messages.filter')
-              ->withMessages($messages)
-              ->withMessage($message)
-              ->withType($type)
-              ->withUri($this->_uri);
-    }
+    return view('messages.filter', [
+      'messages'  => $messages,
+      'message'   => $message,
+      'type'      => $type,
+      'uri'       => $this->_uri,
+    ]);
   }
 }

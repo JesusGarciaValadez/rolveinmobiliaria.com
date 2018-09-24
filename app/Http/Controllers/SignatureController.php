@@ -49,7 +49,7 @@ class SignatureController extends Controller
    */
   private $_date = null;
 
-  public function __constructor ()
+  public function __construct ()
   {
     $this->_locale = \App::getLocale();
   }
@@ -111,10 +111,11 @@ class SignatureController extends Controller
   {
     $clients = Client::all();
 
-    return view('sales.edit_signature')
-            ->withUri($this->_uri)
-            ->withSale($sale)
-            ->withClients($clients);
+    return view('sales.edit_signature', [
+      'uri'     => $this->_uri,
+      'sale'    => $sale,
+      'clients' => $clients,
+    ]);
   }
 
   /**
@@ -127,7 +128,7 @@ class SignatureController extends Controller
    */
   public function update(Request $request, Sale $sale, Signature $signature)
   {
-    $this->_date = Carbon::now('America/Mexico_City')->toDateString();
+    $this->_date = Carbon::create()->format('U');
     $SS_writing_review = !empty($request->SS_writing_review) ? $this->_date : null;
     $SS_scheduled_date_of_writing_signature = !empty($request->SS_scheduled_date_of_writing_signature) ? $this->_date : null;
     $SS_writing_signature = !empty($request->SS_writing_signature) ? $this->_date : null;
@@ -141,42 +142,32 @@ class SignatureController extends Controller
       $SS_payment_made !== null
     );
     $signatureInfo = [
-      'SS_writing_review' => $SS_writing_review,
-      'SS_scheduled_date_of_writing_signature' => $SS_scheduled_date_of_writing_signature,
-      'SS_writing_signature' => $SS_writing_signature,
-      'SS_scheduled_payment_date' => $SS_scheduled_payment_date,
-      'SS_payment_made' => $SS_payment_made,
-      'SS_complete' => $SS_complete,
+      'SS_writing_review'                       => $SS_writing_review,
+      'SS_scheduled_date_of_writing_signature'  => $SS_scheduled_date_of_writing_signature,
+      'SS_writing_signature'                    => $SS_writing_signature,
+      'SS_scheduled_payment_date'               => $SS_scheduled_payment_date,
+      'SS_payment_made'                         => $SS_payment_made,
+      'SS_complete'                             => $SS_complete,
     ];
     $signature = $sale->signature()
-                   ->update($signatureInfo);
+                      ->update($signatureInfo);
 
     $this->_message = $signature
-                        ? 'Firma actualizada'
-                        : 'No se pudo actualizar la firma.';
+      ? 'Firma actualizada'
+      : 'No se pudo actualizar la firma.';
     $this->_type = $signature ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
+    // event(new SaleCreatedEvent($sale));
+
+    if ($signature)
     {
-      return response()->json(['message' => $this->_message]);
+      return redirect()->route('sale.index');
     }
     else
     {
-      if ($this->_type === 'success')
-      {
-        // event(new SaleCreatedEvent($sale));
-
-        return redirect(route('sale.index'))
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
-      else
-      {
-        return redirect()
-          ->back()
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 

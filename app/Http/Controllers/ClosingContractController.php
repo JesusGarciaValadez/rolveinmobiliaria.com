@@ -6,11 +6,11 @@ use App\ClosingContract;
 use App\Sale;
 use App\Client;
 use App\User;
-
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 
-use Carbon\Carbon as Carbon;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Carbon\Carbon;
+
 use App\Http\Requests\ClosingContractRequest;
 use App\Events\FileWillUploadEvent;
 
@@ -60,10 +60,9 @@ class ClosingContractController extends Controller
    */
   private $_date = null;
 
-  public function __constructor ()
+  public function __construct ()
   {
-    $this->_locale = \App::getLocale();
-  }
+    $this->_locale = \App::getLocale();  }
 
   /**
    * Display a listing of the resource.
@@ -122,10 +121,11 @@ class ClosingContractController extends Controller
   {
     $clients = Client::all();
 
-    return view('sales.edit_closing_contract')
-            ->withUri($this->_uri)
-            ->withSale($sale)
-            ->withClients($clients);
+    return view('sales.edit_closing_contract', [
+      'uri'     => $this->_uri,
+      'sale'    => $sale,
+      'clients' => $clients,
+    ]);
   }
 
   /**
@@ -138,7 +138,7 @@ class ClosingContractController extends Controller
    */
   public function update(ClosingContractRequest $request, Sale $sale, ClosingContract $closingContract)
   {
-    $this->_date = Carbon::now('America/Mexico_City')->toDateString();
+    $this->_date = now()->format('U');
 
     if (
       $request->hasFile('SCC_data_sheet') &&
@@ -160,11 +160,9 @@ class ClosingContractController extends Controller
       {
         $this->_message = 'El archivo no puede ser subido porque no es un tipo de archivo válido para subir';
         $this->_type = 'danger';
+        $this->_payload = ['message' => $this->_message, 'type' => $this->_type];
 
-        return redirect()
-                ->back()
-                ->withMessage($this->_message)
-                ->withType($this->_type);
+        return redirect()->back()->withInput($this->_payload);
       }
     }
     else
@@ -175,20 +173,20 @@ class ClosingContractController extends Controller
     }
 
     $SCC_exclusivity_contract = !empty($request->SCC_exclusivity_contract)
-                                  ? $this->_date
-                                  : null;
+      ? Carbon::parse($request->SCC_exclusivity_contract)->format('U')
+      : null;
     $SCC_commercial_valuation = !empty($request->SCC_commercial_valuation)
-                                  ? $this->_date
-                                  : null;
+      ? Carbon::parse($request->SCC_commercial_valuation)->format('U')
+      : null;
     $SCC_publication = !empty($request->SCC_publication)
-                        ? $this->_date
-                        : null;
+      ? Carbon::parse($request->SCC_publication)->format('U')
+      : null;
     $SCC_data_sheet = !empty($this->_file)
-                        ? $this->_file
-                        : null;
+      ? $this->_file
+      : null;
     $SCC_closing_contract_observations = !empty($request->SCC_closing_contract_observations)
-                                          ? $request->SCC_closing_contract_observations
-                                          : null;
+      ? $request->SCC_closing_contract_observations
+      : null;
     $SCC_complete = (
       $SCC_exclusivity_contract === null ||
       $SCC_commercial_valuation === null ||
@@ -199,42 +197,32 @@ class ClosingContractController extends Controller
       : true;
 
     $closingContract = [
-      'SCC_exclusivity_contract' => $SCC_exclusivity_contract,
-      'SCC_commercial_valuation' => $SCC_commercial_valuation,
-      'SCC_publication' => $SCC_publication,
-      'SCC_data_sheet' => $SCC_data_sheet,
+      'SCC_exclusivity_contract'          => $SCC_exclusivity_contract,
+      'SCC_commercial_valuation'          => $SCC_commercial_valuation,
+      'SCC_publication'                   => $SCC_publication,
+      'SCC_data_sheet'                    => $SCC_data_sheet,
       'SCC_closing_contract_observations' => $SCC_closing_contract_observations,
-      'SCC_complete' => $SCC_complete,
+      'SCC_complete'                      => $SCC_complete,
     ];
 
     $success = $sale->closing_contract()->update($closingContract);
 
     $this->_message = $success
-                        ? 'Compraventa actualizada'
-                        : 'No se pudo actualizar la compraventa.';
+      ? 'Contrato de cierre actualizado'
+      : 'No se pudo actualizar el contrato de cierre.';
     $this->_type = $success ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
+    // event(new SaleCreatedEvent($sale));
+
+    if ($success)
     {
-      return response()->json(['message' => $this->_message]);
+      return redirect()->route('sale.index');
     }
     else
     {
-      if ($this->_type === 'success')
-      {
-        // event(new SaleCreatedEvent($sale));
-
-        return redirect(route('sale.index'))
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
-      else
-      {
-        return redirect()
-          ->back()
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 

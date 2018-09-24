@@ -19,9 +19,36 @@ class ClientController extends Controller
   use ThrottlesLogins;
 
   private $_uri = 'client';
+
+  /**
+   * Set the localization for the language in the app.
+   *
+   * @var string
+   */
   private $_locale;
 
-  public function __constructor()
+  /**
+   * Set the message to the used returned to views.
+   *
+   * @var string
+   */
+  private $_message = null;
+
+  /**
+   * Set the type of the alarm return to views.
+   *
+   * @var string
+   */
+  private $_type = null;
+
+  /**
+   * Date of the attribute updated or created.
+   *
+   * @var string
+   */
+  private $_date = null;
+
+  public function __construct()
   {
     $this->_locale = \App::getLocale();
   }
@@ -52,9 +79,10 @@ class ClientController extends Controller
                   ->paginate(5);
     }
 
-    return view('clients.index')
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('clients.index', [
+      'clients' => $clients,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -66,9 +94,10 @@ class ClientController extends Controller
   {
     $clients = Client::all()->sortBy('last_name');
 
-    return view('clients.create')
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('clients.create', [
+      'clients' => $clients,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -94,40 +123,28 @@ class ClientController extends Controller
 
     if ($isRepeated !== 0)
     {
-      return redirect()
-              ->back()
-              ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
-              ->with('type', 'warning');
+      return redirect(back(), [
+        ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
+        ->with('type', 'warning');
+      ])
     }
 
     $updated = Client::create($data);
 
-    $message = ($updated)
-               ? 'Nuevo cliente creado'
-               : 'No se pudo agregar el cliente.';
+    $this->_message = ($updated)
+      ? 'Nuevo cliente creado'
+      : 'No se pudo agregar el cliente.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($updated)
-            ? 'success'
-            : 'danger';
-
-    if ($request->ajax())
+    if ($updated)
     {
-      return response()->json(['message' => $message]);
+      return redirect()->route('client.index');
     }
     else
     {
-      if ($type === 'success')
-      {
-        return redirect(route('client.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -139,16 +156,10 @@ class ClientController extends Controller
    */
   public function show(Client $client, Request $request)
   {
-    if ($request->ajax())
-    {
-      return response()->json([$client]);
-    }
-    else
-    {
-      return view('clients.show')
-              ->withClient($client)
-              ->withUri($this->_uri);
-    }
+    return view('clients.show', [
+      'client'  => $client,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -159,9 +170,10 @@ class ClientController extends Controller
    */
   public function edit(Client $client, Request $request)
   {
-    return view('clients.edit')
-            ->withClient($client)
-            ->withUri($this->_uri);
+    return view('clients.edit', [
+      'client'  => $client,
+      'uri'     => $this->_uri,
+    ]);
   }
 
   /**
@@ -180,33 +192,20 @@ class ClientController extends Controller
 
     $updated = $client->update($data);
 
-    $message = ($updated)
-                  ? 'Cliente actualizado'
-                  : 'No se pudo actualizar la información del cliente.';
+    $this->_message = ($updated)
+      ? 'Cliente actualizado'
+      : 'No se pudo actualizar la información del cliente.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($updated)
-              ? 'success'
-              : 'danger';
-
-    if ( $request->ajax() )
+    if ($updated)
     {
-      return response()->json( [ 'message' => $message ] );
+      return redirect()->route('client.index');
     }
     else
     {
-      if ($updated)
-      {
-        return redirect(route('client.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -220,28 +219,20 @@ class ClientController extends Controller
   {
     $isDestroyed = $client->delete();
 
-    $message = ($isDestroyed) ? 'Cliente eliminado' : 'No se pudo eliminar al cliente.';
-    $type = ($isDestroyed) ? 'success' : 'danger';
+    $this->_message = ($isDestroyed)
+      ? 'Cliente eliminado'
+      : 'No se pudo eliminar al cliente.';
+    $this->_type = ($isDestroyed) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ( $request->ajax() )
+    if ($isDestroyed)
     {
-      return response()->json(['message' => $message]);
+      return redirect()->route('client.index');
     }
     else
     {
-      if ($type === 'success')
-      {
-        return redirect(route('client.index'))
-                ->withMessage($message)
-                ->withType($type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($message)
-                ->withType($type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -297,29 +288,17 @@ class ClientController extends Controller
                 ->paginate(5);
     }
 
-    $message = (count($clients) > 0)
-                  ? count($clients).' Clientes encontrados'
-                  : 'No se pudo encontrar ningún cliente.';
-
-    $type = (count($clients) > 0) ? 'success' : 'danger';
-
+    $this->_message = (count($clients) > 0)
+      ? count($clients).' clientes encontrados'
+      : 'No se pudo encontrar ningún cliente.';
+    $this->_type = (count($clients) > 0) ? 'success' : 'danger';
     $request->session()->flash('date', $request->date);
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
-    {
-      return response()->json([
-        'calls' => $clients,
-        'message' => $message,
-        'type' => $type,
-      ]);
-    }
-    else
-    {
-      return view('clients.filter')
-              ->withClients($clients)
-              ->withMessage($message)
-              ->withType($type)
-              ->withUri($this->_uri);
-    }
+    return view('clients.filter', [
+      'clients' => $clients,
+      'uri'     => $this->_uri,
+    ]);
   }
 }

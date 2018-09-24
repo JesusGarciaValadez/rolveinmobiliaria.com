@@ -56,7 +56,7 @@ class SellerController extends Controller
    */
   private $_date = null;
 
-  public function __constructor ()
+  public function __construct ()
   {
     $this->_locale = \App::getLocale();
   }
@@ -101,13 +101,14 @@ class SellerController extends Controller
 
     $internal_expedient = InternalExpedient::findOrFail($sale->internal_expedient->id);
 
-    return view('sales.edit_seller')
-            ->withSale($sale)
-            ->withStates($states)
-            ->withExpedients($expedients)
-            ->withInternalExpedient($internal_expedient)
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('sales.edit_seller', [
+      'sale'                => $sale,
+      'states'              => $states,
+      'expedients'          => $expedients,
+      'internal_expedient'  => $internal_expedient,
+      'clients'             => $clients,
+      'uri'                 => $this->_uri,
+    ]);
   }
 
   /**
@@ -119,46 +120,46 @@ class SellerController extends Controller
    */
   public function update (SellerRequest $request, Sale $sale)
   {
-    $this->_date = Carbon::now('America/Mexico_City')->toDateString();
+    $this->_date = Carbon::create()->format('U');
     $internal_expedient_id = !empty($request->internal_expedient_id)
-                              ? ['internal_expedients_id' => $request->internal_expedient_id]
-                              : null;
+      ? ['internal_expedients_id' => $request->internal_expedient_id]
+      : null;
     $SD_deed = !empty($request->SD_deed)
-                ? $this->_date
-                : null;
+      ? $this->_date
+      : null;
     $SD_water = !empty($request->SD_water)
-                  ? $this->_date
-                  : null;
+      ? $this->_date
+      : null;
     $SD_predial = !empty($request->SD_predial)
-                    ? $this->_date
-                    : null;
+      ? $this->_date
+      : null;
     $SD_light = !empty($request->SD_light)
-                  ? $this->_date
-                  : null;
+      ? $this->_date
+      : null;
     $SD_birth_certificate = !empty($request->SD_birth_certificate)
-                              ? $this->_date
-                              : null;
+      ? $this->_date
+      : null;
     $SD_ID = !empty($request->SD_ID)
-              ? $this->_date
-              : null;
+      ? $this->_date
+      : null;
     $SD_CURP = !empty($request->SD_CURP)
-                ? $request->SD_CURP
-                : null;
+      ? $request->SD_CURP
+      : null;
     $SD_RFC = !empty($request->SD_RFC)
-                ? $request->SD_RFC
-                : null;
+      ? $request->SD_RFC
+      : null;
     $SD_account_status = !empty($request->SD_account_status)
-                          ? $this->_date
-                          : null;
+      ? $this->_date
+      : null;
     $SD_email = !empty($request->SD_email)
-                  ? $this->_date
-                  : null;
+      ? $this->_date
+      : null;
     $SD_phone = !empty($request->SD_phone)
-                  ? $this->_date
-                  : null;
+      ? $this->_date
+      : null;
     $SD_civil_status = !empty($request->SD_civil_status)
-                        ? $request->SD_civil_status
-                        : null;
+      ? $request->SD_civil_status
+      : null;
     $SD_complete = (
       $internal_expedient_id === null ||
       $SD_deed === null ||
@@ -198,31 +199,20 @@ class SellerController extends Controller
                    ->update($sellerInfo);
 
     $this->_message = $seller && $sale
-                        ? 'Compraventa actualizada'
-                        : 'No se pudo actualizar la compraventa.';
+      ? 'Vendedor actualizada'
+      : 'No se pudo actualizar al vendedor.';
     $this->_type = $seller && $sale ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
+    // event(new SaleCreatedEvent($sale));
+    if ($seller)
     {
-      return response()->json(['message' => $this->_message]);
+      return redirect()->route('sale.index');
     }
     else
     {
-      if ($this->_type === 'success')
-      {
-        // event(new SaleCreatedEvent($sale));
-
-        return redirect(route('sale.index'))
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
-      else
-      {
-        return redirect()
-          ->back()
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 }

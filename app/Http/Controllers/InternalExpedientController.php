@@ -13,6 +13,34 @@ use Carbon\Carbon;
 class InternalExpedientController extends Controller
 {
   /**
+   * Set the localization for the language in the app.
+   *
+   * @var string
+   */
+  private $_locale;
+
+  /**
+   * Set the message to the used returned to views.
+   *
+   * @var string
+   */
+  private $_message = null;
+
+  /**
+   * Set the type of the alarm return to views.
+   *
+   * @var string
+   */
+  private $_type = null;
+
+  /**
+   * Date of the attribute updated or created.
+   *
+   * @var string
+   */
+  private $_date = null;
+
+  /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
@@ -58,34 +86,29 @@ class InternalExpedientController extends Controller
     $year = Carbon::createFromDate($request->expedient_year);
 
     $data = [
-      'client_id' => $request->client_id,
-      'user_id' => \Auth::id(),
-      'expedient_key' => $request->expedient_key,
-      'expedient_number' => $request->expedient_number,
-      'expedient_year' => $year->formatLocalized('%y')
+      'client_id'         => $request->client_id,
+      'user_id'           => \Auth::id(),
+      'expedient_key'     => $request->expedient_key,
+      'expedient_number'  => $request->expedient_number,
+      'expedient_year'    => $year->formatLocalized('%y'),
     ];
 
     $updated = InternalExpedient::create($data);
 
-    $message = ($updated)
-                 ? 'Nuevo expediente interno creado'
-                 : 'No se pudo crear el expediente interno.';
+    $this->_message = ($updated)
+      ? 'Nuevo expediente interno creado'
+      : 'No se pudo crear el expediente interno.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $type = ($updated)
-              ? 'success'
-              : 'danger';
-
-    if ( $request->ajax() )
+    if ($request->ajax())
     {
-      return response()
-              ->json(['message' => $message]);
+      return response()->json(['message' => $this->_message]);
     }
     else
     {
-      return redirect()
-              ->back()
-              ->withMessage($message)
-              ->withType($type);
+      return redirect()->back()->withInput();
     }
   }
 
@@ -147,23 +170,12 @@ class InternalExpedientController extends Controller
                   ->findOrFail($request->id);
     $isDestroyed = $expedient->delete();
 
-    $message = ($isDestroyed)
-                  ? 'Llamada eliminada'
-                  : 'No se pudo eliminar la llamada.';
+    $this->_message = ($isDestroyed)
+      ? 'Llamada eliminada'
+      : 'No se pudo eliminar la llamada.';
 
-    $type = ($isDestroyed)
-              ? 'success'
-              : 'danger';
+    $this->_type = ($isDestroyed) ? 'success' : 'danger';
 
-    if ( $request->ajax() )
-    {
-      return response()->json(['message' => $message]);
-    }
-    else
-    {
-      return redirect(route('internal_expedient.index'))
-              ->withMessage($message)
-              ->withType($type);
-    }
+    return redirect()->route('internal_expedient.index', $this->_payload);
   }
 }

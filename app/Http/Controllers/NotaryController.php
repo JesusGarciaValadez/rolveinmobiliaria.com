@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Carbon\Carbon as Carbon;
+use Carbon\Carbon;
 
 class NotaryController extends Controller
 {
@@ -50,10 +50,9 @@ class NotaryController extends Controller
    */
   private $_date = null;
 
-  public function __constructor ()
+  public function __construct ()
   {
-    $this->_locale = \App::getLocale();
-  }
+    $this->_locale = \App::getLocale();  }
 
   /**
    * Display a listing of the resource.
@@ -112,10 +111,11 @@ class NotaryController extends Controller
   {
     $clients = Client::all();
 
-    return view('sales.edit_notary')
-            ->withUri($this->_uri)
-            ->withSale($sale)
-            ->withClients($clients);
+    return view('sales.edit_notary', [
+      'uri'     => $this->_uri,
+      'sale'    => $sale,
+      'clients' => $clients,
+    ]);
   }
 
   /**
@@ -128,19 +128,41 @@ class NotaryController extends Controller
    */
   public function update(Request $request, Sale $sale, Notary $notary)
   {
-    $this->_date = Carbon::now('America/Mexico_City')->toDateString();
-    $SN_federal_entity = $request->SN_federal_entity;
-    $SN_notaries_office = $request->SN_notaries_office;
-    $SN_zoning = !empty($request->SN_zoning) ? $this->_date : null;
-    $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants) ? $this->_date : null;
-    $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property) ? $this->_date : null;
-    $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement) ? $this->_date : null;
-    $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value) ? $this->_date : null;
-    $SN_date_freedom_of_lien_certificate = $request->SN_date_freedom_of_lien_certificate;
+    $this->_date = now()->format('U');
+    $SN_federal_entity = !empty($request->SN_federal_entity)
+      ? $request->SN_federal_entity
+      : null;
+    $SN_notaries_office = !empty($request->SN_notaries_office)
+      ? $request->SN_notaries_office
+      : null;
+    $SN_zoning = !empty($request->SN_zoning)
+      ? $this->_date
+      : null;
+    $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants)
+      ? $this->_date
+      : null;
+    $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property)
+      ? $this->_date
+      : null;
+    $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement)
+      ? $this->_date
+      : null;
+    $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value)
+      ? $this->_date
+      : null;
+    $SN_date_freedom_of_lien_certificate = !empty($request->SN_date_freedom_of_lien_certificate)
+      ? Carbon::parse($request->SN_date_freedom_of_lien_certificate)->format('U')
+      : null;
     $SN_observations_freedom_of_lien_certificate = $request->SN_observations_freedom_of_lien_certificate;
-    $SN_seller_documents = !empty($request->SN_seller_documents) ? $this->_date : null;
-    $SN_buyer_documents = !empty($request->SN_buyer_documents) ? $this->_date : null;
-    $SN_activation_documents_for_the_mortgage_loan = !empty($request->SN_activation_documents_for_the_mortgage_loan) ? $this->_date : null;
+    $SN_seller_documents = !empty($request->SN_seller_documents)
+      ? $this->_date
+      : null;
+    $SN_buyer_documents = !empty($request->SN_buyer_documents)
+      ? $this->_date
+      : null;
+    $SN_activation_documents_for_the_mortgage_loan = !empty($request->SN_activation_documents_for_the_mortgage_loan)
+      ? $this->_date
+      : null;
     $SN_complete = (
       $SN_federal_entity !== null ||
       $SN_notaries_office !== null ||
@@ -174,31 +196,21 @@ class NotaryController extends Controller
                    ->update($notaryInfo);
 
     $this->_message = $notary
-                        ? 'Compraventa actualizada'
-                        : 'No se pudo actualizar la compraventa.';
+      ? 'Notaría actualizada'
+      : 'No se pudo actualizar la notaría.';
     $this->_type = $notary ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
+    // event(new SaleCreatedEvent($sale));
+
+    if ($notary)
     {
-      return response()->json(['message' => $this->_message]);
+      return redirect()->route('sale.index');
     }
     else
     {
-      if ($this->_type === 'success')
-      {
-        // event(new SaleCreatedEvent($sale));
-
-        return redirect(route('sale.index'))
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
-      else
-      {
-        return redirect()
-          ->back()
-          ->withMessage($this->_message)
-          ->withType($this->_type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 

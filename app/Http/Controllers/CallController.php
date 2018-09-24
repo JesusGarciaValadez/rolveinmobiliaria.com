@@ -55,7 +55,7 @@ class CallController extends Controller
    */
   private $_date = null;
 
-  public function __constructor()
+  public function __construct()
   {
     $this->_locale = \App::getLocale();
   }
@@ -84,9 +84,10 @@ class CallController extends Controller
                 ->paginate(5);
     }
 
-    return view('calls.index')
-            ->withCalls($calls)
-            ->withUri($this->_uri);
+    return view('calls.index', [
+      'calls' => $calls,
+      'uri'   => $this->_uri,
+    ]);
   }
 
   /**
@@ -108,7 +109,9 @@ class CallController extends Controller
       $clients = Client::all()
                   ->sortBy('last_name')
                   ->sortBy('first_name');
-    } else {
+    }
+    else
+    {
       $expedients = InternalExpedient::where('user_id', Auth::id())
                       ->get()
                       ->sortBy('expedient');
@@ -123,12 +126,13 @@ class CallController extends Controller
 
     $states = State::all();
 
-    return view('calls.create')
-            ->withCreatedAt($created_at)
-            ->withStates($states)
-            ->withExpedients($expedients)
-            ->withClients($clients)
-            ->withUri($this->_uri);
+    return view('calls.create', [
+      'created_at'  => $created_at,
+      'states'      => $states,
+      'expedients'  => $expedients,
+      'clients'     => $clients,
+      'uri'         => $this->_uri,
+    ]);
   }
 
   /**
@@ -140,47 +144,32 @@ class CallController extends Controller
   public function store(CallRequest $request)
   {
     $call = [
-      'user_id' => \Auth::id(),
-      'type_of_operation' => $request->type_of_operation,
+      'user_id'               => \Auth::id(),
+      'type_of_operation'     => $request->type_of_operation,
       'internal_expedient_id' => $request->internal_expedient_id,
-      'address' => $request->address,
-      'state_id' => $request->state_id,
-      'observations' => $request->observations,
-      'status' => $request->status,
-      'priority' => $request->priority,
+      'address'               => $request->address,
+      'state_id'              => $request->state_id,
+      'observations'          => $request->observations,
+      'status'                => $request->status,
+      'priority'              => $request->priority,
     ];
 
     $updated = Call::create($call);
 
-    $this->message = ($updated)
-                 ? 'Nueva llamada creada'
-                 : 'No se pudo crear la llamada.';
+    $this->_message = ($updated)
+      ? 'Nueva llamada creada'
+      : 'No se pudo crear la llamada.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $this->type = ($updated)
-              ? 'success'
-              : 'danger';
-
-    if ( $request->ajax() )
+    if ($updated)
     {
-      return response()->json([
-        'message' => $this->message
-      ]);
+      return redirect()->route('call.index');
     }
     else
     {
-      if ($updated)
-      {
-        return redirect(route('call.index'))
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -197,18 +186,22 @@ class CallController extends Controller
     if (
       $currentUser->hasRole('Super Administrador') ||
       $currentUser->hasRole('Administrador')
-    ) {
+    )
+    {
       $call = Call::findOrFail($request->id);
-    } else {
+    }
+    else
+    {
       $call = Call::where('id', $request->id)
                   ->where('user_id', Auth::id())
                   ->get()
                   ->first();
     }
 
-    return view('calls.show')
-            ->withCall($call)
-            ->withUri($this->_uri);
+    return view('calls.show', [
+      'call'  => $call,
+      'uri'   => $this->_uri,
+    ]);
   }
 
   /**
@@ -250,12 +243,13 @@ class CallController extends Controller
                   ->first();
     }
 
-    return view('calls.edit')
-            ->withStates($states)
-            ->withCall($call)
-            ->withClients($clients)
-            ->withExpedients($expedients)
-            ->withUri($this->_uri);
+    return view('calls.edit', [
+      'states'      => $states,
+      'call'        => $call,
+      'clients'     => $clients,
+      'expedients'  => $expedients,
+      'uri'         => $this->_uri,
+    ]);
   }
 
   /**
@@ -270,14 +264,14 @@ class CallController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     $call = [
-      'user_id' => $request->user_id,
-      'type_of_operation' => $request->type_of_operation,
+      'user_id'               => $request->user_id,
+      'type_of_operation'     => $request->type_of_operation,
       'internal_expedient_id' => $request->internal_expedient_id,
-      'address' => $request->address,
-      'state_id' => $request->state_id,
-      'observations' => $request->observations,
-      'status' => $request->status,
-      'priority' => $request->priority,
+      'address'               => $request->address,
+      'state_id'              => $request->state_id,
+      'observations'          => $request->observations,
+      'status'                => $request->status,
+      'priority'              => $request->priority,
     ];
 
     if (
@@ -294,33 +288,20 @@ class CallController extends Controller
                   ->update($call);
     }
 
-    $this->message = ($updated)
-                  ? 'Llamada actualizada'
-                  : 'No se pudo actualizar la llamada.';
+    $this->_message = ($updated)
+      ? 'Llamada actualizada'
+      : 'No se pudo actualizar la llamada.';
+    $this->_type = ($updated) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $this->type = ($updated)
-              ? 'success'
-              : 'danger';
-
-    if ($request->ajax())
+    if ($updated)
     {
-      return response()->json(['message' => $this->message]);
+      return redirect()->route('call.index');
     }
     else
     {
-      if ($this->type === 'success')
-      {
-        return redirect(route('call.index'))
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -334,35 +315,20 @@ class CallController extends Controller
   {
     $isDestroyed = $call->delete();
 
-    $this->message = ($isDestroyed)
-                  ? 'Llamada eliminada'
-                  : 'No se pudo eliminar la llamada.';
+    $this->_message = ($isDestroyed)
+      ? 'Llamada eliminada'
+      : 'No se pudo eliminar la llamada.';
+    $this->_type = ($isDestroyed) ? 'success' : 'danger';
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    $this->type = ($isDestroyed)
-              ? 'success'
-              : 'danger';
-
-    if ($request->ajax())
+    if ($isDestroyed)
     {
-      return response()->json([
-        'message' => $this->message
-      ]);
+      return redirect()->route('call.index');
     }
     else
     {
-      if ($this->type === 'success')
-      {
-        return redirect(route('call.index'))
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
-      else
-      {
-        return redirect()
-                ->back()
-                ->withMessage($this->message)
-                ->withType($this->type);
-      }
+      return redirect()->back()->withInput();
     }
   }
 
@@ -391,29 +357,17 @@ class CallController extends Controller
                 ->paginate(5);
     }
 
-    $this->message = (count($calls) > 0)
-                  ? count($calls).' Llamadas encontradas'
-                  : 'No se pudo encontrar ninguna llamada.';
-
-    $this->type = (count($calls) > 0) ? 'success' : 'danger';
-
+    $this->_message = (count($calls) > 0)
+      ? count($calls).' llamadas encontradas'
+      : 'No se pudo encontrar ninguna llamada.';
+    $this->_type = (count($calls) > 0) ? 'success' : 'danger';
     $request->session()->flash('date', $request->date);
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
-    {
-      return response()->json([
-        'calls' => $calls,
-        'message' => $this->message,
-        'type' => $this->type,
-      ]);
-    }
-    else
-    {
-      return view('calls.filter')
-              ->withCalls($calls)
-              ->withMessage($this->message)
-              ->withType($this->type)
-              ->withUri($this->_uri);
-    }
+    return view('calls.filter', [
+      'calls'   => $calls,
+      'uri'     => $this->_uri,
+    ]);
   }
 }
