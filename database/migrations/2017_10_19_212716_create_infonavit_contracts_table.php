@@ -20,35 +20,35 @@ class CreateInfonavitContractsTable extends Migration
           'Conyugal',
         ])
         ->default('Individual');
-      $table->date('IC_certified_birth_certificate')
+      $table->integer('IC_certified_birth_certificate')
             ->nullable();
-      $table->date('IC_official_ID')
+      $table->integer('IC_official_ID')
             ->nullable();
-      $table->date('IC_curp')
+      $table->integer('IC_curp')
             ->nullable();
-      $table->date('IC_rfc')
+      $table->integer('IC_rfc')
             ->nullable();
-      $table->date('IC_spouses_birth_certificate')
+      $table->integer('IC_spouses_birth_certificate')
             ->nullable();
-      $table->date('IC_official_identification_of_the_spouse')
+      $table->integer('IC_official_identification_of_the_spouse')
             ->nullable();
-      $table->date('IC_marriage_certificate')
+      $table->integer('IC_marriage_certificate')
             ->nullable();
-      $table->date('IC_credit_simulator')
+      $table->integer('IC_credit_simulator')
             ->nullable();
-      $table->date('IC_credit_application')
+      $table->integer('IC_credit_application')
             ->nullable();
-      $table->date('IC_tax_valuation')
+      $table->integer('IC_tax_valuation')
             ->nullable();
-      $table->date('IC_bank_statement')
+      $table->integer('IC_bank_statement')
             ->nullable();
-      $table->date('IC_workshop_knowing_how_to_decide')
+      $table->integer('IC_workshop_knowing_how_to_decide')
             ->nullable();
-      $table->date('IC_retention_sheet')
+      $table->integer('IC_retention_sheet')
             ->nullable();
-      $table->date('IC_credit_activation')
+      $table->integer('IC_credit_activation')
             ->nullable();
-      $table->date('IC_credit_maturity')
+      $table->integer('IC_credit_maturity')
             ->nullable();
       $table->boolean('IC_complete')
             ->default(false);

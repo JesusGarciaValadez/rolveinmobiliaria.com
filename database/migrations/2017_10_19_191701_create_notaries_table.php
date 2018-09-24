@@ -22,30 +22,31 @@ class CreateNotariesTable extends Migration
         ->default('CDMX');
       $table->string('SN_notaries_office')
             ->nullable();
-      $table->dateTime('SN_date_freedom_of_lien_certificate')
+      $table->integer('SN_date_freedom_of_lien_certificate')
             ->nullable();
       $table->text('SN_observations_freedom_of_lien_certificate')
             ->nullable();
-      $table->date('SN_beginning_of_the_certificate_of_freedom_of_assessment')
+      $table->integer('SN_beginning_of_the_certificate_of_freedom_of_assessment')
             ->nullable();
-      $table->date('SN_zoning')
+      $table->integer('SN_zoning')
             ->nullable();
-      $table->date('SN_water_no_due_constants')
+      $table->integer('SN_water_no_due_constants')
             ->nullable();
-      $table->date('SN_non_debit_proof_of_property')
+      $table->integer('SN_non_debit_proof_of_property')
             ->nullable();
-      $table->date('SN_certificate_of_improvement')
+      $table->integer('SN_certificate_of_improvement')
             ->nullable();
-      $table->date('SN_key_and_cadastral_value')
+      $table->integer('SN_key_and_cadastral_value')
             ->nullable();
-      $table->date('SN_seller_documents')
+      $table->integer('SN_seller_documents')
             ->nullable();
-      $table->date('SN_buyer_documents')
+      $table->integer('SN_buyer_documents')
             ->nullable();
-      $table->date('SN_activation_documents_for_the_mortgage_loan')
+      $table->integer('SN_activation_documents_for_the_mortgage_loan')
             ->nullable();
       $table->boolean('SN_complete')
             ->default(false);
+
       $table->softDeletes();
       $table->timestamps();
     });

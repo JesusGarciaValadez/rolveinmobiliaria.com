@@ -15,23 +15,23 @@ class CreateSellerTable extends Migration
   {
     Schema::create('sellers', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('SD_deed')
+      $table->integer('SD_deed')
             ->nullable();
-      $table->date('SD_water')
+      $table->integer('SD_water')
             ->nullable();
-      $table->date('SD_predial')
+      $table->integer('SD_predial')
             ->nullable();
-      $table->date('SD_light')
+      $table->integer('SD_light')
             ->nullable();
-      $table->date('SD_birth_certificate')
+      $table->integer('SD_birth_certificate')
             ->nullable();
-      $table->date('SD_ID')
+      $table->integer('SD_ID')
             ->nullable();
       $table->string('SD_CURP')
             ->nullable();
       $table->string('SD_RFC')
             ->nullable();
-      $table->date('SD_account_status')
+      $table->integer('SD_account_status')
             ->nullable();
       $table->string('SD_email')
             ->nullable();

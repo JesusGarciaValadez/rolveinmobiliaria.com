@@ -15,11 +15,11 @@ class CreateClosingContractsTable extends Migration
   {
     Schema::create('closing_contracts', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('SCC_commercial_valuation')
+      $table->integer('SCC_commercial_valuation')
             ->nullable();
-      $table->date('SCC_exclusivity_contract')
+      $table->integer('SCC_exclusivity_contract')
             ->nullable();
-      $table->date('SCC_publication')
+      $table->integer('SCC_publication')
             ->nullable();
       $table->text('SCC_data_sheet')
             ->nullable();

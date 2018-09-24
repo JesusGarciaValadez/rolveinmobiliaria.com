@@ -15,15 +15,15 @@ class CreateSignaturesTable extends Migration
   {
     Schema::create('signatures', function (Blueprint $table) {
       $table->increments('id');
-      $table->date('SS_writing_review')
+      $table->integer('SS_writing_review')
             ->nullable();
-      $table->date('SS_scheduled_date_of_writing_signature')
+      $table->integer('SS_scheduled_date_of_writing_signature')
             ->nullable();
-      $table->date('SS_writing_signature')
+      $table->integer('SS_writing_signature')
             ->nullable();
-      $table->date('SS_scheduled_payment_date')
+      $table->integer('SS_scheduled_payment_date')
             ->nullable();
-      $table->date('SS_payment_made')
+      $table->integer('SS_payment_made')
             ->nullable();
       $table->boolean('SS_complete')
             ->default(false);
