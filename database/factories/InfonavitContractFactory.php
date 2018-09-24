@@ -8,63 +8,63 @@ $factory->define(App\InfonavitContract::class, function (Faker $faker) {
     'Conyugal',
   ]);
   $certified_birth_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $official_ID = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $curp = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $rfc = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $spouses_birth_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $official_identification_of_the_spouse = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $marriage_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $credit_simulator = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $credit_application = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $tax_valuation = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $bank_statement = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $workshop_knowing_how_to_decide = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $retention_sheet = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $credit_activation = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $credit_maturity = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $complete = (

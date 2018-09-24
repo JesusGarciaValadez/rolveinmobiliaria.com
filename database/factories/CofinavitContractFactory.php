@@ -8,47 +8,47 @@ $factory->define(App\CofinavitContract::class, function (Faker $faker) {
     'Conyugal',
   ]);
   $request_for_credit_inspection = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $birth_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $official_id = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $curp = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $rfc = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $bank_statement_seller = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $tax_valuation = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $scripture_copy = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $birth_certificate_of_the_spouse = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $official_identification_of_the_spouse = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $marriage_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $complete = (

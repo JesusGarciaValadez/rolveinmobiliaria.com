@@ -4,41 +4,41 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Seller::class, function (Faker $faker) {
   $deed = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $water = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $predial = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $light = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $birth_certificate = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $ID = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $CURP = $faker->swiftBicNumber();
   $RFC = $faker->swiftBicNumber();
   $account_status = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $email = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $phone = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $civil_status = $faker->randomElement([

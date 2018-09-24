@@ -4,15 +4,15 @@ use Faker\Generator as Faker;
 
 $factory->define(App\ClosingContract::class, function (Faker $faker) {
   $commercial_valuation = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $exclusivity_contract = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $publication = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $data_sheet = $faker->randomElement([

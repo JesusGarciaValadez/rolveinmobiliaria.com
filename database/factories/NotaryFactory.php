@@ -9,7 +9,7 @@ $factory->define(App\Notary::class, function (Faker $faker) {
   ]);
   $notaries_office = $faker->randomDigitNotNull();
   $date_freedom_of_lien_certificate = $faker->randomElement([
-    $faker->dateTime('now', 'America/Mexico_city'),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $observations_freedom_of_lien_certificate = $faker->randomElement([
@@ -17,39 +17,39 @@ $factory->define(App\Notary::class, function (Faker $faker) {
     null,
   ]);
   $beginning_of_the_certificate_of_freedom_of_assessment = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $zoning = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $water_no_due_constants = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $non_debit_proof_of_property = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $certificate_of_improvement = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $key_and_cadastral_value = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $seller_documents = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $buyer_documents = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $activation_documents_for_the_mortgage_loan = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
   $complete = (

@@ -28,35 +28,35 @@ $factory->define(App\Contract::class, function (Faker $faker) {
     : null;
 
   $mortgage_broker = ($mortgage_credit === 'Bancario')
-    ? $faker->date()
+    ? \Carbon\Carbon::create()->format('U')
     : null;
 
   $contract_with_the_broker = ($mortgage_credit === 'Aliados')
-    ? $faker->date()
+    ? \Carbon\Carbon::create()->format('U')
     : null;
 
   $general_buyer = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
 
   $purchase_agreements = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
 
   $tax_assessment = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
 
   $notary_checklist = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
 
   $notary_file = $faker->randomElement([
-    $faker->date(),
+    \Carbon\Carbon::create()->format('U'),
     null,
   ]);
 
@@ -82,9 +82,9 @@ $factory->define(App\Contract::class, function (Faker $faker) {
     'SC_infonavit_contracts_id' => $infonavit_contracts_id,
     'SC_fovissste_contracts_id' => $fovissste_contracts_id,
     'SC_cofinavit_contracts_id' => $cofinavit_contracts_id,
-    'SC_mortgage_broker' => $mortgage_broker,
-    'SC_contract_with_the_broker' => $contract_with_the_broker,
     'SC_mortgage_credit' => $mortgage_credit,
+    'SC_contract_with_the_broker' => $contract_with_the_broker,
+    'SC_mortgage_broker' => $mortgage_broker,
     'SC_general_buyer' => $general_buyer,
     'SC_purchase_agreements' => $purchase_agreements,
     'SC_tax_assessment' => $tax_assessment,
