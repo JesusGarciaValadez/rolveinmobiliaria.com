@@ -261,8 +261,6 @@ class MessageController extends Controller
 
     return view('messages.filter', [
       'messages'  => $messages,
-      'message'   => $message,
-      'type'      => $type,
       'uri'       => $this->_uri,
     ]);
   }
