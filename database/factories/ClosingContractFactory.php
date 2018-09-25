@@ -4,25 +4,30 @@ use Faker\Generator as Faker;
 
 $factory->define(App\ClosingContract::class, function (Faker $faker) {
   $commercial_valuation = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
+
   $exclusivity_contract = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
+
   $publication = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
+
   $data_sheet = $faker->randomElement([
     $faker->file('/tmp', 'public/storage'),
     null,
   ]);
+
   $closing_contract_observations = $faker->randomElement([
     $faker->text(),
     null,
   ]);
+
   $complete = (
     empty($commercial_valuation) ||
     empty($exclusivity_contract) ||
@@ -34,11 +39,11 @@ $factory->define(App\ClosingContract::class, function (Faker $faker) {
     : true;
 
   return [
-    'SCC_commercial_valuation' => $commercial_valuation,
-    'SCC_exclusivity_contract' => $exclusivity_contract,
-    'SCC_publication' => $publication,
-    'SCC_data_sheet' => $data_sheet,
+    'SCC_commercial_valuation'          => $commercial_valuation,
+    'SCC_exclusivity_contract'          => $exclusivity_contract,
+    'SCC_publication'                   => $publication,
+    'SCC_data_sheet'                    => $data_sheet,
     'SCC_closing_contract_observations' => $closing_contract_observations,
-    'SCC_complete' => $complete,
+    'SCC_complete'                      => $complete,
   ];
 });

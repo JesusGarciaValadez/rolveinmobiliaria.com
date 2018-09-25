@@ -8,63 +8,63 @@ $factory->define(App\InfonavitContract::class, function (Faker $faker) {
     'Conyugal',
   ]);
   $certified_birth_certificate = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $official_ID = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $curp = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $rfc = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $spouses_birth_certificate = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $official_identification_of_the_spouse = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $marriage_certificate = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $credit_simulator = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $credit_application = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $tax_valuation = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $bank_statement = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $workshop_knowing_how_to_decide = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $retention_sheet = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $credit_activation = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $credit_maturity = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $complete = (

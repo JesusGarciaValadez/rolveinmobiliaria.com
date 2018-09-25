@@ -4,35 +4,35 @@ use Faker\Generator as Faker;
 
 $factory->define(App\FovisssteContract::class, function (Faker $faker) {
   $credit_simulator = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $curp = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $birth_certificate = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $bank_statement = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $single_key_housing_payment = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $general_buyers_and_sellers = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $education_course = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $last_pay_stub = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    $faker->unixTime(),
     null,
   ]);
   $complete = (
