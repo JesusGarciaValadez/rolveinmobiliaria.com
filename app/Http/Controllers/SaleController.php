@@ -287,7 +287,6 @@ class SaleController extends Controller
    */
   public function destroy (Sale $sale, Request $request)
   {
-    $sale = Sale::findOrFail($request->id);
     $destroyed = $sale->delete();
 
     $this->_message = ($destroyed)

@@ -136,41 +136,61 @@ class ContractController extends Controller
     $this->_date = Carbon::create()->format('U');
 
     $contract_data = $this->setContract ($request);
-    $infonavit_contract = $this->setInfonavitContract ($request);
-    $fovissste_contracts = $this->setFovisssteContract ($request);
-    $cofinavit_contract = $this->setCofinavitContract ($request);
-    $contract_with_the_broker = !empty ($request->SC_contract_with_the_broker) ? $this->_date : null;
-    $mortgage_broker = !empty ($request->SC_mortgage_broker) ? $this->_date : null;
 
-    $infonavit = empty ($sale->contract->SC_infonavit_contracts_id)
-                  ? InfonavitContract::create ($infonavit_contract)
-                  : $sale->contract->infonavit_contract()->update ($infonavit_contract);
-    $fovissste = empty ($sale->contract->SC_fovissste_contracts_id)
-                  ? FovisssteContract::create ($fovissste_contracts)
-                  : $sale->contract->fovissste_contract()->update ($fovissste_contracts);
-    $cofinavit = empty ($sale->contract->SC_cofinavit_contracts_id)
-                  ? CofinavitContract::create ($cofinavit_contract)
-                  : $sale->contract->cofinavit_contract()->update ($cofinavit_contract);
-    $sale->contract->SC_contract_with_the_broker = $contract_with_the_broker;
-    $sale->contract->SC_mortgage_broker = $mortgage_broker;
+    switch ($contract_data['SC_mortgage_credit'])
+    {
+      case 'INFONAVIT':
+        $infonavit_contract = $this->setInfonavitContract ($request);
 
-    $sale->contract->SC_infonavit_contracts_id = ($infonavit)
-      ? $sale->contract->infonavit_contract->id
-      : $infonavit->id;
-    $sale->contract->SC_fovissste_contracts_id = ($fovissste)
-      ? $sale->contract->fovissste_contract->id
-      : $fovissste->id;
-    $sale->contract->SC_cofinavit_contracts_id = ($cofinavit)
-      ? $sale->contract->cofinavit_contract->id
-      : $cofinavit->id;
+        $infonavit = empty ($sale->contract->SC_infonavit_contracts_id)
+          ? InfonavitContract::create ($infonavit_contract)
+          : $sale->contract->infonavit_contract()->update ($infonavit_contract);
+
+        $sale->contract->SC_infonavit_contracts_id = ($infonavit->id !== null)
+          ? $sale->contract->infonavit_contract->id
+          : $infonavit->id;
+        break;
+      case 'FOVISSSTE':
+        $fovissste_contracts = $this->setFovisssteContract ($request);
+
+        $fovissste = empty ($sale->contract->SC_fovissste_contracts_id)
+          ? FovisssteContract::create ($fovissste_contracts)
+          : $sale->contract->fovissste_contract()->update ($fovissste_contracts);
+
+        $sale->contract->SC_fovissste_contracts_id = ($fovissste)
+          ? $sale->contract->fovissste_contract->id
+          : $fovissste->id;
+        break;
+      case 'COFINAVIT':
+        $cofinavit_contract = $this->setCofinavitContract ($request);
+
+        $cofinavit = empty ($sale->contract->SC_cofinavit_contracts_id)
+          ? CofinavitContract::create ($cofinavit_contract)
+          : $sale->contract->cofinavit_contract()->update ($cofinavit_contract);
+
+        $sale->contract->SC_cofinavit_contracts_id = ($cofinavit)
+          ? $sale->contract->cofinavit_contract->id
+          : $cofinavit->id;
+        break;
+      case 'Bancario':
+        $contract_with_the_broker = !empty ($request->SC_contract_with_the_broker) ? $this->_date : null;
+
+        $sale->contract->SC_contract_with_the_broker = $contract_with_the_broker;
+        break;
+      case 'Aliados':
+        $mortgage_broker = !empty ($request->SC_mortgage_broker) ? $this->_date : null;
+
+        $sale->contract->SC_mortgage_broker = $mortgage_broker;
+        break;
+    }
 
     $contract_data['SC_complete'] = $this->getIsContractComplete ([
       'contract_data'             => $contract_data,
-      'infonavit_contract'        => $infonavit_contract,
-      'fovissste_contracts'       => $fovissste_contracts,
-      'cofinavit_contract'        => $cofinavit_contract,
-      'contract_with_the_broker'  => $contract_with_the_broker,
-      'mortgage_broker'           => $mortgage_broker,
+      'infonavit_contract'        => isset($infonavit_contract) ? $infonavit_contract : null,
+      'fovissste_contracts'       => isset($fovissste_contracts) ? $fovissste_contracts : null,
+      'cofinavit_contract'        => isset($cofinavit_contract) ? $cofinavit_contract : null,
+      'contract_with_the_broker'  => isset($contract_with_the_broker) ? $contract_with_the_broker : null,
+      'mortgage_broker'           => isset($mortgage_broker) ? $mortgage_broker : null,
     ]);
 
     $contract_updated = $contract->update ($contract_data);
@@ -179,8 +199,8 @@ class ContractController extends Controller
       ? 'Contrato actualizado'
       : 'No se pudo actualizar el contrato.';
     $this->_type = ($contract_updated) ? 'success' : 'danger';
-    $request->session()->flash('message', $this->_message)
-                       ->flash('type', $this->_type);
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
     if ($contract_updated)
     {

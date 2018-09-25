@@ -51,7 +51,7 @@ class CreateContractsTable extends Migration
           'Bancario',
           'Aliados',
         ])
-        ->default('INFONAVIT');
+        ->nullable();
       $table->integer('SC_general_buyer')
             ->nullable();
       $table->integer('SC_purchase_agreements')

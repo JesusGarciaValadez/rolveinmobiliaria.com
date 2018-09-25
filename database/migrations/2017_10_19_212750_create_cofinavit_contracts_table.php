@@ -19,7 +19,7 @@ class CreateCofinavitContractsTable extends Migration
           'Individual',
           'Conyugal',
         ])
-        ->default('individual');
+        ->nullable();
       $table->integer('CC_request_for_credit_inspection')
             ->nullable();
       $table->integer('CC_birth_certificate')

@@ -19,7 +19,7 @@ class CreateInfonavitContractsTable extends Migration
           'Individual',
           'Conyugal',
         ])
-        ->default('Individual');
+        ->nullable();
       $table->integer('IC_certified_birth_certificate')
             ->nullable();
       $table->integer('IC_official_ID')
