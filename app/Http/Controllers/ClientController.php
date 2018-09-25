@@ -68,15 +68,15 @@ class ClientController extends Controller
     )
     {
       $clients = Client::orderBy('first_name', 'asc')
-        ->orderBy('last_name', 'asc')
-        ->paginate(5);
+                       ->orderBy('last_name', 'asc')
+                       ->get();
     }
     else
     {
       $clients = Client::where('user_id', $currentUser->id)
-                  ->orderBy('first_name', 'asc')
-                  ->orderBy('last_name', 'asc')
-                  ->paginate(5);
+                       ->orderBy('first_name', 'asc')
+                       ->orderBy('last_name', 'asc')
+                       ->get();
     }
 
     return view('clients.index', [
@@ -123,10 +123,12 @@ class ClientController extends Controller
 
     if ($isRepeated !== 0)
     {
-      return redirect(back(), [
-        ->with('message', 'No se guardó este cliente porque ya existe en nuestros registros.')
-        ->with('type', 'warning');
-      ])
+      $this->_message = 'No se guardó este cliente porque ya existe en nuestros registros.';
+      $this->_type = 'warning';
+      $request->session()->flash('message', $this->_message);
+      $request->session()->flash('type', $this->_type);
+
+      return redirect()->back()->withInput();
     }
 
     $updated = Client::create($data);

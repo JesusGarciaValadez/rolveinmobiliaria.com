@@ -37,8 +37,6 @@
             @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              {{ $clients->links() }}
-
               <table class="table table-bordered table-striped table-condensed">
                 <thead>
                   <tr>
@@ -56,8 +54,6 @@
                   @each('clients.partials.items', $clients, 'client')
                 </tbody>
               </table>
-
-              {{ $clients->links() }}
             </div>
           @endif
         </div>
