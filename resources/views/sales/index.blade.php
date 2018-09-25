@@ -34,8 +34,6 @@
             @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-              {{ $sales->links() }}
-
               <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                   <tr>
@@ -53,8 +51,6 @@
                   @each('sales.partials.items', $sales, 'sale')
                 </tbody>
               </table>
-
-              {{ $sales->links() }}
             </div>
           @endif
         </div>

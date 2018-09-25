@@ -1,6 +1,4 @@
-<div
-  class="panel panel-default"
-  sale_contract="{{ $sale->contract }}">
+<div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.contract')</h4>
   </div>
