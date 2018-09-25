@@ -60,7 +60,7 @@ class SaleController extends Controller
    */
   public function index ()
   {
-    $sales = Sale::orderBy('id', 'desc')->paginate(5);
+    $sales = Sale::orderBy('id', 'desc')->get();
 
     return view('sales.index', [
       'sales'  => $sales,
@@ -196,8 +196,6 @@ class SaleController extends Controller
 
     $this->_message = $saleSaved ? 'Compraventa añadida' : 'No se pudo añadir la compraventa.';
     $this->_type = $saleSaved ? 'success' : 'danger';
-    $request->session()->flash('message', $this->_message);
-    $request->session()->flash('type', $this->_type);
 
     if (empty($this->_message))
     {
@@ -212,6 +210,9 @@ class SaleController extends Controller
         ? 'success'
         : 'danger';
     }
+
+    $request->session()->flash('message', $this->_message);
+    $request->session()->flash('type', $this->_type);
 
     if ($saleSaved)
     {

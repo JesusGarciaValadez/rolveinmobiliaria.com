@@ -199,7 +199,7 @@ class SellerController extends Controller
                    ->update($sellerInfo);
 
     $this->_message = $seller && $sale
-      ? 'Vendedor actualizada'
+      ? 'Vendedor actualizado'
       : 'No se pudo actualizar al vendedor.';
     $this->_type = $seller && $sale ? 'success' : 'danger';
     $request->session()->flash('message', $this->_message);
