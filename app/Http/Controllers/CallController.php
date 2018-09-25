@@ -183,21 +183,6 @@ class CallController extends Controller
   {
     $currentUser = User::with('role')->find(Auth::id());
 
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    )
-    {
-      $call = Call::findOrFail($request->id);
-    }
-    else
-    {
-      $call = Call::where('id', $request->id)
-                  ->where('user_id', Auth::id())
-                  ->get()
-                  ->first();
-    }
-
     return view('calls.show', [
       'call'  => $call,
       'uri'   => $this->_uri,
@@ -263,7 +248,7 @@ class CallController extends Controller
   {
     $currentUser = User::with('role')->find(Auth::id());
 
-    $call = [
+    $callInfo = [
       'user_id'               => $request->user_id,
       'type_of_operation'     => $request->type_of_operation,
       'internal_expedient_id' => $request->internal_expedient_id,
@@ -279,7 +264,7 @@ class CallController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $updated = $call->update($call);
+      $updated = $call->update($callInfo);
     }
     else
     {

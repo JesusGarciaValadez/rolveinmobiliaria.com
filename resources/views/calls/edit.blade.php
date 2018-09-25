@@ -28,7 +28,7 @@
 
           <form
             class="form-horizontal"
-            action="{{ route('call.update', ['call' => request('id')]) }}"
+            action="{{ route('call.update', ['call' => request('call')]) }}"
             method="post">
             @csrf
             @method('PUT')

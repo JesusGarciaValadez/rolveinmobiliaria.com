@@ -59,16 +59,6 @@ class Call extends Model
    */
   protected $dateFormat = 'Y-m-d H:i:s';
 
-  /**
-   * The attributes that should be cast to native types.
-   *
-   * @var array
-   */
-  protected $casts = [
-    'created_at' => 'datetime:Y-M-d h:i a',
-    'updated_at' => 'datetime:Y-M-d h:i a',
-  ];
-
   public function user()
   {
     return $this->belongsTo(User::class, 'user_id', 'id');

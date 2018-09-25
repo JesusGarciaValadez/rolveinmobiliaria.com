@@ -106,8 +106,10 @@
                     <option
                       value="{{ $expedient->id }}"
                       {{ (old('internal_expedient_id') === $expedient->id)
-                          ? 'selected'
-                          : ''}}>{{ $expedient->expedient }} - {{ $expedient->client->full_name }}</option>
+                            ? 'selected'
+                            : '' }}>
+                      {{ $expedient->expedient }} - {{ $expedient->client->full_name }}
+                    </option>
                   @endforeach
                 </select>
                 <input type="hidden" name="client_id" :value="client.id">
