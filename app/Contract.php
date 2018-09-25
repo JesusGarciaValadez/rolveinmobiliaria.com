@@ -78,21 +78,6 @@ class Contract extends Model
    */
   protected $dateFormat = 'Y-m-d h:i:s';
 
-  /**
-   * The attributes that should be cast to native types.
-   *
-   * @var array
-   */
-  protected $casts = [
-    'SC_contract_with_the_broker' => 'datetime:Y-m-d',
-    'SC_mortgage_broker'          => 'datetime:Y-m-d',
-    'SC_general_buyer'            => 'datetime:Y-m-d',
-    'SC_purchase_agreements'      => 'datetime:Y-m-d',
-    'SC_tax_assessment'           => 'datetime:Y-m-d',
-    'SC_notary_checklist'         => 'datetime:Y-m-d',
-    'SC_notary_file'              => 'datetime:Y-m-d',
-  ];
-
   public function sale()
   {
     return $this->belongsTo(Sale::class, 'contracts_id');

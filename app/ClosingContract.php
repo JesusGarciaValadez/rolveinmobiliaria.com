@@ -57,27 +57,6 @@ class ClosingContract extends Model
     return $this->belongsTo(Sale::class, 'closing_contracts_id');
   }
 
-  public function setSCCExclusivityContractAttribute($value)
-  {
-    $this->attributes['SCC_exclusivity_contract'] = ($value)
-      ? Carbon::parse($value)->format('U')
-      : null;
-  }
-
-  public function setSCCCommercialValuationAttribute($value)
-  {
-    $this->attributes['SCC_commercial_valuation'] = ($value)
-      ? Carbon::parse($value)->format('U')
-      : null;
-  }
-
-  public function setSCCPublicationAttribute($value)
-  {
-    $this->attributes['SCC_publication'] = ($value)
-      ? Carbon::parse($value)->format('U')
-      : null;
-  }
-
   public function getSCCExclusivityContractAttribute($value)
   {
     return Carbon::createFromTimestamp($value)->toDateString();
