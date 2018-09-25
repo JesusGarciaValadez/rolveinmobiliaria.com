@@ -29,7 +29,7 @@
           <form
             class="form-horizontal"
             action="{{ route('message.update', [
-              'message' => request('id')
+              'message' => request('message')
             ]) }}"
             method="post">
             @method('PUT')

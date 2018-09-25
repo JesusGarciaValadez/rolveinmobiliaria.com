@@ -180,20 +180,7 @@ class MessageController extends Controller
       'observations'  => $request->observations ?? 'Sin observaciones',
     ];
 
-    if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
-    )
-    {
-      $updated = $message::findOrFail($request->id)
-                    ->update($newMessage);
-    }
-    else
-    {
-      $updated = $message::where('id', $request->id)
-                  ->where('user_id', Auth::id())
-                  ->update($newMessage);
-    }
+    $updated = $message->update($newMessage);
 
     $this->_message = ($updated)
       ? 'Llamada actualizada'
