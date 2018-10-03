@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h4 class="panel-title">@lang('sale.contract')</h4>
   </div>
-  <div class="panel-body">
+  <div class="panel-body" v-cloak>
     <fieldset>
       <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SC_general_buyer') ? ' has-error' : ''}}">
         <label
