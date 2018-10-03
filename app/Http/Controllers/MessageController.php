@@ -72,14 +72,13 @@ class MessageController extends Controller
       $currentUser->hasRole('Administrador')
     )
     {
-      $messages = Message::orderBy('id', 'desc')
-                    ->paginate(5);
+      $messages = Message::orderBy('id', 'desc')->get();
     }
     else
     {
       $messages = Message::where('user_id', '=', $currentUser->id)
                     ->orderBy('id', 'desc')
-                    ->paginate(5);
+                    ->get();
     }
 
     return view('messages.index', [
@@ -113,9 +112,11 @@ class MessageController extends Controller
       'observations'  => $request->observations ?? 'Sin observaciones',
     ];
 
-    $messageCreated = Message::create($message);
+    $messageToBeCreated = Message::create($message);
+    $messageCreated = $messageToBeCreated->save();
 
-    event(new MessageCreatedEvent($messageCreated));
+    event(new MessageCreatedEvent($messageToBeCreated
+  ));
 
     $this->_message = ($messageCreated)
       ? 'Nuevo recado creado'
@@ -142,6 +143,8 @@ class MessageController extends Controller
    */
   public function show(Message $message, Request $request)
   {
+    $request->session()->flush();
+    
     return view('messages.show', [
       'message' => $message,
       'uri'     => $this->_uri,
@@ -240,7 +243,7 @@ class MessageController extends Controller
                   now()->tomorrow()
                 ])
                 ->orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     } else {
       $messages = $message::whereBetween('created_at', [
                   $request->date,
@@ -248,7 +251,7 @@ class MessageController extends Controller
                 ])
                 ->where('user_id', '=', $currentUser->id)
                 ->orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     }
 
     $this->_message = (count($messages) > 0)

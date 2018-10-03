@@ -37,8 +37,6 @@
             @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              {{ $messages->links() }}
-
               <table class="table table-bordered table-striped table-condensed">
                 <thead>
                   <tr>
@@ -57,8 +55,6 @@
                 </tbody>
 
               </table>
-
-              {{ $messages->links() }}
             </div>
           @endif
         </div>
