@@ -40,8 +40,6 @@
             @endblankSlate
           @else
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              {{ $calls->links() }}
-
               <table class="table table-bordered table-striped table-condensed">
                 @include('calls.partials.table-header')
 
@@ -64,8 +62,6 @@
                   @each('calls.partials.items', $calls, 'call')
                 </tbody>
               </table>
-
-              {{ $calls->links() }}
             </div>
           @endif
         </div>
