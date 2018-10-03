@@ -158,6 +158,8 @@ class ClientController extends Controller
    */
   public function show(Client $client, Request $request)
   {
+    $request->session()->flush();
+    
     return view('clients.show', [
       'client'  => $client,
       'uri'     => $this->_uri,

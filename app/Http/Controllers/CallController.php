@@ -75,13 +75,13 @@ class CallController extends Controller
     )
     {
       $calls = Call::orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     }
     else
     {
       $calls = Call::where('user_id', '=', $currentUser->id)
                 ->orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     }
 
     return view('calls.index', [
@@ -181,6 +181,8 @@ class CallController extends Controller
    */
   public function show(Call $call, Request $request)
   {
+    $request->session()->flush();
+
     $currentUser = User::with('role')->find(Auth::id());
 
     return view('calls.show', [
@@ -330,7 +332,7 @@ class CallController extends Controller
                   $request->date, now()->tomorrow()
                 ])
                 ->orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     }
     else
     {
@@ -339,7 +341,7 @@ class CallController extends Controller
                 ])
                 ->where('user_id', '=', $currentUser->id)
                 ->orderBy('id', 'desc')
-                ->paginate(5);
+                ->get();
     }
 
     $this->_message = (count($calls) > 0)
