@@ -119,7 +119,7 @@ class SaleController extends Controller
    */
   public function store (SellerRequest $request)
   {
-    $this->_date = Carbon::create()->format('U');
+    $this->_date = now()->format('U');
 
     $this->_user_id = User::with('role')->find(Auth::id())->id;
     $this->_internal_expedient_id = $request->internal_expedient_id;
@@ -127,12 +127,11 @@ class SaleController extends Controller
 
     // Creation of seller information
     $this->_sellerCreated = Seller::create($this->_seller);
-    $this->_sellers_id = $this->_sellerCreated
-                          ? $this->_sellerCreated->id
-                          : null;
+    $this->_sellerCreated->save();
+    $this->_sellers_id = $this->_sellerCreated->id;
 
     // Creation of closing contract in null
-    $closingContractCreatedID = ClosingContract::create([
+    $closingContractCreated = ClosingContract::create([
       'SCC_commercial_valuation' => null,
       'SCC_exclusivity_contract' => null,
       'SCC_publication' => null,
@@ -140,12 +139,11 @@ class SaleController extends Controller
       'SCC_closing_contract_observations' => null,
       'SCC_complete' => false,
     ]);
-    $closingContractId = $closingContractCreatedID
-                          ? $closingContractCreatedID->id
-                          : null;
+    $closingContractCreated->save();
+    $closingContractId = $closingContractCreated->id;
 
     // Creation of contract in null
-    $contractCreatedID = Contract::create([
+    $contractCreated = Contract::create([
       'SC_mortgage_broker' => null,
       'SC_contract_with_the_broker' => null,
       'SC_mortgage_credit'  => null,
@@ -154,13 +152,14 @@ class SaleController extends Controller
       'SC_tax_assessment' => null,
       'SC_notary_checklist' => null,
       'SC_notary_file' => null,
-      'SC_complete' => null,
+      'SC_complete' => false,
     ]);
-    $contractId = $contractCreatedID ? $contractCreatedID->id : null;
+    $contractCreated->save();
+    $contractId = $contractCreated->id;
 
     // Creation of notary in null
-    $notaryCreatedID = Notary::create([
-      'SN_federal_entity' => null,
+    $notaryCreated = Notary::create([
+      'SN_federal_entity' => 'CDMX',
       'SN_notaries_office' => null,
       'SN_freedom_of_lien_certificate' => null,
       'SN_zoning' => null,
@@ -170,28 +169,29 @@ class SaleController extends Controller
       'SN_key_and_cadastral_value' => null,
       'SN_complete' => false,
     ]);
-    $notaryId = $notaryCreatedID ? $notaryCreatedID->id : null;
+    $notaryCreated->save();
+    $notaryId = $notaryCreated->id;
 
     // Creation of notary in null
-    $signatureCreatedID = Signature::create([
+    $signatureCreated = Signature::create([
       'SS_writing_review' => null,
       'SS_scheduled_date_of_writing_signature' => null,
       'SS_scheduled_payment_date' => null,
       'SS_payment_made' => null,
       'SS_complete' => false,
     ]);
-    $signatureId = $signatureCreatedID ? $signatureCreatedID->id : null;
+    $signatureCreated->save();
+    $signatureId = $signatureCreated->id;
 
-    $sale = new Sale([
+    $sale = Sale::create([
       'internal_expedients_id' => $this->_internal_expedient_id,
-      'sale_sellers_id' => $this->_sellers_id,
-      'sale_closing_contracts_id' => $closingContractId,
-      'sale_contracts_id' => $contractId,
-      'sale_notaries_id' => $notaryId,
-      'sale_signatures_id' => $signatureId,
+      'sellers_id' => $this->_sellers_id,
+      'closing_contracts_id' => $closingContractId,
+      'contracts_id' => $contractId,
+      'notaries_id' => $notaryId,
+      'signatures_id' => $signatureId,
       'user_id' => $this->_user_id
     ]);
-
     $saleSaved = $sale->save();
 
     $this->_message = $saleSaved ? 'Compraventa añadida' : 'No se pudo añadir la compraventa.';
@@ -234,8 +234,6 @@ class SaleController extends Controller
    */
   public function show (Sale $sale, Request $request)
   {
-    $sale = Sale::findOrFail($request->id);
-
     return view('sales.show', [
       'sale' => $sale,
       'uri'  => $this->_uri,
@@ -299,6 +297,78 @@ class SaleController extends Controller
     return redirect()->route('sale.index');
   }
 
+  private function _setSellerVariables (Request $request)
+  {
+    $SD_deed = !empty($request->SD_deed)
+      ? $this->_date
+      : null;
+    $SD_water = !empty($request->SD_water)
+      ? $this->_date
+      : null;
+    $SD_predial = !empty($request->SD_predial)
+      ? $this->_date
+      : null;
+    $SD_light = !empty($request->SD_light)
+      ? $this->_date
+      : null;
+    $SD_birth_certificate = !empty($request->SD_birth_certificate)
+      ? $this->_date
+      : null;
+    $SD_ID = !empty($request->SD_ID)
+      ? $this->_date
+      : null;
+    $SD_CURP = !empty($request->SD_CURP)
+      ? $request->SD_CURP
+      : null;
+    $SD_RFC = !empty($request->SD_RFC)
+      ? $request->SD_RFC
+      : null;
+    $SD_account_status = !empty($request->SD_account_status)
+      ? $this->_date
+      : null;
+    $SD_email = !empty($request->SD_email)
+      ? $this->_date
+      : null;
+    $SD_phone = !empty($request->SD_phone)
+      ? $this->_date
+      : null;
+    $SD_civil_status = !empty($request->SD_civil_status)
+      ? $request->SD_civil_status
+      : 'Soltero';
+    $SD_complete = (
+      $SD_deed &&
+      $SD_water &&
+      $SD_predial &&
+      $SD_light &&
+      $SD_birth_certificate &&
+      $SD_ID &&
+      $SD_CURP &&
+      $SD_RFC &&
+      $SD_account_status &&
+      $SD_email &&
+      $SD_phone &&
+      $SD_civil_status
+    )
+      ? true
+      : false;
+
+    return [
+      'SD_deed' => $SD_deed,
+      'SD_water' => $SD_water,
+      'SD_predial' => $SD_predial,
+      'SD_light' => $SD_light,
+      'SD_birth_certificate' => $SD_birth_certificate,
+      'SD_ID' => $SD_ID,
+      'SD_CURP' => $SD_CURP,
+      'SD_RFC' => $SD_RFC,
+      'SD_account_status' => $SD_account_status,
+      'SD_email' => $SD_email,
+      'SD_phone' => $SD_phone,
+      'SD_civil_status' => $SD_civil_status,
+      'SD_complete' => $SD_complete
+    ];
+  }
+
   private function _setClosingContractVariables (Request $request)
   {
     if ($request->hasFile('SCC_data_sheet') && $request->file('SCC_data_sheet')->isValid())
@@ -354,6 +424,339 @@ class SaleController extends Controller
       'SCC_data_sheet' => $SCC_data_sheet,
       'SCC_closing_contract_observations' => $SCC_closing_contract_observations,
       'SCC_complete' => $SCC_complete
+    ];
+  }
+
+  private function _setContractVariables (Request $request)
+  {
+    $SC_general_buyer = !empty($request->SC_general_buyer)
+                          ? $this->_date
+                          : null;
+    $SC_purchase_agreements = !empty($request->SC_purchase_agreements)
+                                ? $this->_date
+                                : null;
+    $SC_tax_assessment = !empty($request->SC_tax_assessment)
+                            ? $this->_date
+                            : null;
+    $SC_notary_checklist = !empty($request->SC_notary_checklist)
+                              ? $this->_date
+                              : null;
+    $SC_notary_file = !empty($request->SC_notary_file)
+                        ? $this->_date
+                        : null;
+    $SC_mortgage_credit = !empty($request->SC_mortgage_credit)
+                            ? $request->SC_mortgage_credit
+                            : null;
+    $SC_mortgage_broker = !empty($request->SC_mortgage_broker)
+                            ? $this->_date
+                            : null;
+    $SC_contract_with_the_broker = !empty($request->SC_contract_with_the_broker)
+                                      ? $this->_date
+                                      : null;
+    $SC_complete = (
+      $SC_general_buyer &&
+      $SC_purchase_agreements &&
+      $SC_tax_assessment &&
+      $SC_notary_checklist &&
+      $SC_notary_file &&
+      $SC_mortgage_credit
+    )
+      ? true
+      : false;
+
+    return [
+      'SC_general_buyer' => $SC_general_buyer,
+      'SC_purchase_agreements' => $SC_purchase_agreements,
+      'SC_tax_assessment' => $SC_tax_assessment,
+      'SC_notary_checklist' => $SC_notary_checklist,
+      'SC_notary_file' => $SC_notary_file,
+      'SC_mortgage_credit' => $SC_mortgage_credit,
+      'SC_mortgage_broker' => $SC_mortgage_broker,
+      'SC_contract_with_the_broker' => $SC_contract_with_the_broker,
+      'SC_complete' => $SC_complete
+    ];
+  }
+
+  private function _setInfonavitContractVariables (Request $request)
+  {
+    $IC_certified_birth_certificate = !empty($request->IC_certified_birth_certificate)
+                                        ? $this->_date
+                                        : null;
+    $IC_official_ID = !empty($request->IC_official_ID)
+                        ? $this->_date
+                        : null;
+    $IC_curp = !empty($request->IC_curp)
+                  ? $this->_date
+                  : null;
+    $IC_rfc = !empty($request->IC_rfc)
+                ? $this->_date
+                : null;
+    $IC_credit_simulator = !empty($request->IC_credit_simulator)
+                              ? $this->_date
+                              : null;
+    $IC_credit_application = !empty($request->IC_credit_application)
+                                ? $this->_date
+                                : null;
+    $IC_tax_valuation = !empty($request->IC_tax_valuation)
+                          ? $this->_date
+                          : null;
+    $IC_bank_statement = !empty($request->IC_bank_statement)
+                            ? $this->_date
+                            : null;
+    $IC_workshop_knowing_how_to_decide = !empty($request->IC_workshop_knowing_how_to_decide)
+                                            ? $this->_date
+                                            : null;
+    $IC_retention_sheet = !empty($request->IC_retention_sheet)
+                            ? $this->_date
+                            : null;
+    $IC_credit_activation = !empty($request->IC_credit_activation)
+                              ? $this->_date
+                              : null;
+    $IC_credit_maturity = !empty($request->IC_credit_maturity)
+                            ? $this->_date
+                            : null;
+    $IC_type = !empty($request->IC_type)
+                  ? $request->IC_type
+                  : null;
+    $IC_spouses_birth_certificate = !empty($request->IC_spouses_birth_certificate)
+                                      ? $this->_date
+                                      : null;
+    $IC_official_identification_of_the_spouse = !empty($request->IC_official_identification_of_the_spouse)
+                                                  ? $this->_date
+                                                  : null;
+    $IC_marriage_certificate = !empty($request->IC_marriage_certificate)
+                                  ? $this->_date
+                                  : null;
+    $IC_complete = (
+      $IC_certified_birth_certificate &&
+      $IC_official_ID &&
+      $IC_curp &&
+      $IC_rfc &&
+      $IC_credit_simulator &&
+      $IC_credit_application &&
+      $IC_tax_valuation &&
+      $IC_bank_statement &&
+      $IC_workshop_knowing_how_to_decide &&
+      $IC_retention_sheet &&
+      $IC_credit_activation &&
+      $IC_credit_maturity &&
+      $IC_type
+    )
+      ? true
+      : false;
+
+    return [
+      'IC_certified_birth_certificate' => $IC_certified_birth_certificate,
+      'IC_official_ID' => $IC_official_ID,
+      'IC_curp' => $IC_curp,
+      'IC_rfc' => $IC_rfc,
+      'IC_credit_simulator' => $IC_credit_simulator,
+      'IC_credit_application' => $IC_credit_application,
+      'IC_tax_valuation' => $IC_tax_valuation,
+      'IC_bank_statement' => $IC_bank_statement,
+      'IC_workshop_knowing_how_to_decide' => $IC_workshop_knowing_how_to_decide,
+      'IC_retention_sheet' => $IC_retention_sheet,
+      'IC_credit_activation' => $IC_credit_activation,
+      'IC_credit_maturity' => $IC_credit_maturity,
+      'IC_type' => $IC_type,
+      'IC_spouses_birth_certificate' => $IC_spouses_birth_certificate,
+      'IC_official_identification_of_the_spouse' => $IC_official_identification_of_the_spouse,
+      'IC_marriage_certificate' => $IC_marriage_certificate,
+      'IC_complete' => $IC_complete
+    ];
+  }
+
+  private function _setFovisssteContractVariables (Request $request)
+  {
+    $FC_credit_simulator = !empty($request->FC_credit_simulator)
+                              ? $this->_date
+                              : null;
+    $FC_curp = !empty($request->FC_curp)
+                  ? $this->_date
+                  : null;
+    $FC_birth_certificate = !empty($request->FC_birth_certificate)
+                                ? $this->_date
+                                : null;
+    $FC_bank_statement = !empty($request->FC_bank_statement)
+                            ? $this->_date
+                            : null;
+    $FC_single_key_housing_payment = !empty($request->FC_single_key_housing_payment)
+                                        ? $this->_date
+                                        : null;
+    $FC_general_buyers_and_sellers = !empty($request->FC_general_buyers_and_sellers)
+                                        ? $this->_date
+                                        : null;
+    $FC_education_course = !empty($request->FC_education_course)
+                              ? $this->_date
+                              : null;
+    $FC_last_pay_stub = !empty($request->FC_last_pay_stub)
+                            ? $this->_date
+                            : null;
+    $FC_complete = (
+      $FC_credit_simulator &&
+      $FC_curp &&
+      $FC_birth_certificate &&
+      $FC_bank_statement &&
+      $FC_single_key_housing_payment &&
+      $FC_general_buyers_and_sellers &&
+      $FC_education_course &&
+      $FC_last_pay_stub
+    )
+      ? true
+      : false;
+
+    return [
+      'FC_credit_simulator' => $FC_credit_simulator,
+      'FC_curp' => $FC_curp,
+      'FC_birth_certificate' => $FC_birth_certificate,
+      'FC_bank_statement' => $FC_bank_statement,
+      'FC_single_key_housing_payment' => $FC_single_key_housing_payment,
+      'FC_general_buyers_and_sellers' => $FC_general_buyers_and_sellers,
+      'FC_education_course' => $FC_education_course,
+      'FC_last_pay_stub' => $FC_last_pay_stub,
+      'FC_complete' => $FC_complete
+    ];
+  }
+
+  private function _setCofinavitContractVariables (Request $request)
+  {
+    $CC_request_for_credit_inspection = !empty($request->CC_request_for_credit_inspection)
+                                          ? $this->_date
+                                          : null;
+    $CC_birth_certificate = !empty($request->CC_birth_certificate)
+                              ? $this->_date
+                              : null;
+    $CC_official_id = !empty($request->CC_official_id)
+                        ? $this->_date
+                        : null;
+    $CC_curp = !empty($request->CC_curp)
+                  ? $this->_date
+                  : null;
+    $CC_rfc = !empty($request->CC_rfc)
+                ? $this->_date
+                : null;
+    $CC_bank_statement_seller = !empty($request->CC_bank_statement_seller)
+                                  ? $this->_date
+                                  : null;
+    $CC_tax_valuation = !empty($request->CC_tax_valuation)
+                          ? $this->_date
+                          : null;
+    $CC_scripture_copy = !empty($request->CC_scripture_copy)
+                            ? $this->_date
+                            : null;
+    $CC_type = !empty($request->CC_type)
+                  ? $request->CC_type
+                  : null;
+    $CC_birth_certificate_of_the_spouse = !empty($request->CC_birth_certificate_of_the_spouse)
+                                              ? $this->_date
+                                              : null;
+    $CC_official_identification_of_the_spouse = !empty($request->CC_official_identification_of_the_spouse)
+                                                  ? $this->_date
+                                                  : null;
+    $CC_marriage_certificate = !empty($request->CC_marriage_certificate)
+                                  ? $this->_date
+                                  : null;
+    $CC_complete = (
+      $CC_request_for_credit_inspection &&
+      $CC_birth_certificate &&
+      $CC_official_id &&
+      $CC_curp &&
+      $CC_rfc &&
+      $CC_bank_statement_seller &&
+      $CC_tax_valuation &&
+      $CC_scripture_copy &&
+      $CC_type
+    )
+      ? true
+      : false;
+
+    return [
+      'CC_request_for_credit_inspection' => $CC_request_for_credit_inspection,
+      'CC_birth_certificate' => $CC_birth_certificate,
+      'CC_official_id' => $CC_official_id,
+      'CC_curp' => $CC_curp,
+      'CC_rfc' => $CC_rfc,
+      'CC_bank_statement_seller' => $CC_bank_statement_seller,
+      'CC_tax_valuation' => $CC_tax_valuation,
+      'CC_scripture_copy' => $CC_scripture_copy,
+      'CC_type' => $CC_type,
+      'CC_birth_certificate_of_the_spouse' => $CC_birth_certificate_of_the_spouse,
+      'CC_official_identification_of_the_spouse' => $CC_official_identification_of_the_spouse,
+      'CC_marriage_certificate' => $CC_marriage_certificate,
+      'CC_complete' => $CC_complete
+    ];
+  }
+
+  private function _setNotaryVariables (Request $request)
+  {
+    $SN_federal_entity = !empty($request->SN_federal_entity)
+                            ? $request->SN_federal_entity
+                            : null;
+    $SN_notaries_office = !empty($request->SN_notaries_office)
+                              ? $request->SN_notaries_office
+                              : null;
+    $SN_freedom_of_lien_certificate = !empty($request->SN_freedom_of_lien_certificate)
+                                          ? $this->_date
+                                          : null;
+    $SN_zoning = !empty($request->SN_zoning)
+                    ? $this->_date
+                    : null;
+    $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants)
+                                    ? $this->_date
+                                    : null;
+    $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property)
+                                          ? $this->_date
+                                          : null;
+    $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement)
+                                        ? $this->_date
+                                        : null;
+    $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value)
+                                      ? $this->_date
+                                      : null;
+    $SN_complete = ($SN_federal_entity && $SN_notaries_office && $SN_freedom_of_lien_certificate && $SN_zoning && $SN_water_no_due_constants && $SN_non_debit_proof_of_property && $SN_certificate_of_improvement && $SN_key_and_cadastral_value)
+                    ? true
+                    : false;
+
+    return [
+      'SN_federal_entity' => $SN_federal_entity,
+      'SN_notaries_office' => $SN_notaries_office,
+      'SN_freedom_of_lien_certificate' => $SN_freedom_of_lien_certificate,
+      'SN_zoning' => $SN_zoning,
+      'SN_water_no_due_constants' => $SN_water_no_due_constants,
+      'SN_non_debit_proof_of_property' => $SN_non_debit_proof_of_property,
+      'SN_certificate_of_improvement' => $SN_certificate_of_improvement,
+      'SN_key_and_cadastral_value' => $SN_key_and_cadastral_value,
+      'SN_complete' => $SN_complete
+    ];
+  }
+
+  private function _setSignatureVariables (Request $request)
+  {
+    $SS_writing_review = !empty($request->SS_writing_review)
+                            ? $this->_date
+                            : null;
+    $SS_scheduled_date_of_writing_signature = !empty($request->SS_scheduled_date_of_writing_signature)
+                                                  ? $this->_date
+                                                  : null;
+    $SS_writing_signature = !empty($request->SS_writing_signature)
+                                ? $this->_date
+                                : null;
+    $SS_scheduled_payment_date = !empty($request->SS_scheduled_payment_date)
+                                    ? $this->_date
+                                    : null;
+    $SS_payment_made = !empty($request->SS_payment_made)
+                          ? $this->_date
+                          : null;
+    $SS_complete = ($SS_writing_review && $SS_scheduled_date_of_writing_signature && $SS_writing_signature && $SS_scheduled_payment_date && $SS_payment_made)
+                    ? true
+                    : false;
+    return [
+      'SS_writing_review' => $SS_writing_review,
+      'SS_scheduled_date_of_writing_signature' => $SS_scheduled_date_of_writing_signature,
+      'SS_writing_signature' => $SS_writing_signature,
+      'SS_scheduled_payment_date' => $SS_scheduled_payment_date,
+      'SS_payment_made' => $SS_payment_made,
+      'SS_complete' => $SS_complete
     ];
   }
 }
