@@ -4,23 +4,23 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Signature::class, function (Faker $faker) {
   $writing_review = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
   $scheduled_date_of_writing_signature = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
   $writing_signature = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
   $scheduled_payment_date = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
   $payment_made = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
   $complete = (
@@ -34,11 +34,11 @@ $factory->define(App\Signature::class, function (Faker $faker) {
     : true;
 
   return [
-    'SS_writing_review' => $writing_review,
-    'SS_scheduled_date_of_writing_signature' => $scheduled_date_of_writing_signature,
-    'SS_writing_signature' => $writing_signature,
-    'SS_scheduled_payment_date' => $scheduled_payment_date,
-    'SS_payment_made' => $payment_made,
-    'SS_complete' => $complete,
+    'SS_writing_review'                       => $writing_review,
+    'SS_scheduled_date_of_writing_signature'  => $scheduled_date_of_writing_signature,
+    'SS_writing_signature'                    => $writing_signature,
+    'SS_scheduled_payment_date'               => $scheduled_payment_date,
+    'SS_payment_made'                         => $payment_made,
+    'SS_complete'                             => $complete,
   ];
 });

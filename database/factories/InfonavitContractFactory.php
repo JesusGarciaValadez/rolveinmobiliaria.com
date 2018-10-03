@@ -8,63 +8,63 @@ $factory->define(App\InfonavitContract::class, function (Faker $faker) {
     'Conyugal',
   ]);
   $certified_birth_certificate = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $official_ID = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $curp = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $rfc = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $spouses_birth_certificate = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $official_identification_of_the_spouse = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $marriage_certificate = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $credit_simulator = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $credit_application = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $tax_valuation = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $bank_statement = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $workshop_knowing_how_to_decide = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $retention_sheet = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $credit_activation = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $credit_maturity = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $complete = (
@@ -90,21 +90,21 @@ $factory->define(App\InfonavitContract::class, function (Faker $faker) {
 
   return [
     'IC_type' => $type,
-    'IC_certified_birth_certificate' => $certified_birth_certificate,
-    'IC_official_ID' => $official_ID,
-    'IC_curp' => $curp,
-    'IC_rfc' => $rfc,
-    'IC_spouses_birth_certificate' => $spouses_birth_certificate,
-    'IC_official_identification_of_the_spouse' => $official_identification_of_the_spouse,
-    'IC_marriage_certificate' => $marriage_certificate,
-    'IC_credit_simulator' => $credit_simulator,
-    'IC_credit_application' => $credit_application,
-    'IC_tax_valuation' => $tax_valuation,
-    'IC_bank_statement' => $bank_statement,
-    'IC_workshop_knowing_how_to_decide' => $workshop_knowing_how_to_decide,
-    'IC_retention_sheet' => $retention_sheet,
-    'IC_credit_activation' => $credit_activation,
-    'IC_credit_maturity' => $credit_maturity,
-    'IC_complete' => $complete,
+    'IC_certified_birth_certificate'            => $certified_birth_certificate,
+    'IC_official_ID'                            => $official_ID,
+    'IC_curp'                                   => $curp,
+    'IC_rfc'                                    => $rfc,
+    'IC_spouses_birth_certificate'              => $spouses_birth_certificate,
+    'IC_official_identification_of_the_spouse'  => $official_identification_of_the_spouse,
+    'IC_marriage_certificate'                   => $marriage_certificate,
+    'IC_credit_simulator'                       => $credit_simulator,
+    'IC_credit_application'                     => $credit_application,
+    'IC_tax_valuation'                          => $tax_valuation,
+    'IC_bank_statement'                         => $bank_statement,
+    'IC_workshop_knowing_how_to_decide'         => $workshop_knowing_how_to_decide,
+    'IC_retention_sheet'                        => $retention_sheet,
+    'IC_credit_activation'                      => $credit_activation,
+    'IC_credit_maturity'                        => $credit_maturity,
+    'IC_complete'                               => $complete,
   ];
 });

@@ -4,17 +4,17 @@ use Faker\Generator as Faker;
 
 $factory->define(App\ClosingContract::class, function (Faker $faker) {
   $commercial_valuation = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
 
   $exclusivity_contract = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
 
   $publication = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
 

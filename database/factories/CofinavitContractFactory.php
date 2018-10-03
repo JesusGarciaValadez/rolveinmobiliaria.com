@@ -8,47 +8,47 @@ $factory->define(App\CofinavitContract::class, function (Faker $faker) {
     'Conyugal',
   ]);
   $request_for_credit_inspection = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $birth_certificate = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $official_id = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $curp = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $rfc = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $bank_statement_seller = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $tax_valuation = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $scripture_copy = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $birth_certificate_of_the_spouse = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $official_identification_of_the_spouse = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $marriage_certificate = $faker->randomElement([
-    $faker->unixTime(),
+    now()->format('U'),
     null,
   ]);
   $complete = (
@@ -70,17 +70,17 @@ $factory->define(App\CofinavitContract::class, function (Faker $faker) {
 
   return [
     'CC_type' => $type,
-    'CC_request_for_credit_inspection' => $request_for_credit_inspection,
-    'CC_birth_certificate' => $birth_certificate,
-    'CC_official_id' => $official_id,
-    'CC_curp' => $curp,
-    'CC_rfc' => $rfc,
-    'CC_bank_statement_seller' => $bank_statement_seller,
-    'CC_tax_valuation' => $tax_valuation,
-    'CC_scripture_copy' => $scripture_copy,
-    'CC_birth_certificate_of_the_spouse' => $birth_certificate_of_the_spouse,
-    'CC_official_identification_of_the_spouse' => $official_identification_of_the_spouse,
-    'CC_marriage_certificate' => $marriage_certificate,
-    'CC_complete' => $complete,
+    'CC_request_for_credit_inspection'          => $request_for_credit_inspection,
+    'CC_birth_certificate'                      => $birth_certificate,
+    'CC_official_id'                            => $official_id,
+    'CC_curp'                                   => $curp,
+    'CC_rfc'                                    => $rfc,
+    'CC_bank_statement_seller'                  => $bank_statement_seller,
+    'CC_tax_valuation'                          => $tax_valuation,
+    'CC_scripture_copy'                         => $scripture_copy,
+    'CC_birth_certificate_of_the_spouse'        => $birth_certificate_of_the_spouse,
+    'CC_official_identification_of_the_spouse'  => $official_identification_of_the_spouse,
+    'CC_marriage_certificate'                   => $marriage_certificate,
+    'CC_complete'                               => $complete,
   ];
 });

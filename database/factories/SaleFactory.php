@@ -18,12 +18,12 @@ $factory->define(App\Sale::class, function (Faker $faker) {
   $user_id = factory(App\User::class)->create()->id;
 
   return [
-    'internal_expedients_id' => $internal_expedients_id,
-    'sellers_id' => $sellers_id,
-    'closing_contracts_id' => $closing_contracts_id,
-    'contracts_id' => $contracts_id,
-    'notaries_id' => $notaries_id,
-    'signatures_id' => $signatures_id,
-    'user_id' => $user_id,
+    'internal_expedients_id'  => $internal_expedients_id,
+    'sellers_id'              => $sellers_id,
+    'closing_contracts_id'    => $closing_contracts_id,
+    'contracts_id'            => $contracts_id,
+    'notaries_id'             => $notaries_id,
+    'signatures_id'           => $signatures_id,
+    'user_id'                 => $user_id,
   ];
 });

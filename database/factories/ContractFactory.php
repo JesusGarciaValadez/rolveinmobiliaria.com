@@ -15,48 +15,42 @@ $factory->define(App\Contract::class, function (Faker $faker) {
     'Aliados',
   ]);
 
-  $infonavit_contracts_id = ($mortgage_credit === 'INFONAVIT')
-    ? factory(InfonavitContract::class)->create()->id
-    : null;
+  $infonavit_contracts_id = factory(InfonavitContract::class)->create()->id;
 
-  $fovissste_contracts_id = ($mortgage_credit === 'FOVISSSTE')
-    ? factory(FovisssteContract::class)->create()->id
-    : null;
+  $fovissste_contracts_id = factory(FovisssteContract::class)->create()->id;
 
-  $cofinavit_contracts_id = ($mortgage_credit === 'COFINAVIT')
-    ? factory(CofinavitContract::class)->create()->id
-    : null;
+  $cofinavit_contracts_id = factory(CofinavitContract::class)->create()->id;
 
   $mortgage_broker = ($mortgage_credit === 'Bancario')
-    ? \Carbon\Carbon::create()->format('U')
+    ? now()->format('U')
     : null;
 
   $contract_with_the_broker = ($mortgage_credit === 'Aliados')
-    ? \Carbon\Carbon::create()->format('U')
+    ? now()->format('U')
     : null;
 
   $general_buyer = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
 
   $purchase_agreements = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
 
   $tax_assessment = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
 
   $notary_checklist = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
 
   $notary_file = $faker->randomElement([
-    \Carbon\Carbon::create()->format('U'),
+    now()->format('U'),
     null,
   ]);
 
@@ -79,17 +73,17 @@ $factory->define(App\Contract::class, function (Faker $faker) {
    : true;
 
   return [
-    'SC_infonavit_contracts_id' => $infonavit_contracts_id,
-    'SC_fovissste_contracts_id' => $fovissste_contracts_id,
-    'SC_cofinavit_contracts_id' => $cofinavit_contracts_id,
-    'SC_mortgage_credit' => $mortgage_credit,
-    'SC_contract_with_the_broker' => $contract_with_the_broker,
-    'SC_mortgage_broker' => $mortgage_broker,
-    'SC_general_buyer' => $general_buyer,
-    'SC_purchase_agreements' => $purchase_agreements,
-    'SC_tax_assessment' => $tax_assessment,
-    'SC_notary_checklist' => $notary_checklist,
-    'SC_notary_file' => $notary_file,
-    'SC_complete' => $complete,
+    'SC_infonavit_contracts_id'    => $infonavit_contracts_id,
+    'SC_fovissste_contracts_id'    => $fovissste_contracts_id,
+    'SC_cofinavit_contracts_id'    => $cofinavit_contracts_id,
+    'SC_mortgage_credit'           => $mortgage_credit,
+    'SC_contract_with_the_broker'  => $contract_with_the_broker,
+    'SC_mortgage_broker'           => $mortgage_broker,
+    'SC_general_buyer'             => $general_buyer,
+    'SC_purchase_agreements'       => $purchase_agreements,
+    'SC_tax_assessment'            => $tax_assessment,
+    'SC_notary_checklist'          => $notary_checklist,
+    'SC_notary_file'               => $notary_file,
+    'SC_complete'                  => $complete,
   ];
 });
