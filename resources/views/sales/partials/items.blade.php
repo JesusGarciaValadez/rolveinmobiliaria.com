@@ -10,7 +10,7 @@
                   @endif>
                   <td class="text-center active">{{-- Internal Expedient --}}
                     <a
-                      href="{{ route('sale.edit', $sale->internal_expedient->id) }}"
+                      href="{{ route('sale.show', $sale->id) }}"
                       target="_self"
                       title="{{ $sale->internal_expedient->client->full_name }}"
                     >
