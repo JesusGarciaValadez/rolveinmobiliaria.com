@@ -15,7 +15,11 @@
         "laravel/passport": "^4.0",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
-        "pusher/pusher-php-server": "~3.0"
+        "pusher/pusher-php-server": "~3.0",
+        "bensampo/laravel-enum": "^1.4",
+        "sentry/sentry-laravel": "^0.9.0",
+        "simshaun/recurr": "^3.0"
+
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
