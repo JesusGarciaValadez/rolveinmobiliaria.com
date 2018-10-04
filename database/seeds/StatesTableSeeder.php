@@ -12,131 +12,131 @@ class StatesTableSeeder extends Seeder
   public function run()
   {
     factory(App\State::class)->create([
-      'name' => 'Aguascalientes',
+      'name' => \App\Enums\FederalEntityType::AGUASCALIENTES,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Baja California',
+      'name' => \App\Enums\FederalEntityType::BAJA_CALIFORNIA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Baja California Sur',
+      'name' => \App\Enums\FederalEntityType::BAJA_CALIFORNIA_SUR,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Campeche',
+      'name' => \App\Enums\FederalEntityType::CAMPECHE,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Chiapas',
+      'name' => \App\Enums\FederalEntityType::CHIAPAS,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Chihuahua',
+      'name' => \App\Enums\FederalEntityType::CHIHUAHUA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Ciudad de México',
+      'name' => \App\Enums\FederalEntityType::CIUDAD_DE_MEXICO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Coahuila',
+      'name' => \App\Enums\FederalEntityType::COAHUILA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Colima',
+      'name' => \App\Enums\FederalEntityType::COLIMA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Durango',
+      'name' => \App\Enums\FederalEntityType::DURANGO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Estado de México',
+      'name' => \App\Enums\FederalEntityType::ESTADO_DE_MEXICO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Guanajuato',
+      'name' => \App\Enums\FederalEntityType::GUANAJUATO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Guerrero',
+      'name' => \App\Enums\FederalEntityType::GUERRERO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Hidalgo',
+      'name' => \App\Enums\FederalEntityType::HIDALGO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Jalisco',
+      'name' => \App\Enums\FederalEntityType::JALISCO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Michoacán',
+      'name' => \App\Enums\FederalEntityType::MICHOACAN,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Morelos',
+      'name' => \App\Enums\FederalEntityType::MORELOS,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Nayarit',
+      'name' => \App\Enums\FederalEntityType::NAYARIT,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Nuevo León',
+      'name' => \App\Enums\FederalEntityType::NUEVO_LEON,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Oaxaca',
+      'name' => \App\Enums\FederalEntityType::OAXACA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Puebla',
+      'name' => \App\Enums\FederalEntityType::PUEBLA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Querétaro',
+      'name' => \App\Enums\FederalEntityType::QUERETARO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Quintana Roo',
+      'name' => \App\Enums\FederalEntityType::QUINTANA_ROO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'San Luis Potosí',
+      'name' => \App\Enums\FederalEntityType::SAN_LUIS_POTOSI,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Sinaloa',
+      'name' => \App\Enums\FederalEntityType::SINALOA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Sonora',
+      'name' => \App\Enums\FederalEntityType::SONORA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Tabasco',
+      'name' => \App\Enums\FederalEntityType::TABASCO,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Tamaulipas',
+      'name' => \App\Enums\FederalEntityType::TAMAULIPAS,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Tlaxcala',
+      'name' => \App\Enums\FederalEntityType::TLAXCALA,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Veracruz',
+      'name' => \App\Enums\FederalEntityType::VERACRUZ,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Yucatán',
+      'name' => \App\Enums\FederalEntityType::YUCATAN,
     ]);
 
     factory(App\State::class)->create([
-      'name' => 'Zacatecas',
+      'name' => \App\Enums\FederalEntityType::ZACATECAS,
     ]);
 
   }
