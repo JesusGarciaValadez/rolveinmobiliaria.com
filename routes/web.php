@@ -255,3 +255,10 @@ Route::prefix('/mailable')->name('mailable.')->middleware('auth')->group(functio
     return new App\Mail\SaleCreated($saleCreated);
   });
 });
+
+//Assets
+Route::prefix('/js')->name('assets.')->middleware('auth')->group(function ()
+{
+  Route::get('/lang.js', 'AssetsController@lang')->name('lang');
+  Route::get('/enums.js', 'AssetsController@enums')->name('enums');
+});
