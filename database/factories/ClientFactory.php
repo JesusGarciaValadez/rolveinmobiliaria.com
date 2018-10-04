@@ -14,7 +14,7 @@ $factory->define(App\Client::class, function (Faker $faker) {
     'reference'  => $faker->sentence(),
     'user_id'    => function ()
     {
-      return factory(App\User::class)->states('assistant')->create()->id;
+      return factory(App\User::class)->states(\App\Enums\RoleType::ASSISTANT)->create()->id;
     },
   ];
 });

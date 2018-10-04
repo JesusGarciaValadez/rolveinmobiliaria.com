@@ -19,7 +19,7 @@ $factory->define(App\Call::class, function (Faker $faker) {
     'address' => $faker->address(),
     'user_id' => function ()
     {
-      return factory(App\User::class)->states('assistant')->create()->id;
+      return factory(App\User::class)->states(\App\Enums\RoleType::ASSISTANT)->create()->id;
     },
     'observations' => $faker->text(),
     'status' => $faker->sentences(3, true),

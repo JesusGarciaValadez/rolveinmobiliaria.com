@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use BenSampo\Enum\Enum;
 
-final class MortgateCreditType extends Enum
+final class MortgageCreditType extends Enum
 {
   const INFONAVIT = 'INFONAVIT';
   const FOVISSSTE = 'FOVISSSTE';
