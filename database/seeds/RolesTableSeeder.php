@@ -13,27 +13,27 @@ class RolesTableSeeder extends Seeder
   public function run()
   {
     factory(App\Role::class)->create([
-      'name' => 'Super Administrador',
+      'name' => \App\Enums\RoleType::SUPER_ADMIN,
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Administrador',
+      'name' => \App\Enums\RoleType::ADMIN,
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Asistente',
+      'name' => \App\Enums\RoleType::ASSISTANT,
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Ventas',
+      'name' => \App\Enums\RoleType::SALES,
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Pasante',
+      'name' => \App\Enums\RoleType::INTERN,
     ]);
 
     factory(App\Role::class)->create([
-      'name' => 'Cliente',
+      'name' => \App\Enums\RoleType::CLIENT,
     ]);
   }
 }
