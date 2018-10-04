@@ -66,6 +66,6 @@ class Visit extends Model
 
   public function sale()
   {
-    return $this->hasMany('App\Sale', 'sales_id');
+    return $this->hasMany(Sale::class, 'sales_id');
   }
 }
