@@ -78,8 +78,8 @@ class SaleController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $expedients = InternalExpedient::with('client')
@@ -159,7 +159,7 @@ class SaleController extends Controller
 
     // Creation of notary in null
     $notaryCreated = Notary::create([
-      'SN_federal_entity' => 'CDMX',
+      'SN_federal_entity' => \App\Enums\FederalEntity::CDMX,
       'SN_notaries_office' => null,
       'SN_freedom_of_lien_certificate' => null,
       'SN_zoning' => null,
@@ -374,9 +374,9 @@ class SaleController extends Controller
     if ($request->hasFile('SCC_data_sheet') && $request->file('SCC_data_sheet')->isValid())
     {
       if (
-        $request->file('SCC_data_sheet')->extension() === 'pdf' ||
-        $request->file('SCC_data_sheet')->extension() === 'doc' ||
-        $request->file('SCC_data_sheet')->extension() === 'docx'
+        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::PDF ||
+        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOC ||
+        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOCX
       )
       {
         $this->_file = !empty(event(new FileWillUpload($request->file('SCC_data_sheet'))))

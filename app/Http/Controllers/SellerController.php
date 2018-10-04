@@ -74,8 +74,8 @@ class SellerController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $expedients = InternalExpedient::with('client')

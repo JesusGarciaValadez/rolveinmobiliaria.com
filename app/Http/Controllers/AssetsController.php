@@ -47,6 +47,7 @@ class AssetsController extends Controller
       \App\Enums\CivilStatusType::class,
       \App\Enums\ExpedientKeyType::class,
       \App\Enums\FederalEntityType::class,
+      \App\Enums\FileExtensionType::class,
       \App\Enums\MortgageCreditType::class,
       \App\Enums\OperationType::class,
       \App\Enums\PriorityType::class,

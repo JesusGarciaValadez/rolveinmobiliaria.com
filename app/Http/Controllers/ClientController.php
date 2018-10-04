@@ -63,8 +63,8 @@ class ClientController extends Controller
     $currentUser = User::find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $clients = Client::orderBy('first_name', 'asc')
@@ -159,7 +159,7 @@ class ClientController extends Controller
   public function show(Client $client, Request $request)
   {
     $request->session()->flush();
-    
+
     return view('clients.show', [
       'client'  => $client,
       'uri'     => $this->_uri,
@@ -276,8 +276,8 @@ class ClientController extends Controller
     }
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $clients = Client::where($request->filter_by, 'like', $value)

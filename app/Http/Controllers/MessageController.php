@@ -68,8 +68,8 @@ class MessageController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $messages = Message::orderBy('id', 'desc')->get();
@@ -144,7 +144,7 @@ class MessageController extends Controller
   public function show(Message $message, Request $request)
   {
     $request->session()->flush();
-    
+
     return view('messages.show', [
       'message' => $message,
       'uri'     => $this->_uri,
@@ -235,8 +235,8 @@ class MessageController extends Controller
                        ->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
       $messages = $message::whereBetween('created_at', [
                   $request->date,

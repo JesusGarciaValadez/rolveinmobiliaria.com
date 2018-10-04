@@ -70,8 +70,8 @@ class CallController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $calls = Call::orderBy('id', 'desc')
@@ -100,8 +100,8 @@ class CallController extends Controller
     $currentUser = User::with('role')->find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $expedients = InternalExpedient::all()
@@ -204,8 +204,8 @@ class CallController extends Controller
     $currentUser = User::find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $expedients = InternalExpedient::all()
@@ -262,8 +262,8 @@ class CallController extends Controller
     ];
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $updated = $call->update($callInfo);
@@ -324,8 +324,8 @@ class CallController extends Controller
     $currentUser = User::find(Auth::id());
 
     if (
-      $currentUser->hasRole('Super Administrador') ||
-      $currentUser->hasRole('Administrador')
+      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
       $calls = Call::whereBetween('created_at', [

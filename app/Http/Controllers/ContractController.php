@@ -139,33 +139,33 @@ class ContractController extends Controller
 
     switch($contract_data['SC_mortgage_credit'])
     {
-      case 'INFONAVIT':
+      case \App\Enums\MortgageCreditType::INFONAVIT:
         $infonavit_contract = $this->setInfonavitContract($request);
 
         $infonavit = $sale->contract->infonavit_contract()->update($infonavit_contract);
 
         $sale->contract->SC_infonavit_contracts_id = $sale->contract->infonavit_contract->id;
         break;
-      case 'FOVISSSTE':
+      case \App\Enums\MortgageCreditType::FOVISSSTE:
         $fovissste_contracts = $this->setFovisssteContract($request);
 
         $fovissste = $sale->contract->fovissste_contract()->update($fovissste_contracts);
 
         $sale->contract->SC_fovissste_contracts_id = $sale->contract->fovissste_contract->id;
         break;
-      case 'COFINAVIT':
+      case \App\Enums\MortgageCreditType::COFINAVIT:
         $cofinavit_contract = $this->setCofinavitContract($request);
 
         $cofinavit = $sale->contract->cofinavit_contract()->update($cofinavit_contract);
 
         $sale->contract->SC_cofinavit_contracts_id = $sale->contract->cofinavit_contract->id;
         break;
-      case 'Bancario':
+      case \App\Enums\MortgageCreditType::BANKING:
         $contract_with_the_broker = !empty($request->SC_contract_with_the_broker) ? $this->_date : null;
 
         $sale->contract->SC_contract_with_the_broker = $contract_with_the_broker;
         break;
-      case 'Aliados':
+      case \App\Enums\MortgageCreditType::ALLIES:
         $mortgage_broker = !empty($request->SC_mortgage_broker) ? $this->_date : null;
 
         $sale->contract->SC_mortgage_broker = $mortgage_broker;
@@ -254,7 +254,7 @@ class ContractController extends Controller
     $IC_official_identification_of_the_spouse = !empty($request->IC_official_identification_of_the_spouse) ? $this->_date : null;
     $IC_marriage_certificate = !empty($request->IC_marriage_certificate) ? $this->_date : null;
 
-    if ($IC_type === 'Conyugal')
+    if ($IC_type === \App\Enums\CivilStatusType::CONJUGAL)
     {
       $IC_complete = (
         $IC_certified_birth_certificate !== null &&
@@ -367,7 +367,7 @@ class ContractController extends Controller
     $CC_official_identification_of_the_spouse = !empty($request->CC_official_identification_of_the_spouse) ? $this->_date : null;
     $CC_marriage_certificate = !empty($request->CC_marriage_certificate) ? $this->_date : null;
 
-    if ($CC_type === 'Conyugal')
+    if ($CC_type === \App\Enums\CivilStatusType::CONJUGAL)
     {
       $CC_complete =(
         $CC_request_for_credit_inspection !== null &&
@@ -430,23 +430,23 @@ class ContractController extends Controller
     );
 
     switch ($contract['contract_data']['SC_mortgage_credit']) {
-      case 'INFONAVIT':
+      case \App\Enums\MortgageCreditType::INFONAVIT:
         $isContractComplete = $isContractDataComplete && $contract['infonavit_contract']['IC_complete'];
         break;
 
-      case 'FOVISSSTE':
+      case \App\Enums\MortgageCreditType::FOVISSSTE:
         $isContractComplete = $isContractDataComplete && $contract['fovissste_contracts']['FC_complete'];
         break;
 
-      case 'COFINAVIT':
+      case \App\Enums\MortgageCreditType::COFINAVIT:
         $isContractComplete = $isContractDataComplete && $contract['cofinavit_contract']['CC_complete'];
         break;
 
-      case 'Bancario':
+      case \App\Enums\MortgageCreditType::BANKING:
         $isContractComplete = $isContractDataComplete && $contract['contract_with_the_broker'];
         break;
 
-      case 'Aliados':
+      case \App\Enums\MortgageCreditType::ALLIES:
         $isContractComplete = $isContractDataComplete && $contract['mortgage_broker'];
         break;
 
