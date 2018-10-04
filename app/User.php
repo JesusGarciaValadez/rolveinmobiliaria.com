@@ -84,42 +84,42 @@ class User extends Authenticatable
 
   public function isSuperAdmin()
   {
-    $role = Role::where('name', 'Super Administrador')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::SUPER_ADMIN)->get()->first();
 
     return $this->role_id === $role->id;
   }
 
   public function isAdmin()
   {
-    $role = Role::where('name', 'Administrador')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::ADMIN)->get()->first();
 
     return $this->role_id === $role->id;
   }
 
   public function isAssistant()
   {
-    $role = Role::where('name', 'Asistente')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::ASSISTANT)->get()->first();
 
     return $this->role_id === $role->id;
   }
 
   public function isSales()
   {
-    $role = Role::where('name', 'Ventas')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::SALES)->get()->first();
 
     return $this->role_id === $role->id;
   }
 
   public function isIntern()
   {
-    $role = Role::where('name', 'Pasante')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::INTERN)->get()->first();
 
     return $this->role_id === $role->id;
   }
 
   public function isClient()
   {
-    $role = Role::where('name', 'Cliente')->get()->first();
+    $role = Role::where('name', \App\Enums\RoleType::CLIENT)->get()->first();
 
     return $this->role_id === $role->id;
   }
