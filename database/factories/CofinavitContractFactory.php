@@ -3,9 +3,10 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\CofinavitContract::class, function (Faker $faker) {
+
   $type = $faker->randomElement([
-    'Individual',
-    'Conyugal',
+    \App\Enums\CivilStatusType::INDIVIDUAL,
+    \App\Enums\CivilStatusType::CONJUGAL,
   ]);
   $request_for_credit_inspection = $faker->randomElement([
     now()->format('U'),

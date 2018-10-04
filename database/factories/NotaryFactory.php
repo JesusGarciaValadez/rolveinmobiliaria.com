@@ -4,8 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Notary::class, function (Faker $faker) {
   $federal_entity = $faker->randomElement([
-    'CDMX',
-    'Edo. Mex.',
+    \App\Enums\FederalEntityType::CDMX,
+    \App\Enums\FederalEntityType::EDO_MEX,
   ]);
   $notaries_office = $faker->randomDigitNotNull();
   $date_freedom_of_lien_certificate = $faker->randomElement([

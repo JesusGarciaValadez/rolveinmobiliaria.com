@@ -25,31 +25,31 @@ $factory->define(App\User::class, function (Faker $faker) {
   ];
 });
 
-$factory->state(App\User::class, 'administrator', function (Faker $faker) {
+$factory->state(App\User::class, \App\Enums\RoleType::ADMIN, function (Faker $faker) {
   return [
     'role_id' => 2,
   ];
 });
 
-$factory->state(App\User::class, 'assistant', function (Faker $faker) {
+$factory->state(App\User::class, \App\Enums\RoleType::ASSISTANT, function (Faker $faker) {
   return [
     'role_id' => 3,
   ];
 });
 
-$factory->state(App\User::class, 'sales', function (Faker $faker) {
+$factory->state(App\User::class, \App\Enums\RoleType::SALES, function (Faker $faker) {
   return [
     'role_id' => 4,
   ];
 });
 
-$factory->state(App\User::class, 'intern', function (Faker $faker) {
+$factory->state(App\User::class, \App\Enums\RoleType::INTERN, function (Faker $faker) {
   return [
     'role_id' => 5,
   ];
 });
 
-$factory->state(App\User::class, 'client', function (Faker $faker) {
+$factory->state(App\User::class, \App\Enums\RoleType::CLIENT, function (Faker $faker) {
   return [
     'role_id' => 6,
   ];

@@ -8,11 +8,11 @@ use App\CofinavitContract;
 
 $factory->define(App\Contract::class, function (Faker $faker) {
   $mortgage_credit = $faker->randomElement([
-    'INFONAVIT',
-    'FOVISSSTE',
-    'COFINAVIT',
-    'Bancario',
-    'Aliados',
+    \App\Enums\MortgateCreditType::INFONAVIT,
+    \App\Enums\MortgateCreditType::FOVISSSTE,
+    \App\Enums\MortgateCreditType::COFINAVIT,
+    \App\Enums\MortgateCreditType::BANKING,
+    \App\Enums\MortgateCreditType::ALLIES,
   ]);
 
   $infonavit_contracts_id = factory(InfonavitContract::class)->create()->id;
@@ -21,11 +21,11 @@ $factory->define(App\Contract::class, function (Faker $faker) {
 
   $cofinavit_contracts_id = factory(CofinavitContract::class)->create()->id;
 
-  $mortgage_broker = ($mortgage_credit === 'Bancario')
+  $mortgage_broker = ($mortgage_credit === \App\Enums\MortgageCreditType::BANKING)
     ? now()->format('U')
     : null;
 
-  $contract_with_the_broker = ($mortgage_credit === 'Aliados')
+  $contract_with_the_broker = ($mortgage_credit === \App\Enums\MortgageCreditType::ALLIES)
     ? now()->format('U')
     : null;
 

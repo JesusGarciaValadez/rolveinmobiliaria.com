@@ -1,11 +1,12 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Enums\CivilStatusType;
 
 $factory->define(App\InfonavitContract::class, function (Faker $faker) {
   $type = $faker->randomElement([
-    'Individual',
-    'Conyugal',
+    \App\Enums\CivilStatusType::INDIVIDUAL,
+    \App\Enums\CivilStatusType::CONJUGAL,
   ]);
   $certified_birth_certificate = $faker->randomElement([
     now()->format('U'),
@@ -67,6 +68,7 @@ $factory->define(App\InfonavitContract::class, function (Faker $faker) {
     now()->format('U'),
     null,
   ]);
+
   $complete = (
     empty($type) ||
     empty($certified_birth_certificate) ||

@@ -42,8 +42,8 @@ $factory->define(App\Seller::class, function (Faker $faker) {
     null,
   ]);
   $civil_status = $faker->randomElement([
-    'Soltero',
-    'Casado',
+    \App\Enums\CivilStatusType::SINGLE,
+    \App\Enums\CivilStatusType::MARRIED,
   ]);
   $complete = (
     empty($deed) ||
