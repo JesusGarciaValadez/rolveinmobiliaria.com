@@ -21,13 +21,13 @@ class AlterInternalExpedientTable extends Migration
         $date = Carbon::now();
 
         $table->enum('expedient_key', [
-                'VNT',
-                'RNT',
-                'CEX',
-                'JRD',
-                'AVA'
+                \App\Enums\ExpedientKeyType::VNT,
+                \App\Enums\ExpedientKeyType::RNT,
+                \App\Enums\ExpedientKeyType::CEX,
+                \App\Enums\ExpedientKeyType::JRD,
+                \App\Enums\ExpedientKeyType::AVA,
               ])
-              ->default('VNT')
+              ->default(\App\Enums\ExpedientKeyType::VNT)
               ->charset('utf8')
               ->collation('utf8_unicode_ci')
               ->after('user_id');

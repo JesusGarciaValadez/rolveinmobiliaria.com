@@ -16,8 +16,8 @@ class CreateCofinavitContractsTable extends Migration
     Schema::create('cofinavit_contracts', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('CC_type', [
-          'Individual',
-          'Conyugal',
+          \App\Enums\CivilStatusType::INDIVIDUAL,
+          \App\Enums\CivilStatusType::CONJUGAL,
         ])
         ->nullable();
       $table->integer('CC_request_for_credit_inspection')

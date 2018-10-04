@@ -45,11 +45,11 @@ class CreateContractsTable extends Migration
       $table->integer('SC_contract_with_the_broker')
             ->nullable();
       $table->enum('SC_mortgage_credit', [
-          'INFONAVIT',
-          'FOVISSSTE',
-          'COFINAVIT',
-          'Bancario',
-          'Aliados',
+          \App\Enums\MortgageCreditType::INFONAVIT,
+          \App\Enums\MortgageCreditType::FOVISSSTE,
+          \App\Enums\MortgageCreditType::COFINAVIT,
+          \App\Enums\MortgageCreditType::BANKING,
+          \App\Enums\MortgageCreditType::ALLIES,
         ])
         ->nullable();
       $table->integer('SC_general_buyer')

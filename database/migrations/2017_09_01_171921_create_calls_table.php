@@ -16,14 +16,14 @@ class CreateCallsTable extends Migration
     Schema::create('calls', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('type_of_operation', [
-              'Venta',
-              'Renta',
-              'Contratos de exclusividad',
-              'Jurídico',
-              'Avalúos',
-              'Recados',
+              \App\Enums\OperationType::SALES,
+              \App\Enums\OperationType::RENT,
+              \App\Enums\OperationType::EXCLUSIVE_CONTRACTS,
+              \App\Enums\OperationType::LEGAL,
+              \App\Enums\OperationType::APPRAISALS,
+              \App\Enums\OperationType::MESSAGES,
             ])
-            ->default('Venta');
+            ->default(\App\Enums\OperationType::SALES);
       $table->string('address')
             ->nullable();
       $table->integer('user_id')
@@ -39,11 +39,11 @@ class CreateCallsTable extends Migration
       $table->text('status')
             ->nullable();
       $table->enum('priority', [
-              'Baja',
-              'Media',
-              'Alta',
+              \App\Enums\PriorityType::LOW,
+              \App\Enums\PriorityType::MEDIUM,
+              \App\Enums\PriorityType::HIGH,
             ])
-            ->default('Media');
+            ->default(\App\Enums\PriorityType::MEDIUM);
       $table->softDeletes();
       $table->timestamps();
     });

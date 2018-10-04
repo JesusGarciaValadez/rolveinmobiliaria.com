@@ -38,10 +38,10 @@ class CreateSellerTable extends Migration
       $table->string('SD_phone')
             ->nullable();
       $table->enum('SD_civil_status', [
-          'Soltero',
-          'Casado',
+          \App\Enums\CivilStatusType::SINGLE,
+          \App\Enums\CivilStatusType::MARRIED,
         ])
-        ->default('Soltero');
+        ->default(\App\Enums\CivilStatusType::SINGLE);
       $table->boolean('SD_complete')
             ->default(false);
       $table->softDeletes();

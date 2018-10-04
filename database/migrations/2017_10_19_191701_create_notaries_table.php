@@ -16,10 +16,10 @@ class CreateNotariesTable extends Migration
     Schema::create('notaries', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('SN_federal_entity', [
-          'CDMX',
-          'Edo. Mex.',
+          \App\Enums\FederalEntityType::CDMX,
+          \App\Enums\FederalEntityType::EDO_MEX,
         ])
-        ->default('CDMX');
+        ->default(\App\Enums\FederalEntityType::CDMX);
       $table->string('SN_notaries_office')
             ->nullable();
       $table->integer('SN_date_freedom_of_lien_certificate')

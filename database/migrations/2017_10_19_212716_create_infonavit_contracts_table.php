@@ -16,8 +16,8 @@ class CreateInfonavitContractsTable extends Migration
     Schema::create('infonavit_contracts', function (Blueprint $table) {
       $table->increments('id');
       $table->enum('IC_type', [
-          'Individual',
-          'Conyugal',
+          \App\Enums\CivilStatusType::INDIVIDUAL,
+          \App\Enums\CivilStatusType::CONJUGAL,
         ])
         ->nullable();
       $table->integer('IC_certified_birth_certificate')
