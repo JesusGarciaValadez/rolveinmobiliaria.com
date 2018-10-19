@@ -28,11 +28,13 @@
   </style>
 </head>
 <body>
-  <div>
+  <div id="app">
     @navbar()
     @endnavbar
 
     @yield('content')
+
+    @yield('modals')
   </div>
 
   <!-- Scripts -->
