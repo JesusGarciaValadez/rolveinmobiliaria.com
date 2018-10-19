@@ -26,57 +26,50 @@
 </template>
 
 <script>
+  import client from '../mixins/client'
+
   export default {
     name: 'client',
+    mixins: [client],
     props: {
-      name: {
-        type: String,
-        default: '',
-        required: true
+      initialClient: {
+        type: Object,
+        default: {},
+        required: true,
       },
-      phoneOne: {
-        type: String,
-        default: '',
-        required: true
-      },
-      phoneTwo: {
-        type: String,
-        default: ''
-      },
-      business: {
-        type: String,
-        default: ''
-      },
-      emailOne: {
-        type: String,
-        default: ''
-      },
-      emailTwo: {
-        type: String,
-        default: ''
-      },
-      reference: {
-        type: String,
-        default: ''
+    },
+    data() {
+      return {
+        firstName: null,
+        lastName: null,
+        phoneOne: null,
+        phoneTwo: null,
+        business: null,
+        emailOne: null,
+        emailTwo: null,
+        reference: null,
       }
     },
     computed: {
-      hasPhoneOne: function () {
+      name() {
+        return `${this.firstName} ${this.lastName}`
+      },
+      hasPhoneOne() {
         return this.phoneOne.length !== 0
       },
-      hasPhoneTwo: function () {
+      hasPhoneTwo() {
         return this.phoneTwo.length !== 0
       },
-      hasBusiness: function () {
+      hasBusiness() {
         return this.business.length !== 0
       },
-      hasEmailOne: function () {
+      hasEmailOne() {
         return this.emailOne.length !== 0
       },
-      hasEmailTwo: function () {
+      hasEmailTwo() {
         return this.emailTwo.length !== 0
       },
-      hasReference: function () {
+      hasReference() {
         return this.reference.length !== 0
       },
     },
@@ -85,6 +78,19 @@
         if (!value) return ''
 
         return 'mailto:' + value
+      }
+    },
+    beforeMount() {
+      if (this.initialClient) {
+        const { firstName, lastName, phoneOne, phoneTwo, business, emailOne, emailTwo, reference } = this.initialClient
+        this.firstName = firstName
+        this.lastName = lastName
+        this.phoneOne = phoneOne
+        this.phoneTwo = phoneTwo
+        this.business = business
+        this.emailOne = emailOne
+        this.emailTwo = emailTwo
+        this.reference = reference
       }
     }
   }
