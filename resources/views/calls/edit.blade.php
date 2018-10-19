@@ -96,68 +96,13 @@
               </div>
             </div>
 
-            <div class="form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">
-              <label
-                for="expedient_id"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
-              <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2">
-                <select
-                  class="form-control"
-                  id="internal_expedient_id"
-                  name="internal_expedient_id"
-                  autofocus
-                  @change="getExpedientInfo">
-                  <option
-                    value=""
-                    selected
-                    disabled>
-                    @lang('shared.choose_an_option')</option>
-                  @foreach ($expedients as $expedient)
-                    <option
-                      value="{{ $expedient->id }}"
-                      {{ (old('internal_expedient_id') === $expedient->id || $call->internal_expedient->id === $expedient->id)
-                          ? 'selected'
-                          : ''}}>{{ $expedient->expedient }} - {{ $expedient->client->full_name }}</option>
-                  @endforeach
-                </select>
-                <input type="hidden" name="client_id" :value="client.id">
-                <input type="hidden" name="expedient_key" :value="client.expedient.key">
-                <input type="hidden" name="expedient_number" :value="client.expedient.number">
-                <input type="hidden" name="expedient_year" :value="client.expedient.year">
-
-                @if ($errors->has('internal_expedient_id'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('internal_expedient_id') }}</strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-
-            <div class="block row clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" :has-expedient="hasExpedient">
-                ¿No encuentras el expediente?
-                <a
-                href="#"
-                title="¡Crealo!"
-                target="_self"
-                data-toggle="modal"
-                data-target="#newExpedient">¡Crealo!</a>
-              </p>
-            </div>
-
-            <spinner v-if="loading"></spinner>
-            <expedient
-              :expedient="expedient"
-              :name="fullName"
-              :phone-one="client.phoneOne"
-              :phone-two="client.phoneTwo"
-              :business="client.business"
-              :email-one="client.emailOne"
-              :email-two="client.emailTwo"
-              :reference="client.reference"
-              :has-client="hasClient"
-              :empty="empty"
-              v-if="!loading && !empty"></expedient>
+            <select-internal-expedient
+              initial-expedients="{{ $expedients }}"
+              initial-clients="{{ $clients }}"
+              @if ($errors->has('internal_expedient_id'))
+              errors="{{ $errors }}"
+              @endif
+            ></select-internal-expedient>
 
             <div class="form-group{{ $errors->has('address') ? ' has-error' : ''}}">
               <label
@@ -307,15 +252,17 @@
               @endcallsButtonBack
             </div>
           </form>
-
-          @modalExpedient(['clients' => $clients])
-          @endmodalExpedient
-
-          @modalClient
-          @endmodalClient
         </div>
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('modals')
+  @modalExpedient(['clients' => $clients])
+  @endmodalExpedient
+
+  @modalClient
+  @endmodalClient
 @endsection
