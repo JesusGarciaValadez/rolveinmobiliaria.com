@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('/clients/show/{id}', 'ClientController@show');
+Route::middleware('auth:api')->get('/v1/client/show/{client}', 'Api\ClientController@show');
 
-Route::middleware('auth:api')->get('/internal_expedients/show/{id}', 'InternalExpedientController@show');
+Route::middleware('auth:api')->get('/v1/internal_expedient/show/{internal_expedient}', 'Api\InternalExpedientController@show');
