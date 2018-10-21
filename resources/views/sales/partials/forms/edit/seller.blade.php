@@ -9,88 +9,15 @@
       @if (isset($sale))
         <input type="hidden" name="id" value="{{ optional($sale->seller)->id }}">
       @endif
-      <div class="col-xs-12 form-group{{ $errors->has('internal_expedient_id') ? ' has-error' : ''}}">{{-- internal_expedient_id --}}
-        <label
-          for="expedient_id"
-          class="col-xs-12 col-sm-12 col-md-2 col-lg-2 control-label">@lang('call.internal_expedient'): </label>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-          <select
-            class="form-control"
-            id="internal_expedient_id"
-            name="internal_expedient_id"
-            autofocus
-            @change="getExpedientInfo">
-            <option
-              value=""
-              selected
-              disabled>
-              @lang('shared.choose_an_option')</option>
-            @foreach ($expedients as $expedient)
-              <option
-                value="{{ $expedient->id }}"
-                @if (
-                  isset($sale) &&
-                  !empty(optional($sale->internal_expedient)->id) &&
-                  optional($sale->internal_expedient)->id === $expedient->id
-                )
-                  selected
-                @elseif(old('internal_expedient_id'))
-                  @if (old('internal_expedient_id') === $expedient->id)
-                    selected
-                  @endif
-                @endif>{{ $expedient->expedient }}: {{ $expedient->client->full_name }}</option>
-            @endforeach
-          </select>
-          <input
-            type="hidden"
-            name="client_id"
-            :value="client.id">
-          <input
-            type="hidden"
-            name="expedient_key"
-            :value="client.expedient.key">
-          <input
-            type="hidden"
-            name="expedient_number"
-            :value="client.expedient.number">
-          <input
-            type="hidden"
-            name="expedient_year"
-            :value="client.expedient.year">
 
-          @if ($errors->has('internal_expedient_id'))
-            <span class="help-block">
-              <strong>{{ $errors->first('internal_expedient_id') }}</strong>
-            </span>
-          @endif
-        </div>
-      </div>
-
-      <div class="block row clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" :has-expedient="hasExpedient">
-          <strong>¿No encuentras el expediente?</strong>
-          <a
-            href="#"
-            title="¡Crealo!"
-            target="_self"
-            data-toggle="modal"
-            data-target="#newExpedient">¡Crealo!</a>
-        </p>
-      </div>
-
-      <spinner v-if="loading"></spinner>
-      <expedient
-        :expedient="getExpedient"
-        :name="getFullName"
-        :phone-one="client.phoneOne"
-        :phone-two="client.phoneTwo"
-        :business="client.business"
-        :email-one="client.emailOne"
-        :email-two="client.emailTwo"
-        :reference="client.reference"
-        :has-client="hasClient"
-        :empty="empty"
-        v-else="!loading && empty"></expedient>
+      <select-internal-expedient
+        initial-expedient="{{ $internal_expedient->id }}"
+        initial-expedients="{{ $expedients }}"
+        initial-clients="{{ $clients }}"
+        @if ($errors->has('internal_expedient_id'))
+        errors="{{ $errors }}"
+        @endif
+      ></select-internal-expedient>
 
       <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-0 form-group{{ $errors->has('SD_deed') ? ' has-error' : ''}}">{{-- SD_deed --}}
         <label
