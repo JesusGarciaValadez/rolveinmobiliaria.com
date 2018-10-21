@@ -97,6 +97,7 @@
             </div>
 
             <select-internal-expedient
+              initial-expedient="{{ $call->internal_expedient->id }}"
               initial-expedients="{{ $expedients }}"
               initial-clients="{{ $clients }}"
               @if ($errors->has('internal_expedient_id'))
