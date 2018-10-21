@@ -101,6 +101,6 @@ class InternalExpedient extends Model
 
   public function getExpedientAttribute()
   {
-    return $this->expedient_key . '/' . $this->expedient_number . '/' . $this->expedient_year;
+    return "{$this->expedient_key}/{$this->expedient_number}/{$this->expedient_year}";
   }
 }
