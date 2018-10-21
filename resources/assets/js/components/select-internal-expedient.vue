@@ -15,10 +15,11 @@
           id="internal_expedient_id"
           name="internal_expedient_id"
           autofocus
-          @change="getExpedientInfo">
+          v-model="expedientSelected"
+          @change="getExpedientInfo()">
           <option
             value=""
-            selected=""
+            selected
             disabled
           >{{ trans('shared.choose_an_option') }}</option>
           <option
@@ -64,14 +65,19 @@
 
   export default {
     props: {
+      initialExpedient: {
+        type: String,
+        default: '',
+        required: false,
+      },
       initialExpedients: {
         type: String,
-        default: "",
+        default: '',
         required: true,
       },
       initialClients: {
         type: String,
-        default: "",
+        default: '',
         required: true,
       },
       errors: {
@@ -82,6 +88,7 @@
     mixins: [client],
     data() {
       return {
+        expedientSelected: '',
         expedients: null,
         error: {
           internal_expedient_id: null,
@@ -95,6 +102,13 @@
 
       if (this.initialExpedients) {
         this.expedients = JSON.parse(this.initialExpedients)
+      }
+    },
+    created() {
+      if (this.initialExpedient) {
+        this.expedientSelected = this.initialExpedient
+
+        this.getExpedientInfo(this.expedientSelected)
       }
     }
   }
