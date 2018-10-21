@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Enums\PriorityType;
-use App\Enums\OperationType;
-use App\Enums\ExpedientKeyType;
-use App\Enums\FederalEntityType;
 
 class AssetsController extends Controller
 {
@@ -19,7 +15,7 @@ class AssetsController extends Controller
     {
       $lang = $request->session()->has('locale')
                 ? $request->session()->get('locale')
-                : 'en';
+                : 'es';
 
       $files = glob(resource_path("lang/${lang}/*.php"));
       $strings = [];
