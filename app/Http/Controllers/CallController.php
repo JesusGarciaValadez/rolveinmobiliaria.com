@@ -104,21 +104,25 @@ class CallController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
-      $expedients = InternalExpedient::all()
-                      ->sortBy('expedient');
-      $clients = Client::all()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
+      $expedients = InternalExpedient::orderBy('expedient_key', 'desc')
+                        ->orderBy('expedient_number', 'desc')
+                        ->orderBy('expedient_year', 'desc')
+                        ->get();
+      $clients = Client::orderBy('last_name', 'asc')
+                  ->orderBy('first_name', 'asc')
+                  ->get();
     }
     else
     {
       $expedients = InternalExpedient::where('user_id', Auth::id())
-                      ->get()
-                      ->sortBy('expedient');
+                      ->orderBy('expedient_key', 'desc')
+                      ->orderBy('expedient_number', 'desc')
+                      ->orderBy('expedient_year', 'desc')
+                      ->get();
       $clients = Client::where('user_id', Auth::id())
-                  ->get()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
+                  ->orderBy('last_name', 'asc')
+                  ->orderBy('first_name', 'asc')
+                  ->get();
     }
 
     Carbon::setLocale($this->_locale);
@@ -208,22 +212,25 @@ class CallController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     )
     {
-      $expedients = InternalExpedient::all()
-                      ->sortBy('expedient');
-      $clients = Client::all()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
-      $call = $call;
+      $expedients = InternalExpedient::orderBy('expedient_key', 'desc')
+                      ->orderBy('expedient_number', 'desc')
+                      ->orderBy('expedient_year', 'desc')
+                      ->get();
+      $clients = Client::orderBy('last_name', 'asc')
+                  ->orderBy('first_name', 'asc')
+                  ->get();
     }
     else
     {
       $expedients = InternalExpedient::where('user_id', Auth::id())
-                      ->get()
-                      ->sortBy('expedient');
+                      ->orderBy('expedient_key', 'desc')
+                      ->orderBy('expedient_number', 'desc')
+                      ->orderBy('expedient_year', 'desc')
+                      ->get();
       $clients = Client::where('user_id', Auth::id())
-                  ->get()
-                  ->sortBy('last_name')
-                  ->sortBy('first_name');
+                  ->orderBy('last_name', 'asc')
+                  ->orderBy('first_name', 'asc')
+                  ->get();
       $call = Call::where('id', $request->id)
                   ->where('user_id', Auth::id())
                   ->get()
