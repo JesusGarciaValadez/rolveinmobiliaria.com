@@ -33,13 +33,15 @@ export default {
     },
     hasExpedient() {
       return (
-        this.client.reference.length !== 0
+        this.client.expedient.key !== '' &&
+        this.client.expedient.number !== '' &&
+        this.client.expedient.year !== ''
       )
     },
     fullName() {
       return `${this.client.firstName} ${this.client.lastName}`
     },
-    expedient() {
+    expedientComposed() {
       return `${this.client.expedient.key}/${this.client.expedient.number}/${this.client.expedient.year}`
     }
   },
@@ -84,8 +86,8 @@ export default {
         this.empty = true
       }
     },
-    getExpedientInfo() {
-      const expedientId = document.getElementById('internal_expedient_id').value
+    getExpedientInfo(id = null, event) {
+      const expedientId = id ||  document.getElementById('internal_expedient_id').value
       this.loading = true
 
       if (expedientId !== '') {
@@ -102,11 +104,11 @@ export default {
             const { id, expedient_key, expedient_number, expedient_year, client } = response
             const { first_name, last_name, phone_1, phone_2, business, email_1, email_2, reference } = client
             this.client.id = id || ''
+            this.client.firstName = first_name || ''
+            this.client.lastName = last_name || ''
             this.client.expedient.key = expedient_key || ''
             this.client.expedient.number = expedient_number || ''
             this.client.expedient.year = expedient_year || ''
-            this.client.firstName = first_name || ''
-            this.client.lastName = last_name || ''
             this.client.phoneOne = phone_1 || ''
             this.client.phoneTwo = phone_2 || ''
             this.client.business = business || ''
@@ -128,7 +130,26 @@ export default {
         this.loading = false
         this.empty = true
       }
-    }
+    },
+    receiveInitialClient() {
+      if (this.initialClient) {
+        const { id, firstName, lastName, expedient, phoneOne, phoneTwo, business, emailOne, emailTwo, reference } = this.initialClient
+        const { key, number, year } = expedient
+
+        this.client.id = id
+        this.client.firstName = firstName
+        this.client.lastName = lastName
+        this.client.expedient.key = key
+        this.client.expedient.number = number
+        this.client.expedient.yea = year
+        this.client.phoneOne = phoneOne
+        this.client.phoneTwo = phoneTwo
+        this.client.business = business
+        this.client.emailOne = emailOne
+        this.client.emailTwo = emailTwo
+        this.client.reference = reference
+      }
+    },
   },
   mounted() {
     if (typeof(this.initialClients) === 'string') {
@@ -136,22 +157,6 @@ export default {
     }
   },
   beforeUpdate() {
-    if (this.initialClient) {
-      const { id, firstName, lastName, expedient, phoneOne, phoneTwo, business, emailOne, emailTwo, reference } = this.initialClient
-      const { key, number, year } = expedient
-
-      this.client.id = id
-      this.client.firstName = firstName
-      this.client.lastName = lastName
-      this.client.expedient.key = key
-      this.client.expedient.number = number
-      this.client.expedient.yea = year
-      this.client.phoneOne = phoneOne
-      this.client.phoneTwo = phoneTwo
-      this.client.business = business
-      this.client.emailOne = emailOne
-      this.client.emailTwo = emailTwo
-      this.client.reference = reference
-    }
-  }
+    this.receiveInitialClient()
+  },
 }
