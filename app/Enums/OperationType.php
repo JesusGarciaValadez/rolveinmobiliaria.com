@@ -11,5 +11,4 @@ final class OperationType extends Enum
   const EXCLUSIVE_CONTRACTS = 'Contratos de exclusividad';
   const LEGAL = 'Jurídico';
   const APPRAISALS = 'Avalúos';
-  const MESSAGES = 'Recados';
 }

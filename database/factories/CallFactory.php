@@ -14,7 +14,6 @@ $factory->define(App\Call::class, function (Faker $faker) {
       \App\Enums\OperationType::EXCLUSIVE_CONTRACTS,
       \App\Enums\OperationType::LEGAL,
       \App\Enums\OperationType::APPRAISALS,
-      \App\Enums\OperationType::MESSAGES,
     ]),
     'address' => $faker->address(),
     'user_id' => function ()

@@ -21,7 +21,6 @@ class CreateCallsTable extends Migration
               \App\Enums\OperationType::EXCLUSIVE_CONTRACTS,
               \App\Enums\OperationType::LEGAL,
               \App\Enums\OperationType::APPRAISALS,
-              \App\Enums\OperationType::MESSAGES,
             ])
             ->default(\App\Enums\OperationType::SALES);
       $table->string('address')
