@@ -47,17 +47,17 @@
               </div>
             </div>
           </form>
-
-          @modalExpedient([
-            'clients' => $clients
-          ])
-          @endmodalExpedient
-
-          @modalClient
-          @endmodalClient
         </div>
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('modals')
+  @modalExpedient(['clients' => $clients])
+  @endmodalExpedient
+
+  @modalClient
+  @endmodalClient
 @endsection
