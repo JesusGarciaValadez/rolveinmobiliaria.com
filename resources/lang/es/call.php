@@ -24,7 +24,7 @@ return [
     'internal_expedient' => 'Expediente interno',
     'internal_expedient_key' => 'Clave',
     'internal_expedient_number' => 'Número',
-    'internal_expedient_year' => 'Año',
+    'internal_expedient_year' => 'Año. Ej. 18',
     'operation' => 'Operación',
     'client' => 'Cliente',
     'phone' => 'Teléfono',
@@ -57,7 +57,6 @@ return [
     'succession' => 'Sucesión',
     'exclusive_contracts' => 'Contratos de exclusividad',
     'appraisals' => 'Avalúos',
-    'messages' => 'Recados',
 
     'blank_slate' => 'No hay llamadas registradas. ¿Porqué no creas una nueva?.',
     'no_results' => 'No hay llamadas con la palabra que estás buscando. ¿Porqué no intentas con otras palabra o creas una nueva?.',
