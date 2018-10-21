@@ -162,7 +162,7 @@ let store = new Vuex.Store({
       context.commit('updateLoading', true)
 
       if (clientId.trim().length !== 0 && clientId !== '') {
-        const uri = `/api/clients/show/${clientId}`
+        const uri = `/api/v1/client/show/${clientId}`
 
         const inicialization = {
           withCredentials: false
@@ -203,7 +203,7 @@ let store = new Vuex.Store({
       context.commit('updateLoading', true)
 
       if (expedientId !== '') {
-        const uri = `/api/internal_expedients/show/${expedientId}`
+        const uri = `/api/v1/internal_expedient/show/${expedientId}`
 
         const inicialization = {
           withCredentials: false
