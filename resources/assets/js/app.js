@@ -1,10 +1,8 @@
-import callInfo from './apps/callInfo'
 import clientFilter from './apps/clientFilter'
 import createSeller from './apps/createSeller'
 import editSeller from './apps/editSeller'
 import editClosingContract from './apps/editClosingContract'
 import editContract from './apps/editContract'
-import newExpedient from './components/newExpedient'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -22,17 +20,19 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('expedient', require('./components/Expedient'))
+Vue.component('client', require('./components/Client'))
+Vue.component('spinner', require('./components/Spinner'))
+
+Vue.component('modal-expedient', require('./components/modal/expedient'))
+Vue.component('modal-client', require('./components/modal/client'))
+Vue.component('select-internal-expedient', require('./components/select-internal-expedient'))
+
 const clientFilterRoot = document.getElementById('client__filter') || null
-const callInfoRoot = document.getElementById('call__info') || null
 const createSellerRoot = document.getElementById('create__seller') || null
 const editSellerRoot = document.getElementById('edit__seller') || null
 const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
 const editContractRoot = document.getElementById('edit__contract') || null
-const newExpedientRoot = document.getElementById('new__expedient') || null
-
-if (callInfoRoot !== null) {
-  const $vmCall = new Vue(callInfo)
-}
 
 if (clientFilterRoot) {
   const $vmClientFilter = new Vue(clientFilter)
@@ -54,6 +54,31 @@ if (editContractRoot !== null) {
   const $vmEditContract = new Vue(editContract)
 }
 
-if (newExpedientRoot !== null) {
-  const $vmNewExpedient = new Vue(newExpedient)
-}
+window.events = new Vue();
+window.flash = function (message, level = 'success') {
+  window.events.$emit('flash', { message, level });
+};
+
+window.addEventListener("load", function(event) {
+  const _ = require('lodash');
+
+  window.trans = (string) => _.get(window.i18n, string);
+  window.enumObject = (string) => _.get(window.enums, string);
+  window.configObject = (string) => _.get(window.config, string);
+
+  Vue.prototype.trans = function(string) {
+    return _.get(window.i18n, string);
+  }
+
+  Vue.prototype.enumObject = function(string) {
+    return _.get(window.enums, string);
+  }
+
+  Vue.prototype.configObject = function(string) {
+    return _.get(window.config, string);
+  }
+
+  const app = new Vue({
+    el: '#app'
+  });
+});
