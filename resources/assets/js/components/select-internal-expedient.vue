@@ -41,7 +41,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" :has-expedient="hasExpedient">
-        ¿No encuentras el expediente?
+        �No encuentras el expediente?
         <a
         href="#"
         title="¡Crealo!"
@@ -61,55 +61,55 @@
 </template>
 
 <script>
-  import client from '../mixins/client'
+import client from "../mixins/client";
 
-  export default {
-    props: {
-      initialExpedient: {
-        type: String,
-        default: '',
-        required: false,
-      },
-      initialExpedients: {
-        type: String,
-        default: '',
-        required: true,
-      },
-      initialClients: {
-        type: String,
-        default: '',
-        required: true,
-      },
-      errors: {
-        type: Object,
-        required: false,
-      }
+export default {
+  props: {
+    initialExpedient: {
+      type: String,
+      default: "",
+      required: false
     },
-    mixins: [client],
-    data() {
-      return {
-        expedientSelected: '',
-        expedients: null,
-        error: {
-          internal_expedient_id: null,
-        }
-      }
+    initialExpedients: {
+      type: String,
+      default: "",
+      required: true
     },
-    mounted() {
-      if (this.errors) {
-        this.error.internal_expedient_id = this.errors.internal_expedient_id
+    initialClients: {
+      type: String,
+      default: "",
+      required: true
+    },
+    errors: {
+      type: Object,
+      required: false
+    }
+  },
+  mixins: [client],
+  data() {
+    return {
+      expedientSelected: "",
+      expedients: null,
+      error: {
+        internal_expedient_id: null
       }
+    };
+  },
+  mounted() {
+    if (this.errors) {
+      this.error.internal_expedient_id = this.errors.internal_expedient_id;
+    }
 
-      if (this.initialExpedients) {
-        this.expedients = JSON.parse(this.initialExpedients)
-      }
-    },
-    created() {
-      if (this.initialExpedient) {
-        this.expedientSelected = this.initialExpedient
+    if (this.initialExpedients) {
+      this.expedients = JSON.parse(this.initialExpedients);
+    }
+  },
+  created() {
+    if (this.initialExpedient) {
+      this.expedientSelected = this.initialExpedient;
 
-        this.getExpedientInfo(this.expedientSelected)
-      }
+      this.getExpedientInfo(this.expedientSelected);
     }
   }
+};
 </script>
