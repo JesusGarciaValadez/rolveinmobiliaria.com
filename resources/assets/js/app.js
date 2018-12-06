@@ -1,4 +1,3 @@
-import clientFilter from './apps/clientFilter'
 import createSeller from './apps/createSeller'
 import editSeller from './apps/editSeller'
 import editClosingContract from './apps/editClosingContract'
@@ -28,15 +27,12 @@ Vue.component('modal-expedient', require('./components/modal/expedient'))
 Vue.component('modal-client', require('./components/modal/client'))
 Vue.component('select-internal-expedient', require('./components/select-internal-expedient'))
 
-const clientFilterRoot = document.getElementById('client__filter') || null
+Vue.component('client-filter', require('./components/client/filter'))
+
 const createSellerRoot = document.getElementById('create__seller') || null
 const editSellerRoot = document.getElementById('edit__seller') || null
 const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
 const editContractRoot = document.getElementById('edit__contract') || null
-
-if (clientFilterRoot) {
-  const $vmClientFilter = new Vue(clientFilter)
-}
 
 if (createSellerRoot !== null) {
   const $vmCreateSeller = new Vue(createSeller)
@@ -80,5 +76,9 @@ window.addEventListener("load", function(event) {
 
   const app = new Vue({
     el: '#app'
-  });
-});
+  })
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+})
