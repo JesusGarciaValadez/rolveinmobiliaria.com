@@ -21,8 +21,12 @@ return [
     'first_name' => 'Nombre',
     'last_name' => 'Apellidos',
     'phone' => 'Teléfono',
+    'phone1' => 'Teléfono 1',
+    'phone2' => 'Teléfono 2',
     'business' => 'Empresa',
     'email' => 'Email',
+    'email1' => 'Email 1',
+    'email2' => 'Email 2',
     'reference' => 'Referencia',
 
     'blank_slate' => 'No hay clientes registrados. ¿Porqué no creas uno nuevo?',
