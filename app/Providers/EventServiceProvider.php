@@ -3,7 +3,17 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Events\MessageCreatedEvent;
+use App\Events\MessageDeletedEvent;
+use App\Events\SaleCreatedEvent;
+use App\Events\FileWillUploadEvent;
+use App\Listeners\MessageCreatedListener;
+use App\Listeners\MessageDeletedListener;
+use App\Listeners\SaleCreatedListener;
+use App\Listeners\FileUploadedListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -13,18 +23,21 @@ class EventServiceProvider extends ServiceProvider
    * @var array
    */
   protected $listen = [
-    'App\Events\MessageCreatedEvent' => [
-      'App\Listeners\MessageCreatedListener',
+    MessageCreatedEvent::class => [
+      MessageCreatedListener::class,
     ],
-    'App\Events\MessageDeletedEvent' => [
-      'App\Listeners\MessageDeletedListener',
+    MessageDeletedEvent::class => [
+      MessageDeletedListener::class,
     ],
-    'App\Events\SaleCreatedEvent' => [
-      'App\Listeners\SaleCreatedListener',
+    SaleCreatedEvent::class => [
+      SaleCreatedListener::class,
     ],
-    'App\Events\FileWillUploadEvent' => [
-      'App\Listeners\FileUploadedListener',
-    ]
+    FileWillUploadEvent::class => [
+      FileUploadedListener::class,
+    ],
+    Registered::class => [
+      SendEmailVerificationNotification::class,
+    ],
   ];
 
   /**

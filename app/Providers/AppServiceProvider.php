@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
@@ -66,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
 
       Blade::component('shared.components.modal-expedient', 'modalExpedient');
       Blade::component('shared.components.modal-client', 'modalClient');
+
+      Redis::enableEvents();
     }
 
     /**

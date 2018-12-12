@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
     //          ->everyMinute()
     //          ->timezone('America/Mexico_City')
     //          ->emailOutputTo('jesus.garciav@me.com');
+      $schedule->command('telescope:prune')->daily();
   }
 
   /**
