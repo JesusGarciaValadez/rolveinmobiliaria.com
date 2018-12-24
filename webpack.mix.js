@@ -23,10 +23,10 @@ mix.options({
     lodash: ['lodash', 'window._']
   })
   .js('resources/js/app.js', 'public/js')
-  // .sass('resources/assets/sass/app.scss', 'public/css')
+  .sass('resources/sass/app.scss', 'public/css')
   .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
-  .browserSync('http://rolveinmobiliaria.test/')
+  .browserSync('https://rolveinmobiliaria.test/')
 
 // version does not work in hmr mode
 if (mix.inProduction()) {
