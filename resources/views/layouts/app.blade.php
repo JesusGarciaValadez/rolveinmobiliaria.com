@@ -8,9 +8,7 @@
   @else
   <meta http-equiv="Cache-control" content="private">
   @endenv
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="canonical" href="{{ url()->current() }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +17,7 @@
 
   <link rel="canonical" href="{{ url()->current() }}">
   <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
 
   <style media="screen">
     [v-cloak] {
@@ -38,10 +36,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="{{ asset('js/lang.js') }}"></script>
-  <script src="{{ asset('js/enums.js') }}"></script>
-  <script src="{{ asset('js/manifest.js') }}"></script>
-  <script src="{{ asset('js/vendor.js') }}"></script>
+  <script src="{{ secure_asset('js/lang.js') }}"></script>
+  <script src="{{ secure_asset('js/enums.js') }}"></script>
+  <script src="{{ secure_asset('js/manifest.js') }}"></script>
+  <script src="{{ secure_asset('js/vendor.js') }}"></script>
   <script src="{{ mix('js/app.js') }}"></script>
   <script>
     $(function () {
