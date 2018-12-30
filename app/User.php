@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use \App\Enums\RoleType;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -80,46 +82,46 @@ class User extends Authenticatable implements MustVerifyEmail
     return $this->hasMany(Sale::class, 'user_id', 'id');
   }
 
-  public function isSuperAdmin()
+  public function isSuperAdmin(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::SUPER_ADMIN)->get()->first();
+    $role = Role::where('name', RoleType::SUPER_ADMIN)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
-  public function isAdmin()
+  public function isAdmin(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::ADMIN)->get()->first();
+    $role = Role::where('name', RoleType::ADMIN)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
-  public function isAssistant()
+  public function isAssistant(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::ASSISTANT)->get()->first();
+    $role = Role::where('name', RoleType::ASSISTANT)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
-  public function isSales()
+  public function isSales(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::SALES)->get()->first();
+    $role = Role::where('name', RoleType::SALES)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
-  public function isIntern()
+  public function isIntern(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::INTERN)->get()->first();
+    $role = Role::where('name', RoleType::INTERN)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
-  public function isClient()
+  public function isClient(): bool
   {
-    $role = Role::where('name', \App\Enums\RoleType::CLIENT)->get()->first();
+    $role = Role::where('name', RoleType::CLIENT)->get()->first();
 
-    return $this->role_id === $role->id;
+    return $role ? $this->role_id === $role->id : false;
   }
 
   public function hasRole(String $role)
