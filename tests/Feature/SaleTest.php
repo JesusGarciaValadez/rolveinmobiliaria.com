@@ -1,106 +1,106 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use App\User;
+use App\Enums\RoleType;
 use App\Role;
-use Symfony\Component\HttpFoundation\Response;
-use \App\Enums\RoleType;
+use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SaleTest extends TestCase
 {
-  use RefreshDatabase;
+    use RefreshDatabase;
 
-  /** @test */
-  public function test_super_admin_can_visit_the_sale_section()
-  {
-    $superAdminRole = factory(Role::class)
-                        ->create(['name' => RoleType::SUPER_ADMIN])
-                        ->id;
+    /** @test */
+    public function test_super_admin_can_visit_the_sale_section(): void
+    {
+        $superAdminRole = factory(Role::class)
+        ->create(['name' => RoleType::SUPER_ADMIN])
+        ->id;
 
-    $superAdmin = factory(User::class)
-                    ->create(['role_id' => $superAdminRole]);
+        $superAdmin = factory(User::class)
+        ->create(['role_id' => $superAdminRole]);
 
-    $this->actingAs($superAdmin)
-         ->get(route('sale.index'))
-         ->assertSeeText('Venta');
-  }
+        $this->actingAs($superAdmin)
+        ->get(route('sale.index'))
+        ->assertSeeText('Venta');
+    }
 
-  /** @test */
-  public function test_admins_can_visit_the_sale_section()
-  {
-    $adminRole = factory(Role::class)
-                  ->create(['name' => RoleType::ADMIN])
-                  ->id;
+    /** @test */
+    public function test_admins_can_visit_the_sale_section(): void
+    {
+        $adminRole = factory(Role::class)
+        ->create(['name' => RoleType::ADMIN])
+        ->id;
 
-    $admin = factory(User::class)
-                    ->create(['role_id' => $adminRole]);
+        $admin = factory(User::class)
+        ->create(['role_id' => $adminRole]);
 
-    $this->actingAs($admin)
-         ->get(route('sale.index'))
-         ->assertSeeText('Venta');
-  }
+        $this->actingAs($admin)
+        ->get(route('sale.index'))
+        ->assertSeeText('Venta');
+    }
 
-  /** @test */
-  public function test_assistants_cannot_visit_the_sale_section()
-  {
-    $assistantRole = factory(Role::class)
-                      ->create(['name' => RoleType::ASSISTANT])
-                      ->id;
+    /** @test */
+    public function test_assistants_cannot_visit_the_sale_section(): void
+    {
+        $assistantRole = factory(Role::class)
+        ->create(['name' => RoleType::ASSISTANT])
+        ->id;
 
-    $assistant = factory(User::class)
-                  ->create(['role_id' => $assistantRole]);
+        $assistant = factory(User::class)
+        ->create(['role_id' => $assistantRole]);
 
-    $this->actingAs($assistant)
-         ->get(route('sale.index'))
-         ->assertDontSeeText('Venta');
-  }
+        $this->actingAs($assistant)
+        ->get(route('sale.index'))
+        ->assertDontSeeText('Venta');
+    }
 
-  /** @test */
-  public function test_sales_can_visit_the_sale_section()
-  {
-    $salesRole = factory(Role::class)
-                  ->create(['name' => RoleType::SALES])
-                  ->id;
+    /** @test */
+    public function test_sales_can_visit_the_sale_section(): void
+    {
+        $salesRole = factory(Role::class)
+        ->create(['name' => RoleType::SALES])
+        ->id;
 
-    $sales = factory(User::class)
-              ->create(['role_id' => $salesRole]);
+        $sales = factory(User::class)
+        ->create(['role_id' => $salesRole]);
 
-    $this->actingAs($sales)
-         ->get(route('sale.index'))
-         ->assertSeeText('Venta');
-  }
+        $this->actingAs($sales)
+        ->get(route('sale.index'))
+        ->assertSeeText('Venta');
+    }
 
-  /** @test */
-  public function test_interns_cannot_visit_the_sale_section()
-  {
-    $internRole = factory(Role::class)
-                    ->create(['name' => RoleType::INTERN])
-                    ->id;
+    /** @test */
+    public function test_interns_cannot_visit_the_sale_section(): void
+    {
+        $internRole = factory(Role::class)
+        ->create(['name' => RoleType::INTERN])
+        ->id;
 
-    $intern = factory(User::class)
-              ->create(['role_id' => $internRole]);
+        $intern = factory(User::class)
+        ->create(['role_id' => $internRole]);
 
-    $this->actingAs($intern)
-         ->get(route('sale.index'))
-         ->assertDontSeeText('Venta');
-  }
+        $this->actingAs($intern)
+        ->get(route('sale.index'))
+        ->assertDontSeeText('Venta');
+    }
 
-  /** @test */
-  public function test_client_cannot_visit_the_sale_section()
-  {
-    $clientRole = factory(Role::class)
-                    ->create(['name' => RoleType::CLIENT])
-                    ->id;
+    /** @test */
+    public function test_client_cannot_visit_the_sale_section(): void
+    {
+        $clientRole = factory(Role::class)
+        ->create(['name' => RoleType::CLIENT])
+        ->id;
 
-    $client = factory(User::class)
-                ->create(['role_id' => $clientRole]);
+        $client = factory(User::class)
+        ->create(['role_id' => $clientRole]);
 
-    $this->actingAs($client)
-         ->get(route('sale.index'))
-         ->assertDontSeeText('Venta');
-  }
+        $this->actingAs($client)
+        ->get(route('sale.index'))
+        ->assertDontSeeText('Venta');
+    }
 }

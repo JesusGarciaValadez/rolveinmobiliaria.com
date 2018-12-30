@@ -1,181 +1,164 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\InternalExpedient;
-
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-
 use App\Http\Requests\InternalExpedientRequest;
+use App\InternalExpedient;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class InternalExpedientController extends Controller
 {
-  /**
-   * Set the localization for the language in the app.
-   *
-   * @var string
-   */
-  private $_locale;
+    /**
+     * Set the localization for the language in the app.
+     *
+     * @var string
+     */
+    private $_locale;
 
-  /**
-   * Set the message to the used returned to views.
-   *
-   * @var string
-   */
-  private $_message = null;
+    /**
+     * Set the message to the used returned to views.
+     *
+     * @var string
+     */
+    private $_message = null;
 
-  /**
-   * Set the type of the alarm return to views.
-   *
-   * @var string
-   */
-  private $_type = null;
+    /**
+     * Set the type of the alarm return to views.
+     *
+     * @var string
+     */
+    private $_type = null;
 
-  /**
-   * Date of the attribute updated or created.
-   *
-   * @var string
-   */
-  private $_date = null;
+    /**
+     * Date of the attribute updated or created.
+     *
+     * @var string
+     */
+    private $_date = null;
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index(Request $request)
-  {
-    $client = InternalExpedient::with([
-                'user',
-                'client'
-              ])
-              ->get();
-
-    if ($request->ajax())
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-      return response()->json([$client]);
+        $client = InternalExpedient::with([
+            'user',
+            'client',
+        ])
+        ->get();
+
+        if ($request->ajax()) {
+            return response()->json([$client]);
+        }
+
+        return abort(404);
     }
-    else
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-      return abort(404);
     }
-  }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-      //
-  }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(InternalExpedientRequest $request)
+    {
+        Carbon::setLocale('mx');
+        Carbon::setUtf8(true);
+        $year = Carbon::createFromDate($request->expedient_year);
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(InternalExpedientRequest $request)
-  {
-    Carbon::setLocale('mx');
-    Carbon::setUtf8(true);
-    $year = Carbon::createFromDate($request->expedient_year);
+        $data = [
+            'client_id' => $request->client_id,
+            'user_id' => \Auth::id(),
+            'expedient_key' => $request->expedient_key,
+            'expedient_number' => $request->expedient_number,
+            'expedient_year' => $year->formatLocalized('%y'),
+        ];
 
-    $data = [
-      'client_id'         => $request->client_id,
-      'user_id'           => \Auth::id(),
-      'expedient_key'     => $request->expedient_key,
-      'expedient_number'  => $request->expedient_number,
-      'expedient_year'    => $year->formatLocalized('%y'),
-    ];
+        $updated = InternalExpedient::create($data);
 
-    $updated = InternalExpedient::create($data);
-
-    $this->_message = ($updated)
+        $this->_message = ($updated)
       ? 'Nuevo expediente interno creado'
       : 'No se pudo crear el expediente interno.';
-    $this->_type = ($updated) ? 'success' : 'danger';
-    $request->session()->flash('message', $this->_message);
-    $request->session()->flash('type', $this->_type);
+        $this->_type = ($updated) ? 'success' : 'danger';
+        $request->session()->flash('message', $this->_message);
+        $request->session()->flash('type', $this->_type);
 
-    if ($request->ajax())
-    {
-      return response()->json(['message' => $this->_message]);
+        if ($request->ajax()) {
+            return response()->json(['message' => $this->_message]);
+        }
+
+        return redirect()->back()->withInput();
     }
-    else
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
     {
-      return redirect()->back()->withInput();
+        $expedient = InternalExpedient::findOrFail($request->id);
+
+        if ($request->ajax()) {
+            return response()->json([$expedient]);
+        }
+
+        return abort(404);
     }
-  }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  \App\InternalExpedient  $internalExpedient
-   * @return \Illuminate\Http\Response
-   */
-  public function show(Request $request)
-  {
-    $expedient = InternalExpedient::findOrFail($request->id);
-
-    if ($request->ajax())
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(InternalExpedient $internalExpedient)
     {
-      return response()->json([$expedient]);
     }
-    else
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, InternalExpedient $internalExpedient)
     {
-      return abort(404);
     }
-  }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  \App\InternalExpedient  $internalExpedient
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(InternalExpedient $internalExpedient)
-  {
-      //
-  }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(InternalExpedient $internalExpedient)
+    {
+        $expedient = InternalExpedient::with([
+            'user',
+            'client',
+        ])
+        ->findOrFail($request->id);
+        $isDestroyed = $expedient->delete();
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\InternalExpedient  $internalExpedient
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, InternalExpedient $internalExpedient)
-  {
-      //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  \App\InternalExpedient  $internalExpedient
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy(InternalExpedient $internalExpedient)
-  {
-    $expedient = InternalExpedient::with([
-                    'user',
-                    'client'
-                  ])
-                  ->findOrFail($request->id);
-    $isDestroyed = $expedient->delete();
-
-    $this->_message = ($isDestroyed)
+        $this->_message = ($isDestroyed)
       ? 'Llamada eliminada'
       : 'No se pudo eliminar la llamada.';
 
-    $this->_type = ($isDestroyed) ? 'success' : 'danger';
+        $this->_type = ($isDestroyed) ? 'success' : 'danger';
 
-    return redirect()->route('internal_expedient.index', $this->_payload);
-  }
+        return redirect()->route('internal_expedient.index', $this->_payload);
+    }
 }

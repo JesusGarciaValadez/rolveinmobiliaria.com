@@ -1,16 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-
 use App\Sale;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class SaleCreatedEvent
 {
@@ -20,12 +18,10 @@ class SaleCreatedEvent
 
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct(Sale $sale)
     {
-      $this->_sale = $sale;
+        $this->_sale = $sale;
     }
 
     /**

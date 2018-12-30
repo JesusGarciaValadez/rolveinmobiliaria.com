@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 class EncryptCookies extends Middleware
 {
-  /**
-   * Indicates if cookies should be serialized.
-   *
-   * @var bool
-   */
-  protected static $serialize = true;
+    /**
+     * Indicates if cookies should be serialized.
+     *
+     * @var bool
+     */
+    protected static $serialize = true;
 
-  /**
-   * The names of the cookies that should not be encrypted.
-   *
-   * @var array
-   */
-  protected $except = [
-      //
-  ];
+    /**
+     * The names of the cookies that should not be encrypted.
+     *
+     * @var array
+     */
+    protected $except = [
+    ];
 }

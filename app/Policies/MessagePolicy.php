@@ -1,100 +1,81 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\User;
 use App\Message;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessagePolicy
 {
-  use HandlesAuthorization;
+    use HandlesAuthorization;
 
-  /**
-   * Create a new policy instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    //
-  }
+    /**
+     * Create a new policy instance.
+     */
+    public function __construct()
+    {
+    }
 
-  public function before($user, $ability)
-  {
-    if (
+    public function before($user, $ability)
+    {
+        if (
       $user->isSuperAdmin() ||
       $user->isAdmin()
-    )
-    {
-      return true;
+    ) {
+            return true;
+        }
     }
-  }
 
-  /**
-   * Determine whether the user can view the message.
-   *
-   * @param  \App\User  $user
-   * @param  \App\Message  $message
-   * @return mixed
-   */
-  public function view(User $user, Sale $sale)
-  {
-    return (
-      $user->isAssistant() ||
-      $user->isSales()
-    );
-  }
-
-  /**
-   * Determine whether the user can create messages.
-   *
-   * @param  \App\User  $user
-   * @return mixed
-   */
-  public function create(User $user)
-  {
-    return (
-      $user->isAssistant() ||
-      $user->isSales()
-    );
-  }
-
-  /**
-   * Determine whether the user can update the message.
-   *
-   * @param  \App\User  $user
-   * @param  \App\Message  $message
-   * @return mixed
-   */
-  public function update(User $user, Message $message)
-  {
-    if (
-      $user->isAssistant() ||
-      $user->isSales()
-    )
+    /**
+     * Determine whether the user can view the message.
+     */
+    public function view(User $user, Sale $sale)
     {
-      return $user->id === $message->user->id;
+        return
+      $user->isAssistant() ||
+      $user->isSales();
     }
-    return false;
-  }
 
-  /**
-   * Determine whether the user can delete the message.
-   *
-   * @param  \App\User  $user
-   * @param  \App\Message  $message
-   * @return mixed
-   */
-  public function delete(User $user, Message $message)
-  {
-    if (
+    /**
+     * Determine whether the user can create messages.
+     */
+    public function create(User $user)
+    {
+        return
+      $user->isAssistant() ||
+      $user->isSales();
+    }
+
+    /**
+     * Determine whether the user can update the message.
+     */
+    public function update(User $user, Message $message)
+    {
+        if (
       $user->isAssistant() ||
       $user->isSales()
-    )
-    {
-      return $user->id === $message->user->id;
+    ) {
+            return $user->id === $message->user->id;
+        }
+
+        return false;
     }
-    return false;
-  }
+
+    /**
+     * Determine whether the user can delete the message.
+     */
+    public function delete(User $user, Message $message)
+    {
+        if (
+      $user->isAssistant() ||
+      $user->isSales()
+    ) {
+            return $user->id === $message->user->id;
+        }
+
+        return false;
+    }
 }
