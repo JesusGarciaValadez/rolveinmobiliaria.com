@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 use App\Role;
 use Symfony\Component\HttpFoundation\Response;
+use \App\Enums\RoleType;
 
 class ClientTest extends TestCase
 {
@@ -16,7 +17,7 @@ class ClientTest extends TestCase
   public function test_super_admin_can_visit_the_client_section()
   {
     $superAdminRole = factory(Role::class)
-                        ->create(['name' => 'Super Administrador'])
+                        ->create(['name' => RoleType::SUPER_ADMIN])
                         ->id;
 
     $superAdmin = factory(User::class)
@@ -32,7 +33,7 @@ class ClientTest extends TestCase
   public function test_admins_can_visit_the_client_section()
   {
     $adminRole = factory(Role::class)
-                  ->create(['name' => 'Administrador'])
+                  ->create(['name' => RoleType::ADMIN])
                   ->id;
 
     $admin = factory(User::class)
@@ -48,7 +49,7 @@ class ClientTest extends TestCase
   public function test_assistants_can_visit_the_client_section()
   {
     $assistantRole = factory(Role::class)
-                  ->create(['name' => 'Asistente'])
+                  ->create(['name' => RoleType::ASSISTANT])
                   ->id;
 
     $assistant = factory(User::class)
@@ -64,7 +65,7 @@ class ClientTest extends TestCase
   public function test_sales_can_visit_the_client_section()
   {
     $salesRole = factory(Role::class)
-                  ->create(['name' => 'Ventas'])
+                  ->create(['name' => RoleType::SALES])
                   ->id;
 
     $sales = factory(User::class)
@@ -80,7 +81,7 @@ class ClientTest extends TestCase
   public function test_interns_cannot_visit_the_client_section()
   {
     $internRole = factory(Role::class)
-                    ->create(['name' => 'Pasante'])
+                    ->create(['name' => RoleType::INTERN])
                     ->id;
 
     $intern = factory(User::class)
@@ -96,7 +97,7 @@ class ClientTest extends TestCase
   public function test_client_cannot_visit_the_client_section()
   {
     $clientRole = factory(Role::class)
-                    ->create(['name' => 'Cliente'])
+                    ->create(['name' => RoleType::CLIENT])
                     ->id;
 
     $client = factory(User::class)
