@@ -23,7 +23,7 @@ mix.options({
     lodash: ['lodash', 'window._']
   })
   .js('resources/js/app.js', 'public/js')
-  .sass('resources/sass/app.scss', 'public/css')
+  //.sass('resources/sass/app.scss', 'public/css')
   .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
   .browserSync('https://rolveinmobiliaria.test/')
