@@ -13,12 +13,14 @@
         "bensampo/laravel-enum": "^1.4",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~4.0",
+        "friendsofphp/php-cs-fixer": "^2.13",
         "laravel/framework": "5.7.*",
         "laravel/horizon": "^1.2",
         "laravel/passport": "^4.0",
         "laravel/scout": "^4.0",
         "laravel/tinker": "^1.0",
         "pusher/pusher-php-server": "~3.0",
+        "sensiolabs/security-checker": "^5.0",
         "sentry/sentry-laravel": "^0.11.0"
     },
     "require-dev": {
@@ -72,6 +74,19 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "test": [
+            "@lint:check",
+            "@phpunit",
+            "@security"
+        ],
+        "phpunit": [
+            "vendor/bin/phpunit"
+        ],
+        "security": [
+            "vendor/bin/security-checker security:check"
+        ],
+        "lint": "php-cs-fixer fix --verbose --show-progress=estimating",
+        "lint:check": "php-cs-fixer fix --dry-run --verbose --show-progress=estimating"
     }
 }
