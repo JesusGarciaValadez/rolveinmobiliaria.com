@@ -41,11 +41,6 @@
   <script src="{{ secure_asset('js/manifest.js') }}"></script>
   <script src="{{ secure_asset('js/vendor.js') }}"></script>
   <script src="{{ mix('js/app.js') }}"></script>
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
   @yield('scripts')
 </body>
 </html>
