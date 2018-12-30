@@ -66,13 +66,13 @@ class ClientController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
             $clients = Client::orderBy('first_name', 'asc')
-          ->orderBy('last_name', 'asc')
-          ->get();
+                ->orderBy('last_name', 'asc')
+                ->get();
         } else {
             $clients = Client::where('user_id', $currentUser->id)
-          ->orderBy('first_name', 'asc')
-          ->orderBy('last_name', 'asc')
-          ->get();
+                ->orderBy('first_name', 'asc')
+                ->orderBy('last_name', 'asc')
+                ->get();
         }
 
         return view('clients.index', [
@@ -112,11 +112,11 @@ class ClientController extends Controller
         unset($data['_token']);
 
         $isRepeated = DB::table('clients')
-        ->where('first_name', $data['first_name'])
-        ->where('last_name', $data['last_name'])
-        ->whereNull('deleted_at')
-        ->get()
-        ->count();
+            ->where('first_name', $data['first_name'])
+            ->where('last_name', $data['last_name'])
+            ->whereNull('deleted_at')
+            ->get()
+            ->count();
 
         if ($isRepeated !== 0) {
             $this->_message = 'No se guardó este cliente porque ya existe en nuestros registros.';
@@ -264,13 +264,13 @@ class ClientController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
             $clients = Client::where($request->filter_by, 'like', $value)
-          ->orderBy('id', 'desc')
-          ->paginate(5);
+                ->orderBy('id', 'desc')
+                ->paginate(5);
         } else {
             $clients = Client::where($request->filter_by, 'like', $value)
-          ->where('user_id', '=', $currentUser->id)
-          ->orderBy('id', 'desc')
-          ->paginate(5);
+                ->where('user_id', '=', $currentUser->id)
+                ->orderBy('id', 'desc')
+                ->paginate(5);
         }
 
         $this->_message = (count($clients) > 0)

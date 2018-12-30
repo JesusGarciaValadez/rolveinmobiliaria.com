@@ -72,8 +72,8 @@ class MessageController extends Controller
             $messages = Message::orderBy('id', 'desc')->get();
         } else {
             $messages = Message::where('user_id', '=', $currentUser->id)
-          ->orderBy('id', 'desc')
-          ->get();
+                ->orderBy('id', 'desc')
+                ->get();
         }
 
         return view('messages.index', [
@@ -217,7 +217,7 @@ class MessageController extends Controller
     public function filter(Request $request, Message $message)
     {
         $currentUser = User::with('role')
-        ->find(Auth::id());
+            ->find(Auth::id());
 
         if (
       $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
@@ -227,16 +227,16 @@ class MessageController extends Controller
                 $request->date,
                 now()->tomorrow(),
             ])
-          ->orderBy('id', 'desc')
-          ->get();
+                ->orderBy('id', 'desc')
+                ->get();
         } else {
             $messages = $message::whereBetween('created_at', [
                 $request->date,
                 now()->tomorrow(),
             ])
-          ->where('user_id', '=', $currentUser->id)
-          ->orderBy('id', 'desc')
-          ->get();
+                ->where('user_id', '=', $currentUser->id)
+                ->orderBy('id', 'desc')
+                ->get();
         }
 
         $this->_message = (count($messages) > 0)

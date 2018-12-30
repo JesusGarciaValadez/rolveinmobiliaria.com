@@ -41,8 +41,8 @@ class SaleCreatedListener implements ShouldQueue
     public function handle(SaleCreatedEvent $event): void
     {
         Mail::to('alejandro.rojas@rolveinmobiliaria.com')
-        ->cc('fernanda.ornelas@rolveinmobiliaria.com')
-        ->bcc('jesus.garciav@me.com')
-        ->send(new SaleCreated($event->_sale));
+            ->cc('fernanda.ornelas@rolveinmobiliaria.com')
+            ->bcc('jesus.garciav@me.com')
+            ->send(new SaleCreated($event->_sale));
     }
 }

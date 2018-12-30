@@ -36,7 +36,7 @@ class SaleCreated extends Mailable
     public function build()
     {
         return $this->view('mails.sale.created')
-        ->text('mails.sale.created_plain')
-        ->subject('Nueva compraventa creada');
+            ->text('mails.sale.created_plain')
+            ->subject('Nueva compraventa creada');
     }
 }

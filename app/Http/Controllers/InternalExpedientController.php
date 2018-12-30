@@ -50,7 +50,7 @@ class InternalExpedientController extends Controller
             'user',
             'client',
         ])
-        ->get();
+            ->get();
 
         if ($request->ajax()) {
             return response()->json([$client]);
@@ -150,7 +150,7 @@ class InternalExpedientController extends Controller
             'user',
             'client',
         ])
-        ->findOrFail($request->id);
+            ->findOrFail($request->id);
         $isDestroyed = $expedient->delete();
 
         $this->_message = ($isDestroyed)

@@ -48,11 +48,11 @@ class FileUploadedListener
             // \Debugbar::info(Storage::exists($this->_storagePath.$filename));
         } catch (Exception $e) {
             return response()
-          ->json([
-              'response_message' => 'Error: File was not uploaded',
-              'response_code' => '3',
-              'Error: ' => $e->getError(),
-          ]);
+                ->json([
+                    'response_message' => 'Error: File was not uploaded',
+                    'response_code' => '3',
+                    'Error: ' => $e->getError(),
+                ]);
         }
     }
 }

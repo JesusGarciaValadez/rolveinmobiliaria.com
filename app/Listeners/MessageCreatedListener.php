@@ -43,8 +43,8 @@ class MessageCreatedListener implements ShouldQueue
     public function handle(MessageCreatedEvent $event): void
     {
         Mail::to('alejandro.rojas@rolveinmobiliaria.com')
-        ->cc('fernanda.ornelas@rolveinmobiliaria.com')
-        ->bcc('jesus.garciav@me.com')
-        ->send(new MessageCreated($event->messageCreated));
+            ->cc('fernanda.ornelas@rolveinmobiliaria.com')
+            ->bcc('jesus.garciav@me.com')
+            ->send(new MessageCreated($event->messageCreated));
     }
 }

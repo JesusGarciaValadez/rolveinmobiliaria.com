@@ -136,7 +136,7 @@ class SignatureController extends Controller
             'SS_complete' => $SS_complete,
         ];
         $signature = $sale->signature()
-        ->update($signatureInfo);
+            ->update($signatureInfo);
 
         $this->_message = $signature
       ? 'Firma actualizada'

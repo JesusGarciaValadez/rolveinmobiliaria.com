@@ -74,11 +74,11 @@ class CallController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
             $calls = Call::orderBy('id', 'desc')
-          ->get();
+                ->get();
         } else {
             $calls = Call::where('user_id', '=', $currentUser->id)
-          ->orderBy('id', 'desc')
-          ->get();
+                ->orderBy('id', 'desc')
+                ->get();
         }
 
         return view('calls.index', [
@@ -101,22 +101,22 @@ class CallController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
             $expedients = InternalExpedient::orderBy('expedient_key', 'desc')
-          ->orderBy('expedient_number', 'desc')
-          ->orderBy('expedient_year', 'desc')
-          ->get();
+                ->orderBy('expedient_number', 'desc')
+                ->orderBy('expedient_year', 'desc')
+                ->get();
             $clients = Client::orderBy('last_name', 'asc')
-          ->orderBy('first_name', 'asc')
-          ->get();
+                ->orderBy('first_name', 'asc')
+                ->get();
         } else {
             $expedients = InternalExpedient::where('user_id', Auth::id())
-          ->orderBy('expedient_key', 'desc')
-          ->orderBy('expedient_number', 'desc')
-          ->orderBy('expedient_year', 'desc')
-          ->get();
+                ->orderBy('expedient_key', 'desc')
+                ->orderBy('expedient_number', 'desc')
+                ->orderBy('expedient_year', 'desc')
+                ->get();
             $clients = Client::where('user_id', Auth::id())
-          ->orderBy('last_name', 'asc')
-          ->orderBy('first_name', 'asc')
-          ->get();
+                ->orderBy('last_name', 'asc')
+                ->orderBy('first_name', 'asc')
+                ->get();
         }
 
         Carbon::setLocale($this->_locale);
@@ -202,26 +202,26 @@ class CallController extends Controller
       $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
     ) {
             $expedients = InternalExpedient::orderBy('expedient_key', 'desc')
-          ->orderBy('expedient_number', 'desc')
-          ->orderBy('expedient_year', 'desc')
-          ->get();
+                ->orderBy('expedient_number', 'desc')
+                ->orderBy('expedient_year', 'desc')
+                ->get();
             $clients = Client::orderBy('last_name', 'asc')
-          ->orderBy('first_name', 'asc')
-          ->get();
+                ->orderBy('first_name', 'asc')
+                ->get();
         } else {
             $expedients = InternalExpedient::where('user_id', Auth::id())
-          ->orderBy('expedient_key', 'desc')
-          ->orderBy('expedient_number', 'desc')
-          ->orderBy('expedient_year', 'desc')
-          ->get();
+                ->orderBy('expedient_key', 'desc')
+                ->orderBy('expedient_number', 'desc')
+                ->orderBy('expedient_year', 'desc')
+                ->get();
             $clients = Client::where('user_id', Auth::id())
-          ->orderBy('last_name', 'asc')
-          ->orderBy('first_name', 'asc')
-          ->get();
+                ->orderBy('last_name', 'asc')
+                ->orderBy('first_name', 'asc')
+                ->get();
             $call = Call::where('id', $request->id)
-          ->where('user_id', Auth::id())
-          ->get()
-          ->first();
+                ->where('user_id', Auth::id())
+                ->get()
+                ->first();
         }
 
         return view('calls.edit', [
@@ -262,8 +262,8 @@ class CallController extends Controller
             $updated = $call->update($callInfo);
         } else {
             $updated = Call::where('id', $request->id)
-          ->where('user_id', Auth::id())
-          ->update($call);
+                ->where('user_id', Auth::id())
+                ->update($call);
         }
 
         $this->_message = ($updated)
@@ -314,15 +314,15 @@ class CallController extends Controller
             $calls = Call::whereBetween('created_at', [
                 $request->date, now()->tomorrow(),
             ])
-          ->orderBy('id', 'desc')
-          ->get();
+                ->orderBy('id', 'desc')
+                ->get();
         } else {
             $calls = Call::whereBetween('created_at', [
                 $request->date, now()->tomorrow(),
             ])
-          ->where('user_id', '=', $currentUser->id)
-          ->orderBy('id', 'desc')
-          ->get();
+                ->where('user_id', '=', $currentUser->id)
+                ->orderBy('id', 'desc')
+                ->get();
         }
 
         $this->_message = (count($calls) > 0)

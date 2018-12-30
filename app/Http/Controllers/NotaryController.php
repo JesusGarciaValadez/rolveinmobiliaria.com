@@ -179,7 +179,7 @@ class NotaryController extends Controller
             'SN_complete' => $SN_complete,
         ];
         $notary = $sale->notary()
-        ->update($notaryInfo);
+            ->update($notaryInfo);
 
         $this->_message = $notary
       ? 'Notaría actualizada'
