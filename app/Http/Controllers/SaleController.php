@@ -72,9 +72,9 @@ class SaleController extends Controller
         $currentUser = User::with('role')->find(Auth::id());
 
         if (
-      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
-      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
-    ) {
+            $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+            $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
+        ) {
             $expedients = InternalExpedient::with('client')
                 ->get()
                 ->sortBy('expedient');
@@ -191,14 +191,14 @@ class SaleController extends Controller
 
         if (empty($this->_message)) {
             $this->_message = ($this->_sellerCreated || $this->_closingContractCreated)
-        ? 'La compraventa fue creada.'
-        : 'No se pudo crear la compraventa.';
+                ? 'La compraventa fue creada.'
+                : 'No se pudo crear la compraventa.';
         }
 
         if (empty($this->_type)) {
             $this->_type = ($this->_sellerCreated || $this->_closingContractCreated)
-        ? 'success'
-        : 'danger';
+                ? 'success'
+                : 'danger';
         }
 
         $request->session()->flash('message', $this->_message);
@@ -269,9 +269,7 @@ class SaleController extends Controller
     {
         $destroyed = $sale->delete();
 
-        $this->_message = ($destroyed)
-      ? 'Llamada eliminada'
-      : 'No se pudo eliminar la llamada.';
+        $this->_message = ($destroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
         $this->_type = ($destroyed) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
@@ -281,58 +279,32 @@ class SaleController extends Controller
 
     private function _setSellerVariables(Request $request)
     {
-        $SD_deed = !empty($request->SD_deed)
-      ? $this->_date
-      : null;
-        $SD_water = !empty($request->SD_water)
-      ? $this->_date
-      : null;
-        $SD_predial = !empty($request->SD_predial)
-      ? $this->_date
-      : null;
-        $SD_light = !empty($request->SD_light)
-      ? $this->_date
-      : null;
-        $SD_birth_certificate = !empty($request->SD_birth_certificate)
-      ? $this->_date
-      : null;
-        $SD_ID = !empty($request->SD_ID)
-      ? $this->_date
-      : null;
-        $SD_CURP = !empty($request->SD_CURP)
-      ? $request->SD_CURP
-      : null;
-        $SD_RFC = !empty($request->SD_RFC)
-      ? $request->SD_RFC
-      : null;
-        $SD_account_status = !empty($request->SD_account_status)
-      ? $this->_date
-      : null;
-        $SD_email = !empty($request->SD_email)
-      ? $this->_date
-      : null;
-        $SD_phone = !empty($request->SD_phone)
-      ? $this->_date
-      : null;
-        $SD_civil_status = !empty($request->SD_civil_status)
-      ? $request->SD_civil_status
-      : 'Soltero';
+        $SD_deed = !empty($request->SD_deed) ? $this->_date : null;
+        $SD_water = !empty($request->SD_water) ? $this->_date : null;
+        $SD_predial = !empty($request->SD_predial) ? $this->_date : null;
+        $SD_light = !empty($request->SD_light) ? $this->_date : null;
+        $SD_birth_certificate = !empty($request->SD_birth_certificate) ? $this->_date : null;
+        $SD_ID = !empty($request->SD_ID) ? $this->_date : null;
+        $SD_CURP = !empty($request->SD_CURP) ? $request->SD_CURP : null;
+        $SD_RFC = !empty($request->SD_RFC) ? $request->SD_RFC : null;
+        $SD_account_status = !empty($request->SD_account_status) ? $this->_date : null;
+        $SD_email = !empty($request->SD_email) ? $this->_date : null;
+        $SD_phone = !empty($request->SD_phone) ? $this->_date : null;
+        $SD_civil_status = !empty($request->SD_civil_status) ? $request->SD_civil_status : 'Soltero';
         $SD_complete = (
-      $SD_deed &&
-      $SD_water &&
-      $SD_predial &&
-      $SD_light &&
-      $SD_birth_certificate &&
-      $SD_ID &&
-      $SD_CURP &&
-      $SD_RFC &&
-      $SD_account_status &&
-      $SD_email &&
-      $SD_phone &&
-      $SD_civil_status
-    )
-      ? true
-      : false;
+            $SD_deed &&
+            $SD_water &&
+            $SD_predial &&
+            $SD_light &&
+            $SD_birth_certificate &&
+            $SD_ID &&
+            $SD_CURP &&
+            $SD_RFC &&
+            $SD_account_status &&
+            $SD_email &&
+            $SD_phone &&
+            $SD_civil_status
+        ) ? true : false;
 
         return [
             'SD_deed' => $SD_deed,
@@ -355,10 +327,10 @@ class SaleController extends Controller
     {
         if ($request->hasFile('SCC_data_sheet') && $request->file('SCC_data_sheet')->isValid()) {
             if (
-        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::PDF ||
-        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOC ||
-        $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOCX
-      ) {
+                $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::PDF ||
+                $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOC ||
+                $request->file('SCC_data_sheet')->extension() === \App\Enums\FileExtensionType::DOCX
+            ) {
                 $this->_file = !empty(event(new FileWillUpload($request->file('SCC_data_sheet'))))
                           ? event(new FileWillUpload($request->file('SCC_data_sheet')))[0]
                           : null;
@@ -370,28 +342,18 @@ class SaleController extends Controller
             $this->_file = $request->SCC_data_sheet_exists;
         }
 
-        $SCC_commercial_valuation = !empty($request->SCC_commercial_valuation)
-                                  ? $this->_date
-                                  : null;
-        $SCC_exclusivity_contract = !empty($request->SCC_exclusivity_contract)
-                                  ? $this->_date
-                                  : null;
-        $SCC_publication = !empty($request->SCC_publication)
-                          ? $this->_date
-                          : null;
+        $SCC_commercial_valuation = !empty($request->SCC_commercial_valuation) ? $this->_date : null;
+        $SCC_exclusivity_contract = !empty($request->SCC_exclusivity_contract) ? $this->_date : null;
+        $SCC_publication = !empty($request->SCC_publication) ? $this->_date : null;
         $SCC_data_sheet = $this->_file;
-        $SCC_closing_contract_observations = !empty($request->SCC_closing_contract_observations)
-                                            ? $request->SCC_closing_contract_observations
-                                            : null;
+        $SCC_closing_contract_observations = !empty($request->SCC_closing_contract_observations) ? $request->SCC_closing_contract_observations : null;
         $SCC_complete = (
-      $SCC_commercial_valuation &&
-      $SCC_exclusivity_contract &&
-      $SCC_publication &&
-      $SCC_data_sheet &&
-      $SCC_closing_contract_observations
-    )
-      ? true
-      : false;
+            $SCC_commercial_valuation &&
+            $SCC_exclusivity_contract &&
+            $SCC_publication &&
+            $SCC_data_sheet &&
+            $SCC_closing_contract_observations
+        ) ? true : false;
 
         return [
             'SCC_commercial_valuation' => $SCC_commercial_valuation,
@@ -405,40 +367,22 @@ class SaleController extends Controller
 
     private function _setContractVariables(Request $request)
     {
-        $SC_general_buyer = !empty($request->SC_general_buyer)
-                          ? $this->_date
-                          : null;
-        $SC_purchase_agreements = !empty($request->SC_purchase_agreements)
-                                ? $this->_date
-                                : null;
-        $SC_tax_assessment = !empty($request->SC_tax_assessment)
-                            ? $this->_date
-                            : null;
-        $SC_notary_checklist = !empty($request->SC_notary_checklist)
-                              ? $this->_date
-                              : null;
-        $SC_notary_file = !empty($request->SC_notary_file)
-                        ? $this->_date
-                        : null;
-        $SC_mortgage_credit = !empty($request->SC_mortgage_credit)
-                            ? $request->SC_mortgage_credit
-                            : null;
-        $SC_mortgage_broker = !empty($request->SC_mortgage_broker)
-                            ? $this->_date
-                            : null;
-        $SC_contract_with_the_broker = !empty($request->SC_contract_with_the_broker)
-                                      ? $this->_date
-                                      : null;
+        $SC_general_buyer = !empty($request->SC_general_buyer) ? $this->_date : null;
+        $SC_purchase_agreements = !empty($request->SC_purchase_agreements) ? $this->_date : null;
+        $SC_tax_assessment = !empty($request->SC_tax_assessment) ? $this->_date : null;
+        $SC_notary_checklist = !empty($request->SC_notary_checklist) ? $this->_date : null;
+        $SC_notary_file = !empty($request->SC_notary_file) ? $this->_date : null;
+        $SC_mortgage_credit = !empty($request->SC_mortgage_credit) ? $request->SC_mortgage_credit : null;
+        $SC_mortgage_broker = !empty($request->SC_mortgage_broker) ? $this->_date : null;
+        $SC_contract_with_the_broker = !empty($request->SC_contract_with_the_broker) ? $this->_date : null;
         $SC_complete = (
-      $SC_general_buyer &&
-      $SC_purchase_agreements &&
-      $SC_tax_assessment &&
-      $SC_notary_checklist &&
-      $SC_notary_file &&
-      $SC_mortgage_credit
-    )
-      ? true
-      : false;
+            $SC_general_buyer &&
+            $SC_purchase_agreements &&
+            $SC_tax_assessment &&
+            $SC_notary_checklist &&
+            $SC_notary_file &&
+            $SC_mortgage_credit
+        ) ? true : false;
 
         return [
             'SC_general_buyer' => $SC_general_buyer,
@@ -455,71 +399,37 @@ class SaleController extends Controller
 
     private function _setInfonavitContractVariables(Request $request)
     {
-        $IC_certified_birth_certificate = !empty($request->IC_certified_birth_certificate)
-                                        ? $this->_date
-                                        : null;
-        $IC_official_ID = !empty($request->IC_official_ID)
-                        ? $this->_date
-                        : null;
-        $IC_curp = !empty($request->IC_curp)
-                  ? $this->_date
-                  : null;
-        $IC_rfc = !empty($request->IC_rfc)
-                ? $this->_date
-                : null;
-        $IC_credit_simulator = !empty($request->IC_credit_simulator)
-                              ? $this->_date
-                              : null;
-        $IC_credit_application = !empty($request->IC_credit_application)
-                                ? $this->_date
-                                : null;
-        $IC_tax_valuation = !empty($request->IC_tax_valuation)
-                          ? $this->_date
-                          : null;
-        $IC_bank_statement = !empty($request->IC_bank_statement)
-                            ? $this->_date
-                            : null;
-        $IC_workshop_knowing_how_to_decide = !empty($request->IC_workshop_knowing_how_to_decide)
-                                            ? $this->_date
-                                            : null;
-        $IC_retention_sheet = !empty($request->IC_retention_sheet)
-                            ? $this->_date
-                            : null;
-        $IC_credit_activation = !empty($request->IC_credit_activation)
-                              ? $this->_date
-                              : null;
-        $IC_credit_maturity = !empty($request->IC_credit_maturity)
-                            ? $this->_date
-                            : null;
-        $IC_type = !empty($request->IC_type)
-                  ? $request->IC_type
-                  : null;
-        $IC_spouses_birth_certificate = !empty($request->IC_spouses_birth_certificate)
-                                      ? $this->_date
-                                      : null;
-        $IC_official_identification_of_the_spouse = !empty($request->IC_official_identification_of_the_spouse)
-                                                  ? $this->_date
-                                                  : null;
-        $IC_marriage_certificate = !empty($request->IC_marriage_certificate)
-                                  ? $this->_date
-                                  : null;
+        $IC_certified_birth_certificate = !empty($request->IC_certified_birth_certificate) ? $this->_date : null;
+        $IC_official_ID = !empty($request->IC_official_ID) ? $this->_date : null;
+        $IC_curp = !empty($request->IC_curp) ? $this->_date : null;
+        $IC_rfc = !empty($request->IC_rfc) ? $this->_date : null;
+        $IC_credit_simulator = !empty($request->IC_credit_simulator) ? $this->_date : null;
+        $IC_credit_application = !empty($request->IC_credit_application) ? $this->_date : null;
+        $IC_tax_valuation = !empty($request->IC_tax_valuation) ? $this->_date : null;
+        $IC_bank_statement = !empty($request->IC_bank_statement) ? $this->_date : null;
+        $IC_workshop_knowing_how_to_decide = !empty($request->IC_workshop_knowing_how_to_decide) ? $this->_date : null;
+        $IC_retention_sheet = !empty($request->IC_retention_sheet) ? $this->_date : null;
+        $IC_credit_activation = !empty($request->IC_credit_activation) ? $this->_date : null;
+        $IC_credit_maturity = !empty($request->IC_credit_maturity) ? $this->_date : null;
+        $IC_type = !empty($request->IC_type) ? $request->IC_type : null;
+        $IC_spouses_birth_certificate = !empty($request->IC_spouses_birth_certificate) ? $this->_date : null;
+        $IC_official_identification_of_the_spouse = !empty($request->IC_official_identification_of_the_spouse) ? $this->_date : null;
+        $IC_marriage_certificate = !empty($request->IC_marriage_certificate) ? $this->_date : null;
         $IC_complete = (
-      $IC_certified_birth_certificate &&
-      $IC_official_ID &&
-      $IC_curp &&
-      $IC_rfc &&
-      $IC_credit_simulator &&
-      $IC_credit_application &&
-      $IC_tax_valuation &&
-      $IC_bank_statement &&
-      $IC_workshop_knowing_how_to_decide &&
-      $IC_retention_sheet &&
-      $IC_credit_activation &&
-      $IC_credit_maturity &&
-      $IC_type
-    )
-      ? true
-      : false;
+            $IC_certified_birth_certificate &&
+            $IC_official_ID &&
+            $IC_curp &&
+            $IC_rfc &&
+            $IC_credit_simulator &&
+            $IC_credit_application &&
+            $IC_tax_valuation &&
+            $IC_bank_statement &&
+            $IC_workshop_knowing_how_to_decide &&
+            $IC_retention_sheet &&
+            $IC_credit_activation &&
+            $IC_credit_maturity &&
+            $IC_type
+        ) ? true : false;
 
         return [
             'IC_certified_birth_certificate' => $IC_certified_birth_certificate,
@@ -544,42 +454,24 @@ class SaleController extends Controller
 
     private function _setFovisssteContractVariables(Request $request)
     {
-        $FC_credit_simulator = !empty($request->FC_credit_simulator)
-                              ? $this->_date
-                              : null;
-        $FC_curp = !empty($request->FC_curp)
-                  ? $this->_date
-                  : null;
-        $FC_birth_certificate = !empty($request->FC_birth_certificate)
-                                ? $this->_date
-                                : null;
-        $FC_bank_statement = !empty($request->FC_bank_statement)
-                            ? $this->_date
-                            : null;
-        $FC_single_key_housing_payment = !empty($request->FC_single_key_housing_payment)
-                                        ? $this->_date
-                                        : null;
-        $FC_general_buyers_and_sellers = !empty($request->FC_general_buyers_and_sellers)
-                                        ? $this->_date
-                                        : null;
-        $FC_education_course = !empty($request->FC_education_course)
-                              ? $this->_date
-                              : null;
-        $FC_last_pay_stub = !empty($request->FC_last_pay_stub)
-                            ? $this->_date
-                            : null;
+        $FC_credit_simulator = !empty($request->FC_credit_simulator) ? $this->_date : null;
+        $FC_curp = !empty($request->FC_curp) ? $this->_date : null;
+        $FC_birth_certificate = !empty($request->FC_birth_certificate) ? $this->_date : null;
+        $FC_bank_statement = !empty($request->FC_bank_statement) ? $this->_date : null;
+        $FC_single_key_housing_payment = !empty($request->FC_single_key_housing_payment) ? $this->_date : null;
+        $FC_general_buyers_and_sellers = !empty($request->FC_general_buyers_and_sellers) ? $this->_date : null;
+        $FC_education_course = !empty($request->FC_education_course) ? $this->_date : null;
+        $FC_last_pay_stub = !empty($request->FC_last_pay_stub) ? $this->_date : null;
         $FC_complete = (
-      $FC_credit_simulator &&
-      $FC_curp &&
-      $FC_birth_certificate &&
-      $FC_bank_statement &&
-      $FC_single_key_housing_payment &&
-      $FC_general_buyers_and_sellers &&
-      $FC_education_course &&
-      $FC_last_pay_stub
-    )
-      ? true
-      : false;
+            $FC_credit_simulator &&
+            $FC_curp &&
+            $FC_birth_certificate &&
+            $FC_bank_statement &&
+            $FC_single_key_housing_payment &&
+            $FC_general_buyers_and_sellers &&
+            $FC_education_course &&
+            $FC_last_pay_stub
+        ) ? true : false;
 
         return [
             'FC_credit_simulator' => $FC_credit_simulator,
@@ -596,55 +488,29 @@ class SaleController extends Controller
 
     private function _setCofinavitContractVariables(Request $request)
     {
-        $CC_request_for_credit_inspection = !empty($request->CC_request_for_credit_inspection)
-                                          ? $this->_date
-                                          : null;
-        $CC_birth_certificate = !empty($request->CC_birth_certificate)
-                              ? $this->_date
-                              : null;
-        $CC_official_id = !empty($request->CC_official_id)
-                        ? $this->_date
-                        : null;
-        $CC_curp = !empty($request->CC_curp)
-                  ? $this->_date
-                  : null;
-        $CC_rfc = !empty($request->CC_rfc)
-                ? $this->_date
-                : null;
-        $CC_bank_statement_seller = !empty($request->CC_bank_statement_seller)
-                                  ? $this->_date
-                                  : null;
-        $CC_tax_valuation = !empty($request->CC_tax_valuation)
-                          ? $this->_date
-                          : null;
-        $CC_scripture_copy = !empty($request->CC_scripture_copy)
-                            ? $this->_date
-                            : null;
-        $CC_type = !empty($request->CC_type)
-                  ? $request->CC_type
-                  : null;
-        $CC_birth_certificate_of_the_spouse = !empty($request->CC_birth_certificate_of_the_spouse)
-                                              ? $this->_date
-                                              : null;
-        $CC_official_identification_of_the_spouse = !empty($request->CC_official_identification_of_the_spouse)
-                                                  ? $this->_date
-                                                  : null;
-        $CC_marriage_certificate = !empty($request->CC_marriage_certificate)
-                                  ? $this->_date
-                                  : null;
+        $CC_request_for_credit_inspection = !empty($request->CC_request_for_credit_inspection) ? $this->_date : null;
+        $CC_birth_certificate = !empty($request->CC_birth_certificate) ? $this->_date : null;
+        $CC_official_id = !empty($request->CC_official_id) ? $this->_date : null;
+        $CC_curp = !empty($request->CC_curp) ? $this->_date : null;
+        $CC_rfc = !empty($request->CC_rfc) ? $this->_date : null;
+        $CC_bank_statement_seller = !empty($request->CC_bank_statement_seller) ? $this->_date : null;
+        $CC_tax_valuation = !empty($request->CC_tax_valuation) ? $this->_date : null;
+        $CC_scripture_copy = !empty($request->CC_scripture_copy) ? $this->_date : null;
+        $CC_type = !empty($request->CC_type) ? $request->CC_type : null;
+        $CC_birth_certificate_of_the_spouse = !empty($request->CC_birth_certificate_of_the_spouse) ? $this->_date : null;
+        $CC_official_identification_of_the_spouse = !empty($request->CC_official_identification_of_the_spouse) ? $this->_date : null;
+        $CC_marriage_certificate = !empty($request->CC_marriage_certificate) ? $this->_date : null;
         $CC_complete = (
-      $CC_request_for_credit_inspection &&
-      $CC_birth_certificate &&
-      $CC_official_id &&
-      $CC_curp &&
-      $CC_rfc &&
-      $CC_bank_statement_seller &&
-      $CC_tax_valuation &&
-      $CC_scripture_copy &&
-      $CC_type
-    )
-      ? true
-      : false;
+            $CC_request_for_credit_inspection &&
+            $CC_birth_certificate &&
+            $CC_official_id &&
+            $CC_curp &&
+            $CC_rfc &&
+            $CC_bank_statement_seller &&
+            $CC_tax_valuation &&
+            $CC_scripture_copy &&
+            $CC_type
+        ) ? true : false;
 
         return [
             'CC_request_for_credit_inspection' => $CC_request_for_credit_inspection,
@@ -665,33 +531,16 @@ class SaleController extends Controller
 
     private function _setNotaryVariables(Request $request)
     {
-        $SN_federal_entity = !empty($request->SN_federal_entity)
-                            ? $request->SN_federal_entity
-                            : null;
-        $SN_notaries_office = !empty($request->SN_notaries_office)
-                              ? $request->SN_notaries_office
-                              : null;
-        $SN_freedom_of_lien_certificate = !empty($request->SN_freedom_of_lien_certificate)
-                                          ? $this->_date
-                                          : null;
-        $SN_zoning = !empty($request->SN_zoning)
-                    ? $this->_date
-                    : null;
-        $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants)
-                                    ? $this->_date
-                                    : null;
-        $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property)
-                                          ? $this->_date
-                                          : null;
-        $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement)
-                                        ? $this->_date
-                                        : null;
-        $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value)
-                                      ? $this->_date
-                                      : null;
+        $SN_federal_entity = !empty($request->SN_federal_entity) ? $request->SN_federal_entity : null;
+        $SN_notaries_office = !empty($request->SN_notaries_office) ? $request->SN_notaries_office : null;
+        $SN_freedom_of_lien_certificate = !empty($request->SN_freedom_of_lien_certificate) ? $this->_date : null;
+        $SN_zoning = !empty($request->SN_zoning) ? $this->_date : null;
+        $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants) ? $this->_date : null;
+        $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property) ? $this->_date : null;
+        $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement) ? $this->_date : null;
+        $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value) ? $this->_date : null;
         $SN_complete = ($SN_federal_entity && $SN_notaries_office && $SN_freedom_of_lien_certificate && $SN_zoning && $SN_water_no_due_constants && $SN_non_debit_proof_of_property && $SN_certificate_of_improvement && $SN_key_and_cadastral_value)
-                    ? true
-                    : false;
+            ? true : false;
 
         return [
             'SN_federal_entity' => $SN_federal_entity,
@@ -708,24 +557,13 @@ class SaleController extends Controller
 
     private function _setSignatureVariables(Request $request)
     {
-        $SS_writing_review = !empty($request->SS_writing_review)
-                            ? $this->_date
-                            : null;
-        $SS_scheduled_date_of_writing_signature = !empty($request->SS_scheduled_date_of_writing_signature)
-                                                  ? $this->_date
-                                                  : null;
-        $SS_writing_signature = !empty($request->SS_writing_signature)
-                                ? $this->_date
-                                : null;
-        $SS_scheduled_payment_date = !empty($request->SS_scheduled_payment_date)
-                                    ? $this->_date
-                                    : null;
-        $SS_payment_made = !empty($request->SS_payment_made)
-                          ? $this->_date
-                          : null;
+        $SS_writing_review = !empty($request->SS_writing_review) ? $this->_date : null;
+        $SS_scheduled_date_of_writing_signature = !empty($request->SS_scheduled_date_of_writing_signature) ? $this->_date : null;
+        $SS_writing_signature = !empty($request->SS_writing_signature) ? $this->_date : null;
+        $SS_scheduled_payment_date = !empty($request->SS_scheduled_payment_date) ? $this->_date : null;
+        $SS_payment_made = !empty($request->SS_payment_made) ? $this->_date : null;
         $SS_complete = ($SS_writing_review && $SS_scheduled_date_of_writing_signature && $SS_writing_signature && $SS_scheduled_payment_date && $SS_payment_made)
-                    ? true
-                    : false;
+            ? true : false;
 
         return [
             'SS_writing_review' => $SS_writing_review,

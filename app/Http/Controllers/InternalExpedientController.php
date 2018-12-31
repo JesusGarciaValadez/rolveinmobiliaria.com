@@ -92,8 +92,8 @@ class InternalExpedientController extends Controller
         $updated = InternalExpedient::create($data);
 
         $this->_message = ($updated)
-      ? 'Nuevo expediente interno creado'
-      : 'No se pudo crear el expediente interno.';
+            ? 'Nuevo expediente interno creado'
+            : 'No se pudo crear el expediente interno.';
         $this->_type = ($updated) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
@@ -154,8 +154,8 @@ class InternalExpedientController extends Controller
         $isDestroyed = $expedient->delete();
 
         $this->_message = ($isDestroyed)
-      ? 'Llamada eliminada'
-      : 'No se pudo eliminar la llamada.';
+            ? 'Llamada eliminada'
+            : 'No se pudo eliminar la llamada.';
 
         $this->_type = ($isDestroyed) ? 'success' : 'danger';
 
