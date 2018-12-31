@@ -11,7 +11,7 @@ class AssetsController extends Controller
     /**
      * Renders all lang string into a Javascript file.
      */
-    public function lang(Request $request): void
+    public function lang(Request $request)
     {
         $strings = \Cache::rememberForever('lang.js', function () use ($request) {
             $lang = $request->session()->has('locale')
@@ -29,15 +29,18 @@ class AssetsController extends Controller
             return $strings;
         });
 
+        return response('window.i18n = ' . json_encode($strings) . ';', 200, ['Content-Type' => 'text/javascript']);
+        /*
         header('Content-Type: text/javascript');
         echo 'window.i18n = ' . json_encode($strings) . ';';
         exit();
+        */
     }
 
     /**
      * Renders a list of enum values.
      */
-    public function enums(): void
+    public function enums()
     {
         $classes = [
             \App\Enums\CivilStatusType::class,
@@ -64,8 +67,11 @@ class AssetsController extends Controller
             return $strings;
         });
 
+        return response('window.enums= ' . json_encode($strings) . ';', 200, ['Content-Type' => 'text/javascript']);
+        /*
         header('Content-Type: text/javascript');
         echo 'window.enums= ' . json_encode($strings) . ';';
         exit();
+        */
     }
 }

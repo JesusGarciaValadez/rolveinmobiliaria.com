@@ -24,10 +24,7 @@ Auth::routes(['verify' => true]);
 |
 */
 
-Route::get('/', function ()
-{
-  return view('welcome');
-});
+Route::get('/', 'WelcomeController@index')->name('root');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -243,17 +240,9 @@ Route::prefix('/internal_expedient')->name('internal_expedient.')->middleware('a
 
 Route::prefix('/mailable')->name('mailable.')->middleware('auth')->group(function ()
 {
-  Route::get('/message_created', function () {
-    $messageCreated = App\Message::find(1);
+  Route::get('/message_created', 'MailableController@messageCreated');
 
-    return new App\Mail\MessageCreated($messageCreated);
-  });
-
-  Route::get('/sale_created', function () {
-    $saleCreated = App\Sale::find(1);
-
-    return new App\Mail\SaleCreated($saleCreated);
-  });
+  Route::get('/sale_created', 'MailableController@saleCreated');
 });
 
 //Assets
