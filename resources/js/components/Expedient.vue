@@ -17,8 +17,8 @@
   import client from '../mixins/client'
 
   export default {
-    name: 'expedient',
-    children: ['client'],
+    name: 'Expedient',
+    children: ['Client'],
     mixins: [client],
     props: ['initialClient', 'isEmpty'],
     computed: {

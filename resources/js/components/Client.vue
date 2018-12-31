@@ -29,7 +29,7 @@
   import client from '../mixins/client'
 
   export default {
-    name: 'client',
+    name: 'Client',
     mixins: [client],
     props: {
       initialClient: {
