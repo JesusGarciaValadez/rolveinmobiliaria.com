@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix('/v1')->name('v1.')->middleware('auth:api')->group(function ()
+{
+  Route::get('/client/show/{client}', 'Api\V1\ClientController@show');
+
+  Route::get('/internal_expedient/show/{internal_expedient}', 'Api\V1\InternalExpedientController@show');
 });
-
-Route::middleware('auth:api')->get('/v1/client/show/{client}', 'Api\ClientController@show');
-
-Route::middleware('auth:api')->get('/v1/internal_expedient/show/{internal_expedient}', 'Api\InternalExpedientController@show');
