@@ -246,7 +246,7 @@ Route::prefix('/mailable')->name('mailable.')->middleware('auth')->group(functio
 });
 
 //Assets
-Route::prefix('/js')->name('assets.')->middleware('auth')->group(function ()
+Route::prefix('/js')->name('assets.')->group(function ()
 {
   Route::get('/lang.js', 'AssetsController@lang')->name('lang');
   Route::get('/enums.js', 'AssetsController@enums')->name('enums');
