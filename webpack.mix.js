@@ -26,9 +26,9 @@ mix.options({
   //.sass('resources/sass/app.scss', 'public/css')
   .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
-  .browserSync('https://rolveinmobiliaria.test/')
+  .browserSync('http://rolveinmobiliaria.test/')
 
 // version does not work in hmr mode
 if (mix.inProduction()) {
-
+  mix.version();
 }
