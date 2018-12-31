@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,7 +15,6 @@ class MailableController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -23,76 +24,72 @@ class MailableController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
     }
 
     public function messageCreated()
     {
-      $messageCreated = App\Message::find(1);
+        $messageCreated = App\Message::find(1);
 
-      return new App\Mail\MessageCreated($messageCreated);
+        return new App\Mail\MessageCreated($messageCreated);
     }
 
     public function saleCreated()
     {
-      $saleCreated = App\Sale::find(1);
+        $saleCreated = App\Sale::find(1);
 
-      return new App\Mail\SaleCreated($saleCreated);
+        return new App\Mail\SaleCreated($saleCreated);
     }
 }
