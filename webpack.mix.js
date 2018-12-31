@@ -23,7 +23,6 @@ mix.options({
     lodash: ['lodash', 'window._']
   })
   .js('resources/js/app.js', 'public/js')
-  .version()
   //.sass('resources/sass/app.scss', 'public/css')
   .extract(['lodash', 'jquery', 'axios', 'vue', 'vuex'])
   .sourceMaps()
