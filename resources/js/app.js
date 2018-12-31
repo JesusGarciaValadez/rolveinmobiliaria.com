@@ -32,37 +32,6 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('expedient', require('./components/Expedient').default)
-Vue.component('client', require('./components/Client').default)
-Vue.component('spinner', require('./components/Spinner').default)
-
-Vue.component('modal-expedient', require('./components/modal/Expedient').default)
-Vue.component('modal-client', require('./components/modal/Client').default)
-Vue.component('select-internal-expedient', require('./components/select-internal-expedient').default)
-
-Vue.component('client-filter', require('./components/client/filter').default)
-
-const createSellerRoot = document.getElementById('create__seller') || null
-const editSellerRoot = document.getElementById('edit__seller') || null
-const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
-const editContractRoot = document.getElementById('edit__contract') || null
-
-if (createSellerRoot !== null) {
-  const $vmCreateSeller = new Vue(createSeller)
-}
-
-if (editSellerRoot !== null) {
-  const $vmEditSeller = new Vue(editSeller)
-}
-
-if (editClosingContractRoot !== null) {
-  const $vmEditClosingContract = new Vue(editClosingContract)
-}
-
-if (editContractRoot !== null) {
-  const $vmEditContract = new Vue(editContract)
-}
-
 window.events = new Vue();
 window.flash = function (message, level = 'success') {
   window.events.$emit('flash', { message, level });
@@ -85,6 +54,37 @@ window.addEventListener("load", function(event) {
 
   Vue.prototype.configObject = function(string) {
     return _.get(window.config, string);
+  }
+
+  Vue.component('expedient', require('./components/Expedient').default)
+  Vue.component('client', require('./components/Client').default)
+  Vue.component('spinner', require('./components/Spinner').default)
+  Vue.component('select-internal-expedient', require('./components/select-internal-expedient').default)
+
+  Vue.component('modal-expedient', require('./components/modal/Expedient').default)
+  Vue.component('modal-client', require('./components/modal/Client').default)
+
+  Vue.component('client-filter', require('./components/client/filter').default)
+
+  const createSellerRoot = document.getElementById('create__seller') || null
+  const editSellerRoot = document.getElementById('edit__seller') || null
+  const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
+  const editContractRoot = document.getElementById('edit__contract') || null
+
+  if (createSellerRoot !== null) {
+    const $vmCreateSeller = new Vue(createSeller)
+  }
+
+  if (editSellerRoot !== null) {
+    const $vmEditSeller = new Vue(editSeller)
+  }
+
+  if (editClosingContractRoot !== null) {
+    const $vmEditClosingContract = new Vue(editClosingContract)
+  }
+
+  if (editContractRoot !== null) {
+    const $vmEditContract = new Vue(editContract)
   }
 
   const app = new Vue({

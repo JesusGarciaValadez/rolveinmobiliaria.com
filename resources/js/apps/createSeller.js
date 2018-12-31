@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Vuex, { mapState, mapGetters, mapActions } from 'vuex'
+import Vuex, { mapState, mapGetters } from 'vuex'
 import store from '../store/sale'
-import axios from 'axios'
 import Spinner from '../components/Spinner'
 import Expedient from '../components/Expedient'
 import Client from '../components/Client'
+import SelectInternalExpedient from '../components/select-internal-expedient'
 
 Vue.use(Vuex)
 
@@ -14,7 +14,8 @@ export default {
   components: {
     Spinner,
     Expedient,
-    Client
+    Client,
+    SelectInternalExpedient
   },
   computed: {
     ...mapState([
