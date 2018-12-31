@@ -32,15 +32,15 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('expedient', require('./components/Expedient'))
-Vue.component('client', require('./components/Client'))
-Vue.component('spinner', require('./components/Spinner'))
+Vue.component('expedient', require('./components/Expedient').default)
+Vue.component('client', require('./components/Client').default)
+Vue.component('spinner', require('./components/Spinner').default)
 
-Vue.component('modal-expedient', require('./components/modal/Expedient'))
-Vue.component('modal-client', require('./components/modal/Client'))
-Vue.component('select-internal-expedient', require('./components/select-internal-expedient'))
+Vue.component('modal-expedient', require('./components/modal/Expedient').default)
+Vue.component('modal-client', require('./components/modal/Client').default)
+Vue.component('select-internal-expedient', require('./components/select-internal-expedient').default)
 
-Vue.component('client-filter', require('./components/client/filter'))
+Vue.component('client-filter', require('./components/client/filter').default)
 
 const createSellerRoot = document.getElementById('create__seller') || null
 const editSellerRoot = document.getElementById('edit__seller') || null
