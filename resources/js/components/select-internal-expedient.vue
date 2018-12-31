@@ -41,13 +41,14 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <p class="col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-2 col-lg-8" :has-expedient="hasExpedient">
-        �No encuentras el expediente?
+        No encuentras el expediente?
         <a
-        href="#"
-        title="¡Crealo!"
-        target="_self"
-        data-toggle="modal"
-        data-target="#newExpedient">¡Crealo!</a>
+          href="#"
+          title="¡Crealo!"
+          target="_self"
+          data-toggle="modal"
+          data-target="#newExpedient">¡Crealo!
+        </a>
       </p>
     </div>
 
