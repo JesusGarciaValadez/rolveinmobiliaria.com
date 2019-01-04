@@ -90,7 +90,7 @@ class ClientController extends Controller
     {
         $clients = Client::all()->sortBy('last_name');
 
-        return view('clients.create', [
+        return response([
             'clients' => $clients,
             'uri' => $this->_uri,
         ]);
@@ -129,15 +129,13 @@ class ClientController extends Controller
 
         $updated = Client::create($data);
 
-        $this->_message = ($updated)
-      ? 'Nuevo cliente creado'
-      : 'No se pudo agregar el cliente.';
+        $this->_message = ($updated) ? 'Nuevo cliente creado' : 'No se pudo agregar el cliente.';
         $this->_type = ($updated) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
 
         if ($updated) {
-            return redirect()->route('client.index');
+            return redirect()->back();
         }
 
         return redirect()->back()->withInput();
