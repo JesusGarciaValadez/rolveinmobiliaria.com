@@ -114,66 +114,41 @@ class SellerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(SellerRequest $request, Sale $sale)
+    public function update(Request $request, Sale $sale)
     {
         $this->_date = Carbon::create()->format('U');
-        $internal_expedient_id = !empty($request->internal_expedient_id)
-      ? ['internal_expedients_id' => $request->internal_expedient_id]
-      : null;
-        $SD_deed = !empty($request->SD_deed)
-      ? $this->_date
-      : null;
-        $SD_water = !empty($request->SD_water)
-      ? $this->_date
-      : null;
-        $SD_predial = !empty($request->SD_predial)
-      ? $this->_date
-      : null;
-        $SD_light = !empty($request->SD_light)
-      ? $this->_date
-      : null;
-        $SD_birth_certificate = !empty($request->SD_birth_certificate)
-      ? $this->_date
-      : null;
-        $SD_ID = !empty($request->SD_ID)
-      ? $this->_date
-      : null;
-        $SD_CURP = !empty($request->SD_CURP)
-      ? $request->SD_CURP
-      : null;
-        $SD_RFC = !empty($request->SD_RFC)
-      ? $request->SD_RFC
-      : null;
-        $SD_account_status = !empty($request->SD_account_status)
-      ? $this->_date
-      : null;
-        $SD_email = !empty($request->SD_email)
-      ? $this->_date
-      : null;
-        $SD_phone = !empty($request->SD_phone)
-      ? $this->_date
-      : null;
-        $SD_civil_status = !empty($request->SD_civil_status)
-      ? $request->SD_civil_status
-      : null;
+        $internal_expedient_id = !empty($request->internal_expedient_id) ? ['internal_expedients_id' => $request->internal_expedient_id] : null;
+        $SD_deed = !empty($request->SD_deed) ? $this->_date : null;
+        $SD_water = !empty($request->SD_water) ? $this->_date : null;
+        $SD_predial = !empty($request->SD_predial) ? $this->_date : null;
+        $SD_light = !empty($request->SD_light) ? $this->_date : null;
+        $SD_birth_certificate = !empty($request->SD_birth_certificate) ? $this->_date : null;
+        $SD_ID = !empty($request->SD_ID) ? $this->_date : null;
+        $SD_CURP = !empty($request->SD_CURP) ? $request->SD_CURP : null;
+        $SD_RFC = !empty($request->SD_RFC) ? $request->SD_RFC : null;
+        $SD_account_status = !empty($request->SD_account_status) ? $this->_date : null;
+        $SD_email = !empty($request->SD_email) ? $this->_date : null;
+        $SD_phone = !empty($request->SD_phone) ? $this->_date : null;
+        $SD_civil_status = !empty($request->SD_civil_status) ? $request->SD_civil_status : null;
         $SD_complete = (
-      $internal_expedient_id === null ||
-      $SD_deed === null ||
-      $SD_water === null ||
-      $SD_predial === null ||
-      $SD_light === null ||
-      $SD_birth_certificate === null ||
-      $SD_ID === null ||
-      $SD_CURP === null ||
-      $SD_RFC === null ||
-      $SD_account_status === null ||
-      $SD_email === null ||
-      $SD_phone === null ||
-      $SD_civil_status === null
-    ) ? false
-      : true;
+            $internal_expedient_id === null ||
+            $SD_deed === null ||
+            $SD_water === null ||
+            $SD_predial === null ||
+            $SD_light === null ||
+            $SD_birth_certificate === null ||
+            $SD_ID === null ||
+            $SD_CURP === null ||
+            $SD_RFC === null ||
+            $SD_account_status === null ||
+            $SD_email === null ||
+            $SD_phone === null ||
+            $SD_civil_status === null
+        ) ? false : true;
 
-        $sale->update($internal_expedient_id);
+        if ($internal_expedient_id !== null) {
+          $sale->update($internal_expedient_id);
+        }
 
         $sellerInfo = [
             'SD_deed' => $SD_deed,
@@ -191,12 +166,9 @@ class SellerController extends Controller
             'SD_complete' => $SD_complete,
         ];
 
-        $seller = $sale->seller()
-            ->update($sellerInfo);
+        $seller = $sale->seller()->update($sellerInfo);
 
-        $this->_message = $seller && $sale
-      ? 'Vendedor actualizado'
-      : 'No se pudo actualizar al vendedor.';
+        $this->_message = $seller && $sale ? 'Vendedor actualizado' : 'No se pudo actualizar al vendedor.';
         $this->_type = $seller && $sale ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
