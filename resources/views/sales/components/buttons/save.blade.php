@@ -4,8 +4,7 @@
       type="submit"
       class="btn btn-success"
       id="submit"
-      data-loading-text="@lang('shared.saving')..."
-      @click="onSubmit">
+      data-loading-text="@lang('shared.saving')...">
       <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span>
       @lang('shared.save')
     </button>

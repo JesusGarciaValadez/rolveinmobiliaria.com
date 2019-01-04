@@ -30,15 +30,12 @@
           @endalert
 
           <form
-            id="edit__seller"
             class="form-vertical"
             action="{{ route('sale.seller.update', [
               'sale' => $sale->id,
               'seller' => $sale->seller->id
             ]) }}"
-            method="post"
-            enctype="multipart/form-data"
-            autocapitalize="sentences">
+            method="post">
             @method('PUT')
             @csrf
 

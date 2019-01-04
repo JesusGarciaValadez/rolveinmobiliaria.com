@@ -25,12 +25,9 @@
           @endalert
 
           <form
-            id="create__seller"
             class="form-vertical"
             action="{{ route('sale.store') }}"
-            method="post"
-            enctype="multipart/form-data"
-            autocapitalize="sentences">
+            method="post">
             @csrf
 
             @include('sales.partials.forms.create.seller')

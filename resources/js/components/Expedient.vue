@@ -9,16 +9,18 @@
         :initialClient="initialClient"
         v-if="hasClient"
       ></client>
+      <create-new-client-link message="¿No existe el cliente?"></create-new-client-link>
     </div>
   </div>
 </template>
 
 <script>
   import client from '../mixins/client'
+  import CreateNewClientLink from './CreateNewClientLink'
 
   export default {
     name: 'Expedient',
-    children: ['Client'],
+    components: {CreateNewClientLink},
     mixins: [client],
     props: ['initialClient', 'isEmpty'],
     computed: {

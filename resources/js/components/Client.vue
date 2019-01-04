@@ -7,21 +7,6 @@
     <p v-show="hasEmailOne"><strong>Email:</strong> <a :href="initialClient.emailOne | mailto" :title="initialClient.emailOne">{{ initialClient.emailOne }}</a></p>
     <p v-show="hasEmailTwo"><strong>Email:</strong> <a :href="initialClient.emailTwo | mailto" :title="initialClient.emailTwo">{{ initialClient.emailTwo }}</a></p>
     <p v-show="hasReference"><strong>Referencia:</strong> {{ initialClient.reference }}</p>
-
-    <p>
-      <strong class="text-danger">
-        ¿No es el cliente que querías?
-      </strong>
-      <strong>
-        Selecciona otro o
-        <a
-          href="#"
-          title="crea uno nuevo"
-          target="_self"
-          data-toggle="modal"
-          data-target="#newClient">crea uno nuevo</a>
-      </strong>
-    </p>
   </div>
 </template>
 

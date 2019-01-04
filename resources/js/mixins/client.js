@@ -87,7 +87,7 @@ export default {
       }
     },
     getExpedientInfo(id = null, event) {
-      const expedientId = id ||  document.getElementById('internal_expedient_id').value
+      const expedientId = id || document.getElementById('internal_expedient_id').value
       this.loading = true
 
       if (expedientId !== '') {
@@ -152,7 +152,7 @@ export default {
     },
   },
   mounted() {
-    if (typeof(this.initialClients) === 'string') {
+   if (typeof(this.initialClients) === 'string') {
       this.clients = JSON.parse(this.initialClients)
     }
   },

@@ -99,6 +99,7 @@
             </div>
           </div>
         </div>
+        <create-new-client-link :message="this.message"></create-new-client-link>
         <div class="row">
           <spinner v-if="loading"></spinner>
           <div class="clearfix block col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-3 col-lg-8 col-lg-offset-2 alert alert-info" v-if="!loading && !empty">
@@ -142,6 +143,11 @@
         default: null,
         type: String,
       },
+      message: {
+        type: String,
+        required: true,
+        default: ''
+      }
     },
     data() {
       return {

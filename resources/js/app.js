@@ -1,5 +1,3 @@
-import createSeller from './apps/createSeller'
-import editSeller from './apps/editSeller'
 import editClosingContract from './apps/editClosingContract'
 import editContract from './apps/editContract'
 
@@ -57,27 +55,21 @@ window.addEventListener("load", function(event) {
   }
 
   Vue.component('expedient', require('./components/Expedient').default)
+  Vue.component('create-new-client-link', require('./components/CreateNewClientLink').default)
   Vue.component('client', require('./components/Client').default)
   Vue.component('spinner', require('./components/Spinner').default)
-  Vue.component('select-internal-expedient', require('./components/select-internal-expedient').default)
+  Vue.component('alert', require('./components/Alert').default)
+  Vue.component('select-internal-expedient', require('./components/SelectInternalExpedient').default)
 
   Vue.component('modal-expedient', require('./components/modal/Expedient').default)
   Vue.component('modal-client', require('./components/modal/Client').default)
 
-  Vue.component('client-filter', require('./components/client/filter').default)
+  Vue.component('client-filter', require('./components/client/Filter').default)
 
-  const createSellerRoot = document.getElementById('create__seller') || null
-  const editSellerRoot = document.getElementById('edit__seller') || null
+  Vue.component('seller', require('./components/Seller').default)
+
   const editClosingContractRoot = document.getElementById('edit__closing-contract') || null
   const editContractRoot = document.getElementById('edit__contract') || null
-
-  if (createSellerRoot !== null) {
-    const $vmCreateSeller = new Vue(createSeller)
-  }
-
-  if (editSellerRoot !== null) {
-    const $vmEditSeller = new Vue(editSeller)
-  }
 
   if (editClosingContractRoot !== null) {
     const $vmEditClosingContract = new Vue(editClosingContract)
