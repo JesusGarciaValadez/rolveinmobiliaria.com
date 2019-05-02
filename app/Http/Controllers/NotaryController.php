@@ -115,54 +115,34 @@ class NotaryController extends Controller
     public function update(Request $request, Sale $sale, Notary $notary)
     {
         $this->_date = now()->format('U');
-        $SN_federal_entity = !empty($request->SN_federal_entity)
-      ? $request->SN_federal_entity
-      : null;
-        $SN_notaries_office = !empty($request->SN_notaries_office)
-      ? $request->SN_notaries_office
-      : null;
-        $SN_zoning = !empty($request->SN_zoning)
-      ? $this->_date
-      : null;
-        $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants)
-      ? $this->_date
-      : null;
-        $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property)
-      ? $this->_date
-      : null;
-        $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement)
-      ? $this->_date
-      : null;
-        $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value)
-      ? $this->_date
-      : null;
+        $SN_federal_entity = $request->SN_federal_entity ?? null;
+        $SN_notaries_office = $request->SN_notaries_office ?? null;
+        $SN_zoning = !empty($request->SN_zoning) ? $this->_date : null;
+        $SN_water_no_due_constants = !empty($request->SN_water_no_due_constants) ? $this->_date : null;
+        $SN_non_debit_proof_of_property = !empty($request->SN_non_debit_proof_of_property) ? $this->_date : null;
+        $SN_certificate_of_improvement = !empty($request->SN_certificate_of_improvement) ? $this->_date : null;
+        $SN_key_and_cadastral_value = !empty($request->SN_key_and_cadastral_value) ? $this->_date : null;
         $SN_date_freedom_of_lien_certificate = !empty($request->SN_date_freedom_of_lien_certificate)
-      ? Carbon::parse($request->SN_date_freedom_of_lien_certificate)->format('U')
-      : null;
+            ? Carbon::parse($request->SN_date_freedom_of_lien_certificate)->format('U')
+            : null;
         $SN_observations_freedom_of_lien_certificate = $request->SN_observations_freedom_of_lien_certificate;
-        $SN_seller_documents = !empty($request->SN_seller_documents)
-      ? $this->_date
-      : null;
-        $SN_buyer_documents = !empty($request->SN_buyer_documents)
-      ? $this->_date
-      : null;
-        $SN_activation_documents_for_the_mortgage_loan = !empty($request->SN_activation_documents_for_the_mortgage_loan)
-      ? $this->_date
-      : null;
+        $SN_seller_documents = !empty($request->SN_seller_documents) ? $this->_date : null;
+        $SN_buyer_documents = !empty($request->SN_buyer_documents) ? $this->_date : null;
+        $SN_activation_documents_for_the_mortgage_loan = !empty($request->SN_activation_documents_for_the_mortgage_loan) ? $this->_date : null;
         $SN_complete = (
-      $SN_federal_entity !== null ||
-      $SN_notaries_office !== null ||
-      $SN_zoning !== null ||
-      $SN_water_no_due_constants !== null ||
-      $SN_non_debit_proof_of_property !== null ||
-      $SN_certificate_of_improvement !== null ||
-      $SN_key_and_cadastral_value !== null ||
-      $SN_date_freedom_of_lien_certificate !== null ||
-      $SN_observations_freedom_of_lien_certificate !== null ||
-      $SN_seller_documents !== null ||
-      $SN_buyer_documents !== null ||
-      $SN_activation_documents_for_the_mortgage_loan !== null
-    );
+            $SN_federal_entity !== null ||
+            $SN_notaries_office !== null ||
+            $SN_zoning !== null ||
+            $SN_water_no_due_constants !== null ||
+            $SN_non_debit_proof_of_property !== null ||
+            $SN_certificate_of_improvement !== null ||
+            $SN_key_and_cadastral_value !== null ||
+            $SN_date_freedom_of_lien_certificate !== null ||
+            $SN_observations_freedom_of_lien_certificate !== null ||
+            $SN_seller_documents !== null ||
+            $SN_buyer_documents !== null ||
+            $SN_activation_documents_for_the_mortgage_loan !== null
+        );
         $notaryInfo = [
             'SN_federal_entity' => $SN_federal_entity,
             'SN_notaries_office' => $SN_notaries_office,
@@ -181,9 +161,7 @@ class NotaryController extends Controller
         $notary = $sale->notary()
             ->update($notaryInfo);
 
-        $this->_message = $notary
-      ? 'Notaría actualizada'
-      : 'No se pudo actualizar la notaría.';
+        $this->_message = $notary ? 'Notaría actualizada' : 'No se pudo actualizar la notaría.';
         $this->_type = $notary ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);

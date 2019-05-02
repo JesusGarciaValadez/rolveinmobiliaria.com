@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\Http\Requests\SellerRequest;
 use App\InternalExpedient;
 use App\Sale;
 use App\Seller;
@@ -73,9 +72,9 @@ class SellerController extends Controller
         $currentUser = User::with('role')->find(Auth::id());
 
         if (
-      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
-      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
-    ) {
+            $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+            $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
+        ) {
             $expedients = InternalExpedient::with('client')
                 ->get()
                 ->sortBy('expedient');
@@ -147,7 +146,7 @@ class SellerController extends Controller
         ) ? false : true;
 
         if ($internal_expedient_id !== null) {
-          $sale->update($internal_expedient_id);
+            $sale->update($internal_expedient_id);
         }
 
         $sellerInfo = [
