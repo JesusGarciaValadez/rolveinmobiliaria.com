@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 horizon.log
 worker.log
+/.php_cs.cache

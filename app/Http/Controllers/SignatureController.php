@@ -121,12 +121,12 @@ class SignatureController extends Controller
         $SS_scheduled_payment_date = !empty($request->SS_scheduled_payment_date) ? $this->_date : null;
         $SS_payment_made = !empty($request->SS_payment_made) ? $this->_date : null;
         $SS_complete = (
-      $SS_writing_review !== null ||
-      $SS_scheduled_date_of_writing_signature !== null ||
-      $SS_writing_signature !== null ||
-      $SS_scheduled_payment_date !== null ||
-      $SS_payment_made !== null
-    );
+            $SS_writing_review !== null ||
+            $SS_scheduled_date_of_writing_signature !== null ||
+            $SS_writing_signature !== null ||
+            $SS_scheduled_payment_date !== null ||
+            $SS_payment_made !== null
+        );
         $signatureInfo = [
             'SS_writing_review' => $SS_writing_review,
             'SS_scheduled_date_of_writing_signature' => $SS_scheduled_date_of_writing_signature,
@@ -138,9 +138,7 @@ class SignatureController extends Controller
         $signature = $sale->signature()
             ->update($signatureInfo);
 
-        $this->_message = $signature
-      ? 'Firma actualizada'
-      : 'No se pudo actualizar la firma.';
+        $this->_message = $signature ? 'Firma actualizada' : 'No se pudo actualizar la firma.';
         $this->_type = $signature ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
