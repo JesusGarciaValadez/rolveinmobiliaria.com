@@ -64,16 +64,16 @@
         },
         {
             "name": "bensampo/laravel-enum",
-            "version": "1.16.1",
+            "version": "1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenSampo/laravel-enum.git",
-                "reference": "6ca73f67fb70fa957dee4523843b7ad383755674"
+                "reference": "e736dae56db10bc3886946d8c4de5bc5f8f4afba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenSampo/laravel-enum/zipball/6ca73f67fb70fa957dee4523843b7ad383755674",
-                "reference": "6ca73f67fb70fa957dee4523843b7ad383755674",
+                "url": "https://api.github.com/repos/BenSampo/laravel-enum/zipball/e736dae56db10bc3886946d8c4de5bc5f8f4afba",
+                "reference": "e736dae56db10bc3886946d8c4de5bc5f8f4afba",
                 "shasum": ""
             },
             "require": {
@@ -81,10 +81,10 @@
                 "php": "~7.1"
             },
             "require-dev": {
-                "laravel/framework": "5.7.*",
-                "orchestra/testbench": "3.7.*",
-                "phpunit/phpunit": "7.3.*",
-                "squizlabs/php_codesniffer": "^2.3"
+                "laravel/framework": "5.8.*",
+                "orchestra/testbench": "3.8.*",
+                "phpunit/phpunit": "7.5.*",
+                "squizlabs/php_codesniffer": "^3.0"
             },
             "type": "library",
             "extra": {
@@ -122,7 +122,7 @@
                 "package",
                 "validation"
             ],
-            "time": "2018-10-19T17:07:29+00:00"
+            "time": "2019-05-03T08:15:55+00:00"
         },
         {
             "name": "cakephp/chronos",
