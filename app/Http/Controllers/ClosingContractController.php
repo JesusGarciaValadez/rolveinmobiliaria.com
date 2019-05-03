@@ -128,18 +128,16 @@ class ClosingContractController extends Controller
         $this->_date = now()->format('U');
 
         if (
-      $request->hasFile('SCC_data_sheet') &&
-      $request->file('SCC_data_sheet')->isValid()
-    ) {
+            $request->hasFile('SCC_data_sheet') &&
+            $request->file('SCC_data_sheet')->isValid()
+        ) {
             if (
-        $request->file('SCC_data_sheet')->extension() === 'pdf' ||
-        $request->file('SCC_data_sheet')->extension() === 'doc' ||
-        $request->file('SCC_data_sheet')->extension() === 'docx'
-      ) {
+              $request->file('SCC_data_sheet')->extension() === 'pdf' ||
+              $request->file('SCC_data_sheet')->extension() === 'doc' ||
+              $request->file('SCC_data_sheet')->extension() === 'docx'
+            ) {
                 $uploadFile = event(new FileWillUploadEvent($request->file('SCC_data_sheet')));
-                $this->_file = !empty($uploadFile)
-                          ? $uploadFile[0]
-                          : null;
+                $this->_file = !empty($uploadFile) ? $uploadFile[0] : null;
             } else {
                 $this->_message = 'El archivo no puede ser subido porque no es un tipo de archivo válido para subir';
                 $this->_type = 'danger';
@@ -148,34 +146,30 @@ class ClosingContractController extends Controller
                 return redirect()->back()->withInput($this->_payload);
             }
         } else {
-            $this->_file = !optional($sale->closing_contract->SCC_data_sheet)
-                        ? null
-                        : $sale->closing_contract->SCC_data_sheet;
+            $this->_file = optional($sale->closing_contract)->SCC_data_sheet;
         }
 
         $SCC_exclusivity_contract = !empty($request->SCC_exclusivity_contract)
-      ? Carbon::parse($request->SCC_exclusivity_contract)->format('U')
-      : null;
+            ? Carbon::parse($request->SCC_exclusivity_contract)->format('U')
+            : null;
         $SCC_commercial_valuation = !empty($request->SCC_commercial_valuation)
-      ? Carbon::parse($request->SCC_commercial_valuation)->format('U')
-      : null;
+            ? Carbon::parse($request->SCC_commercial_valuation)->format('U')
+            : null;
         $SCC_publication = !empty($request->SCC_publication)
-      ? Carbon::parse($request->SCC_publication)->format('U')
-      : null;
-        $SCC_data_sheet = !empty($this->_file)
-      ? $this->_file
-      : null;
+            ? Carbon::parse($request->SCC_publication)->format('U')
+            : null;
+        $SCC_data_sheet = !empty($this->_file) ? $this->_file : null;
         $SCC_closing_contract_observations = !empty($request->SCC_closing_contract_observations)
-      ? $request->SCC_closing_contract_observations
-      : null;
+            ? $request->SCC_closing_contract_observations
+            : null;
         $SCC_complete = (
-      $SCC_exclusivity_contract === null ||
-      $SCC_commercial_valuation === null ||
-      $SCC_publication === null ||
-      $SCC_data_sheet === null ||
-      $SCC_closing_contract_observations === null
-    ) ? false
-      : true;
+            $SCC_exclusivity_contract === null ||
+            $SCC_commercial_valuation === null ||
+            $SCC_publication === null ||
+            $SCC_data_sheet === null ||
+            $SCC_closing_contract_observations === null
+        ) ? false
+          : true;
 
         $closingContract = [
             'SCC_exclusivity_contract' => $SCC_exclusivity_contract,
@@ -188,9 +182,7 @@ class ClosingContractController extends Controller
 
         $success = $sale->closing_contract()->update($closingContract);
 
-        $this->_message = $success
-      ? 'Contrato de cierre actualizado'
-      : 'No se pudo actualizar el contrato de cierre.';
+        $this->_message = $success ? 'Contrato de cierre actualizado' : 'No se pudo actualizar el contrato de cierre.';
         $this->_type = $success ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);

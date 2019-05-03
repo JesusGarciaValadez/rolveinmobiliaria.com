@@ -111,13 +111,9 @@ class MessageController extends Controller
         $messageToBeCreated = Message::create($message);
         $messageCreated = $messageToBeCreated->save();
 
-        event(new MessageCreatedEvent(
-        $messageToBeCreated
-  ));
+        event(new MessageCreatedEvent($messageToBeCreated));
 
-        $this->_message = ($messageCreated)
-      ? 'Nuevo recado creado'
-      : 'No se pudo crear el recado.';
+        $this->_message = ($messageCreated) ? 'Nuevo recado creado' : 'No se pudo crear el recado.';
         $this->_type = ($messageCreated) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
@@ -177,9 +173,7 @@ class MessageController extends Controller
 
         $updated = $message->update($newMessage);
 
-        $this->_message = ($updated)
-      ? 'Llamada actualizada'
-      : 'No se pudo actualizar la llamada.';
+        $this->_message = ($updated) ? 'Llamada actualizada' : 'No se pudo actualizar la llamada.';
         $this->_type = ($updated) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
@@ -200,9 +194,7 @@ class MessageController extends Controller
     {
         $isDestroyed = $message->delete();
 
-        $this->_message = ($isDestroyed)
-      ? 'Llamada eliminada'
-      : 'No se pudo eliminar la llamada.';
+        $this->_message = ($isDestroyed) ? 'Llamada eliminada' : 'No se pudo eliminar la llamada.';
         $this->_type = ($isDestroyed) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
@@ -220,9 +212,9 @@ class MessageController extends Controller
             ->find(Auth::id());
 
         if (
-      $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
-      $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
-    ) {
+            $currentUser->hasRole(\App\Enums\RoleType::SUPER_ADMIN) ||
+            $currentUser->hasRole(\App\Enums\RoleType::ADMIN)
+        ) {
             $messages = $message::whereBetween('created_at', [
                 $request->date,
                 now()->tomorrow(),
@@ -239,9 +231,7 @@ class MessageController extends Controller
                 ->get();
         }
 
-        $this->_message = (count($messages) > 0)
-      ? count($messages) . ' Recados encontrados'
-      : 'No se pudo encontrar ningún recado.';
+        $this->_message = (count($messages) > 0) ? count($messages) . ' Recados encontrados' : 'No se pudo encontrar ningún recado.';
         $this->_type = (count($messages) > 0) ? 'success' : 'danger';
         $request->session()->flash('message', $this->_message);
         $request->session()->flash('type', $this->_type);
